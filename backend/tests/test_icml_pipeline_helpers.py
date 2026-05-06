@@ -416,6 +416,210 @@ def test_extract_worldfork_forecast_filters_to_explicit_candidate_keys() -> None
     assert forecast["extraction_note"] == "derived_from_candidate_endpoint_path_mass_distribution"
 
 
+def test_extract_worldfork_forecast_from_path_ledgers_treats_deadline_forced_as_uncertain() -> None:
+    pipeline = load_icml_pipeline()
+
+    forecast = pipeline.extract_worldfork_forecast_from_path_ledgers(
+        "resolved_016",
+        "worldfork_branching_short",
+        [
+            {"ledger_version_id": "forced-no", "normalized_weight": 0.6, "include_in_final": True},
+            {"ledger_version_id": "hard-yes", "normalized_weight": 0.4, "include_in_final": True},
+        ],
+        {
+            "forced-no": [
+                {
+                    "endpoint_key": "yes",
+                    "status": "eliminated",
+                    "meta": {
+                        "endpoint_role": "primary_candidate",
+                        "candidate_endpoint_id": "yes",
+                        "final_horizon_candidate_settlement": True,
+                    },
+                    "evidence_refs": [{"source": "forecast_deadline"}],
+                },
+                {
+                    "endpoint_key": "no",
+                    "status": "realized",
+                    "meta": {
+                        "endpoint_role": "primary_candidate",
+                        "candidate_endpoint_id": "no",
+                        "final_horizon_candidate_settlement": True,
+                    },
+                    "evidence_refs": [{"source": "forecast_deadline"}],
+                },
+            ],
+            "hard-yes": [
+                {
+                    "endpoint_key": "yes",
+                    "status": "realized",
+                    "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+                    "evidence_refs": [{"source": "terminal_event"}],
+                },
+                {
+                    "endpoint_key": "no",
+                    "status": "eliminated",
+                    "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+                    "evidence_refs": [{"source": "terminal_event"}],
+                },
+            ],
+        },
+    )
+
+    assert forecast["p_yes"] == pytest.approx(0.7)
+    assert forecast["p_no"] == pytest.approx(0.3)
+    assert forecast["unresolved_mass"] == pytest.approx(0.6)
+    assert forecast["deadline_forced_uncertain_mass"] == pytest.approx(0.6)
+    assert forecast["hard_terminal_mass"] == pytest.approx(0.4)
+    assert forecast["mass_extraction_method"] == "path_ledger_candidate_entries_deadline_forced_uncertain"
+
+
+def test_extract_worldfork_forecast_from_path_ledgers_ignores_excluded_paths() -> None:
+    pipeline = load_icml_pipeline()
+
+    forecast = pipeline.extract_worldfork_forecast_from_path_ledgers(
+        "resolved_001",
+        "worldfork_branching_short",
+        [
+            {"ledger_version_id": "excluded-hard-no", "normalized_weight": 0.9, "include_in_final": False},
+            {"ledger_version_id": "included-hard-yes", "normalized_weight": 0.1, "include_in_final": True},
+        ],
+        {
+            "excluded-hard-no": [
+                {"endpoint_key": "no", "status": "realized", "meta": {"candidate_endpoint_id": "no"}}
+            ],
+            "included-hard-yes": [
+                {"endpoint_key": "yes", "status": "realized", "meta": {"candidate_endpoint_id": "yes"}}
+            ],
+        },
+    )
+
+    assert forecast["p_yes"] == pytest.approx(1.0)
+    assert forecast["unresolved_mass"] == pytest.approx(0.0)
+    assert forecast["hard_terminal_mass"] == pytest.approx(1.0)
+
+
+def test_extract_worldfork_forecast_from_path_ledgers_can_use_directional_forced_confidence() -> None:
+    pipeline = load_icml_pipeline()
+
+    forecast = pipeline.extract_worldfork_forecast_from_path_ledgers(
+        "resolved_004",
+        "worldfork_no_branch_short",
+        [{"ledger_version_id": "forced-no", "normalized_weight": 1.0, "include_in_final": True}],
+        {
+            "forced-no": [
+                {
+                    "endpoint_key": "yes",
+                    "status": "eliminated",
+                    "meta": {
+                        "candidate_endpoint_id": "yes",
+                        "final_horizon_candidate_settlement": True,
+                    },
+                    "evidence_refs": [{"source": "forecast_deadline"}],
+                },
+                {
+                    "endpoint_key": "no",
+                    "status": "realized",
+                    "meta": {
+                        "candidate_endpoint_id": "no",
+                        "final_horizon_candidate_settlement": True,
+                    },
+                    "evidence_refs": [{"source": "forecast_deadline"}],
+                },
+            ],
+        },
+        deadline_forced_confidence=0.65,
+    )
+
+    assert forecast["p_yes"] == pytest.approx(0.35)
+    assert forecast["unresolved_mass"] == pytest.approx(1.0)
+    assert forecast["reason_path_masses"] == {"deadline_forced_uncertain": 1.0}
+
+
+def test_score_worldfork_ledger_db_artifacts_writes_predictions_and_pair_summary(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    pipeline = load_icml_pipeline()
+    run_root = tmp_path / "run"
+    private_path = tmp_path / "private.jsonl"
+    input_prefix = Path("raw/e3")
+    case_id = "case_yes"
+    for condition, ledger_id in [
+        ("worldfork_no_branch_short", "no-branch-ledger"),
+        ("worldfork_branching_short", "branch-ledger"),
+    ]:
+        out_dir = run_root / input_prefix / condition / case_id
+        out_dir.mkdir(parents=True)
+        (out_dir / "big_bang_id.txt").write_text(f"bb-{condition}", encoding="utf-8")
+        (out_dir / "path_mass.json").write_text(
+            json.dumps(
+                {
+                    "path_probability_distribution": [
+                        {"ledger_version_id": ledger_id, "normalized_weight": 1.0, "include_in_final": True}
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+    private_path.write_text(json.dumps({"case_id": case_id, "resolution": "yes"}) + "\n", encoding="utf-8")
+    pipeline.PRIVATE_36 = private_path
+
+    monkeypatch.setattr(
+        pipeline,
+        "_fetch_endpoint_entries_by_ledger_id",
+        lambda _database_url, ledger_ids: {
+            "no-branch-ledger": [
+                {
+                    "endpoint_key": "no",
+                    "status": "realized",
+                    "meta": {"candidate_endpoint_id": "no", "final_horizon_candidate_settlement": True},
+                    "evidence_refs": [{"source": "forecast_deadline"}],
+                }
+            ],
+            "branch-ledger": [
+                {
+                    "endpoint_key": "yes",
+                    "status": "realized",
+                    "meta": {"candidate_endpoint_id": "yes"},
+                    "evidence_refs": [{"source": "terminal_event"}],
+                }
+            ],
+        },
+    )
+
+    pipeline.score_worldfork_ledger_db_artifacts(
+        SimpleNamespace(
+            run_root=run_root,
+            input_prefix=input_prefix,
+            prediction_output="results/predictions.jsonl",
+            route_policy_id="db_aware",
+            database_url="postgresql://example.test/worldfork",
+            case_ids=case_id,
+            case_limit=None,
+            conditions="worldfork_no_branch_short,worldfork_branching_short",
+            force=True,
+            deadline_forced_p_yes=0.5,
+            score_output=Path("results/scores.csv"),
+            pair_summary_output=Path("results/pair_summary.json"),
+            baseline_condition="worldfork_no_branch_short",
+            branch_condition="worldfork_branching_short",
+        )
+    )
+
+    predictions = [json.loads(line) for line in (run_root / "results/predictions.jsonl").read_text().splitlines()]
+    by_condition = {row["condition"]: row for row in predictions}
+    assert by_condition["worldfork_no_branch_short"]["p_yes"] == pytest.approx(0.5)
+    assert by_condition["worldfork_no_branch_short"]["deadline_forced_uncertain_mass"] == pytest.approx(1.0)
+    assert by_condition["worldfork_branching_short"]["p_yes"] == pytest.approx(1.0)
+
+    summary = json.loads((run_root / "results/pair_summary.json").read_text(encoding="utf-8"))
+    assert summary["paired_cases"] == 1
+    assert summary["mean_baseline_brier"] == pytest.approx(0.25)
+    assert summary["mean_branch_brier"] == pytest.approx(0.0)
+    assert summary["mean_branch_brier_improvement"] == pytest.approx(0.25)
+
+
 def test_worldfork_perf_summary_records_prompt_latency_and_brier(tmp_path: Path) -> None:
     pipeline = load_icml_pipeline()
     out_dir = tmp_path / "run"

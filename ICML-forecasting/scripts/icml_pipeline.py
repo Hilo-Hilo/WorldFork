@@ -13,6 +13,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import random
 import re
 import statistics
@@ -1888,6 +1889,432 @@ def extract_worldfork_forecast(
         "matched_endpoint_rows": matched_rows,
         "candidate_endpoint_keys": normalized_candidate_keys,
     }
+
+
+def _entry_meta(entry: dict[str, Any]) -> dict[str, Any]:
+    meta = entry.get("meta")
+    if isinstance(meta, dict):
+        return meta
+    if isinstance(meta, str):
+        try:
+            parsed = json.loads(meta)
+        except json.JSONDecodeError:
+            return {}
+        return parsed if isinstance(parsed, dict) else {}
+    return {}
+
+
+def _entry_evidence_refs(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    refs = entry.get("evidence_refs")
+    if isinstance(refs, str):
+        try:
+            refs = json.loads(refs)
+        except json.JSONDecodeError:
+            refs = []
+    if not isinstance(refs, list):
+        return []
+    return [ref for ref in refs if isinstance(ref, dict)]
+
+
+def _candidate_side_from_entry(entry: dict[str, Any]) -> str | None:
+    meta = _entry_meta(entry)
+    for value in (
+        entry.get("candidate_endpoint_id"),
+        meta.get("candidate_endpoint_id"),
+        meta.get("candidate_endpoint_role"),
+        entry.get("endpoint_key"),
+    ):
+        side = str(value or "").strip().lower()
+        if side in {"yes", "no"}:
+            return side
+    return None
+
+
+def _entry_deadline_forced(entry: dict[str, Any]) -> bool:
+    meta = _entry_meta(entry)
+    if not (
+        meta.get("final_horizon_candidate_settlement")
+        or meta.get("final_horizon_forced_binary_settlement")
+    ):
+        return False
+    evidence_refs = _entry_evidence_refs(entry)
+    if not evidence_refs:
+        return True
+    evidence_sources = {str(ref.get("source") or "").strip().lower() for ref in evidence_refs}
+    return bool(evidence_sources & {"forecast_deadline", "scenario_candidate_endpoint"})
+
+
+def _entry_status_p_yes(entry: dict[str, Any]) -> float:
+    side = _candidate_side_from_entry(entry)
+    status = str(entry.get("status") or "").strip().lower()
+    if side == "yes":
+        if status == "realized":
+            return 1.0
+        if status == "eliminated":
+            return 0.0
+    elif side == "no":
+        if status == "realized":
+            return 0.0
+        if status == "eliminated":
+            return 1.0
+    return 0.5
+
+
+def _path_p_yes_from_candidate_entries(
+    entries: list[dict[str, Any]],
+    *,
+    deadline_forced_p_yes: float,
+    deadline_forced_confidence: float | None = None,
+) -> tuple[float, str, int]:
+    candidate_entries = [entry for entry in entries if _candidate_side_from_entry(entry) in {"yes", "no"}]
+    if not candidate_entries:
+        return 0.5, "missing_candidate_entries", 0
+
+    nonforced_hard = [
+        _entry_status_p_yes(entry)
+        for entry in candidate_entries
+        if not _entry_deadline_forced(entry)
+        and str(entry.get("status") or "").strip().lower() in {"realized", "eliminated"}
+    ]
+    if nonforced_hard:
+        return statistics.fmean(nonforced_hard), "hard_terminal", len(candidate_entries)
+
+    forced_entries = [entry for entry in candidate_entries if _entry_deadline_forced(entry)]
+    if forced_entries:
+        if deadline_forced_confidence is not None:
+            forced_mean = statistics.fmean(_entry_status_p_yes(entry) for entry in forced_entries)
+            confidence = max(0.5, min(1.0, float(deadline_forced_confidence)))
+            if forced_mean > 0.5:
+                return confidence, "deadline_forced_uncertain", len(candidate_entries)
+            if forced_mean < 0.5:
+                return 1.0 - confidence, "deadline_forced_uncertain", len(candidate_entries)
+        return deadline_forced_p_yes, "deadline_forced_uncertain", len(candidate_entries)
+
+    return statistics.fmean(_entry_status_p_yes(entry) for entry in candidate_entries), "candidate_status_uncertain", len(candidate_entries)
+
+
+def extract_worldfork_forecast_from_path_ledgers(
+    case_id: str,
+    condition: str,
+    path_probability_distribution: list[dict[str, Any]],
+    entries_by_ledger_id: dict[str, list[dict[str, Any]]],
+    *,
+    deadline_forced_p_yes: float = 0.5,
+    deadline_forced_confidence: float | None = None,
+) -> dict[str, Any]:
+    p_yes = 0.0
+    included_mass = 0.0
+    reason_masses: dict[str, float] = defaultdict(float)
+    matched_entries = 0
+
+    for path in path_probability_distribution:
+        if not isinstance(path, dict) or path.get("include_in_final") is False:
+            continue
+        ledger_id = str(path.get("ledger_version_id") or "")
+        weight = _float_or_none(path.get("normalized_weight"))
+        if weight is None:
+            weight = _float_or_none(path.get("path_probability")) or 0.0
+        if weight <= 0:
+            continue
+        path_p_yes, reason, entry_count = _path_p_yes_from_candidate_entries(
+            entries_by_ledger_id.get(ledger_id, []),
+            deadline_forced_p_yes=deadline_forced_p_yes,
+            deadline_forced_confidence=deadline_forced_confidence,
+        )
+        p_yes += weight * path_p_yes
+        included_mass += weight
+        reason_masses[reason] += weight
+        matched_entries += entry_count
+
+    if included_mass > 0:
+        p_yes = p_yes / included_mass
+        normalized_reason_masses = {
+            reason: mass / included_mass
+            for reason, mass in reason_masses.items()
+        }
+    else:
+        p_yes = 0.5
+        normalized_reason_masses = {"missing_path_distribution": 1.0}
+
+    uncertain_mass = sum(
+        mass
+        for reason, mass in normalized_reason_masses.items()
+        if reason != "hard_terminal"
+    )
+    p_yes = max(0.0, min(1.0, p_yes))
+    p_no = 1.0 - p_yes
+    return {
+        "case_id": case_id,
+        "condition": condition,
+        "p_yes": round(p_yes, 10),
+        "p_no": round(p_no, 10),
+        "unresolved_mass": round(min(1.0, uncertain_mass), 10),
+        "forecast_distribution": {"yes": p_yes, "no": p_no, "unresolved": min(1.0, uncertain_mass)},
+        "mass_extraction_method": "path_ledger_candidate_entries_deadline_forced_uncertain",
+        "path_probability_mass": round(included_mass, 10),
+        "matched_endpoint_rows": matched_entries,
+        "deadline_forced_uncertain_mass": round(normalized_reason_masses.get("deadline_forced_uncertain", 0.0), 10),
+        "candidate_status_uncertain_mass": round(normalized_reason_masses.get("candidate_status_uncertain", 0.0), 10),
+        "missing_candidate_entry_mass": round(normalized_reason_masses.get("missing_candidate_entries", 0.0), 10),
+        "hard_terminal_mass": round(normalized_reason_masses.get("hard_terminal", 0.0), 10),
+        "reason_path_masses": {
+            reason: round(mass, 10)
+            for reason, mass in sorted(normalized_reason_masses.items())
+        },
+    }
+
+
+def _fetch_endpoint_entries_by_ledger_id(
+    database_url: str,
+    ledger_ids: list[str],
+) -> dict[str, list[dict[str, Any]]]:
+    ledger_ids = [ledger_id for ledger_id in dict.fromkeys(ledger_ids) if ledger_id]
+    if not ledger_ids:
+        return {}
+    try:
+        import psycopg
+        from psycopg.rows import dict_row
+    except ImportError as exc:
+        raise SystemExit("psycopg is required for ledger DB artifact scoring") from exc
+
+    rows_by_ledger: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    with psycopg.connect(database_url, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                select
+                    ledger_version_id::text as ledger_version_id,
+                    endpoint_key,
+                    label,
+                    status,
+                    authority_refs,
+                    evidence_refs,
+                    meta
+                from endpoint_ledger_entries
+                where ledger_version_id::text = any(%s)
+                order by ledger_version_id::text, endpoint_key
+                """,
+                (ledger_ids,),
+            )
+            for row in cur.fetchall():
+                ledger_id = str(row.get("ledger_version_id") or "")
+                rows_by_ledger[ledger_id].append(dict(row))
+    return rows_by_ledger
+
+
+def _score_prediction_rows(predictions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    private = {
+        row["case_id"]: row
+        for row in read_jsonl(PRIVATE_36)
+        if row.get("resolution") in {"yes", "no"}
+    }
+    score_rows: list[dict[str, Any]] = []
+    for prediction in predictions:
+        case_id = str(prediction.get("case_id") or "")
+        label = private.get(case_id)
+        if not label:
+            continue
+        resolution = str(label.get("resolution") or "")
+        y = 1.0 if resolution == "yes" else 0.0
+        p_yes = float(prediction.get("p_yes", prediction.get("forecast_distribution", {}).get("yes", 0.5)))
+        unresolved = float(prediction.get("unresolved_mass", prediction.get("forecast_distribution", {}).get("unresolved", 0.0)))
+        p_true = p_yes if y == 1.0 else 1.0 - p_yes
+        score_rows.append(
+            {
+                "case_id": case_id,
+                "condition": prediction.get("condition", ""),
+                "route_policy_id": prediction.get("route_policy_id", ""),
+                "resolution": resolution,
+                "p_yes": f"{p_yes:.6f}",
+                "brier": f"{(p_yes - y) ** 2:.6f}",
+                "log_score": f"{-math.log(clamp(p_true)):.6f}",
+                "unresolved_mass": f"{unresolved:.6f}",
+                "deadline_forced_uncertain_mass": _fmt_float(prediction.get("deadline_forced_uncertain_mass")),
+                "hard_terminal_mass": _fmt_float(prediction.get("hard_terminal_mass")),
+            }
+        )
+    return score_rows
+
+
+def _paired_branch_brier_summary(
+    score_rows: list[dict[str, Any]],
+    *,
+    baseline_condition: str,
+    branch_condition: str,
+    bootstrap_iterations: int = 5000,
+    bootstrap_seed: int = 20260506,
+) -> dict[str, Any]:
+    by_case_condition = {
+        (str(row.get("case_id") or ""), str(row.get("condition") or "")): row
+        for row in score_rows
+    }
+    improvements: list[float] = []
+    baseline_scores: list[float] = []
+    branch_scores: list[float] = []
+    cases: list[str] = []
+    for case_id in sorted({str(row.get("case_id") or "") for row in score_rows}):
+        baseline = by_case_condition.get((case_id, baseline_condition))
+        branch = by_case_condition.get((case_id, branch_condition))
+        if not baseline or not branch:
+            continue
+        baseline_brier = float(baseline["brier"])
+        branch_brier = float(branch["brier"])
+        baseline_scores.append(baseline_brier)
+        branch_scores.append(branch_brier)
+        improvements.append(baseline_brier - branch_brier)
+        cases.append(case_id)
+
+    interval = _bootstrap_mean_interval(
+        improvements,
+        iterations=bootstrap_iterations,
+        seed=bootstrap_seed,
+    )
+    return {
+        "baseline_condition": baseline_condition,
+        "branch_condition": branch_condition,
+        "paired_cases": len(improvements),
+        "case_ids": cases,
+        "mean_baseline_brier": statistics.fmean(baseline_scores) if baseline_scores else None,
+        "mean_branch_brier": statistics.fmean(branch_scores) if branch_scores else None,
+        "mean_branch_brier_improvement": statistics.fmean(improvements) if improvements else None,
+        "branch_wins": sum(1 for value in improvements if value > 0),
+        "baseline_wins": sum(1 for value in improvements if value < 0),
+        "ties": sum(1 for value in improvements if value == 0),
+        "bootstrap_improvement_ci95_low": interval.get("ci95_low"),
+        "bootstrap_improvement_ci95_high": interval.get("ci95_high"),
+        "bootstrap_iterations": bootstrap_iterations,
+        "scoring_note": (
+            "Positive improvement means the branching condition has lower paired Brier. "
+            "Deadline-only forced candidate settlements are treated as uncertainty by the DB-aware extractor."
+        ),
+    }
+
+
+def score_worldfork_ledger_db_artifacts(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    output = _prediction_output_path(run_root, args.prediction_output)
+    database_url = (
+        args.database_url
+        or os.environ.get("ICML_LEDGER_DATABASE_URL")
+        or os.environ.get("DATABASE_URL_SYNC")
+    )
+    if not database_url:
+        raise SystemExit("provide --database-url or ICML_LEDGER_DATABASE_URL/DATABASE_URL_SYNC")
+
+    case_filter = {item.strip() for item in args.case_ids.split(",") if item.strip()} if args.case_ids else None
+    condition_filter = {item.strip() for item in args.conditions.split(",") if item.strip()} if args.conditions else None
+    rows = _discover_worldfork_short_run_dirs(
+        run_root,
+        input_prefix=args.input_prefix,
+        case_filter=case_filter,
+        condition_filter=condition_filter,
+        case_limit=args.case_limit,
+    )
+    if not rows:
+        raise SystemExit("no existing WorldFork short run directories matched the filters")
+
+    path_mass_by_key: dict[tuple[str, str], dict[str, Any]] = {}
+    ledger_ids: list[str] = []
+    for row in rows:
+        case_id = str(row["case_id"])
+        condition = str(row["condition"])
+        out_dir = run_root / row["run_dir"]
+        path_mass = _artifact_dict(_read_json_artifact(out_dir / "path_mass.json"))
+        path_rows = path_mass.get("path_probability_distribution")
+        if not isinstance(path_rows, list):
+            path_rows = []
+        path_mass_by_key[(case_id, condition)] = {"payload": path_mass, "path_rows": path_rows}
+        for path in path_rows:
+            if isinstance(path, dict) and path.get("include_in_final") is not False:
+                ledger_id = str(path.get("ledger_version_id") or "")
+                if ledger_id:
+                    ledger_ids.append(ledger_id)
+
+    entries_by_ledger_id = _fetch_endpoint_entries_by_ledger_id(database_url, ledger_ids)
+    existing_rows = [] if args.force else read_jsonl(output) if output.exists() else []
+    existing_keys = {_prediction_key(row, route_policy_id=args.route_policy_id) for row in existing_rows}
+    prediction_rows: list[dict[str, Any]] = list(existing_rows)
+
+    for row in rows:
+        case_id = str(row["case_id"])
+        condition = str(row["condition"])
+        key = (case_id, condition, args.route_policy_id or "")
+        if key in existing_keys:
+            print(json.dumps({"case_id": case_id, "condition": condition, "status": "skipped_existing_db_aware"}))
+            continue
+        path_rows = path_mass_by_key[(case_id, condition)]["path_rows"]
+        prediction = extract_worldfork_forecast_from_path_ledgers(
+            case_id,
+            condition,
+            path_rows,
+            entries_by_ledger_id,
+            deadline_forced_p_yes=float(args.deadline_forced_p_yes),
+            deadline_forced_confidence=(
+                None
+                if getattr(args, "deadline_forced_confidence", None) is None
+                else float(args.deadline_forced_confidence)
+            ),
+        )
+        prediction["route_policy_id"] = args.route_policy_id
+        prediction["source_route_policy_id"] = row.get("source_route_policy_id")
+        prediction["source_run_status"] = row.get("source_status")
+        prediction["source_max_ticks_requested"] = row.get("source_max_ticks_requested")
+        prediction["source_tick_duration_minutes"] = row.get("source_tick_duration_minutes")
+        prediction["big_bang_id"] = row.get("big_bang_id")
+        prediction["run_dir"] = str(row.get("run_dir"))
+        prediction["prediction_output"] = _display_run_path(output, run_root)
+        prediction["deadline_forced_p_yes"] = float(args.deadline_forced_p_yes)
+        prediction["deadline_forced_confidence"] = getattr(args, "deadline_forced_confidence", None)
+        prediction_rows.append(prediction)
+        print(
+            json.dumps(
+                {
+                    "case_id": case_id,
+                    "condition": condition,
+                    "status": "db_aware_scored",
+                    "p_yes": prediction["p_yes"],
+                    "unresolved_mass": prediction["unresolved_mass"],
+                    "deadline_forced_uncertain_mass": prediction["deadline_forced_uncertain_mass"],
+                }
+            )
+        )
+
+    write_jsonl(output, prediction_rows)
+    score_rows: list[dict[str, Any]] = []
+    if args.score_output:
+        score_rows = _score_prediction_rows(prediction_rows)
+        score_output = args.score_output if args.score_output.is_absolute() else run_root / args.score_output
+        _write_csv(
+            score_output,
+            score_rows,
+            [
+                "case_id",
+                "condition",
+                "route_policy_id",
+                "resolution",
+                "p_yes",
+                "brier",
+                "log_score",
+                "unresolved_mass",
+                "deadline_forced_uncertain_mass",
+                "hard_terminal_mass",
+            ],
+        )
+    if args.pair_summary_output:
+        if not score_rows:
+            score_rows = _score_prediction_rows(prediction_rows)
+        summary = _paired_branch_brier_summary(
+            score_rows,
+            baseline_condition=args.baseline_condition,
+            branch_condition=args.branch_condition,
+        )
+        pair_summary_output = (
+            args.pair_summary_output
+            if args.pair_summary_output.is_absolute()
+            else run_root / args.pair_summary_output
+        )
+        _write_json(pair_summary_output, summary)
+        print(json.dumps(summary, sort_keys=True))
 
 
 def _discover_worldfork_short_run_dirs(
@@ -3910,6 +4337,31 @@ def main() -> None:
     score.add_argument("--condition", default="unknown")
     score.add_argument("--normalize-yes-no", action="store_true")
     score.set_defaults(func=score_forecasts)
+
+    db_score = sub.add_parser(
+        "score-worldfork-ledger-db-artifacts",
+        help="Score existing E3 path-mass artifacts using DB ledger entries and deadline-forced uncertainty handling.",
+    )
+    db_score.add_argument("--run-root", type=Path, required=True)
+    db_score.add_argument("--input-prefix", type=Path, required=True)
+    db_score.add_argument("--prediction-output", required=True)
+    db_score.add_argument("--route-policy-id", required=True)
+    db_score.add_argument("--database-url", help="Read-only DB URL; defaults to ICML_LEDGER_DATABASE_URL or DATABASE_URL_SYNC.")
+    db_score.add_argument("--case-ids", help="Optional comma-separated case IDs to score.")
+    db_score.add_argument("--case-limit", type=int)
+    db_score.add_argument("--conditions", help="Optional comma-separated conditions to score.")
+    db_score.add_argument("--deadline-forced-p-yes", type=float, default=0.5)
+    db_score.add_argument(
+        "--deadline-forced-confidence",
+        type=float,
+        help="If set, map forced-yes to this probability and forced-no to 1-confidence.",
+    )
+    db_score.add_argument("--score-output", type=Path)
+    db_score.add_argument("--pair-summary-output", type=Path)
+    db_score.add_argument("--baseline-condition", default="worldfork_no_branch_short")
+    db_score.add_argument("--branch-condition", default="worldfork_branching_short")
+    db_score.add_argument("--force", action="store_true")
+    db_score.set_defaults(func=score_worldfork_ledger_db_artifacts)
 
     blend = sub.add_parser(
         "score-e3-direct-prior-blends",
