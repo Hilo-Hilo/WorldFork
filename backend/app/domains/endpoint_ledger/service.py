@@ -1082,7 +1082,8 @@ def _try_llm_endpoint_evaluation(
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
             "When scenario_candidate_endpoints contains primary yes/no endpoints, resolve those explicit binary candidates before auxiliary mechanisms.",
-            "At the forecast deadline, if yes is not realized in a simulated path, no should be realized for that path.",
+            "At the forecast deadline, settle yes/no from simulated path evidence and the original forecast-card source packet.",
+            "Realize no only when the simulated path says the deadline passed without the event or an authoritative delay/miss occurred; absence of direct observed proof alone is not enough.",
             "Auxiliary mechanism endpoints must not keep a binary forecast unresolved after the yes/no candidate has settled.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
@@ -1288,20 +1289,7 @@ def _settle_primary_binary_candidates_at_final_horizon(
             "no": _mark_candidate_deadline_settlement(no, status="realized", evidence=evidence),
         }
     else:
-        replacement = {
-            "yes": _mark_candidate_deadline_settlement(
-                yes,
-                status="eliminated",
-                evidence=evidence,
-                rationale="The forecast deadline was reached without realized yes evidence in this simulated path.",
-            ),
-            "no": _mark_candidate_deadline_settlement(
-                no,
-                status="realized",
-                evidence=evidence,
-                rationale="The forecast deadline was reached without the yes event occurring in this simulated path.",
-            ),
-        }
+        return entries
 
     settled: list[dict[str, Any]] = []
     for entry in entries:

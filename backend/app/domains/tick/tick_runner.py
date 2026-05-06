@@ -1017,8 +1017,11 @@ def _execute_checkpoint_payload(
                 "max_ticks": max_ticks or None,
                 "current_tick_index": tick_index,
                 "ledger_instruction": (
-                    "At the final allowed tick, mark unresolved endpoints insufficient_ticks unless hard evidence "
-                    "makes the endpoint eliminated. insufficient_ticks is reversible if the timeline later resumes."
+                    "At the final allowed tick for a deadline-aware forecast, settle explicit yes/no candidate "
+                    "endpoints from the simulated path evidence and the original forecast-card source packet. "
+                    "Do not mark yes/no insufficient_ticks merely because external proof is unavailable inside "
+                    "the simulation; reserve insufficient_ticks for genuinely unmodeled outcomes after making "
+                    "a best-effort binary settlement. Do not open new branches at the final horizon."
                 ),
             },
         }

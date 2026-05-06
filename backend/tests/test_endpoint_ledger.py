@@ -383,7 +383,7 @@ def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
     assert by_key["organizing_continues"]["status"] == "insufficient_ticks"
 
 
-def test_endpoint_finalization_settles_deadline_aware_binary_no_at_final_horizon():
+def test_endpoint_finalization_does_not_default_deadline_aware_binary_to_no_at_final_horizon():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 16}},
         "multiverse": {"status": "active"},
@@ -417,10 +417,10 @@ def test_endpoint_finalization_settles_deadline_aware_binary_no_at_final_horizon
     )
     by_key = {entry["endpoint_key"]: entry for entry in entries}
 
-    assert by_key["no"]["status"] == "realized"
-    assert by_key["yes"]["status"] == "eliminated"
-    assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
-    assert by_key["no"]["meta"]["final_horizon_candidate_settlement"] is True
+    assert by_key["no"]["status"] == "insufficient_ticks"
+    assert by_key["yes"]["status"] == "insufficient_ticks"
+    assert by_key["no"]["status_basis"] == "max_tick_limit_reached"
+    assert by_key["yes"]["status_basis"] == "max_tick_limit_reached"
     assert by_key["auxiliary"]["status"] == "insufficient_ticks"
 
 
@@ -468,9 +468,9 @@ def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: 
     ledger = evaluate_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse, use_llm=False)
 
     entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
-    assert entries["no"].status == "realized"
-    assert entries["yes"].status == "eliminated"
-    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
+    assert entries["no"].status == "insufficient_ticks"
+    assert entries["yes"].status == "insufficient_ticks"
+    assert entries["no"].status_basis == "max_tick_limit_reached"
 
 
 def test_god_final_tick_updates_are_deadline_settled(db: Session):
@@ -529,9 +529,9 @@ def test_god_final_tick_updates_are_deadline_settled(db: Session):
 
     assert ledger is not None
     entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
-    assert entries["no"].status == "realized"
-    assert entries["yes"].status == "eliminated"
-    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
+    assert entries["no"].status == "insufficient_ticks"
+    assert entries["yes"].status == "insufficient_ticks"
+    assert entries["no"].status_basis == "max_tick_limit_reached"
 
 
 def test_endpoint_finalization_settles_deadline_aware_binary_yes_at_final_horizon():
