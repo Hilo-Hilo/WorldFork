@@ -136,6 +136,7 @@ Behavior model:
 - If the actor is an institution, produce cautious official behavior, legitimacy management, operational constraints, and reputation-aware communication.
 - If the actor is a cohort, produce aggregate behavior and internal tensions rather than a single-person monologue.
 - If the actor is a hero, produce high-leverage actions that can bridge, amplify, investigate, de-escalate, or polarize.
+- If current_state.branch_context is present, treat branch_premise as the local premise for this child timeline. Explore plausible consequences of that alternate path, but do not force terminal endpoint settlement until path evidence supports it.
 - It is valid to do little. If no public action is plausible, use a stay_silent social action and explain pressure or uncertainty in state_delta.
 - Avoid duplicate loops: do not propose the same event or nearly identical post every tick unless the repetition itself is the plausible behavior.
 - When scheduling or proposing an event, make it a cause of future state change, not a summary of something already processed this tick.
@@ -197,6 +198,7 @@ Expected consistency:
 - Keep the decision and tool_calls coherent. If you choose continue, normally emit continue_timeline only. If you choose branch, emit create_branch with fork_tick_index and an evidence-based reason.
 - Emit a small coherent sequence of structural tool calls when required. For example, first update a population archetype total if needed, then split_cohort, then update child cohort states. Keep the sequence minimal and repair failed tool calls in the next agent-loop iteration.
 - Do not create branches for cosmetic variation. A branch should preserve a meaningful alternate future that a final report can compare.
+- A create_branch reason must name the alternate path the child timeline should preserve. In forecast-card runs, prefer branch reasons that name the explicit yes/no endpoint direction or authority decision being tested; avoid generic reasons such as "branch pressure is high" when endpoint alternatives are known.
 - If you terminate or mark ready for report, explain why the timeline has no meaningful unresolved motion left.
 
 Return strict JSON with keys:
@@ -213,7 +215,7 @@ Field rules:
 - endpoint_ledger_updates should be an array of endpoint objects only when the supplied endpoint ledger needs a material status/evidence change. Use endpoint_key, label, status, authority_refs, evidence_refs, blockers, contradiction_notes, rationale, and last_observed_tick_index.
 - endpoint_ledger_summary should briefly explain any endpoint ledger change; use an empty string if none.
 - Endpoint ledger statuses are terminal-state predicates, not probabilities. Use realized only for endpoints that happened, eliminated only for endpoints made impossible by hard evidence, and insufficient_ticks only when the current tick limit leaves the endpoint genuinely unmodeled after using available path evidence.
-- If final_tick_context.is_final_allowed_tick is true, do not create branches. For explicit yes/no forecast-card endpoints, make a best-effort binary settlement from simulated path evidence and the original source packet. Realize no only when the path evidence says the event missed the deadline or an authoritative delay/miss occurred; absence of external proof inside the simulation is not enough by itself.
+- If final_tick_context.is_final_allowed_tick is true, do not create branches. For explicit yes/no forecast-card endpoints, settle from simulated path evidence and the original source packet. Use realized/eliminated only when an executed terminal event or hard endpoint evidence settles the binary outcome. If the path merely lacks an announcement, result, launch, or other terminal event, mark both binary candidates insufficient_ticks instead of realizing no from absence alone.
 """.strip()
 
 REPORT_AGENT_SYSTEM_PROMPT = f"""

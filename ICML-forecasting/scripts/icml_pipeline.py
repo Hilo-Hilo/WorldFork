@@ -52,6 +52,7 @@ FORECAST_CARD_INITIALIZER_PROMPT = (
     "resolution data."
 )
 NO_BRANCH_POLICY = {
+    "branching_enabled": False,
     "max_branch_depth": 1,
     "max_active_multiverses": 1,
     "max_branches_per_tick": 1,
@@ -1498,6 +1499,8 @@ def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
             run_payload["endpoint_resolution_keys"] = endpoint_resolution_keys
         if getattr(args, "stop_when_endpoint_ledger_resolved", False):
             run_payload["stop_when_endpoint_ledger_resolved"] = True
+        if not getattr(args, "generate_reports", False):
+            run_payload["skip_reports"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
         run_job, run_create_seconds = _timed_api_call(
             client,

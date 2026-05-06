@@ -108,9 +108,11 @@ def _json_chars(value) -> int:  # noqa: ANN001
 
 
 def compact_simulation_state(state: dict) -> dict:
+    if not isinstance(state, dict):
+        return {}
     scenario = state.get("scenario_input", {}) if isinstance(state, dict) else {}
     initializer = state.get("initializer_output", {}) if isinstance(state, dict) else {}
-    return {
+    compact = {
         "scenario_summary": {
             "premise": scenario.get("premise"),
             "setting": scenario.get("setting"),
@@ -129,12 +131,39 @@ def compact_simulation_state(state: dict) -> dict:
         "last_executed_events": _compact_events(state.get("last_executed_events", [])),
         "last_sociology": _compact_sociology(state.get("last_sociology", {})),
     }
+    branch_context = _compact_branch_context(state.get("branch"))
+    if branch_context:
+        compact["branch_context"] = branch_context
+    return compact
 
 
 def _excerpt(text: str, limit: int = 1200) -> str:
     if not isinstance(text, str):
         return ""
     return text if len(text) <= limit else text[:limit] + "..."
+
+
+def _compact_branch_context(value) -> dict:  # noqa: ANN001
+    if not isinstance(value, dict):
+        return {}
+    premise = value.get("branch_premise") or value.get("reason")
+    if not isinstance(premise, str) or not premise.strip():
+        return {}
+    context = {
+        "fork_tick_index": value.get("fork_tick_index"),
+        "branch_premise": _excerpt(premise.strip(), 700),
+        "branch_probability": value.get("branch_probability"),
+        "path_probability": value.get("path_probability"),
+        "prompt_instruction": (
+            "Treat branch_premise as the local timeline premise for this child timeline. "
+            "Explore plausible consequences of that alternate path while preserving uncertainty; "
+            "do not force a terminal endpoint until path evidence supports it."
+        ),
+    }
+    probability_basis = value.get("probability_basis")
+    if isinstance(probability_basis, dict) and probability_basis:
+        context["probability_basis"] = _compact_value(probability_basis)
+    return {key: item for key, item in context.items() if item not in (None, {}, [])}
 
 
 def _compact_list(value, *, limit: int = MAX_PROMPT_LIST_ITEMS):

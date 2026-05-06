@@ -548,6 +548,67 @@ def test_endpoint_finalization_rejects_absence_only_no_against_source_packet_bas
     assert by_key["yes"]["meta"]["source_packet_baseline_settlement"] is True
 
 
+def test_endpoint_finalization_downgrades_absence_only_no_without_terminal_event():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 5}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 5}],
+        "events": [
+            {
+                "title": "Procedural advisory continues",
+                "event_type": "procedural_update",
+                "status": "executed",
+                "scheduled_tick": 5,
+                "actual_impact": {
+                    "status": "applied",
+                    "summary": "Observers still await the final authority announcement.",
+                },
+            }
+        ],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-10-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "eliminated",
+                "rationale": (
+                    "There is no terminal authority event naming the candidate, and the simulated "
+                    "clock has passed the deadline."
+                ),
+                "evidence_refs": ["final_tick_context.is_final_allowed_tick"],
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "realized",
+                "rationale": (
+                    "The path contains no authoritative event naming the candidate by the deadline, "
+                    "so the forecast resolves to no."
+                ),
+                "evidence_refs": ["forecast_clock.deadline_tick_reached"],
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["yes"]["status"] == "insufficient_ticks"
+    assert by_key["no"]["status"] == "insufficient_ticks"
+    assert by_key["yes"]["meta"]["absence_only_binary_settlement_downgraded"] is True
+    assert by_key["no"]["meta"]["absence_only_binary_settlement_downgraded"] is True
+
+
 def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: Session):
     big_bang, multiverse, _actor = _world(db)
     big_bang.scenario_input = {

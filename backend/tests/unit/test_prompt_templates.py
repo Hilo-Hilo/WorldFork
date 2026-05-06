@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from app.llm.prompt_templates import (
+    ACTOR_SYSTEM_PROMPT,
     ENDPOINT_CALIBRATION_GUIDANCE,
     GOD_AGENT_SYSTEM_PROMPT,
     INITIALIZER_SYSTEM_PROMPT,
@@ -38,6 +39,17 @@ def test_god_prompt_requires_branch_probability() -> None:
     assert "branch_probability" in GOD_AGENT_SYSTEM_PROMPT
     assert "P(child branch occurs | this parent timeline at the fork tick)" in GOD_AGENT_SYSTEM_PROMPT
     assert "This is not your confidence score" in GOD_AGENT_SYSTEM_PROMPT
+
+
+def test_god_prompt_requires_endpoint_specific_branch_reasons() -> None:
+    assert "A create_branch reason must name the alternate path" in GOD_AGENT_SYSTEM_PROMPT
+    assert "explicit yes/no endpoint direction" in GOD_AGENT_SYSTEM_PROMPT
+
+
+def test_actor_prompt_honors_child_branch_context_without_forcing_settlement() -> None:
+    assert "current_state.branch_context" in ACTOR_SYSTEM_PROMPT
+    assert "local premise for this child timeline" in ACTOR_SYSTEM_PROMPT
+    assert "do not force terminal endpoint settlement" in ACTOR_SYSTEM_PROMPT
 
 
 def test_report_agent_prompt_distinguishes_terminal_endpoints_from_process_states() -> None:

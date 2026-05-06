@@ -630,6 +630,104 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
     assert prompt_content["timeline_adjudication"]["pruned_labels"] == ["M1.1"]
 
 
+def test_timeline_adjudication_keeps_distinct_branch_premises(db: Session):
+    big_bang = models.BigBang(
+        name="Distinct branch premises",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    timelines = [
+        models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=1,
+            ui_label="M1.1",
+            depth=1,
+            status="completed",
+            branch_reason="Candidate A wins the authority announcement before the deadline.",
+            branch_probability=0.4,
+            path_probability=0.4,
+            state={"branch": {"branch_premise": "Candidate A wins the authority announcement before the deadline."}},
+            report_status="completed",
+        ),
+        models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=1,
+            ui_label="M1.2",
+            depth=1,
+            status="completed",
+            branch_reason="Candidate A does not win the authority announcement before the deadline.",
+            branch_probability=0.35,
+            path_probability=0.35,
+            state={
+                "branch": {
+                    "branch_premise": "Candidate A does not win the authority announcement before the deadline."
+                }
+            },
+            report_status="completed",
+        ),
+        models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=1,
+            ui_label="M1.3",
+            depth=1,
+            status="completed",
+            branch_reason="Candidate A wins the authority announcement before the deadline.",
+            branch_probability=0.25,
+            path_probability=0.25,
+            state={"branch": {"branch_premise": "Candidate A wins the authority announcement before the deadline."}},
+            report_status="completed",
+        ),
+    ]
+    db.add_all(timelines)
+    db.flush()
+    for timeline in timelines:
+        db.add(
+            models.TickSnapshot(
+                big_bang_id=big_bang.id,
+                multiverse_id=timeline.id,
+                tick_index=2,
+                ui_label=f"{timeline.ui_label}:T2",
+                status="final",
+                provisional_bundle={},
+                final_bundle={},
+                summary="Final tick.",
+            )
+        )
+        _add_endpoint_ledger(
+            db,
+            big_bang=big_bang,
+            multiverse=timeline,
+            endpoint_key="yes",
+            label="The event occurs by the deadline",
+            status="active",
+            probability=0.5,
+            evidence_refs=[{"source": "shared"}],
+            status_basis="scenario_candidate_endpoint",
+        )
+    db.flush()
+
+    adjudication = report_engine.evaluate_timeline_adjudication(db, big_bang=big_bang)
+    entries = {
+        entry.ui_label: entry
+        for entry in report_engine.timeline_adjudication_entries(db, adjudication.id)
+    }
+
+    assert entries["M1.1"].include_in_final is True
+    assert entries["M1.2"].include_in_final is True
+    assert entries["M1.3"].include_in_final is False
+    assert entries["M1.3"].mass_disposition == "excluded_duplicate"
+    assert entries["M1.1"].evidence_summary["branch_hypothesis_signature"] != entries["M1.2"].evidence_summary[
+        "branch_hypothesis_signature"
+    ]
+
+
 def test_report_evidence_pack_is_compact_and_includes_adjudication(db: Session):
     big_bang = models.BigBang(
         name="Evidence pack",

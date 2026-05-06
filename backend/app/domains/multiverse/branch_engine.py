@@ -48,6 +48,8 @@ def create_branch(
         return db.get(models.Multiverse, existing_tool.result["child_multiverse_id"])
 
     branch_policy = branch_policy_for_multiverse(db, parent)
+    if branch_policy.get("branching_enabled") is False:
+        raise ValueError("branch budget exceeded: branching disabled")
     max_depth = branch_policy.get("max_branch_depth", 3)
     max_active = branch_policy.get("max_active_multiverses", 12)
     max_per_tick = branch_policy.get("max_branches_per_tick", 2)
@@ -206,6 +208,12 @@ def _child_state(
         "parent_multiverse_id": str(parent.id),
         "fork_tick_index": fork_tick_index,
         "reason": reason,
+        "branch_premise": _branch_premise(reason=reason, probability_basis=probability_basis),
+        "prompt_instruction": (
+            "Treat branch_premise as the local timeline premise for this child timeline. "
+            "Explore plausible consequences of that alternate path while preserving uncertainty; "
+            "do not force a terminal endpoint until path evidence supports it."
+        ),
         "branch_probability": probability_split["branch_probability"],
         "path_probability": probability_split["child_path_probability"],
         "parent_path_probability_before": probability_split["parent_path_probability_before"],
@@ -213,6 +221,15 @@ def _child_state(
         "probability_basis": probability_basis or {},
     }
     return state
+
+
+def _branch_premise(*, reason: str, probability_basis: dict[str, Any] | None) -> str:
+    if isinstance(probability_basis, dict):
+        for key in ("branch_premise", "premise", "alternate_path"):
+            value = probability_basis.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+    return str(reason or "God Agent branch.").strip()
 
 
 def _resolve_branch_probability(value: float | None) -> float:
@@ -333,6 +350,7 @@ def _inherit_latest_endpoint_ledger(
     )
     if existing_child_ledger is not None:
         return
+    branch_context = _ledger_branch_context(child)
 
     child_ledger = models.EndpointLedgerVersion(
         big_bang_id=parent.big_bang_id,
@@ -351,6 +369,7 @@ def _inherit_latest_endpoint_ledger(
         payload={
             "inherited_from_ledger_version_id": str(parent_ledger.id),
             "inherited_from_multiverse_id": str(parent.id),
+            "branch_context": branch_context,
             "source_payload": deepcopy(parent_ledger.payload or {}),
         },
     )
@@ -364,6 +383,7 @@ def _inherit_latest_endpoint_ledger(
     ).all()
     for entry in parent_entries:
         entry_meta = deepcopy(entry.meta or {})
+        branch_signature = branch_context.get("branch_hypothesis_signature")
         db.add(
             models.EndpointLedgerEntry(
                 ledger_version_id=child_ledger.id,
@@ -386,9 +406,36 @@ def _inherit_latest_endpoint_ledger(
                     "inherited_from_ledger_entry_id": str(entry.id),
                     "inherited_from_ledger_version_id": str(parent_ledger.id),
                     "inherited_from_multiverse_id": str(parent.id),
+                    "branch_premise": branch_context.get("branch_premise"),
+                    "branch_hypothesis_signature": branch_signature,
                 },
             )
         )
+
+
+def _ledger_branch_context(child: models.Multiverse) -> dict[str, Any]:
+    state = child.state if isinstance(child.state, dict) else {}
+    branch = state.get("branch") if isinstance(state.get("branch"), dict) else {}
+    premise = branch.get("branch_premise") or branch.get("reason") or child.branch_reason
+    if not isinstance(premise, str) or not premise.strip():
+        return {}
+    context = {
+        "fork_tick_index": branch.get("fork_tick_index") if branch else child.fork_tick_index,
+        "branch_premise": premise.strip(),
+        "branch_probability": branch.get("branch_probability") if branch else child.branch_probability,
+        "path_probability": branch.get("path_probability") if branch else child.path_probability,
+        "probability_basis": deepcopy(branch.get("probability_basis") or {}),
+    }
+    context["branch_hypothesis_signature"] = _branch_hypothesis_signature(context)
+    return {key: value for key, value in context.items() if value not in (None, {}, [])}
+
+
+def _branch_hypothesis_signature(branch_context: dict[str, Any]) -> str:
+    premise = str(branch_context.get("branch_premise") or "").strip().lower()
+    basis = branch_context.get("probability_basis") if isinstance(branch_context.get("probability_basis"), dict) else {}
+    basis_text = str(basis.get("branch_premise") or basis.get("premise") or basis.get("alternate_path") or "").strip().lower()
+    text = " ".join(part for part in (premise, basis_text) if part)
+    return " ".join(text.split())[:500] or "branch"
 
 
 def _inherit_queued_events(

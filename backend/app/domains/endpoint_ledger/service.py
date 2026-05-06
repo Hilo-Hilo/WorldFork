@@ -146,11 +146,16 @@ def latest_endpoint_ledger_prompt_payload(db: Session, *, big_bang_id, multivers
     if ledger is None:
         ledger = latest_endpoint_ledger(db, big_bang_id=big_bang_id, scope="big_bang")
     payload = endpoint_ledger_report_payload(db, ledger)
+    ledger_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
+    branch_context = ledger_payload.get("branch_context")
+    if not branch_context and isinstance(ledger_payload.get("evidence"), dict):
+        branch_context = ledger_payload["evidence"].get("branch_context")
     return {
         "status": payload.get("status"),
         "scope": payload.get("scope"),
         "version": payload.get("version"),
         "summary": payload.get("summary"),
+        "branch_context": branch_context if isinstance(branch_context, dict) else {},
         "entries": [
             {
                 "endpoint_key": item.get("endpoint_key"),
@@ -487,6 +492,7 @@ def _collect_evidence(
     if not isinstance(forecast_metadata, dict):
         forecast_metadata = {}
     multiverse_state = multiverse.state if multiverse is not None and isinstance(multiverse.state, dict) else {}
+    branch_context = _branch_context_from_multiverse_state(multiverse_state)
     return {
         "big_bang": {
             "id": str(big_bang.id),
@@ -498,6 +504,7 @@ def _collect_evidence(
         "scenario_candidate_endpoints": candidate_endpoints,
         "forecast_metadata": forecast_metadata,
         "forecast_source_guidance": _forecast_source_guidance(scenario, initializer),
+        "branch_context": branch_context,
         "scope": "multiverse" if multiverse is not None else "big_bang",
         "multiverse": {
             "id": str(multiverse.id),
@@ -519,6 +526,29 @@ def _collect_evidence(
         "god_reviews": reviews,
         "timeline_statuses": dict(Counter(item.status for item in multiverses)),
     }
+
+
+def _branch_context_from_multiverse_state(multiverse_state: dict[str, Any]) -> dict[str, Any]:
+    branch = multiverse_state.get("branch") if isinstance(multiverse_state, dict) else {}
+    if not isinstance(branch, dict):
+        return {}
+    premise = branch.get("branch_premise") or branch.get("reason")
+    if not isinstance(premise, str) or not premise.strip():
+        return {}
+    context = {
+        "fork_tick_index": branch.get("fork_tick_index"),
+        "branch_premise": premise.strip(),
+        "branch_probability": branch.get("branch_probability"),
+        "path_probability": branch.get("path_probability"),
+        "probability_basis": _compact_value(branch.get("probability_basis") or {}, max_items=6),
+        "branch_hypothesis_signature": branch.get("branch_hypothesis_signature")
+        or " ".join(premise.strip().lower().split())[:500],
+        "prompt_instruction": (
+            "Local alternate forecast hypothesis to test against path evidence; "
+            "do not force yes/no settlement from the premise alone."
+        ),
+    }
+    return {key: value for key, value in context.items() if value not in (None, {}, [])}
 
 
 def _entries_from_evidence(
@@ -1083,8 +1113,8 @@ def _try_llm_endpoint_evaluation(
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
             "When scenario_candidate_endpoints contains primary yes/no endpoints, resolve those explicit binary candidates before auxiliary mechanisms.",
-            "At the forecast deadline, settle yes/no from simulated path evidence and the original forecast-card source packet.",
-            "Realize no only when the simulated path says the deadline passed without the event or an authoritative delay/miss occurred; absence of direct observed proof alone is not enough.",
+            "At the forecast deadline, settle yes/no only from simulated terminal events, hard authority evidence, or the original forecast-card source packet.",
+            "If the simulated path merely lacks a terminal announcement, result, launch, or authority event, mark the explicit yes/no candidates insufficient_ticks instead of realizing no from absence alone.",
             "Auxiliary mechanism endpoints must not keep a binary forecast unresolved after the yes/no candidate has settled.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
@@ -1222,6 +1252,7 @@ def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any]
     if evidence is not None:
         entries = _settle_primary_binary_candidates_from_terminal_event(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_source_packet_baseline(entries, evidence=evidence)
+        entries = _downgrade_absence_only_primary_binary_settlement(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
         entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
@@ -1483,6 +1514,63 @@ def _settle_primary_binary_candidates_from_counterpart(
     return settled
 
 
+def _downgrade_absence_only_primary_binary_settlement(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _final_horizon_reached(evidence) or not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate = _primary_binary_candidates(entries)
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no):
+        return entries
+    if _has_source_packet_baseline_settlement(yes) or _has_source_packet_baseline_settlement(no):
+        return entries
+    if yes.get("status") != "eliminated" or no.get("status") not in {
+        "realized",
+        "active",
+        "weakened",
+        "unresolved",
+        "insufficient_ticks",
+        "process_only",
+    }:
+        return entries
+    if not _no_realization_is_absence_only(no, yes, evidence=evidence):
+        return entries
+
+    replacement = {
+        "yes": _mark_candidate_absence_only_insufficient(
+            yes,
+            evidence=evidence,
+            rationale=(
+                "Final-horizon yes elimination was based only on the absence of a terminal simulated "
+                "authority event. Treating the binary forecast as insufficiently modeled rather than "
+                "certain no."
+            ),
+        ),
+        "no": _mark_candidate_absence_only_insufficient(
+            no,
+            evidence=evidence,
+            rationale=(
+                "Final-horizon no realization was based only on absence of yes evidence, not a hard "
+                "terminal miss/delay/no-occurrence event. Treating the binary forecast as insufficiently "
+                "modeled rather than certain no."
+            ),
+        ),
+    }
+    downgraded: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        downgraded.append(replacement.get(candidate_id, entry))
+    return downgraded
+
+
 def _primary_binary_candidates(entries: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     by_candidate: dict[str, dict[str, Any]] = {}
     for entry in entries:
@@ -1643,6 +1731,34 @@ def _mark_candidate_counterpart_settlement(
     }
 
 
+def _mark_candidate_absence_only_insufficient(
+    entry: dict[str, Any],
+    *,
+    evidence: dict[str, Any] | None,
+    rationale: str,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    return {
+        **entry,
+        "status": "insufficient_ticks",
+        "blockers": [
+            *list(entry.get("blockers") or []),
+            "No hard terminal event settled the explicit binary candidate before the tick horizon ended.",
+        ],
+        "status_basis": "max_tick_limit_reached",
+        "rationale": rationale,
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or latest_tick,
+        "meta": {
+            **meta,
+            "absence_only_binary_settlement_downgraded": True,
+            "final_horizon_overlay": "insufficient_ticks",
+            "previous_status": entry.get("status"),
+            "reversible_on_resume": True,
+        },
+    }
+
+
 def _terminal_binary_event_signal(evidence: dict[str, Any] | None) -> dict[str, Any] | None:
     signals: list[dict[str, Any]] = []
     latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
@@ -1721,7 +1837,11 @@ def _no_realization_is_absence_only(
     absence_cues = (
         "absence",
         "absent",
+        "contains no",
         "no direct evidence",
+        "no authoritative",
+        "no terminal",
+        "no terminal authority",
         "no event confirms",
         "no verified",
         "not verified",
@@ -1731,8 +1851,11 @@ def _no_realization_is_absence_only(
         "not evidenced",
         "without verified",
         "without direct",
+        "without a terminal",
         "stops short",
         "short of",
+        "still only",
+        "only supports",
         "preorder",
         "estimated ship",
         "ship window",
@@ -1917,6 +2040,7 @@ def _compact_evidence(evidence: dict[str, Any]) -> dict[str, Any]:
         "big_bang": evidence.get("big_bang"),
         "scope": evidence.get("scope"),
         "multiverse": evidence.get("multiverse"),
+        "branch_context": _compact_value(evidence.get("branch_context") or {}, max_items=8),
         "initializer": _compact_value(evidence.get("initializer") or {}, max_items=10),
         "scenario_candidate_endpoints": _compact_value(evidence.get("scenario_candidate_endpoints") or [], max_items=8),
         "forecast_metadata": _compact_value(evidence.get("forecast_metadata") or {}, max_items=8),

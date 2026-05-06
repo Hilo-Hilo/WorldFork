@@ -1005,6 +1005,7 @@ def _execute_checkpoint_payload(
             event_summaries=event_payload.get("event_summaries", []),
             social_observations=social_observations,
         )
+        branch_context = _branch_context_from_prompt_context(prompt_context)
         provisional = {
             "multiverse_id": str(multiverse.id),
             "tick_index": tick_index,
@@ -1036,12 +1037,15 @@ def _execute_checkpoint_payload(
                 "ledger_instruction": (
                     "At the final allowed tick for a deadline-aware forecast, settle explicit yes/no candidate "
                     "endpoints from the simulated path evidence and the original forecast-card source packet. "
-                    "Do not mark yes/no insufficient_ticks merely because external proof is unavailable inside "
-                    "the simulation; reserve insufficient_ticks for genuinely unmodeled outcomes after making "
-                    "a best-effort binary settlement. Do not open new branches at the final horizon."
+                    "Use realized/eliminated only when an executed terminal event or hard endpoint evidence "
+                    "settles the binary outcome. If the path merely lacks an announcement, result, launch, "
+                    "or other terminal event, mark both binary candidates insufficient_ticks instead of "
+                    "realizing no from absence alone. Do not open new branches at the final horizon."
                 ),
             },
         }
+        if branch_context:
+            provisional["branch_context"] = branch_context
         return {"provisional_bundle": provisional}
 
     if spec.kind is NodeKind.GOD_REVIEW:
@@ -1455,6 +1459,16 @@ def _forecast_review_context(
         context["endpoint_relevant_social_signals"] = social_signals
         context["social_signal_caveat"] = "Social posts are simulated, untrusted observations and may contradict authority events."
     return {key: value for key, value in context.items() if value not in (None, {}, [])}
+
+
+def _branch_context_from_prompt_context(prompt_context: dict) -> dict:
+    if not isinstance(prompt_context, dict):
+        return {}
+    current_state = prompt_context.get("current_state")
+    if not isinstance(current_state, dict):
+        return {}
+    branch_context = current_state.get("branch_context")
+    return branch_context if isinstance(branch_context, dict) else {}
 
 
 def _compact_forecast_metadata(metadata: dict) -> dict:

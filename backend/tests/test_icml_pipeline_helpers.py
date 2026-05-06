@@ -50,6 +50,93 @@ def test_build_init_job_payload_uses_public_scenario_only(tmp_path: Path) -> Non
     assert "private_eval" not in payload["payload"]["initializer_prompt"]
 
 
+def test_no_branch_policy_disables_branch_creation() -> None:
+    pipeline = load_icml_pipeline()
+
+    assert pipeline.NO_BRANCH_POLICY["branching_enabled"] is False
+
+
+def test_resume_worldfork_short_batch_skips_reports_by_default(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    pipeline = load_icml_pipeline()
+    run_root = tmp_path / "run"
+    source_predictions = run_root / "source.jsonl"
+    source_predictions.parent.mkdir(parents=True)
+    source_predictions.write_text(
+        json.dumps(
+            {
+                "case_id": "resolved_003",
+                "condition": "worldfork_no_branch_short",
+                "route_policy_id": "old",
+                "unresolved_mass": 1.0,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    manifest = run_root / "manifests/worldfork_short_manifest.jsonl"
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(
+        json.dumps(
+            {
+                "case_id": "resolved_003",
+                "condition": "worldfork_no_branch_short",
+                "status": "completed",
+                "route_policy_id": "old",
+                "prediction_output": "source.jsonl",
+                "big_bang_id": "big-bang-id",
+                "init_job_id": "init-job-id",
+                "run_job_id": "run-job-id",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    submitted_payloads: list[dict] = []
+
+    class FakeClient:
+        def request(self, method: str, path: str, *, payload: dict | None = None):
+            if method == "POST" and path == "/jobs":
+                submitted_payloads.append(payload or {})
+                return {"id": "job-run"}
+            if method == "GET" and path == "/jobs/queues":
+                return {"queues": []}
+            raise AssertionError(f"unexpected request {method} {path}")
+
+    monkeypatch.setattr(pipeline, "make_run_root", lambda path: path)
+    monkeypatch.setattr(pipeline, "ApiClient", lambda *args, **kwargs: FakeClient())
+    monkeypatch.setattr(pipeline, "_prepare_worldfork_resume", lambda *args, **kwargs: (2, []))
+    monkeypatch.setattr(pipeline, "_timed_api_call", lambda client, method, path, payload: (client.request(method, path, payload=payload), 0.1))
+    monkeypatch.setattr(pipeline, "_wait_many_jobs", lambda *args, **kwargs: [])
+
+    pipeline.resume_worldfork_short_batch(
+        SimpleNamespace(
+            run_root=run_root,
+            base_url="http://example.test",
+            api_prefix="/api",
+            timeout=1,
+            source_prediction_output=source_predictions,
+            source_route_policy_id="old",
+            route_policy_id="new",
+            conditions="worldfork_no_branch_short",
+            case_ids="resolved_003",
+            output_prefix="raw/resume",
+            prediction_output=run_root / "predictions.jsonl",
+            max_ticks=8,
+            tick_duration_minutes=720,
+            stop_when_endpoint_ledger_resolved=True,
+            skip_resolved_unresolved_mass=0.0,
+            force=False,
+            resume_attempt_id=None,
+            wait_timeout=1,
+            poll_seconds=1,
+        )
+    )
+
+    run_payload = submitted_payloads[0]["payload"]
+    assert run_payload["skip_reports"] is True
+    assert run_payload["stop_when_endpoint_ledger_resolved"] is True
+
+
 def test_public_case_markdown_includes_forecast_clock_and_binary_contract() -> None:
     pipeline = load_icml_pipeline()
     card = {

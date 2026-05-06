@@ -1857,6 +1857,29 @@ def test_agent_prompt_context_includes_forecast_deadline_clock_context():
     assert "T3 is the forecast deadline" in context["forecast_clock"]["deadline_instruction"]
 
 
+def test_agent_prompt_context_includes_branch_context_for_child_timeline():
+    context = build_agent_prompt_context(
+        clock_context=SimpleNamespace(as_prompt_text=lambda: "T2"),
+        current_state={
+            "branch": {
+                "parent_multiverse_id": "parent-id",
+                "fork_tick_index": 1,
+                "reason": "Candidate A wins the authority announcement before the deadline.",
+                "branch_probability": 0.35,
+                "path_probability": 0.35,
+                "probability_basis": {"basis": "Forecast-card yes path remains plausible."},
+            }
+        },
+        sociology_prompt_influences=[],
+    )
+
+    branch_context = context["current_state"]["branch_context"]
+    assert branch_context["branch_premise"] == "Candidate A wins the authority announcement before the deadline."
+    assert branch_context["branch_probability"] == 0.35
+    assert "local timeline premise" in branch_context["prompt_instruction"]
+    assert "parent_multiverse_id" not in branch_context
+
+
 def test_agent_prompt_context_budget_trims_large_shared_lists():
     context = {
         "clock": "T1",

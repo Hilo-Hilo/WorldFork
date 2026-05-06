@@ -92,6 +92,7 @@ def evaluate_timeline_adjudication(
             row["endpoint_status"],
             row["evidence_summary"].get("latest_tick_index"),
             row["evidence_summary"].get("top_endpoint_probability"),
+            row["evidence_summary"].get("branch_hypothesis_signature"),
         )
         previous = duplicate_signatures.get(signature)
         if previous is None:
@@ -244,6 +245,7 @@ def _adjudicate_multiverse(
             "multiverse_status": multiverse.status,
             "branch_probability": _branch_probability(multiverse),
             "path_probability": original_path,
+            "branch_hypothesis_signature": _branch_hypothesis_signature(multiverse),
         },
     }
 
@@ -329,6 +331,20 @@ def _path_probability(multiverse: models.Multiverse) -> float:
 
 def _branch_probability(multiverse: models.Multiverse) -> float:
     return _probability(getattr(multiverse, "branch_probability", None), default=1.0)
+
+
+def _branch_hypothesis_signature(multiverse: models.Multiverse) -> str | None:
+    state = multiverse.state if isinstance(multiverse.state, dict) else {}
+    branch = state.get("branch") if isinstance(state.get("branch"), dict) else {}
+    premise = (
+        branch.get("branch_hypothesis_signature")
+        or branch.get("branch_premise")
+        or branch.get("reason")
+        or (multiverse.branch_reason if multiverse.depth and multiverse.branch_reason else None)
+    )
+    if not isinstance(premise, str) or not premise.strip():
+        return None
+    return " ".join(premise.strip().lower().split())[:500]
 
 
 def _probability(value: Any, *, default: float) -> float:

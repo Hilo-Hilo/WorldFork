@@ -279,6 +279,36 @@ def test_near_horizon_branch_runway_policy_suppresses_explicit_branch_tool(db):
     assert "Branch runway too short" in calls[0]["arguments"]["reason"]
 
 
+def test_disabled_branch_policy_suppresses_explicit_branch_tool(db):
+    _, root = _seed_world(db, max_ticks=5, branch_policy={"branching_enabled": False})
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.99,
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 2,
+            },
+        },
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {"reason": "no-branch condition should suppress this", "fork_tick_index": 2},
+                }
+            ],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+    assert "Branching disabled" in calls[0]["arguments"]["reason"]
+
+
 def test_branch_engine_rejects_near_horizon_branch_runway(db):
     _big_bang, root = _seed_world(db, max_ticks=3, branch_policy={"min_branch_runway_ticks": 2})
     db.add(
@@ -304,6 +334,141 @@ def test_branch_engine_rejects_near_horizon_branch_runway(db):
             reason="too late",
             idempotency_key="too-late-branch",
         )
+
+
+def test_branch_engine_rejects_disabled_branch_policy(db):
+    _big_bang, root = _seed_world(db, max_ticks=5, branch_policy={"branching_enabled": False})
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=2,
+            ui_label="M1:T2",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            summary="Tick 2",
+            idempotency_key="tick-2-disabled-branch",
+        )
+    )
+    db.flush()
+
+    with pytest.raises(ValueError, match="branching disabled"):
+        branch_engine.create_branch(
+            db,
+            parent=root,
+            fork_tick_index=2,
+            reason="disabled branch",
+            idempotency_key="disabled-branch",
+        )
+
+
+def test_branch_child_state_carries_prompt_visible_branch_premise(db):
+    _big_bang, root = _seed_world(db, max_ticks=5)
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=1,
+            ui_label="M1:T1",
+            status="final",
+            provisional_bundle={},
+            final_bundle={
+                "executed_events": [{"title": "Authority delay", "event_type": "procedural_update"}],
+                "sociology_result": {"graph_summary": {"conflict": 0.3}},
+                "idle_assessment": {"idle_streak": 0},
+            },
+            summary="Tick 1",
+            idempotency_key="tick-1-branch-premise",
+        )
+    )
+    db.flush()
+
+    child = branch_engine.create_branch(
+        db,
+        parent=root,
+        fork_tick_index=1,
+        reason="Candidate A wins the authority announcement before the deadline.",
+        idempotency_key="branch-premise",
+        branch_probability=0.35,
+        probability_basis={"source": "god_agent", "basis": "Forecast-card yes path remains plausible."},
+    )
+
+    branch_state = child.state["branch"]
+    assert branch_state["branch_premise"] == "Candidate A wins the authority announcement before the deadline."
+    assert branch_state["probability_basis"] == {"source": "god_agent", "basis": "Forecast-card yes path remains plausible."}
+    assert "local timeline premise" in branch_state["prompt_instruction"]
+
+
+def test_inherited_child_endpoint_ledger_records_branch_premise(db):
+    big_bang, root = _seed_world(db, max_ticks=5)
+    ledger = models.EndpointLedgerVersion(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        scope="multiverse",
+        version=1,
+        status="completed",
+        source_type="test",
+        created_by="test",
+        summary="Parent ledger.",
+        payload={},
+    )
+    db.add(ledger)
+    db.flush()
+    db.add(
+        models.EndpointLedgerEntry(
+            ledger_version_id=ledger.id,
+            endpoint_key="yes",
+            label="The event occurs by the deadline",
+            status="active",
+            probability=0.5,
+            realization_criteria=["Authority confirms yes."],
+            authority_refs=[],
+            evidence_refs=[],
+            negative_evidence_refs=[],
+            blockers=[],
+            status_basis="scenario_candidate_endpoint",
+            contradiction_notes=None,
+            rationale="Parent active candidate.",
+            last_observed_tick_index=None,
+            meta={"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+        )
+    )
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=1,
+            ui_label="M1:T1",
+            status="final",
+            provisional_bundle={},
+            final_bundle={"executed_events": [], "sociology_result": {}, "idle_assessment": {}},
+            summary="Tick 1",
+            idempotency_key="tick-1-ledger-branch",
+        )
+    )
+    db.flush()
+
+    child = branch_engine.create_branch(
+        db,
+        parent=root,
+        fork_tick_index=1,
+        reason="Candidate A wins the authority announcement before the deadline.",
+        idempotency_key="branch-ledger-premise",
+        branch_probability=0.35,
+    )
+    child_ledger = db.scalar(
+        select(models.EndpointLedgerVersion).where(models.EndpointLedgerVersion.multiverse_id == child.id)
+    )
+    child_entry = db.scalar(
+        select(models.EndpointLedgerEntry).where(models.EndpointLedgerEntry.ledger_version_id == child_ledger.id)
+    )
+
+    assert child_ledger.payload["branch_context"]["branch_premise"] == (
+        "Candidate A wins the authority announcement before the deadline."
+    )
+    assert child_entry.meta["branch_premise"] == "Candidate A wins the authority announcement before the deadline."
+    assert child_entry.meta["branch_hypothesis_signature"]
 
 
 def test_branch_engine_allows_exact_min_branch_runway(db):

@@ -344,6 +344,8 @@ def _prepare_tool_calls(
                 "Final allowed tick reached; terminal settlement must use the endpoint ledger "
                 "instead of creating a branch."
             )
+        elif branch_runway["branching_disabled"]:
+            reason = "Branching disabled by branch policy for this condition."
         elif branch_runway["suppress_branching"]:
             reason = (
                 "Branch runway too short for a useful child timeline: "
@@ -390,9 +392,11 @@ def _branch_runway_context(
     min_runway = max(1, _coerce_int(branch_policy.get("min_branch_runway_ticks")) or 1)
     remaining_ticks = max_ticks - current_tick if max_ticks is not None else None
     is_final = bool(final_tick_context.get("is_final_allowed_tick"))
-    suppress = is_final or (remaining_ticks is not None and remaining_ticks < min_runway)
+    branching_disabled = branch_policy.get("branching_enabled") is False
+    suppress = branching_disabled or is_final or (remaining_ticks is not None and remaining_ticks < min_runway)
     return {
         "suppress_branching": suppress,
+        "branching_disabled": branching_disabled,
         "max_ticks": max_ticks,
         "current_tick_index": current_tick,
         "remaining_ticks": remaining_ticks,
