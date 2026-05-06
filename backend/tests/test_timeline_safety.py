@@ -1256,6 +1256,30 @@ def test_god_agent_review_budgets_large_provisional_bundle(db, monkeypatch):
     assert review["input_summary"]["prompt_budget"]["sections"]["queued_events"]["omitted_count"] == 24
 
 
+def test_final_tick_god_review_drops_branch_tool_calls():
+    review_payload = {
+        "decision": "branch",
+        "rationale": "Branch at the decision deadline.",
+        "tool_calls": [
+            {"tool_name": "create_branch", "arguments": {"reason": "late fork"}},
+            {"tool_name": "continue_timeline", "arguments": {"reason": "audit"}},
+        ],
+    }
+    provisional = {
+        "final_tick_context": {
+            "is_final_allowed_tick": True,
+            "max_ticks": 5,
+            "current_tick_index": 5,
+        }
+    }
+
+    pruned = tick_runner._prune_final_tick_branch_tool_calls(review_payload, provisional)
+
+    assert pruned["decision"] == "continue"
+    assert [call["tool_name"] for call in pruned["tool_calls"]] == ["continue_timeline"]
+    assert "create_branch suppressed at final allowed tick" in pruned["rationale"]
+
+
 def test_tick_and_run_timing_payloads_include_stage_and_llm_durations(db):
     big_bang, root = _seed_world(db)
     start = datetime(2026, 1, 1, 0, 0, tzinfo=timezone.utc)

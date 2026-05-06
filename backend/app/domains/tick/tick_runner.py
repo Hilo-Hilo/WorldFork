@@ -1036,6 +1036,7 @@ def _execute_checkpoint_payload(
             provisional,
             tick_snapshot_id=tick.id,
         )
+        review_payload = _prune_final_tick_branch_tool_calls(review_payload, provisional)
         ledger = apply_god_endpoint_updates(
             db,
             big_bang_id=multiverse.big_bang_id,
@@ -1363,6 +1364,29 @@ def _tool_call_keys_from_review_payload(review_payload: dict) -> list[str]:
         for index, call in enumerate(calls or [])
         if isinstance(call, dict)
     ]
+
+
+def _prune_final_tick_branch_tool_calls(review_payload: dict, provisional: dict) -> dict:
+    final_tick_context = provisional.get("final_tick_context") if isinstance(provisional, dict) else {}
+    if not isinstance(final_tick_context, dict) or not final_tick_context.get("is_final_allowed_tick"):
+        return review_payload
+    calls = review_payload.get("tool_calls") if isinstance(review_payload, dict) else []
+    if not isinstance(calls, list):
+        return review_payload
+    retained = [call for call in calls if not (isinstance(call, dict) and call.get("tool_name") == "create_branch")]
+    if len(retained) == len(calls):
+        return review_payload
+    rationale = str(review_payload.get("rationale") or "")
+    suffix = (
+        "create_branch suppressed at final allowed tick; terminal endpoint settlement should use the endpoint ledger "
+        "instead of opening a zero-horizon branch."
+    )
+    return {
+        **review_payload,
+        "decision": "continue" if review_payload.get("decision") == "branch" else review_payload.get("decision", "continue"),
+        "rationale": f"{rationale} {suffix}".strip(),
+        "tool_calls": retained,
+    }
 
 
 def _tool_call_for_node(node_key: str, outputs: dict[str, dict]) -> dict:
