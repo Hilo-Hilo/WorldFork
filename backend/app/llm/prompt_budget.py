@@ -122,7 +122,7 @@ def budget_god_provisional_bundle(
         return {}
 
     budgeted = {
-        key: _compact_value(value)
+        key: _compact_god_top_level_context(key, value)
         for key, value in provisional_bundle.items()
         if key not in GOD_BUNDLE_SECTION_LIMITS and key != "prompt_budget"
     }
@@ -164,6 +164,182 @@ def budget_god_provisional_bundle(
     budget_meta["estimated_chars"] = _json_chars(budgeted)
     budgeted["prompt_budget"] = budget_meta
     return budgeted
+
+
+def _compact_god_top_level_context(key: str, value: Any) -> Any:
+    if key == "graph_snapshots":
+        return _compact_god_graph_snapshots(value)
+    if key == "sociology_result":
+        return _compact_god_sociology_result(value)
+    if key == "forecast_review_context":
+        return _compact_god_forecast_review_context(value)
+    return _compact_value(value)
+
+
+def _compact_god_graph_snapshots(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    compact = []
+    for snapshot in [item for item in value if isinstance(item, dict)][:8]:
+        row = {
+            key: _compact_value(snapshot.get(key), string_limit=160)
+            for key in ("layer", "tick_index", "summary", "edge_count", "average_weight", "max_weight")
+            if snapshot.get(key) not in (None, {}, [])
+        }
+        edges = snapshot.get("edges") or snapshot.get("top_edges") or snapshot.get("notable_edges")
+        if isinstance(edges, list) and edges:
+            row["edge_sample"] = [
+                {
+                    key: _compact_value(edge.get(key), string_limit=120)
+                    for key in ("source", "target", "weight", "delta", "direction")
+                    if isinstance(edge, dict) and edge.get(key) not in (None, {}, [])
+                }
+                for edge in edges[:3]
+                if isinstance(edge, dict)
+            ]
+            row["edge_total"] = len(edges)
+        if row:
+            compact.append(row)
+    return compact
+
+
+def _compact_god_sociology_result(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    compact: dict[str, Any] = {}
+    for key in ("metrics", "summary", "tick_index"):
+        if value.get(key) not in (None, {}, []):
+            compact[key] = _compact_value(value.get(key), string_limit=220)
+    graph_summary = value.get("graph_summary")
+    if isinstance(graph_summary, dict) and graph_summary:
+        compact["graph_summary"] = _compact_god_graph_summary(graph_summary)
+    signals = value.get("signals")
+    if isinstance(signals, list) and signals:
+        compact["signals"] = [
+            {
+                key: _compact_value(item.get(key), string_limit=160)
+                for key in ("key", "name", "effect", "value", "model")
+                if isinstance(item, dict) and item.get(key) not in (None, {}, [])
+            }
+            for item in signals[:6]
+            if isinstance(item, dict)
+        ]
+        compact["signal_total"] = len(signals)
+    for section in ("cohort_state_updates", "hero_state_updates"):
+        rows = value.get(section)
+        if isinstance(rows, list) and rows:
+            compact[section] = [_compact_god_actor_state_update(item) for item in rows[:6] if isinstance(item, dict)]
+            compact[f"{section}_total"] = len(rows)
+    return {key: item for key, item in compact.items() if item not in (None, {}, [])}
+
+
+def _compact_god_graph_summary(value: dict[str, Any]) -> dict[str, Any]:
+    compact: dict[str, Any] = {}
+    pressure = value.get("pressure")
+    if isinstance(pressure, dict) and pressure:
+        compact["pressure"] = _compact_value(pressure, string_limit=120)
+    layers = value.get("layers")
+    if isinstance(layers, dict) and layers:
+        layer_rows: dict[str, Any] = {}
+        for layer_name, layer_value in list(layers.items())[:8]:
+            if not isinstance(layer_value, dict):
+                continue
+            row = {
+                key: _compact_value(layer_value.get(key), string_limit=100)
+                for key in ("edge_count", "max_weight", "average_weight", "interpretation")
+                if layer_value.get(key) not in (None, {}, [])
+            }
+            top_edges = layer_value.get("top_edges") or layer_value.get("notable_edges")
+            if isinstance(top_edges, list) and top_edges:
+                row["top_edges"] = [
+                    {
+                        key: _compact_value(edge.get(key), string_limit=100)
+                        for key in ("source", "target", "weight", "delta")
+                        if isinstance(edge, dict) and edge.get(key) not in (None, {}, [])
+                    }
+                    for edge in top_edges[:2]
+                    if isinstance(edge, dict)
+                ]
+                row["top_edge_total"] = len(top_edges)
+            if row:
+                layer_rows[str(layer_name)] = row
+        if layer_rows:
+            compact["layers"] = layer_rows
+    return compact or _compact_value(value, string_limit=120)
+
+
+def _compact_god_actor_state_update(row: dict[str, Any]) -> dict[str, Any]:
+    state = row.get("state") if isinstance(row.get("state"), dict) else row
+    fields = (
+        "actor_id",
+        "cohort_id",
+        "hero_id",
+        "name",
+        "actor_name",
+        "stance",
+        "attention",
+        "attention_level",
+        "expression",
+        "expression_level",
+        "fatigue",
+        "mobilization_readiness",
+        "perceived_majority",
+        "current_strategy",
+    )
+    return {key: _compact_value(state.get(key), string_limit=140) for key in fields if state.get(key) not in (None, {}, [])}
+
+
+def _compact_god_forecast_review_context(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    compact = {
+        key: _compact_value(value.get(key), string_limit=500)
+        for key in (
+            "forecast_clock",
+            "forecast_metadata",
+            "forecast_question",
+            "scenario_text",
+            "candidate_endpoints",
+            "settlement_instruction",
+            "social_signal_caveat",
+        )
+        if value.get(key) not in (None, {}, [])
+    }
+    source_packet = value.get("source_packet")
+    if isinstance(source_packet, list) and source_packet:
+        compact["source_packet"] = [
+            {
+                key: _compact_value(item.get(key), string_limit=240)
+                for key in ("source", "source_type", "type", "date", "title", "summary", "content", "text")
+                if isinstance(item, dict) and item.get(key) not in (None, {}, [])
+            }
+            for item in source_packet[:6]
+            if isinstance(item, dict)
+        ]
+        compact["source_packet_total"] = len(source_packet)
+    for section in ("endpoint_relevant_event_signals", "endpoint_relevant_social_signals"):
+        rows = value.get(section)
+        if isinstance(rows, list) and rows:
+            compact[section] = [_compact_god_forecast_signal(item) for item in rows[:6] if isinstance(item, dict)]
+            compact[f"{section}_total"] = len(rows)
+    return {key: item for key, item in compact.items() if item not in (None, {}, [])}
+
+
+def _compact_god_forecast_signal(row: dict[str, Any]) -> dict[str, Any]:
+    expected = row.get("expected_impact") if isinstance(row.get("expected_impact"), dict) else {}
+    compact = {
+        key: _compact_value(row.get(key), string_limit=180)
+        for key in ("title", "event_type", "scheduled_tick", "status", "summary", "body", "action_type")
+        if row.get(key) not in (None, {}, [])
+    }
+    endpoint_fields = {
+        key: _compact_value(expected.get(key), string_limit=160)
+        for key in ("candidate_endpoint_id", "endpoint", "outcome", "result", "summary")
+        if expected.get(key) not in (None, {}, [])
+    }
+    if endpoint_fields:
+        compact["expected_impact"] = endpoint_fields
+    return compact
 
 
 def _fit_sections_to_budget(

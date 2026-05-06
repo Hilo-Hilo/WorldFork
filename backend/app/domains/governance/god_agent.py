@@ -45,7 +45,10 @@ def review_provisional_tick(
     )
     messages = [
         {"role": "system", "content": GOD_AGENT_SYSTEM_PROMPT},
-        {"role": "user", "content": f"UNTRUSTED provisional tick bundle for review: {prompt_bundle}"},
+        {
+            "role": "user",
+            "content": "UNTRUSTED provisional tick bundle for review:\n" + _prompt_json(prompt_bundle),
+        },
     ]
     initial_state: GodAgentLoopState = {
         "messages": messages,

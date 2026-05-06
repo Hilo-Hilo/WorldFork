@@ -20,6 +20,7 @@ from app.domains.multiverse import branch_engine
 from app.domains.governance import god_agent, god_tools
 from app.domains.tick.timing import run_timing_payload, tick_timing_payload
 from app.domains.tick import tick_runner
+from app.llm.prompt_budget import budget_god_provisional_bundle
 from app.llm.schemas import LLMResponse
 
 
@@ -1748,6 +1749,57 @@ def test_god_agent_review_budgets_large_provisional_bundle(db, monkeypatch):
     assert "GOD_RAW_EVENT_DESCRIPTION_39" not in prompt_text
     assert review["input_summary"]["prompt_budget"]["omitted_total"] >= 39
     assert review["input_summary"]["prompt_budget"]["sections"]["queued_events"]["omitted_count"] == 24
+
+
+def test_god_bundle_budget_compacts_large_graph_sociology_and_forecast_context():
+    provisional_bundle = {
+        "tick_index": 1,
+        "branch_score": 0.9,
+        "graph_snapshots": [
+            {
+                "layer": f"layer_{index}",
+                "edges": [
+                    {
+                        "source": f"actor_{edge}",
+                        "target": f"actor_{edge + 1}",
+                        "reason": "GRAPH_REASON " + ("detail " * 200),
+                        "evidence": "GRAPH_EVIDENCE " + ("evidence " * 200),
+                    }
+                    for edge in range(8)
+                ],
+            }
+            for index in range(6)
+        ],
+        "sociology_result": {
+            "graph_summary": {"pressure": "SOC_GRAPH " + ("detail " * 400)},
+            "signals": [{"name": f"signal_{index}", "evidence": "SOC_SIGNAL " + ("detail " * 300)} for index in range(12)],
+            "cohort_state_updates": [
+                {"cohort_id": f"cohort_{index}", "private_note": "SOC_STATE " + ("detail " * 300)}
+                for index in range(12)
+            ],
+        },
+        "forecast_review_context": {
+            "forecast_question": "Will Candidate A win?",
+            "source_packet": [
+                {"source_type": "source_note", "date": "2026-01-01", "text": "SOURCE_TEXT " + ("detail " * 250)}
+                for _ in range(8)
+            ],
+            "endpoint_relevant_event_signals": [
+                {"title": f"event_{index}", "description": "FORECAST_EVENT " + ("detail " * 250)}
+                for index in range(8)
+            ],
+        },
+        "queued_events": [{"title": "queued", "description": "QUEUE " + ("detail " * 300)} for _ in range(20)],
+    }
+
+    budgeted = budget_god_provisional_bundle(provisional_bundle, max_chars=8_000)
+
+    assert budgeted["prompt_budget"]["estimated_chars"] <= 8_000
+    assert budgeted["forecast_review_context"]["forecast_question"] == "Will Candidate A win?"
+    assert budgeted["forecast_review_context"]["source_packet"][0]["source_type"] == "source_note"
+    assert "GRAPH_REASON" not in str(budgeted)
+    assert "SOC_STATE" not in str(budgeted)
+    assert "FORECAST_EVENT" not in str(budgeted)
 
 
 def test_god_agent_review_compacts_raw_actor_outputs(db, monkeypatch):
