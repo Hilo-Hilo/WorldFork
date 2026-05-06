@@ -424,6 +424,7 @@ class RunUntilCompleteRequest(BaseModel):
 class RunUntilCompleteJobRequest(RunUntilCompleteRequest):
     stop_when_endpoint_ledger_resolved: bool = False
     endpoint_resolution_keys: list[str] = Field(default_factory=list)
+    skip_reports: bool = False
 
 
 class ToolCallRequest(BaseModel):

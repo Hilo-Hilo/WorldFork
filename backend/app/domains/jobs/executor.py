@@ -115,6 +115,9 @@ def validate_job_payload(job_type: str, payload: dict | None, *, big_bang_id=Non
     if job_type == "run_big_bang_until_complete" and "stop_when_endpoint_ledger_resolved" in payload:
         if not isinstance(payload["stop_when_endpoint_ledger_resolved"], bool):
             raise ValueError("stop_when_endpoint_ledger_resolved must be a boolean")
+    if job_type == "run_big_bang_until_complete" and "skip_reports" in payload:
+        if not isinstance(payload["skip_reports"], bool):
+            raise ValueError("skip_reports must be a boolean")
     if job_type == "run_big_bang_until_complete" and "endpoint_resolution_keys" in payload:
         keys = payload["endpoint_resolution_keys"]
         if not isinstance(keys, list) or any(not isinstance(item, str) or not item.strip() for item in keys):
@@ -298,6 +301,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     payload = job.payload or {}
     max_total_ticks = int(payload.get("max_total_ticks", 24))
     stop_when_endpoint_ledger_resolved = bool(payload.get("stop_when_endpoint_ledger_resolved", False))
+    skip_reports = bool(payload.get("skip_reports", False))
     endpoint_resolution_keys = [
         str(item).strip().lower()
         for item in payload.get("endpoint_resolution_keys") or []
@@ -429,12 +433,13 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     report_version_ids: list[str] = []
     final_report_version_id: str | None = None
     if not unfinished_ticks and not non_terminal and multiverses:
-        for multiverse in multiverses:
-            report_version = generate_multiverse_report(db, multiverse=multiverse)
-            report_version_ids.append(str(report_version.id))
         big_bang.status = "completed"
-        final_report_version = generate_final_big_bang_report(db, big_bang=big_bang)
-        final_report_version_id = str(final_report_version.id)
+        if not skip_reports:
+            for multiverse in multiverses:
+                report_version = generate_multiverse_report(db, multiverse=multiverse)
+                report_version_ids.append(str(report_version.id))
+            final_report_version = generate_final_big_bang_report(db, big_bang=big_bang)
+            final_report_version_id = str(final_report_version.id)
         stopped_reason = "completed"
     elif stopped_reason is None:
         stopped_reason = "max_total_ticks_reached"

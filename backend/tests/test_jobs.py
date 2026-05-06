@@ -61,13 +61,19 @@ def test_advertised_job_types_are_executable_and_payload_validated():
 
     validate_job_payload(
         "run_big_bang_until_complete",
-        {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": True},
+        {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": True, "skip_reports": True},
         big_bang_id=uuid4(),
     )
     with pytest.raises(ValueError, match="stop_when_endpoint_ledger_resolved must be a boolean"):
         validate_job_payload(
             "run_big_bang_until_complete",
             {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": "true"},
+            big_bang_id=uuid4(),
+        )
+    with pytest.raises(ValueError, match="skip_reports must be a boolean"):
+        validate_job_payload(
+            "run_big_bang_until_complete",
+            {"max_total_ticks": 16, "skip_reports": "true"},
             big_bang_id=uuid4(),
         )
 
@@ -197,6 +203,69 @@ def test_run_until_complete_respects_existing_tick_cap(monkeypatch):
 
         assert result["ticks_run"] == 0
         assert result["stopped_reason"] == "max_total_ticks_reached"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
+
+
+def test_run_until_complete_job_can_skip_report_generation(monkeypatch):
+    from app.domains.report import engine as report_engine
+
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Skip reports", scenario_input={}, status="active", current_config_version=1)
+        db.add(big_bang)
+        db.flush()
+        multiverse = models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=None,
+            ui_label="M1",
+            depth=0,
+            status="completed",
+            branch_reason="Root",
+            state={},
+            report_status="ready",
+        )
+        db.add(multiverse)
+        db.flush()
+        job = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=big_bang.id,
+            payload={"max_total_ticks": 1, "skip_reports": True},
+            result={},
+            idempotency_key=f"run-skip-reports:{uuid4()}",
+        )
+        db.add(job)
+        db.flush()
+
+        monkeypatch.setattr(
+            report_engine,
+            "generate_multiverse_report",
+            lambda *args, **kwargs: pytest.fail("multiverse report should not generate"),
+        )
+        monkeypatch.setattr(
+            report_engine,
+            "generate_final_big_bang_report",
+            lambda *args, **kwargs: pytest.fail("final report should not generate"),
+        )
+
+        result = jobs_executor._execute_run_big_bang_until_complete_job(db, job)
+
+        assert result["stopped_reason"] == "completed"
+        assert result["report_version_ids"] == []
+        assert result["final_report_version_id"] is None
+        assert big_bang.status == "completed"
     finally:
         db.close()
         with warnings.catch_warnings():

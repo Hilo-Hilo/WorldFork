@@ -184,6 +184,8 @@ def run_until_complete_job(
     job_payload = {"max_total_ticks": request.max_total_ticks}
     if request.stop_when_endpoint_ledger_resolved:
         job_payload["stop_when_endpoint_ledger_resolved"] = True
+    if request.skip_reports:
+        job_payload["skip_reports"] = True
     endpoint_resolution_keys = [key for key in request.endpoint_resolution_keys if key.strip()]
     if endpoint_resolution_keys:
         job_payload["endpoint_resolution_keys"] = endpoint_resolution_keys

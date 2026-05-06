@@ -208,6 +208,7 @@ def test_long_running_big_bang_routes_create_jobs(monkeypatch):
                 "max_total_ticks": 30,
                 "stop_when_endpoint_ledger_resolved": True,
                 "endpoint_resolution_keys": ["yes", "no"],
+                "skip_reports": True,
             },
         )
 
@@ -223,6 +224,7 @@ def test_long_running_big_bang_routes_create_jobs(monkeypatch):
         "max_total_ticks": 30,
         "stop_when_endpoint_ledger_resolved": True,
         "endpoint_resolution_keys": ["yes", "no"],
+        "skip_reports": True,
     }
     assert len(enqueued) == 2
 

@@ -2080,6 +2080,8 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             _capture_init_artifacts(client, out_dir, big_bang_id)
 
             run_payload = {"max_total_ticks": args.max_ticks}
+            if not getattr(args, "generate_reports", False):
+                run_payload["skip_reports"] = True
             if runtime_context.get("endpoint_resolution_keys"):
                 run_payload["endpoint_resolution_keys"] = runtime_context["endpoint_resolution_keys"]
             if getattr(args, "stop_when_endpoint_ledger_resolved", False):
@@ -2309,6 +2311,8 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         _capture_init_artifacts(client, out_dir, big_bang_id)
 
         run_payload = {"max_total_ticks": args.max_ticks}
+        if not getattr(args, "generate_reports", False):
+            run_payload["skip_reports"] = True
         runtime_context = info.get("runtime_context") if isinstance(info.get("runtime_context"), dict) else {}
         if runtime_context.get("endpoint_resolution_keys"):
             run_payload["endpoint_resolution_keys"] = runtime_context["endpoint_resolution_keys"]
@@ -3873,6 +3877,7 @@ def main() -> None:
     short.add_argument("--no-deadline-aware-ticks", dest="deadline_aware_ticks", action="store_false")
     short.set_defaults(deadline_aware_ticks=True)
     short.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
+    short.add_argument("--generate-reports", action="store_true", help="Generate multiverse/final reports during benchmark run jobs.")
     short.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short.add_argument("--force", action="store_true")
     short.set_defaults(func=run_worldfork_short)
@@ -3896,6 +3901,7 @@ def main() -> None:
     short_batch.add_argument("--no-deadline-aware-ticks", dest="deadline_aware_ticks", action="store_false")
     short_batch.set_defaults(deadline_aware_ticks=True)
     short_batch.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
+    short_batch.add_argument("--generate-reports", action="store_true", help="Generate multiverse/final reports during benchmark run jobs.")
     short_batch.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short_batch.add_argument("--force", action="store_true")
     short_batch.set_defaults(func=run_worldfork_short_batch)
