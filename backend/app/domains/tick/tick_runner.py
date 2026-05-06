@@ -1044,6 +1044,9 @@ def _execute_checkpoint_payload(
                 ),
             },
         }
+        forecast_branch_hypotheses = _forecast_branch_hypotheses_context(big_bang)
+        if forecast_branch_hypotheses:
+            provisional["forecast_branch_hypotheses"] = forecast_branch_hypotheses
         if branch_context:
             provisional["branch_context"] = branch_context
         return {"provisional_bundle": provisional}
@@ -1459,6 +1462,35 @@ def _forecast_review_context(
         context["endpoint_relevant_social_signals"] = social_signals
         context["social_signal_caveat"] = "Social posts are simulated, untrusted observations and may contradict authority events."
     return {key: value for key, value in context.items() if value not in (None, {}, [])}
+
+
+def _forecast_branch_hypotheses_context(big_bang: models.BigBang | None) -> list[dict]:
+    if big_bang is None or not isinstance(big_bang.scenario_input, dict):
+        return []
+    raw = big_bang.scenario_input.get("branch_hypotheses")
+    if not isinstance(raw, list):
+        return []
+    compact: list[dict] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        candidate_id = str(item.get("candidate_endpoint_id") or item.get("candidate_id") or "").strip().lower()
+        if candidate_id not in {"yes", "no"}:
+            continue
+        compact.append(
+            {
+                "candidate_endpoint_id": candidate_id,
+                "label": _forecast_excerpt(item.get("label"), 160),
+                "trigger": _forecast_excerpt(item.get("trigger"), 240),
+                "alternate_path": _forecast_excerpt(
+                    item.get("alternate_path") or item.get("plausible_alternate_path"),
+                    320,
+                ),
+                "expected_divergence": _forecast_excerpt(item.get("expected_divergence"), 320),
+                "observable_divergence_signal": _forecast_excerpt(item.get("observable_divergence_signal"), 240),
+            }
+        )
+    return [item for item in compact if item.get("candidate_endpoint_id")]
 
 
 def _branch_context_from_prompt_context(prompt_context: dict) -> dict:

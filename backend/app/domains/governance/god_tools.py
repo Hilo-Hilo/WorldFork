@@ -178,6 +178,9 @@ def _execute(
                 "basis": arguments.get("probability_basis") or arguments.get("reason"),
                 "branch_probability": arguments.get("branch_probability"),
                 "parent_continuation_probability": arguments.get("parent_continuation_probability"),
+                "branch_premise": arguments.get("branch_premise"),
+                "alternate_path": arguments.get("alternate_path"),
+                "candidate_endpoint_id": arguments.get("candidate_endpoint_id"),
             },
         )
         return {

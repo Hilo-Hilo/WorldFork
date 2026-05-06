@@ -268,6 +268,27 @@ def _prepare_tool_calls(
     )
     if branch_runway["suppress_branching"]:
         tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
+    else:
+        seeded_branches = _forecast_candidate_branch_tool_calls(
+            db,
+            multiverse=multiverse,
+            provisional_bundle=provisional_bundle,
+            tick_index=tick_index,
+        )
+        if seeded_branches:
+            existing_candidate_ids = {
+                str((call.get("arguments") or {}).get("candidate_endpoint_id") or "").strip().lower()
+                for call in tool_calls
+                if call.get("tool_name") == "create_branch"
+            }
+            tool_calls = [call for call in tool_calls if call.get("tool_name") != "continue_timeline"]
+            for call in seeded_branches:
+                candidate_id = str((call.get("arguments") or {}).get("candidate_endpoint_id") or "").strip().lower()
+                if candidate_id and candidate_id in existing_candidate_ids:
+                    continue
+                tool_calls.append(call)
+                existing_candidate_ids.add(candidate_id)
+            tool_calls = _prune_tool_calls(tool_calls)
     idle_assessment = provisional_bundle.get("idle_assessment") or {}
     if idle_assessment.get("should_terminate"):
         return [
@@ -367,6 +388,97 @@ def _prepare_tool_calls(
         branch_score=branch_score,
         branch_threshold=branch_threshold,
     )
+
+
+def _forecast_candidate_branch_tool_calls(
+    db: Session,
+    *,
+    multiverse: models.Multiverse,
+    provisional_bundle: dict,
+    tick_index: int,
+) -> list[dict]:
+    if multiverse.parent_multiverse_id is not None or tick_index > 1:
+        return []
+    if _existing_child_branch_count(db, multiverse) > 0:
+        return []
+    branch_policy = branch_policy_for_multiverse(db, multiverse)
+    max_per_tick = max(1, _coerce_int(branch_policy.get("max_branches_per_tick")) or 1)
+    hypotheses = _forecast_branch_hypotheses_for_review(db, multiverse, provisional_bundle)
+    selected = _select_binary_candidate_hypotheses(hypotheses)[:max_per_tick]
+    if len(selected) < 2:
+        return []
+    calls: list[dict] = []
+    for index, item in enumerate(selected):
+        remaining = len(selected) - index
+        branch_probability = round(1.0 / remaining, 4) if remaining > 1 else 0.99
+        parent_continuation = round(max(0.0, 1.0 - branch_probability), 4)
+        candidate_id = str(item.get("candidate_endpoint_id") or "").strip().lower()
+        premise = _branch_hypothesis_premise(item)
+        label = str(item.get("label") or f"{candidate_id.upper()} candidate endpoint path").strip()
+        calls.append(
+            {
+                "tool_name": "create_branch",
+                "arguments": {
+                    "fork_tick_index": tick_index,
+                    "reason": label,
+                    "branch_probability": branch_probability,
+                    "parent_continuation_probability": parent_continuation,
+                    "probability_source": "forecast_branch_hypothesis",
+                    "probability_basis": "Seeded from complementary yes/no forecast-card branch hypotheses.",
+                    "branch_premise": premise,
+                    "alternate_path": premise,
+                    "candidate_endpoint_id": candidate_id,
+                },
+                "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:forecast_branch:{candidate_id}",
+            }
+        )
+    return calls
+
+
+def _existing_child_branch_count(db: Session, multiverse: models.Multiverse) -> int:
+    from sqlalchemy import func, select
+
+    return int(
+        db.scalar(
+            select(func.count()).select_from(models.MultiverseLineageEdge).where(
+                models.MultiverseLineageEdge.parent_multiverse_id == multiverse.id
+            )
+        )
+        or 0
+    )
+
+
+def _forecast_branch_hypotheses_for_review(
+    db: Session,
+    multiverse: models.Multiverse,
+    provisional_bundle: dict,
+) -> list[dict]:
+    raw = provisional_bundle.get("forecast_branch_hypotheses") if isinstance(provisional_bundle, dict) else None
+    if not raw:
+        big_bang = db.get(models.BigBang, multiverse.big_bang_id)
+        scenario = big_bang.scenario_input if big_bang is not None and isinstance(big_bang.scenario_input, dict) else {}
+        raw = scenario.get("branch_hypotheses")
+    if not isinstance(raw, list):
+        return []
+    return [item for item in raw if isinstance(item, dict)]
+
+
+def _select_binary_candidate_hypotheses(items: list[dict]) -> list[dict]:
+    by_id: dict[str, dict] = {}
+    for item in items:
+        candidate_id = str(item.get("candidate_endpoint_id") or item.get("candidate_id") or "").strip().lower()
+        if candidate_id in {"yes", "no"} and candidate_id not in by_id:
+            by_id[candidate_id] = item
+    return [by_id[key] for key in ("yes", "no") if key in by_id]
+
+
+def _branch_hypothesis_premise(item: dict) -> str:
+    for key in ("branch_premise", "alternate_path", "plausible_alternate_path", "expected_divergence", "trigger", "label"):
+        value = item.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    candidate_id = str(item.get("candidate_endpoint_id") or "candidate").strip().upper()
+    return f"{candidate_id} forecast candidate endpoint path."
 
 
 def _branch_score_threshold(db: Session, multiverse: models.Multiverse) -> float:

@@ -309,6 +309,127 @@ def test_disabled_branch_policy_suppresses_explicit_branch_tool(db):
     assert "Branching disabled" in calls[0]["arguments"]["reason"]
 
 
+def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
+    _, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2, "min_branch_runway_ticks": 2})
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.0,
+            "forecast_branch_hypotheses": [
+                {
+                    "candidate_endpoint_id": "yes",
+                    "label": "YES candidate endpoint path",
+                    "alternate_path": "YES path: the award candidate wins.",
+                    "trigger": "official settlement evidence supports yes",
+                },
+                {
+                    "candidate_endpoint_id": "no",
+                    "label": "NO candidate endpoint path",
+                    "alternate_path": "NO path: the award candidate does not win.",
+                    "trigger": "official settlement evidence supports no",
+                },
+            ],
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 1,
+            },
+        },
+        parsed={"decision": "continue", "tool_calls": []},
+        tick_index=1,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["create_branch", "create_branch"]
+    assert [call["arguments"]["candidate_endpoint_id"] for call in calls] == ["yes", "no"]
+    assert calls[0]["arguments"]["branch_probability"] == pytest.approx(0.5)
+    assert calls[1]["arguments"]["branch_probability"] == pytest.approx(0.99)
+    assert calls[0]["arguments"]["branch_premise"] == "YES path: the award candidate wins."
+    assert calls[1]["arguments"]["branch_premise"] == "NO path: the award candidate does not win."
+
+
+def test_forecast_branch_hypotheses_only_seed_root_once(db):
+    _, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2, "min_branch_runway_ticks": 2})
+    db.add(
+        models.MultiverseLineageEdge(
+            big_bang_id=root.big_bang_id,
+            parent_multiverse_id=root.id,
+            child_multiverse_id=uuid4(),
+            fork_tick_index=1,
+            reason="already branched",
+            parent_path_probability=1.0,
+            child_path_probability=0.5,
+            branch_probability=0.5,
+        )
+    )
+    db.flush()
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.0,
+            "forecast_branch_hypotheses": [
+                {"candidate_endpoint_id": "yes", "alternate_path": "YES path."},
+                {"candidate_endpoint_id": "no", "alternate_path": "NO path."},
+            ],
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 1,
+            },
+        },
+        parsed={"decision": "continue", "tool_calls": []},
+        tick_index=1,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+
+
+def test_create_branch_tool_preserves_forecast_branch_premise(db):
+    _big_bang, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2})
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=1,
+            ui_label="M1:T1",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            idempotency_key=f"{root.id}:tick:1",
+        )
+    )
+    db.flush()
+
+    call = god_tools.execute_tool_call(
+        db,
+        big_bang_id=root.big_bang_id,
+        multiverse=root,
+        tick_snapshot_id=None,
+        god_review_id=None,
+        tool_name="create_branch",
+        arguments={
+            "fork_tick_index": 1,
+            "reason": "YES candidate endpoint path",
+            "branch_probability": 0.5,
+            "parent_continuation_probability": 0.5,
+            "probability_source": "forecast_branch_hypothesis",
+            "probability_basis": "seeded yes/no forecast branch",
+            "branch_premise": "YES path: the award candidate wins.",
+            "alternate_path": "YES path: the award candidate wins.",
+            "candidate_endpoint_id": "yes",
+        },
+        idempotency_key="create-yes-forecast-branch",
+    )
+
+    child = db.get(models.Multiverse, call.result["child_multiverse_id"])
+    assert call.status == "succeeded"
+    assert child.state["branch"]["branch_premise"] == "YES path: the award candidate wins."
+    assert child.state["branch"]["probability_basis"]["candidate_endpoint_id"] == "yes"
+
+
 def test_branch_engine_rejects_near_horizon_branch_runway(db):
     _big_bang, root = _seed_world(db, max_ticks=3, branch_policy={"min_branch_runway_ticks": 2})
     db.add(
