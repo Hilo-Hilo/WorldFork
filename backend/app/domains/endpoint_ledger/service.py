@@ -213,7 +213,10 @@ def apply_god_endpoint_updates(
         scope="multiverse",
     )
     base_entries = _entry_payloads(db, latest) if latest is not None else []
-    merged = _merge_entry_updates(base_entries, raw_updates)
+    big_bang = db.get(models.BigBang, big_bang_id)
+    multiverse = db.get(models.Multiverse, multiverse_id)
+    evidence = _collect_evidence(db, big_bang=big_bang, multiverse=multiverse) if big_bang and multiverse else None
+    merged = _merge_entry_updates(base_entries, raw_updates, evidence=evidence)
     if _canonical_entries(base_entries) == _canonical_entries(merged):
         return latest
     ledger = _create_ledger_version(
@@ -281,7 +284,7 @@ def evaluate_endpoint_ledger(
             base_entries=entries,
         )
         if llm_payload is not None:
-            entries = _entries_from_llm_payload(llm_payload, fallback_entries=entries)
+            entries = _entries_from_llm_payload(llm_payload, fallback_entries=entries, evidence=evidence)
             summary = str(llm_payload.get("summary") or summary)
     return _create_ledger_version(
         db,
@@ -1116,7 +1119,12 @@ def _try_llm_endpoint_evaluation(
     return parsed, call
 
 
-def _entries_from_llm_payload(payload: dict[str, Any], *, fallback_entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _entries_from_llm_payload(
+    payload: dict[str, Any],
+    *,
+    fallback_entries: list[dict[str, Any]],
+    evidence: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     raw_entries = payload.get("entries")
     if raw_entries is None:
         raw_entries = payload.get("endpoint_ledger")
@@ -1124,10 +1132,15 @@ def _entries_from_llm_payload(payload: dict[str, Any], *, fallback_entries: list
         raw_entries = payload.get("ledger_entries")
     if not isinstance(raw_entries, list) or not raw_entries:
         return fallback_entries
-    return _merge_entry_updates(fallback_entries, raw_entries)
+    return _merge_entry_updates(fallback_entries, raw_entries, evidence=evidence)
 
 
-def _merge_entry_updates(base_entries: list[dict[str, Any]], updates: list[Any]) -> list[dict[str, Any]]:
+def _merge_entry_updates(
+    base_entries: list[dict[str, Any]],
+    updates: list[Any],
+    *,
+    evidence: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     merged = {entry.get("endpoint_key"): dict(entry) for entry in base_entries if entry.get("endpoint_key")}
     for update in updates:
         if not isinstance(update, dict):
@@ -1145,7 +1158,7 @@ def _merge_entry_updates(base_entries: list[dict[str, Any]], updates: list[Any])
         if existing_meta or update_meta:
             current["meta"] = {**existing_meta, **update_meta}
         merged[endpoint_key] = current
-    return _finalize_entries(list(merged.values()))
+    return _finalize_entries(list(merged.values()), evidence=evidence)
 
 
 def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:

@@ -473,6 +473,67 @@ def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: 
     assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
 
 
+def test_god_final_tick_updates_are_deadline_settled(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+    big_bang.scenario_input = {
+        **big_bang.scenario_input,
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=1,
+            simulation_config={"max_ticks": 3},
+            model_config={},
+            branch_policy={},
+        )
+    )
+    tick = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        tick_index=3,
+        ui_label="M1 T3",
+        status="final",
+        provisional_bundle={},
+        final_bundle={},
+        summary="Final forecast horizon reached without yes evidence.",
+    )
+    db.add(tick)
+    db.flush()
+    seed_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse)
+
+    ledger = endpoint_ledger.apply_god_endpoint_updates(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        tick_snapshot_id=tick.id,
+        review_payload={
+            "decision": "continue",
+            "endpoint_ledger_updates": [
+                {"endpoint_key": "yes", "label": "The event occurs by the deadline", "status": "insufficient_ticks"},
+                {
+                    "endpoint_key": "no",
+                    "label": "The event does not occur by the deadline",
+                    "status": "insufficient_ticks",
+                },
+            ],
+        },
+    )
+
+    assert ledger is not None
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
+    assert entries["no"].status == "realized"
+    assert entries["yes"].status == "eliminated"
+    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
+
+
 def test_endpoint_finalization_settles_deadline_aware_binary_yes_at_final_horizon():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 16}},
