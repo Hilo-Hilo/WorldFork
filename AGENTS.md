@@ -40,7 +40,7 @@ worldfork reports render <report-version-id> --format pdf --output report.pdf
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
 - Do not hardcode backend URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
 - For first-time onboarding, be warm, proactive, and explanatory. Use `worldfork setup` to show LLM provider options, ask which providers the user wants to configure, and explain each setup phase before and after running it.
-- Live API-credit runs must use the configured default split unless the user explicitly authorizes a different model: OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work, and OpenAI Codex `gpt-5.4` for initializer, God-review, endpoint-ledger, and report work.
+- Live API-credit runs must use the configured default split unless the user explicitly authorizes a different model: OpenRouter `moonshotai/kimi-k2.6` for smart initializer, God-review, endpoint-ledger, and report work, and OpenRouter `deepseek/deepseek-v4-flash` for fast cohort, hero, action, and event-summary work.
 
 ## Runtime Surface
 

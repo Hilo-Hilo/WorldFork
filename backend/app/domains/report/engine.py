@@ -25,6 +25,7 @@ from app.domains.report.adjudication import (
 )
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.storage.pdf_store import render_markdown_pdf_bytes
+from pathlib import Path as _Path
 
 REPORT_SCHEMA_VERSION = "worldfork.report.v2"
 REPORT_AGENT_TEXT_KEYS = (
@@ -38,6 +39,7 @@ REPORT_AGENT_STRUCTURED_KEYS = (
     "endpoint_histogram",
     "terminality_assessment",
     "contradiction_check",
+    "prediction_answer",
 )
 REPORT_AGENT_OUTPUT_KEYS = (*REPORT_AGENT_TEXT_KEYS, *REPORT_AGENT_STRUCTURED_KEYS)
 REPORT_AGENT_JSON_SCHEMA = {
@@ -51,6 +53,18 @@ REPORT_AGENT_JSON_SCHEMA = {
         "endpoint_histogram": {"type": "array"},
         "terminality_assessment": {"type": "object"},
         "contradiction_check": {"type": "object"},
+        "prediction_answer": {
+            "type": "object",
+            "properties": {
+                "verdict": {"type": "string", "enum": ["yes", "no", "unresolved", "not_applicable"]},
+                "confidence_pct": {"type": "number"},
+                "supporting_timeline_ids": {"type": "array", "items": {"type": "string"}},
+                "counterevidence": {"type": "string"},
+                "rationale": {"type": "string"},
+            },
+            "required": ["verdict", "confidence_pct", "supporting_timeline_ids", "counterevidence", "rationale"],
+            "additionalProperties": False,
+        },
     },
     "required": list(REPORT_AGENT_OUTPUT_KEYS),
     "additionalProperties": False,
@@ -96,6 +110,7 @@ def generate_multiverse_report(
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
     if big_bang is None:
         raise ValueError("big bang not found")
+    content["scenario_question"] = _scenario_question_text(db, big_bang_id=big_bang.id)
     endpoint_ledger = evaluate_endpoint_ledger(
         db,
         big_bang=big_bang,
@@ -214,6 +229,7 @@ def generate_final_big_bang_report(
         },
     )
     _commit_report_inputs_before_llm(db)
+    _resolve_predictions_into_content(db, big_bang_id=big_bang.id, content=content, multiverses=multiverses)
     llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
@@ -813,6 +829,695 @@ def _build_multiverse_report_content(
     }
 
 
+_PREDICATE_TYPES = ("threshold_breach", "binary_event", "count", "categorical", "narrative")
+
+_PREDICATE_EXTRACT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "predicates": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "description": {"type": "string"},
+                    "type": {"type": "string"},
+                    "quantity_label": {"type": ["string", "null"]},
+                    "unit": {"type": ["string", "null"]},
+                    "threshold": {"type": ["number", "null"]},
+                    "comparison": {"type": ["string", "null"]},
+                    "categories": {
+                        "anyOf": [
+                            {"type": "array", "items": {"type": "string"}},
+                            {"type": "null"},
+                        ]
+                    },
+                },
+                "required": [
+                    "id",
+                    "description",
+                    "type",
+                    "quantity_label",
+                    "unit",
+                    "threshold",
+                    "comparison",
+                    "categories",
+                ],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["predicates"],
+    "additionalProperties": False,
+}
+
+_PREDICATE_RESOLVE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "resolutions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "predicate_id": {"type": "string"},
+                    "fired": {"type": ["boolean", "null"]},
+                    "value": {"type": ["number", "null"]},
+                    "count": {"type": ["integer", "null"]},
+                    "category": {"type": ["string", "null"]},
+                    "evidence": {"type": "string"},
+                },
+                "required": ["predicate_id", "fired", "value", "count", "category", "evidence"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["resolutions"],
+    "additionalProperties": False,
+}
+
+
+def _coerce_predicate_type(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if text in _PREDICATE_TYPES:
+        return text
+    return "binary_event"
+
+
+def _coerce_comparison(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if text in ("<", "<=", ">", ">=", "=="):
+        return text
+    return None
+
+
+def _weighted_percentile(values_with_weights: list[tuple[float, float]], pct: float) -> float | None:
+    """Return the weighted percentile (pct in [0,1]) of `[(value, weight), ...]`.
+
+    Falls back to unweighted if all weights are zero. Returns None on empty input.
+    """
+    if not values_with_weights:
+        return None
+    sorted_pairs = sorted(values_with_weights, key=lambda pair: pair[0])
+    total = sum(max(0.0, w) for _, w in sorted_pairs)
+    if total <= 0:
+        # Unweighted fallback: all timelines equally weighted.
+        n = len(sorted_pairs)
+        idx = max(0, min(n - 1, int(round(pct * (n - 1)))))
+        return sorted_pairs[idx][0]
+    target = pct * total
+    cum = 0.0
+    for value, weight in sorted_pairs:
+        cum += max(0.0, weight)
+        if cum >= target:
+            return value
+    return sorted_pairs[-1][0]
+
+
+def _aggregate_threshold_breach(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    values: list[tuple[float, float]] = []
+    null_count = 0
+    fired_count = 0
+    false_count = 0
+    fired_path_mass = 0.0
+    false_path_mass = 0.0
+    null_path_mass = 0.0
+    total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        value = row.get("value")
+        fired = row.get("fired")
+        if isinstance(value, (int, float)):
+            values.append((float(value), path_mass))
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+        elif fired is False:
+            false_count += 1
+            false_path_mass += path_mass
+        else:
+            null_count += 1
+            null_path_mass += path_mass
+        if len(examples) < 3 and (fired in (True, False) or isinstance(value, (int, float))):
+            examples.append(
+                {
+                    "multiverse_id": row.get("multiverse_id"),
+                    "ui_label": row.get("ui_label"),
+                    "value": float(value) if isinstance(value, (int, float)) else None,
+                    "fired": fired,
+                    "evidence": row.get("evidence"),
+                }
+            )
+    p10 = _weighted_percentile(values, 0.10)
+    p50 = _weighted_percentile(values, 0.50)
+    p90 = _weighted_percentile(values, 0.90)
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "threshold_breach",
+        "quantity_label": predicate.get("quantity_label"),
+        "unit": predicate.get("unit"),
+        "threshold": predicate.get("threshold"),
+        "comparison": predicate.get("comparison"),
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "false_path_mass": false_path_mass,
+        "null_path_mass": null_path_mass,
+        "total_path_mass": total_path_mass,
+        "value_distribution": {
+            "p10": p10,
+            "p50": p50,
+            "p90": p90,
+            "n_with_value": len(values),
+        },
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_binary_event(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    fired_count = false_count = null_count = 0
+    fired_path_mass = total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        fired = row.get("fired")
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+            if len(examples) < 3:
+                examples.append(
+                    {
+                        "multiverse_id": row.get("multiverse_id"),
+                        "ui_label": row.get("ui_label"),
+                        "evidence": row.get("evidence"),
+                    }
+                )
+        elif fired is False:
+            false_count += 1
+        else:
+            null_count += 1
+    hit_rate = fired_path_mass / total_path_mass if total_path_mass > 0 else None
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "binary_event",
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "total_path_mass": total_path_mass,
+        "hit_rate": hit_rate,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_count(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    histogram_path_mass: dict[str, float] = {}
+    histogram_count: dict[str, int] = {}
+    fired_count = false_count = null_count = 0
+    fired_path_mass = total_path_mass = 0.0
+    n_with_count = 0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        count_value = row.get("count")
+        fired = row.get("fired")
+        if isinstance(count_value, int):
+            n_with_count += 1
+            bucket = "3+" if count_value >= 3 else str(count_value)
+            histogram_path_mass[bucket] = histogram_path_mass.get(bucket, 0.0) + path_mass
+            histogram_count[bucket] = histogram_count.get(bucket, 0) + 1
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+        elif fired is False:
+            false_count += 1
+        else:
+            null_count += 1
+        if len(examples) < 3 and isinstance(count_value, int):
+            examples.append(
+                {
+                    "multiverse_id": row.get("multiverse_id"),
+                    "ui_label": row.get("ui_label"),
+                    "count": count_value,
+                    "fired": fired,
+                    "evidence": row.get("evidence"),
+                }
+            )
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "count",
+        "threshold": predicate.get("threshold"),
+        "comparison": predicate.get("comparison"),
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "total_path_mass": total_path_mass,
+        "histogram_path_mass": histogram_path_mass,
+        "histogram_count": histogram_count,
+        "n_with_count": n_with_count,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_categorical(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    declared = predicate.get("categories") or []
+    declared_set = {c for c in declared if isinstance(c, str)}
+    by_category_count: dict[str, int] = {}
+    by_category_mass: dict[str, float] = {}
+    null_count = 0
+    null_path_mass = 0.0
+    total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        cat = row.get("category")
+        if isinstance(cat, str) and cat.strip():
+            label = cat.strip() if (cat.strip() in declared_set or not declared_set) else "other"
+            by_category_count[label] = by_category_count.get(label, 0) + 1
+            by_category_mass[label] = by_category_mass.get(label, 0.0) + path_mass
+            if len(examples) < 3:
+                examples.append(
+                    {
+                        "multiverse_id": row.get("multiverse_id"),
+                        "ui_label": row.get("ui_label"),
+                        "category": label,
+                        "evidence": row.get("evidence"),
+                    }
+                )
+        else:
+            null_count += 1
+            null_path_mass += path_mass
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "categorical",
+        "categories": list(declared_set) if declared_set else None,
+        "category_count": by_category_count,
+        "category_path_mass": by_category_mass,
+        "null_count": null_count,
+        "null_path_mass": null_path_mass,
+        "total_count": len(rows),
+        "total_path_mass": total_path_mass,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_narrative(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    examples = []
+    for row in rows[:6]:
+        examples.append(
+            {
+                "multiverse_id": row.get("multiverse_id"),
+                "ui_label": row.get("ui_label"),
+                "evidence": row.get("evidence"),
+            }
+        )
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "narrative",
+        "total_count": len(rows),
+        "evidence_examples": examples,
+    }
+
+
+def _extract_prediction_predicates(
+    db: Session, *, big_bang_id, scenario_text: str
+) -> list[dict[str, Any]]:
+    """Extract up to 5 binary/threshold predicates from the user's scenario_text.
+
+    Returns [] on any failure — caller treats absence as "no explicit predicates"
+    and the report agent falls back to inferring from regime proxies.
+    """
+    try:
+        response, _ = complete_with_audit(
+            db,
+            big_bang_id=big_bang_id,
+            purpose=f"predicate_extraction_{big_bang_id}",
+            model=get_settings().report_agent_model,
+            route=AuditedLLMRoute.REPORT_AGENT,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract up to 5 prediction predicates that the user wants the simulation "
+                        "to answer. Return a JSON object {predicates: [{id, description, type, "
+                        "quantity_label, unit, threshold, comparison, categories}]}. "
+                        "id: short snake_case slug (<=40 chars). description: single concrete "
+                        "sentence stating the firing condition. "
+                        "type is one of: "
+                        " - threshold_breach: predicate references an underlying numeric quantity and "
+                        "    a threshold (e.g. 'BTC <= 76000'). Set quantity_label (what is being "
+                        "    measured), unit (USD, USDT, percent, ...), threshold (the numeric "
+                        "    threshold), and comparison (one of '<','<=','>','>=','=='). "
+                        " - binary_event: yes/no event with no underlying quantity (e.g. 'regulators "
+                        "    issue a joint statement'). Leave numeric fields null. "
+                        " - count: predicate counts events (e.g. 'at least one additional venue "
+                        "    halts'). Set threshold and comparison if a count threshold is implied. "
+                        " - categorical: predicate selects from a discrete unordered set. Set "
+                        "    categories with the candidate labels. "
+                        " - narrative: predicate is qualitative and cannot be reduced to a number, "
+                        "    binary, count, or category. Use sparingly. "
+                        "Always include every field; use null when not applicable. Skip predicates "
+                        "that cannot be checked from simulation telemetry."
+                    ),
+                },
+                {"role": "user", "content": f"Scenario:\n\n{scenario_text}"},
+            ],
+            json_schema=_PREDICATE_EXTRACT_SCHEMA,
+            metadata={
+                "max_tokens": 900,
+                "temperature": 0.1,
+                "agent_type": "predicate_extractor",
+                "request_timeout_seconds": 60,
+                "max_attempts": 1,
+            },
+        )
+        parsed = response.parsed if isinstance(response.parsed, dict) else {}
+        predicates = parsed.get("predicates") or []
+        if not isinstance(predicates, list):
+            return []
+        cleaned: list[dict[str, Any]] = []
+        for item in predicates[:5]:
+            if not isinstance(item, dict):
+                continue
+            pid = str(item.get("id") or "").strip()[:40]
+            desc = str(item.get("description") or "").strip()
+            if not (pid and desc):
+                continue
+            ptype = _coerce_predicate_type(item.get("type"))
+            quantity_label = item.get("quantity_label")
+            unit = item.get("unit")
+            threshold = item.get("threshold")
+            categories_raw = item.get("categories")
+            cleaned.append(
+                {
+                    "id": pid,
+                    "description": desc,
+                    "type": ptype,
+                    "quantity_label": str(quantity_label).strip() if isinstance(quantity_label, str) and quantity_label.strip() else None,
+                    "unit": str(unit).strip() if isinstance(unit, str) and unit.strip() else None,
+                    "threshold": float(threshold) if isinstance(threshold, (int, float)) else None,
+                    "comparison": _coerce_comparison(item.get("comparison")),
+                    "categories": [c for c in categories_raw if isinstance(c, str) and c.strip()] if isinstance(categories_raw, list) else None,
+                }
+            )
+        return cleaned
+    except (LLMCallError, ValueError, KeyError):
+        return []
+
+
+def _resolve_predicates_for_timeline(
+    db: Session,
+    *,
+    big_bang_id,
+    multiverse_id: str,
+    multiverse_summary: dict[str, Any],
+    predicates: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Score each predicate against one timeline. Returns [] on failure."""
+    if not predicates:
+        return []
+    try:
+        response, _ = complete_with_audit(
+            db,
+            big_bang_id=big_bang_id,
+            purpose=f"predicate_resolution_{multiverse_id}",
+            model=get_settings().report_agent_model,
+            route=AuditedLLMRoute.REPORT_AGENT,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Score each predicate against this timeline's simulated trajectory. "
+                        "Return {resolutions: [{predicate_id, fired, value, count, category, evidence}]}. "
+                        "Always include every field. Set unused fields to null. "
+                        "Type-conditional rules: "
+                        " - threshold_breach: estimate the realized value of the underlying quantity "
+                        "    from the supplied state and put it in `value` (best estimate, your unit "
+                        "    matches the predicate's unit). Compute fired by comparing value vs the "
+                        "    predicate's threshold + comparison. Set count/category to null. "
+                        " - binary_event: set fired true/false based on whether the event occurred in "
+                        "    the supplied state. Set value/count/category to null. "
+                        " - count: estimate the count and put it in `count`. Compute fired against "
+                        "    the predicate's threshold/comparison if both are set; otherwise null. "
+                        "    Set value/category to null. "
+                        " - categorical: pick the matching category from the predicate's categories "
+                        "    list and put it in `category` (or null if none apply). Set fired/value/"
+                        "    count to null. "
+                        " - narrative: set all of fired/value/count/category to null and put a 1-2 "
+                        "    sentence answer in evidence. "
+                        "Always set fired/value/count/category to null when the timeline did not run "
+                        "far enough or telemetry is silent — do NOT guess. evidence is a 1-2 sentence "
+                        "quote or paraphrase from the supplied state. Do not invent facts not present "
+                        "in the supplied state."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        "Predicates:\n"
+                        + json.dumps(predicates, ensure_ascii=True)
+                        + "\n\nTimeline summary:\n"
+                        + json.dumps(multiverse_summary, ensure_ascii=True, default=str)
+                    ),
+                },
+            ],
+            json_schema=_PREDICATE_RESOLVE_SCHEMA,
+            metadata={
+                "max_tokens": 1200,
+                "temperature": 0.0,
+                "agent_type": "predicate_resolver",
+                "request_timeout_seconds": 60,
+                "max_attempts": 1,
+            },
+        )
+        parsed = response.parsed if isinstance(response.parsed, dict) else {}
+        resolutions = parsed.get("resolutions") or []
+        if not isinstance(resolutions, list):
+            return []
+        valid_ids = {p["id"] for p in predicates}
+        cleaned: list[dict[str, Any]] = []
+        for item in resolutions:
+            if not isinstance(item, dict):
+                continue
+            pid = str(item.get("predicate_id") or "").strip()
+            if pid not in valid_ids:
+                continue
+            fired = item.get("fired")
+            if fired not in (True, False, None):
+                fired = None
+            value = item.get("value")
+            value = float(value) if isinstance(value, (int, float)) else None
+            count_value = item.get("count")
+            count_value = int(count_value) if isinstance(count_value, int) and not isinstance(count_value, bool) else None
+            category = item.get("category")
+            category = str(category).strip() if isinstance(category, str) and category.strip() else None
+            cleaned.append(
+                {
+                    "predicate_id": pid,
+                    "fired": fired,
+                    "value": value,
+                    "count": count_value,
+                    "category": category,
+                    "evidence": _truncate_text(str(item.get("evidence") or ""), 400),
+                }
+            )
+        return cleaned
+    except (LLMCallError, ValueError, KeyError):
+        return []
+
+
+_PREDICATE_AGGREGATORS = {
+    "threshold_breach": _aggregate_threshold_breach,
+    "binary_event": _aggregate_binary_event,
+    "count": _aggregate_count,
+    "categorical": _aggregate_categorical,
+    "narrative": _aggregate_narrative,
+}
+
+
+def _aggregate_predicate_resolutions(
+    predicates: list[dict[str, Any]],
+    per_timeline: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Type-driven roll-up: each predicate produces an output shape that matches
+    its question kind (distribution for threshold_breach, hit-rate for binary_event,
+    histogram for count, label distribution for categorical, evidence list for
+    narrative). Unknown types fall back to binary_event aggregation."""
+    if not predicates:
+        return []
+    flat_by_pid: dict[str, list[dict[str, Any]]] = {p["id"]: [] for p in predicates}
+    # Pre-fill one row per (predicate, timeline) pair before consuming the
+    # resolver output. If `_resolve_predicates_for_timeline` failed entirely or
+    # the agent omitted a predicate from its response, that timeline still
+    # appears in the aggregate as null — null_count and total_count stay
+    # honest, and downstream verdicts cannot mistake "agent silent" for
+    # "agent confidently absent".
+    for entry in per_timeline:
+        timeline_fields = {
+            "multiverse_id": entry.get("multiverse_id"),
+            "ui_label": entry.get("ui_label"),
+            "path_probability": entry.get("path_probability"),
+        }
+        resolutions_by_pid: dict[str, dict[str, Any]] = {}
+        for resolution in entry.get("resolutions") or []:
+            if not isinstance(resolution, dict):
+                continue
+            pid = resolution.get("predicate_id")
+            if isinstance(pid, str):
+                resolutions_by_pid[pid] = resolution
+        for predicate in predicates:
+            pid = predicate["id"]
+            row = dict(timeline_fields)
+            resolution = resolutions_by_pid.get(pid)
+            if resolution is not None:
+                row.update(
+                    {
+                        "fired": resolution.get("fired"),
+                        "value": resolution.get("value"),
+                        "count": resolution.get("count"),
+                        "category": resolution.get("category"),
+                        "evidence": resolution.get("evidence") or "",
+                    }
+                )
+            else:
+                row.update(
+                    {
+                        "fired": None,
+                        "value": None,
+                        "count": None,
+                        "category": None,
+                        "evidence": "",
+                    }
+                )
+            flat_by_pid[pid].append(row)
+    out: list[dict[str, Any]] = []
+    for predicate in predicates:
+        rows = flat_by_pid[predicate["id"]]
+        ptype = _coerce_predicate_type(predicate.get("type"))
+        aggregator = _PREDICATE_AGGREGATORS.get(ptype, _aggregate_binary_event)
+        out.append(aggregator(predicate, rows))
+    return out
+
+
+def _resolve_predictions_into_content(
+    db: Session,
+    *,
+    big_bang_id,
+    content: dict[str, Any],
+    multiverses: list[models.Multiverse],
+) -> None:
+    """Lever 3: extract predicates from the scenario, resolve them per timeline,
+    and roll up into content. Best-effort: any failure leaves content untouched
+    and the report agent falls back to inference."""
+    scenario_text = content.get("scenario_question")
+    if not scenario_text:
+        return
+    predicates = _extract_prediction_predicates(
+        db, big_bang_id=big_bang_id, scenario_text=scenario_text
+    )
+    if not predicates:
+        return
+    content["prediction_predicates"] = predicates
+    comparison = content.get("multiverse_comparison") or []
+    by_id = {str(item.get("multiverse_id")): item for item in comparison if isinstance(item, dict)}
+    per_timeline: list[dict[str, Any]] = []
+    for mv in multiverses:
+        summary = by_id.get(str(mv.id), {})
+        compact_summary = _compact_timeline_metric(summary) if summary else {
+            "multiverse_id": str(mv.id),
+            "ui_label": mv.ui_label,
+            "status": mv.status,
+        }
+        resolutions = _resolve_predicates_for_timeline(
+            db,
+            big_bang_id=big_bang_id,
+            multiverse_id=str(mv.id),
+            multiverse_summary=compact_summary,
+            predicates=predicates,
+        )
+        per_timeline.append(
+            {
+                "multiverse_id": str(mv.id),
+                "ui_label": mv.ui_label,
+                "path_probability": summary.get("path_probability") if isinstance(summary, dict) else None,
+                "resolutions": resolutions,
+            }
+        )
+    content["predicate_resolutions"] = _aggregate_predicate_resolutions(predicates, per_timeline)
+    content["predicate_resolutions_per_timeline"] = per_timeline
+
+
+def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
+    """Return the original scenario_text for a big bang (best-effort).
+
+    Two sources to try in order:
+    1. The `input/scenario_text.txt` artifact. Only written when
+       `use_initializer_agent=True` at create time (see initializer.py:126).
+    2. `big_bang.scenario_input["scenario_text"]` — populated unconditionally
+       at create time in initializer.py:107-110.
+
+    Without source 2, the new prediction-mode flow silently degrades to
+    narrative mode for every run that didn't enable the initializer agent
+    (the default frontend path).
+    """
+    artifact = db.scalars(
+        select(models.Artifact)
+        .where(
+            models.Artifact.big_bang_id == big_bang_id,
+            models.Artifact.path.like("%input/scenario_text.txt"),
+        )
+        .order_by(models.Artifact.created_at.desc())
+        .limit(1)
+    ).first()
+    if artifact is not None:
+        try:
+            text = _Path(artifact.path).read_text(encoding="utf-8").strip()
+        except OSError:
+            text = ""
+        if text:
+            return text
+
+    # Fallback: read from the big_bang.scenario_input dict, which always
+    # carries the original text regardless of initializer-agent choice.
+    big_bang = db.get(models.BigBang, big_bang_id)
+    if big_bang is None:
+        return None
+    scenario_input = big_bang.scenario_input or {}
+    if not isinstance(scenario_input, dict):
+        return None
+    for key in ("scenario_text", "prompt", "premise", "raw_text", "source_text"):
+        candidate = scenario_input.get(key)
+        if isinstance(candidate, str):
+            stripped = candidate.strip()
+            if stripped:
+                return stripped
+    return None
+
+
 def _build_final_report_content(
     db: Session,
     *,
@@ -844,11 +1549,13 @@ def _build_final_report_content(
         comparison=comparison,
         lineage_edges=lineage_edges,
     )
+    scenario_question = _scenario_question_text(db, big_bang_id=big_bang.id)
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report_type": "final_big_bang",
         "title": title,
         "summary": summary or f"Structured final report across {len(multiverses)} multiverse timelines.",
+        "scenario_question": scenario_question,
         "source": {
             "big_bang_id": str(big_bang.id),
             "big_bang_status": big_bang.status,
@@ -1451,10 +2158,16 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         comparison = content.get("multiverse_comparison") or []
         selected = _select_report_timelines_for_final_report(content, comparison, limit=limit)
         adjudication = content.get("timeline_adjudication") or {}
+        scenario_question = _truncate_text(content.get("scenario_question") or "", 4000) or None
+        report_kind = "prediction" if scenario_question else "narrative"
         return {
             "report_type": "final_big_bang",
+            "report_kind": report_kind,
             "title": content.get("title"),
             "summary": content.get("summary"),
+            "scenario_question": scenario_question,
+            "prediction_predicates": content.get("prediction_predicates") or [],
+            "predicate_resolutions": content.get("predicate_resolutions") or [],
             "source": _compact_source(content.get("source") or {}),
             "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
@@ -1487,10 +2200,14 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         }
 
     timeline_rows = _section_table(content, "Timeline")
+    scenario_question = _truncate_text(content.get("scenario_question") or "", 4000) or None
+    report_kind = "prediction" if scenario_question else "narrative"
     return {
         "report_type": "multiverse",
+        "report_kind": report_kind,
         "title": content.get("title"),
         "summary": content.get("summary"),
+        "scenario_question": scenario_question,
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
@@ -1934,13 +2651,74 @@ def _run_report_agent(
 
 def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list[dict[str, str]]:
     target_length = "900-1600 words" if mode == "standard" else "550-1000 words"
+    is_prediction = prompt_content.get("report_kind") == "prediction"
+    if is_prediction:
+        is_single_timeline = prompt_content.get("report_type") == "multiverse"
+        if is_single_timeline:
+            scope_note = (
+                "This report covers a single multiverse (one simulated timeline). Frame the "
+                "Headline Answer as 'how this timeline contributes to the user's question': "
+                "what evidence in this timeline supports yes/no/unresolved, what was inconclusive, "
+                "and where the cross-timeline final report should look for confirmation. Do NOT "
+                "claim a path-mass-weighted verdict — there is only one timeline. Set "
+                "prediction_answer.confidence_pct on the low side (single-timeline evidence is "
+                "weaker than cross-timeline aggregation) and put the supporting timeline id in "
+                "supporting_timeline_ids when verdict is yes/no. Ground the verdict in "
+                "outcome_conclusions, endpoint_ledger, and timeline ticks; never invent values, "
+                "counts, or categories not present in the digest. "
+            )
+        else:
+            scope_note = (
+                "This report aggregates across all retained multiverse timelines. Lead the "
+                "report_markdown with a Headline Answer section: one line per predicate showing "
+                "the natural answer for that predicate's type, followed by a one-paragraph "
+                "rationale, then the supporting evidence. Narrative analysis comes after the "
+                "headline, not before. "
+                "Render each predicate in predicate_resolutions according to its `type` field: "
+                " - threshold_breach: report value_distribution.p10/p50/p90 with the unit and "
+                "    where the threshold sits relative to the distribution. State 'breached' / "
+                "    'not breached' / 'unresolved' based on fired_path_mass / total_path_mass. "
+                " - binary_event: report hit_rate as a percent of path-mass (e.g. '18% path-mass "
+                "    weight on regulator action'). Cite supporting timelines from evidence_examples. "
+                " - count: report histogram_path_mass as bucketed shares (0 / 1 / 2 / 3+) and "
+                "    where the threshold sits. "
+                " - categorical: report category_path_mass as a label distribution. "
+                " - narrative: cite evidence_examples and answer in 1-2 sentences. "
+                "For prediction_answer.verdict, if there is a single primary predicate compute "
+                "verdict from path-mass weighting: fired_path_mass / total_path_mass > 0.5 -> yes; "
+                "< 0.5 with non-trivial false rate -> no; high null_count or insufficient ticks -> "
+                "unresolved. If there are multiple predicates, set verdict to the dominant outcome "
+                "across them and explain in rationale how each predicate contributed. "
+                "confidence_pct must be calibrated to evidence quality (sample size, null rate, "
+                "distribution width relative to threshold), NOT to your priors. If "
+                "predicate_resolutions is empty, fall back to inference from outcome_distribution "
+                "+ endpoint_ledger and lower confidence accordingly. Never invent a value, count, "
+                "or category that isn't in the digest. "
+            )
+        opening = (
+            "You are the WorldFork prediction report agent. The user asked one or more specific "
+            "questions (scenario_question); your primary job is to answer them. "
+            + scope_note
+        )
+    else:
+        opening = (
+            "You are the WorldFork report agent. Produce a narrative report covering outcome "
+            "distribution, branch divergence, cohort/hero state movement, and evidence gaps. "
+            "If a scenario_question is supplied, also fill prediction_answer; otherwise set "
+            "prediction_answer.verdict to not_applicable with confidence 0. "
+        )
     return [
         {
             "role": "system",
             "content": (
-                "You are the WorldFork report agent. Return exactly one JSON object with keys "
+                opening
+                + "Return exactly one JSON object with keys "
                 "report_markdown, executive_summary, outcome_interpretation, management_notes, risk_notes, "
-                "endpoint_histogram, terminality_assessment, contradiction_check. "
+                "endpoint_histogram, terminality_assessment, contradiction_check, prediction_answer. "
+                "prediction_answer fields: verdict in {yes, no, unresolved, not_applicable}, "
+                "confidence_pct (0-100), supporting_timeline_ids (multiverse ids), counterevidence "
+                "(timelines or signals that argue the other way), rationale (3-6 sentences citing "
+                "the digest, especially predicate_resolutions when present). "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
                 "Always include a Path-Mass Accounting section. For single-multiverse reports, that section "
@@ -1992,6 +2770,14 @@ def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
     output["terminality_assessment"] = terminality if isinstance(terminality, dict) else {}
     contradiction = parsed.get("contradiction_check")
     output["contradiction_check"] = contradiction if isinstance(contradiction, dict) else {}
+    prediction = parsed.get("prediction_answer")
+    output["prediction_answer"] = prediction if isinstance(prediction, dict) else {
+        "verdict": "not_applicable",
+        "confidence_pct": 0,
+        "supporting_timeline_ids": [],
+        "counterevidence": "",
+        "rationale": "Report agent did not return a prediction_answer object.",
+    }
     if not output["executive_summary"]:
         output["executive_summary"] = _truncate_text(report_markdown.strip(), 1200)
     return output
@@ -2004,6 +2790,14 @@ def _complete_report_agent_structured_fields(llm_report: dict[str, Any], content
         llm_report["terminality_assessment"] = content.get("terminality_assessment") or {}
     if not llm_report.get("contradiction_check"):
         llm_report["contradiction_check"] = content.get("contradiction_check") or {}
+    if not llm_report.get("prediction_answer"):
+        llm_report["prediction_answer"] = {
+            "verdict": "not_applicable",
+            "confidence_pct": 0,
+            "supporting_timeline_ids": [],
+            "counterevidence": "",
+            "rationale": "No prediction_answer field was emitted.",
+        }
 
 
 def _summary_fields(llm_report: dict[str, Any]) -> dict[str, Any]:
@@ -2042,28 +2836,109 @@ def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) 
     return model
 
 
+_HEADLINE_KEYS = (
+    "title",
+    "event_title",
+    "label",
+    "name",
+    "summary",
+    "description",
+    "rationale",
+)
+
+
+def _humanize_key(key: str) -> str:
+    return key.replace("_", " ")
+
+
 def _markdown_list(items: list[Any]) -> list[str]:
-    return [f"- {_markdown_value(item)}" for item in items]
+    """Render a list of items as bullets. Dict items become a headline bullet with
+    nested sub-bullets so we never fall through to Python's str(dict) repr."""
+    out: list[str] = []
+    for item in items:
+        if isinstance(item, dict):
+            if not item:
+                continue
+            headline = _dict_headline(item)
+            sub_keys = [k for k in item if k not in _seen_for_headline(item)]
+            if headline and not sub_keys:
+                out.append(f"- {headline}")
+                continue
+            out.append(f"- {headline}" if headline else "-")
+            out.extend(_markdown_block({k: item[k] for k in sub_keys}, indent=2))
+        elif isinstance(item, list):
+            out.append(f"- {_markdown_value(item)}")
+        else:
+            out.append(f"- {_markdown_value(item)}")
+    return out
 
 
 def _markdown_block(value: Any, *, indent: int = 0) -> list[str]:
     prefix = " " * indent
     if isinstance(value, dict):
+        if not value:
+            return [f"{prefix}- (empty)"]
         lines = []
         for key, item in value.items():
+            if item in (None, "", [], {}):
+                continue
+            label = _humanize_key(str(key))
             if isinstance(item, dict):
-                lines.append(f"{prefix}- {key}:")
-                lines.extend(_markdown_block(item, indent=indent + 2))
+                if not item:
+                    continue
+                inline = _dict_headline(item)
+                inner_keys = [k for k in item if k not in _seen_for_headline(item)]
+                if inline and not inner_keys:
+                    lines.append(f"{prefix}- {label}: {inline}")
+                else:
+                    lines.append(f"{prefix}- {label}:" + (f" {inline}" if inline else ""))
+                    lines.extend(
+                        _markdown_block({k: item[k] for k in inner_keys}, indent=indent + 2)
+                    )
             elif isinstance(item, list):
-                lines.append(f"{prefix}- {key}:")
-                for entry in item:
-                    lines.append(f"{prefix}  - {_markdown_value(entry)}")
+                if all(not isinstance(entry, (dict, list)) for entry in item):
+                    rendered = ", ".join(_markdown_value(entry) for entry in item if entry not in (None, ""))
+                    lines.append(f"{prefix}- {label}: {rendered}")
+                else:
+                    lines.append(f"{prefix}- {label}:")
+                    for entry in item:
+                        if isinstance(entry, dict):
+                            head = _dict_headline(entry)
+                            inner_keys = [k for k in entry if k not in _seen_for_headline(entry)]
+                            if head and not inner_keys:
+                                lines.append(f"{prefix}  - {head}")
+                            else:
+                                lines.append(f"{prefix}  - {head}" if head else f"{prefix}  -")
+                                lines.extend(
+                                    _markdown_block(
+                                        {k: entry[k] for k in inner_keys}, indent=indent + 4
+                                    )
+                                )
+                        else:
+                            lines.append(f"{prefix}  - {_markdown_value(entry)}")
             else:
-                lines.append(f"{prefix}- {key}: {_markdown_value(item)}")
-        return lines
+                lines.append(f"{prefix}- {label}: {_markdown_value(item)}")
+        return lines or [f"{prefix}- (empty)"]
     if isinstance(value, list):
-        return [f"{prefix}- {_markdown_value(item)}" for item in value]
+        return _markdown_list(value)
     return [f"{prefix}{_markdown_value(value)}"]
+
+
+def _dict_headline(value: dict[str, Any]) -> str:
+    """Pick a single human-readable line summarizing this dict, if possible."""
+    for key in _HEADLINE_KEYS:
+        candidate = value.get(key)
+        if isinstance(candidate, str) and candidate.strip():
+            return candidate.strip()
+    return ""
+
+
+def _seen_for_headline(value: dict[str, Any]) -> set[str]:
+    for key in _HEADLINE_KEYS:
+        candidate = value.get(key)
+        if isinstance(candidate, str) and candidate.strip():
+            return {key}
+    return set()
 
 
 def _markdown_table(rows: list[dict[str, Any]]) -> list[str]:
@@ -2089,8 +2964,31 @@ def _markdown_cell(value: Any) -> str:
 
 
 def _markdown_value(value: Any) -> str:
+    """Single-line text representation. Never produces Python str(dict) output;
+    nested structures collapse to compact human-readable prose."""
     if value is None:
         return ""
-    if isinstance(value, (str, int, float, bool)):
+    if isinstance(value, bool):
+        return "yes" if value else "no"
+    if isinstance(value, (str, int, float)):
         return str(value)
+    if isinstance(value, dict):
+        if not value:
+            return ""
+        headline = _dict_headline(value)
+        seen = _seen_for_headline(value)
+        tail_parts = [
+            f"{_humanize_key(str(k))}: {_markdown_value(v)}"
+            for k, v in value.items()
+            if k not in seen and v not in (None, "", [], {})
+        ]
+        if headline and tail_parts:
+            return f"{headline} ({'; '.join(tail_parts)})"
+        if headline:
+            return headline
+        return "; ".join(tail_parts)
+    if isinstance(value, (list, tuple)):
+        items = [_markdown_value(item) for item in value if item not in (None, "")]
+        items = [item for item in items if item]
+        return ", ".join(items)
     return str(value)
