@@ -150,6 +150,32 @@ def test_agent_decision_payloads_skip_bad_list_items_and_default_casts(db, monke
     assert [item["scheduled_tick"] for item in queued] == [7, 4, 7, 4]
 
 
+def test_social_action_dict_body_is_serialized_for_text_column(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+
+    observations = agent_engine.apply_social_actions(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=3,
+        parsed_actions=[
+            {
+                "actor_id": str(alpha.id),
+                "channel": "local_news_coverage",
+                "body": {
+                    "headline": "Regulators publish findings",
+                    "summary": "Findings recommend an earnings floor.",
+                },
+            }
+        ],
+    )
+    post = db.query(models.SocialPost).one()
+
+    assert observations[0]["post"].startswith('{"headline"')
+    assert post.body.startswith('{"headline"')
+    assert post.meta["action"]["body"]["headline"] == "Regulators publish findings"
+
+
 def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypatch):
     big_bang, root, alpha, _beta = _seed_world(db)
     db.add_all(

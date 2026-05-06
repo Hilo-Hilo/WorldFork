@@ -1,0 +1,65 @@
+# Optional ICML/E3/E4 runtime override.
+#
+# Include this file only for experiment stacks, and apply it after active jobs
+# have drained because changing postgres command-line settings requires a
+# postgres container restart/recreate.
+
+x-icml-api-db-pool: &icml_api_db_pool
+  SQLALCHEMY_ASYNC_POOL_SIZE: ${SQLALCHEMY_API_ASYNC_POOL_SIZE:-4}
+  SQLALCHEMY_ASYNC_MAX_OVERFLOW: ${SQLALCHEMY_API_ASYNC_MAX_OVERFLOW:-8}
+  SQLALCHEMY_SYNC_POOL_SIZE: ${SQLALCHEMY_API_SYNC_POOL_SIZE:-2}
+  SQLALCHEMY_SYNC_MAX_OVERFLOW: ${SQLALCHEMY_API_SYNC_MAX_OVERFLOW:-4}
+  SQLALCHEMY_ASYNC_POOL_TIMEOUT: ${SQLALCHEMY_POOL_TIMEOUT:-30}
+  SQLALCHEMY_SYNC_POOL_TIMEOUT: ${SQLALCHEMY_POOL_TIMEOUT:-30}
+  SQLALCHEMY_ASYNC_POOL_RECYCLE: ${SQLALCHEMY_POOL_RECYCLE:-1800}
+  SQLALCHEMY_SYNC_POOL_RECYCLE: ${SQLALCHEMY_POOL_RECYCLE:-1800}
+
+x-icml-worker-db-pool: &icml_worker_db_pool
+  SQLALCHEMY_ASYNC_POOL_SIZE: ${SQLALCHEMY_WORKER_ASYNC_POOL_SIZE:-4}
+  SQLALCHEMY_ASYNC_MAX_OVERFLOW: ${SQLALCHEMY_WORKER_ASYNC_MAX_OVERFLOW:-8}
+  SQLALCHEMY_SYNC_POOL_SIZE: ${SQLALCHEMY_WORKER_SYNC_POOL_SIZE:-4}
+  SQLALCHEMY_SYNC_MAX_OVERFLOW: ${SQLALCHEMY_WORKER_SYNC_MAX_OVERFLOW:-8}
+  SQLALCHEMY_ASYNC_POOL_TIMEOUT: ${SQLALCHEMY_POOL_TIMEOUT:-30}
+  SQLALCHEMY_SYNC_POOL_TIMEOUT: ${SQLALCHEMY_POOL_TIMEOUT:-30}
+  SQLALCHEMY_ASYNC_POOL_RECYCLE: ${SQLALCHEMY_POOL_RECYCLE:-1800}
+  SQLALCHEMY_SYNC_POOL_RECYCLE: ${SQLALCHEMY_POOL_RECYCLE:-1800}
+  MAX_PARALLEL_COHORT_DECISIONS: ${WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS:-8}
+  CELERY_TASK_TIME_LIMIT: ${WORLDFORK_ICML_CELERY_TASK_TIME_LIMIT:-28800}
+  CELERY_TASK_SOFT_TIME_LIMIT: ${WORLDFORK_ICML_CELERY_TASK_SOFT_TIME_LIMIT:-27000}
+
+services:
+  postgres:
+    command:
+      - postgres
+      - -c
+      - max_connections=${WORLDFORK_POSTGRES_MAX_CONNECTIONS:-250}
+      - -c
+      - shared_buffers=${WORLDFORK_POSTGRES_SHARED_BUFFERS:-256MB}
+      - -c
+      - work_mem=${WORLDFORK_POSTGRES_WORK_MEM:-8MB}
+      - -c
+      - idle_in_transaction_session_timeout=${WORLDFORK_POSTGRES_IDLE_IN_TRANSACTION_TIMEOUT:-300000}
+
+  api:
+    environment:
+      <<: *icml_api_db_pool
+
+  worker_p0:
+    environment:
+      <<: *icml_worker_db_pool
+
+  worker_p1:
+    environment:
+      <<: *icml_worker_db_pool
+
+  worker_p2:
+    environment:
+      <<: *icml_worker_db_pool
+
+  worker_p3:
+    environment:
+      <<: *icml_worker_db_pool
+
+  beat:
+    environment:
+      <<: *icml_worker_db_pool

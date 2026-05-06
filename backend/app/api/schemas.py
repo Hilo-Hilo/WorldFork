@@ -324,6 +324,8 @@ class TimelineAdjudicationDetailOut(BaseModel):
 class EndpointPathMassRow(BaseModel):
     endpoint_key: str | None = None
     label: str | None = None
+    endpoint_role: str | None = None
+    candidate_endpoint_id: str | None = None
     status: str | None = None
     realized: bool | None = None
     path_mass: float = 0.0
@@ -417,6 +419,10 @@ class SimulateTicksRequest(BaseModel):
 
 class RunUntilCompleteRequest(BaseModel):
     max_total_ticks: int = Field(default=24, ge=1, le=500)
+
+
+class RunUntilCompleteJobRequest(RunUntilCompleteRequest):
+    stop_when_endpoint_ledger_resolved: bool = False
 
 
 class ToolCallRequest(BaseModel):

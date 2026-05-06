@@ -689,13 +689,25 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         calls.append(
             {
                 "purpose": purpose,
                 "messages": messages,
                 "metadata": metadata,
                 "json_schema": json_schema,
+                "json_response_transform": json_response_transform,
             }
         )
         if len(calls) == 1:
@@ -798,6 +810,7 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     assert "multiverse_id" not in calls[1]["messages"][1]["content"]
     assert "Path-Mass Accounting" in calls[1]["messages"][0]["content"]
     assert calls[1]["json_schema"] == report_engine.REPORT_AGENT_JSON_SCHEMA
+    assert calls[1]["json_response_transform"] == report_engine._coerce_report_agent_output
 
 
 def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability():
@@ -857,7 +870,18 @@ def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db:
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         calls.append(metadata["prompt_mode"])
         raise LLMCallError("report model unavailable")
 
@@ -981,7 +1005,18 @@ def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
         ),
     )
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         return (
             LLMResponse(
                 content="{}",
@@ -1018,7 +1053,18 @@ def test_report_agent_rejects_fallback_payload_even_with_markdown(db: Session, m
         ),
     )
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         return (
             LLMResponse(
                 content="{}",
@@ -1056,6 +1102,30 @@ def test_report_agent_rejects_deterministic_payload_even_with_markdown():
                 "report_markdown": "# Deterministic\n\nThis should not be accepted.",
             }
         )
+
+
+def test_report_agent_coercion_accepts_minor_shape_drift():
+    output = report_engine._coerce_report_agent_output(
+        {
+            "report_markdown": ["# Report", "Path-Mass Accounting"],
+            "executive_summary": ["first", "second"],
+            "outcome_interpretation": {"note": "structured"},
+            "management_notes": ["watch unresolved endpoints"],
+            "risk_notes": None,
+            "endpoint_histogram": "endpoint states summarized in prose",
+            "terminality_assessment": ["terminal", "insufficient_ticks"],
+            "contradiction_check": "none found",
+        }
+    )
+
+    assert output["report_markdown"] == "# Report\n\nPath-Mass Accounting"
+    assert output["executive_summary"] == "first\nsecond"
+    assert output["outcome_interpretation"] == '{"note": "structured"}'
+    assert output["management_notes"] == "watch unresolved endpoints"
+    assert output["risk_notes"] == ""
+    assert output["endpoint_histogram"] == [{"summary": "endpoint states summarized in prose"}]
+    assert output["terminality_assessment"] == {"items": ["terminal", "insufficient_ticks"]}
+    assert output["contradiction_check"] == {"summary": "none found"}
 
 
 def test_multiverse_metrics_include_compact_state_and_event_highlights(db: Session):

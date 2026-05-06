@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: worldfork
       POSTGRES_DB: worldfork
     ports:
-      - "5433:5432"
+      - "${WORLDFORK_POSTGRES_PORT:-5433}:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -19,7 +19,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "${WORLDFORK_REDIS_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -48,7 +48,7 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - "8003:8000"
+      - "${WORLDFORK_API_PORT:-8003}:8000"
     volumes:
       - ./backend:/app/backend
       - ./source_of_truth:/app/source_of_truth

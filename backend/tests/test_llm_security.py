@@ -8,7 +8,7 @@ from uuid import uuid4
 
 import pytest
 from fastapi import HTTPException
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.artifacts.routes import get_artifact
@@ -525,6 +525,52 @@ def test_audited_route_uses_its_direct_model_routing_row():
     assert resolved.matched_route == "report_agent"
     assert resolved.primary.provider == "openrouter"
     assert resolved.primary.model == "seed/model"
+
+
+def test_route_resolution_does_not_open_caller_session_transaction(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    engine = create_engine("sqlite:///:memory:")
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                "CREATE TABLE settings_model_routing ("
+                "job_type TEXT PRIMARY KEY, "
+                "preferred_provider TEXT NOT NULL, "
+                "preferred_model TEXT NOT NULL, "
+                "fallback_provider TEXT, "
+                "fallback_model TEXT, "
+                "temperature REAL, "
+                "top_p REAL, "
+                "max_tokens INTEGER, "
+                "timeout_seconds INTEGER, "
+                "retry_policy TEXT, "
+                "payload JSON"
+                ")"
+            )
+        )
+        conn.execute(
+            text(
+                "INSERT INTO settings_model_routing "
+                "(job_type, preferred_provider, preferred_model, fallback_provider, fallback_model, "
+                "temperature, top_p, max_tokens, timeout_seconds, retry_policy, payload) "
+                "VALUES ('cohort_agent', 'openrouter', 'deepseek/deepseek-v4-flash', NULL, NULL, "
+                "0.8, 1.0, 4096, 300, 'exponential_backoff', '{}')"
+            )
+        )
+    session = sessionmaker(bind=engine)()
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="deepseek/deepseek-v4-flash",
+        cohort_agent_model="deepseek/deepseek-v4-flash",
+    )
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    resolved = llm_routing.resolve_audited_llm_route(session, route="cohort_agent")
+
+    assert resolved.matched_route == "cohort_agent"
+    assert resolved.primary.model == "deepseek/deepseek-v4-flash"
+    assert not session.in_transaction()
 
 
 def test_gemini_seed_route_is_treated_as_explicit_configuration(monkeypatch):
