@@ -30,9 +30,16 @@ import {
   isDemoRun,
 } from "./demo";
 
+// Canonical env vars used elsewhere in the repo (see AGENTS.md, cli/client.py,
+// docs/setup.md): WORLD_FORK_API_BASE and BACKEND_API_BASE. We honor those in
+// addition to the Next.js-style NEXT_PUBLIC_API_URL / API_BASE_URL so a
+// deployment configured the canonical way doesn't silently fall through to
+// localhost.
 const SERVER_BASE =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.API_BASE_URL ||
+  process.env.WORLD_FORK_API_BASE ||
+  process.env.BACKEND_API_BASE ||
   "http://127.0.0.1:8003";
 
 /** Used by client components — proxied through Next.js to avoid mixed-host issues. */

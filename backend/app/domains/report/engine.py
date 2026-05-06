@@ -1474,8 +1474,15 @@ def _resolve_predictions_into_content(
 def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
     """Return the original scenario_text for a big bang (best-effort).
 
-    Stored as a text artifact at input/scenario_text.txt. We pass this to the
-    report agent so it can answer the user's prediction question directly.
+    Two sources to try in order:
+    1. The `input/scenario_text.txt` artifact. Only written when
+       `use_initializer_agent=True` at create time (see initializer.py:126).
+    2. `big_bang.scenario_input["scenario_text"]` — populated unconditionally
+       at create time in initializer.py:107-110.
+
+    Without source 2, the new prediction-mode flow silently degrades to
+    narrative mode for every run that didn't enable the initializer agent
+    (the default frontend path).
     """
     artifact = db.scalars(
         select(models.Artifact)
@@ -1486,14 +1493,29 @@ def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
         .order_by(models.Artifact.created_at.desc())
         .limit(1)
     ).first()
-    if artifact is None:
+    if artifact is not None:
+        try:
+            text = _Path(artifact.path).read_text(encoding="utf-8").strip()
+        except OSError:
+            text = ""
+        if text:
+            return text
+
+    # Fallback: read from the big_bang.scenario_input dict, which always
+    # carries the original text regardless of initializer-agent choice.
+    big_bang = db.get(models.BigBang, big_bang_id)
+    if big_bang is None:
         return None
-    try:
-        text = _Path(artifact.path).read_text(encoding="utf-8")
-    except OSError:
+    scenario_input = big_bang.scenario_input or {}
+    if not isinstance(scenario_input, dict):
         return None
-    text = text.strip()
-    return text or None
+    for key in ("scenario_text", "prompt", "premise", "raw_text", "source_text"):
+        candidate = scenario_input.get(key)
+        if isinstance(candidate, str):
+            stripped = candidate.strip()
+            if stripped:
+                return stripped
+    return None
 
 
 def _build_final_report_content(

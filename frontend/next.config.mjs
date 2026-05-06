@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
-const BACKEND = process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8003";
+// Honor the repo's canonical env vars (WORLD_FORK_API_BASE / BACKEND_API_BASE)
+// alongside the Next.js-style ones so deployments don't fall through to
+// localhost when configured the standard way.
+const BACKEND =
+  process.env.API_BASE_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.WORLD_FORK_API_BASE ||
+  process.env.BACKEND_API_BASE ||
+  "http://127.0.0.1:8003";
 
 const nextConfig = {
   reactStrictMode: true,
