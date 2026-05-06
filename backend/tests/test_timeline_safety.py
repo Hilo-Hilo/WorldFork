@@ -1834,7 +1834,16 @@ def test_god_agent_review_compacts_raw_actor_outputs(db, monkeypatch):
                             "description": "RAW_AGENT_EVENT_DESCRIPTION " + ("detail " * 500),
                         }
                     ],
-                    "state_delta": {"stance": "wait_for_authority", "long_note": "STATE_RAW " + ("x" * 3000)},
+                    "state_delta": {
+                        "stance": "wait_for_authority",
+                        "endpoint_assessment": {
+                            "p_yes_signal": "weak",
+                            "p_no_signal": "moderate",
+                            "uncertainty": "high",
+                            "would_update": "official award result",
+                        },
+                        "long_note": "STATE_RAW " + ("x" * 3000),
+                    },
                 },
             }
         ],
@@ -1845,6 +1854,7 @@ def test_god_agent_review_compacts_raw_actor_outputs(db, monkeypatch):
     prompt_text = captured_messages[0][1]["content"]
     assert "Authority publishes endpoint result" in prompt_text
     assert "Candidate path remains contested" in prompt_text
+    assert "official award result" in prompt_text
     assert "RAW_AGENT_EVENT_DESCRIPTION" not in prompt_text
     assert "STATE_RAW" not in prompt_text
 

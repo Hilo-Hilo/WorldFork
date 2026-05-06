@@ -423,6 +423,8 @@ def _compact_agent_output(row: dict[str, Any]) -> dict[str, Any]:
                 "perceived_pressure",
                 "strategy",
                 "current_strategy",
+                "endpoint_assessment",
+                "forecast_assessment",
             )
             if state_delta.get(key) not in (None, {}, [])
         }

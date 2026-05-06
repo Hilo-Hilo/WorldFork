@@ -391,10 +391,12 @@ def _forecast_context_lines(prompt_context: dict) -> list[str]:
             lines.append(f"horizon={_one_line(forecast_clock['forecast_horizon'], limit=240)}")
     state = prompt_context.get("current_state") if isinstance(prompt_context.get("current_state"), dict) else {}
     scenario = state.get("scenario_summary") if isinstance(state.get("scenario_summary"), dict) else {}
+    forecast_card = scenario.get("forecast_card") if isinstance(scenario.get("forecast_card"), dict) else {}
     if scenario.get("question"):
         lines.append(f"question={_one_line(scenario['question'], limit=360)}")
-    if scenario.get("scenario_text_excerpt"):
-        lines.append(f"scenario={_one_line(scenario['scenario_text_excerpt'], limit=700)}")
+    scenario_text = forecast_card.get("scenario") or scenario.get("scenario_text_excerpt")
+    if scenario_text:
+        lines.append(f"scenario={_one_line(scenario_text, limit=1200)}")
     brief_lines = _simulation_brief_lines(scenario.get("simulation_brief"))
     if brief_lines:
         lines.extend(brief_lines)
@@ -408,6 +410,19 @@ def _forecast_context_lines(prompt_context: dict) -> list[str]:
         lines.extend(endpoint_lines)
         lines.append(
             "CONTRACT: yes/no candidate endpoints are primary; auxiliary mechanism endpoints cannot keep the binary forecast unresolved."
+        )
+    forecast_rule_lines = _forecast_card_rule_lines(forecast_card)
+    if forecast_rule_lines:
+        lines.append("RESOLUTION RULES:")
+        lines.extend(forecast_rule_lines)
+    branch_hypothesis_lines = _branch_hypothesis_lines(scenario.get("branch_hypotheses"))
+    if branch_hypothesis_lines:
+        lines.append("BRANCH HYPOTHESES:")
+        lines.extend(branch_hypothesis_lines)
+    if source_lines or endpoint_lines:
+        lines.append(
+            "ACTOR FORECAST TASK: In state_delta.endpoint_assessment, note actor-local evidence for yes/no, "
+            "uncertainty, and what would update the actor; do not infer hidden resolution data."
         )
     return lines
 
@@ -473,6 +488,50 @@ def _candidate_endpoint_lines(value: Any) -> list[str]:
             lines.append(f"- {endpoint_id}: {_one_line(label, limit=300)}")
         elif endpoint_id:
             lines.append(f"- {endpoint_id}")
+    return lines
+
+
+def _forecast_card_rule_lines(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return []
+    lines: list[str] = []
+    contract = value.get("binary_contract")
+    if isinstance(contract, str) and contract.strip():
+        for line in contract.splitlines():
+            stripped = line.strip()
+            if stripped:
+                lines.append(f"- {_one_line(stripped, limit=260)}")
+    expected_focus = value.get("expected_focus")
+    if isinstance(expected_focus, list) and expected_focus:
+        focus = ", ".join(_one_line(item, limit=80) for item in expected_focus[:8] if item)
+        if focus:
+            lines.append(f"- focus={focus}")
+    scoring_note = value.get("scoring_note")
+    if scoring_note:
+        lines.append(f"- {_one_line(scoring_note, limit=220)}")
+    return lines
+
+
+def _branch_hypothesis_lines(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    lines: list[str] = []
+    for item in [row for row in value if isinstance(row, dict)][:4]:
+        candidate = item.get("candidate_endpoint_id") or item.get("candidate_id")
+        label = item.get("label") or item.get("alternate_path") or "candidate path"
+        if not candidate:
+            continue
+        parts = [f"{candidate}: {_one_line(label, limit=180)}"]
+        trigger = item.get("trigger")
+        if trigger:
+            parts.append(f"trigger={_one_line(trigger, limit=220)}")
+        criteria = item.get("realization_criteria")
+        if isinstance(criteria, list) and criteria:
+            parts.append(f"criteria={_one_line(criteria[:2], limit=260)}")
+        signal = item.get("observable_divergence_signal")
+        if signal:
+            parts.append(f"signal={_one_line(signal, limit=220)}")
+        lines.append(f"- {'; '.join(parts)}")
     return lines
 
 

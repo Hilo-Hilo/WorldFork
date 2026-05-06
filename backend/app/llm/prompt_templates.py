@@ -149,6 +149,7 @@ Output details:
 - proposed_events should include title, event_type, description, scheduled_tick, expected_impact, and why this actor can plausibly cause it directly, or why it is an indirect pressure/request aimed at the actor with authority.
 - emotion_self_ratings must use 0-10 explicit values for observability only and should use known emotion keys such as anger, fear, distrust, trust, hope, calm, confusion, urgency, sympathy, resentment.
 - state_delta should describe stance, expression_level, attention, fatigue, perceived pressure, strategy changes, and any internal split pressure.
+- For forecast-card runs, include state_delta.endpoint_assessment with actor-local yes/no evidence, uncertainty, and what observation would update the actor. Keep this bounded and non-omniscient.
 - Keep post bodies concise, situated, and actor-specific. Do not write generic narrator summaries.
 - Never include operational instructions for real-world harm, evasion, or illegal action. If risk is present, describe it as simulated concern or pressure.
 """.strip()

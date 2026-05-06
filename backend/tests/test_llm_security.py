@@ -1914,7 +1914,31 @@ def test_actor_shared_context_preserves_forecast_source_packet_for_cohorts():
         current_state={
             "scenario_input": {
                 "question": "Will Nominee S win Best Picture?",
-                "scenario_text": "Nominee S has high nomination volume, but the race is uncertain.",
+                "scenario_text": """
+# Case resolved_test
+
+## Scenario
+
+Nominee S has high nomination volume, but the race is uncertain because preferential ballots can reward consensus.
+
+## Source Packet
+
+### Source 1: nomination_note / 2026-01-23
+
+Nomination volume does not mechanically determine Best Picture.
+
+## Binary forecast contract
+
+Resolve yes only when Nominee S wins Best Picture by the deadline.
+Resolve no when the deadline passes without that win.
+
+## Expected Focus
+- award_forecasting
+- preferential_ballot
+
+## Required Forecast Output
+Score p_yes with binary Brier.
+""",
                 "forecast_metadata": {
                     "as_of_date": "2026-01-23",
                     "forecast_deadline_date": "2026-03-15",
@@ -1935,6 +1959,22 @@ def test_actor_shared_context_preserves_forecast_source_packet_for_cohorts():
                     {"id": "yes", "label": "Nominee S wins by the deadline"},
                     {"id": "no", "label": "Nominee S does not win by the deadline"},
                 ],
+                "branch_hypotheses": [
+                    {
+                        "candidate_endpoint_id": "yes",
+                        "label": "YES candidate endpoint path",
+                        "trigger": "Official settlement evidence supports yes by the deadline.",
+                        "realization_criteria": ["The official award announcement names Nominee S."],
+                        "observable_divergence_signal": "Authority event names the yes outcome.",
+                    },
+                    {
+                        "candidate_endpoint_id": "no",
+                        "label": "NO candidate endpoint path",
+                        "trigger": "Official settlement evidence supports no by the deadline.",
+                        "realization_criteria": ["The official award announcement names another nominee."],
+                        "observable_divergence_signal": "Authority event names the no outcome.",
+                    },
+                ],
             },
             "initializer_output": {
                 "simulation_brief": {
@@ -1949,12 +1989,21 @@ def test_actor_shared_context_preserves_forecast_source_packet_for_cohorts():
     rendered = agent_engine._render_actor_shared_context(context)
 
     assert "question=Will Nominee S win Best Picture?" in rendered
+    assert "scenario=Nominee S has high nomination volume" in rendered
+    assert "# Case resolved_test" not in rendered
     assert "SOURCE PACKET:" in rendered
     assert "nomination_note / 2026-01-23: Nomination volume does not mechanically determine Best Picture." in rendered
     assert "Preferential ballots can reward broad consensus." in rendered
     assert "CANDIDATE ENDPOINTS:" in rendered
     assert "yes: Nominee S wins by the deadline" in rendered
     assert "CONTRACT:" in rendered
+    assert "RESOLUTION RULES:" in rendered
+    assert "Resolve no when the deadline passes without that win." in rendered
+    assert "focus=award_forecasting, preferential_ballot" in rendered
+    assert "BRANCH HYPOTHESES:" in rendered
+    assert "yes: YES candidate endpoint path" in rendered
+    assert "The official award announcement names another nominee." in rendered
+    assert "state_delta.endpoint_assessment" in rendered
     assert "final voter distribution" in rendered
 
 

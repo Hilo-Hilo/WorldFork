@@ -119,9 +119,11 @@ def compact_simulation_state(state: dict) -> dict:
             "setting": scenario.get("setting"),
             "question": scenario.get("question"),
             "scenario_text_excerpt": _excerpt(scenario.get("scenario_text", "")),
+            "forecast_card": _compact_forecast_card(scenario),
             "forecast_metadata": _compact_value(scenario.get("forecast_metadata", {})),
             "source_packet": _compact_source_packet(scenario.get("source_packet")),
             "candidate_endpoints": _compact_candidate_endpoints(scenario.get("candidate_endpoints")),
+            "branch_hypotheses": _compact_branch_hypotheses(scenario.get("branch_hypotheses")),
             "simulation_brief": initializer.get("simulation_brief"),
         },
         "cohorts": _compact_list(state.get("cohorts", [])),
@@ -139,6 +141,51 @@ def compact_simulation_state(state: dict) -> dict:
     if branch_context:
         compact["branch_context"] = branch_context
     return compact
+
+
+def _compact_forecast_card(scenario: dict) -> dict:
+    if not isinstance(scenario, dict):
+        return {}
+    text = scenario.get("scenario_text")
+    if not isinstance(text, str) or not text.strip():
+        return {}
+    compact: dict[str, Any] = {}
+    scenario_section = _markdown_section(text, "Scenario")
+    if scenario_section:
+        compact["scenario"] = _excerpt(scenario_section, 1400)
+    contract = _markdown_section(text, "Binary forecast contract")
+    if contract:
+        compact["binary_contract"] = _excerpt(contract, 900)
+    expected_focus = _markdown_bullets(_markdown_section(text, "Expected Focus"), limit=8)
+    if expected_focus:
+        compact["expected_focus"] = expected_focus
+    required_output = _markdown_section(text, "Required Forecast Output")
+    if required_output and "Brier" in required_output:
+        compact["scoring_note"] = "Resolved cards score p_yes against the hidden private resolution with binary Brier."
+    return compact
+
+
+def _markdown_section(text: str, title: str) -> str:
+    match = re.search(rf"^##\s+{re.escape(title)}\s*$([\s\S]*?)(?=^##\s+|\Z)", text, re.MULTILINE)
+    if not match:
+        return ""
+    return match.group(1).strip()
+
+
+def _markdown_bullets(text: str, *, limit: int) -> list[str]:
+    if not isinstance(text, str) or not text.strip():
+        return []
+    bullets: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("- "):
+            continue
+        item = stripped[2:].strip()
+        if item:
+            bullets.append(_excerpt(item, 180))
+        if len(bullets) >= limit:
+            break
+    return bullets
 
 
 def _excerpt(text: str, limit: int = 1200) -> str:
@@ -208,6 +255,33 @@ def _compact_candidate_endpoints(value: Any, *, limit: int = 6) -> list[dict]:
             for key in ("id", "endpoint_key", "label", "description")
             if item.get(key) not in (None, "", {}, [])
         }
+        if row:
+            rows.append(row)
+    return rows
+
+
+def _compact_branch_hypotheses(value: Any, *, limit: int = 4) -> list[dict]:
+    if not isinstance(value, list):
+        return []
+    rows = []
+    for item in value[:limit]:
+        if not isinstance(item, dict):
+            continue
+        row = {
+            key: _excerpt(item.get(key), 360)
+            for key in (
+                "candidate_endpoint_id",
+                "label",
+                "trigger",
+                "alternate_path",
+                "expected_divergence",
+                "observable_divergence_signal",
+            )
+            if item.get(key) not in (None, "", {}, [])
+        }
+        criteria = item.get("realization_criteria")
+        if isinstance(criteria, list):
+            row["realization_criteria"] = [_excerpt(value, 260) for value in criteria[:3] if isinstance(value, str)]
         if row:
             rows.append(row)
     return rows
