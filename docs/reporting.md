@@ -79,6 +79,20 @@ Endpoint ledgers store endpoint status and evidence. They are not the branch
 probability distribution. Final outcome probability comes from retained
 timeline/path mass after adjudication.
 
+Final reports also include a Prophet-style probability extraction layer:
+
+- `forecast_predictions.primary.p_yes` is the calibrated YES probability for
+  the primary forecast contract.
+- `forecast_predictions.primary.mass` records the yes/no/uncertain path mass
+  used to compute that value.
+- explicit predicate resolutions take priority when available because they map
+  directly to the original yes/no scenario question.
+- endpoint path-mass evidence is the fallback when predicate resolution is not
+  available; unresolved or insufficient-tick mass is split evenly rather than
+  coerced into YES or NO.
+- process-only endpoints are recorded as auxiliary evidence and cannot dominate
+  the binary forecast.
+
 ```bash
 worldfork ledgers list <big-bang-id>
 worldfork ledgers view <ledger-version-id>

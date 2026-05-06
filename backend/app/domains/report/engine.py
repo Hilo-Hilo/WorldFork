@@ -23,6 +23,7 @@ from app.domains.report.adjudication import (
     evaluate_timeline_adjudication,
     timeline_adjudication_entries,
 )
+from app.domains.report.probability import extract_forecast_predictions
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.storage.pdf_store import render_markdown_pdf_bytes
 from pathlib import Path as _Path
@@ -230,6 +231,7 @@ def generate_final_big_bang_report(
     )
     _commit_report_inputs_before_llm(db)
     _resolve_predictions_into_content(db, big_bang_id=big_bang.id, content=content, multiverses=multiverses)
+    _attach_forecast_predictions_content(content)
     llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
@@ -357,7 +359,26 @@ def _attach_endpoint_ledger_content(
             outcome_distribution["endpoint_path_mass_method"] = "path_mass_by_endpoint_status"
             outcome_distribution["path_probability_mass"] = aggregation_payload.get("path_probability_mass")
             outcome_distribution["endpoint_path_mass_distribution"] = aggregation_payload.get("endpoint_path_mass_distribution", [])
+    _attach_forecast_predictions_content(content)
     _patch_outcome_conclusions_from_endpoint_ledger(content)
+
+
+def _attach_forecast_predictions_content(content: dict[str, Any]) -> None:
+    predictions = extract_forecast_predictions(content)
+    content["forecast_predictions"] = predictions
+    primary = predictions.get("primary")
+    if not isinstance(primary, dict):
+        return
+    outcome_distribution = content.get("outcome_distribution")
+    if isinstance(outcome_distribution, dict):
+        outcome_distribution["forecast_probability"] = {
+            "endpoint_id": primary.get("endpoint_id"),
+            "p_yes": primary.get("p_yes"),
+            "p_no": primary.get("p_no"),
+            "confidence": primary.get("confidence"),
+            "resolution_state": primary.get("resolution_state"),
+            "method": primary.get("method"),
+        }
 
 
 def _attach_timeline_adjudication_content(
@@ -2172,6 +2193,7 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
             "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
+            "forecast_predictions": _compact_forecast_predictions(content.get("forecast_predictions") or {}),
             "endpoint_ledger": _compact_endpoint_ledger(content),
             "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
             "endpoint_path_mass_distribution": _compact_report_value(
@@ -2211,6 +2233,7 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
+            "forecast_predictions": _compact_forecast_predictions(content.get("forecast_predictions") or {}),
             "endpoint_ledger": _compact_endpoint_ledger(content),
             "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
         "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
@@ -2247,6 +2270,17 @@ def _compact_endpoint_ledger(content: dict[str, Any]) -> dict[str, Any]:
             max_items=8,
         ),
         "plot_distribution": _compact_report_value(payload.get("plot_distribution") or {}, max_items=8),
+    }
+
+
+def _compact_forecast_predictions(predictions: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(predictions, dict):
+        return {}
+    primary = predictions.get("primary")
+    compact_primary = _compact_report_value(primary or {}, max_items=12) if isinstance(primary, dict) else {}
+    return {
+        "schema_version": predictions.get("schema_version"),
+        "primary": compact_primary,
     }
 
 
@@ -2287,6 +2321,7 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
         "endpoint_probability_method",
         "path_probability_mass",
         "endpoint_path_mass_distribution",
+        "forecast_probability",
         "weighted_endpoint_histogram",
         "total_social_posts",
         "total_graph_edges",
@@ -2307,6 +2342,9 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
 
 
 def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
+    forecast = content.get("forecast_predictions")
+    primary_forecast = forecast.get("primary") if isinstance(forecast, dict) else {}
+    primary: dict[str, Any] = primary_forecast if isinstance(primary_forecast, dict) else {}
     if content.get("report_type") == "final_big_bang":
         raw_distribution = content.get("outcome_distribution")
         distribution: dict[str, Any] = raw_distribution if isinstance(raw_distribution, dict) else {}
@@ -2315,9 +2353,14 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
             "scope": "final_big_bang",
             "endpoint_path_mass_method": method,
             "path_probability_mass": distribution.get("path_probability_mass"),
+            "forecast_p_yes": primary.get("p_yes"),
+            "forecast_confidence": primary.get("confidence"),
+            "forecast_resolution_state": primary.get("resolution_state"),
+            "forecast_method": primary.get("method"),
             "semantics": (
                 "Endpoint ledger entries are yes/no/unresolved states. Final quantitative claims are path-mass "
-                "aggregations across retained timelines, not per-endpoint ledger probabilities."
+                "aggregations across retained timelines. forecast_p_yes is the calibrated prediction extracted "
+                "from those path-mass endpoint states."
             ),
         }
 
@@ -2327,10 +2370,14 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
         "scope": "single_multiverse",
         "branch_probability": metrics.get("branch_probability"),
         "path_probability": metrics.get("path_probability"),
+        "forecast_p_yes": primary.get("p_yes"),
+        "forecast_confidence": primary.get("confidence"),
+        "forecast_resolution_state": primary.get("resolution_state"),
+        "forecast_method": primary.get("method"),
         "semantics": (
             "This is a single timeline report. branch_probability is the conditional probability assigned at "
             "this timeline's fork, and path_probability is the cumulative probability mass of this timeline. "
-            "Endpoint ledger entries are terminal-state predicates, not probability estimates."
+            "forecast_p_yes is the calibrated prediction extracted from endpoint-ledger terminal-state predicates."
         ),
     }
 
