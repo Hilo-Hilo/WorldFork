@@ -1037,10 +1037,10 @@ def _execute_checkpoint_payload(
                 "ledger_instruction": (
                     "At the final allowed tick for a deadline-aware forecast, settle explicit yes/no candidate "
                     "endpoints from the simulated path evidence and the original forecast-card source packet. "
-                    "Use realized/eliminated only when an executed terminal event or hard endpoint evidence "
-                    "settles the binary outcome. If the path merely lacks an announcement, result, launch, "
-                    "or other terminal event, mark both binary candidates insufficient_ticks instead of "
-                    "realizing no from absence alone. Do not open new branches at the final horizon."
+                    "Use executed terminal events or hard endpoint evidence when available. If no terminal event "
+                    "exists at the deadline, force a binary yes/no settlement from the final path evidence, branch "
+                    "premise, and source context instead of returning insufficient_ticks for the primary binary "
+                    "candidates. Do not open new branches at the final horizon."
                 ),
             },
         }

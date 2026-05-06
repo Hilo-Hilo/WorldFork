@@ -383,7 +383,7 @@ def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
     assert by_key["organizing_continues"]["status"] == "insufficient_ticks"
 
 
-def test_endpoint_finalization_does_not_default_deadline_aware_binary_to_no_at_final_horizon():
+def test_endpoint_finalization_forces_deadline_aware_binary_no_at_final_horizon():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 16}},
         "multiverse": {"status": "active"},
@@ -417,10 +417,11 @@ def test_endpoint_finalization_does_not_default_deadline_aware_binary_to_no_at_f
     )
     by_key = {entry["endpoint_key"]: entry for entry in entries}
 
-    assert by_key["no"]["status"] == "insufficient_ticks"
-    assert by_key["yes"]["status"] == "insufficient_ticks"
-    assert by_key["no"]["status_basis"] == "max_tick_limit_reached"
-    assert by_key["yes"]["status_basis"] == "max_tick_limit_reached"
+    assert by_key["no"]["status"] == "realized"
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+    assert by_key["yes"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+    assert by_key["no"]["meta"]["final_horizon_forced_binary_settlement"] is True
     assert by_key["auxiliary"]["status"] == "insufficient_ticks"
 
 
@@ -548,7 +549,7 @@ def test_endpoint_finalization_rejects_absence_only_no_against_source_packet_bas
     assert by_key["yes"]["meta"]["source_packet_baseline_settlement"] is True
 
 
-def test_endpoint_finalization_downgrades_absence_only_no_without_terminal_event():
+def test_endpoint_finalization_keeps_absence_only_no_as_forced_deadline_settlement():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 5}},
         "multiverse": {"status": "active"},
@@ -603,10 +604,11 @@ def test_endpoint_finalization_downgrades_absence_only_no_without_terminal_event
     )
     by_key = {entry["endpoint_key"]: entry for entry in entries}
 
-    assert by_key["yes"]["status"] == "insufficient_ticks"
-    assert by_key["no"]["status"] == "insufficient_ticks"
-    assert by_key["yes"]["meta"]["absence_only_binary_settlement_downgraded"] is True
-    assert by_key["no"]["meta"]["absence_only_binary_settlement_downgraded"] is True
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status"] == "realized"
+    assert by_key["yes"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+    assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+    assert by_key["no"]["meta"]["final_horizon_candidate_settlement"] is True
 
 
 def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: Session):
@@ -653,9 +655,9 @@ def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: 
     ledger = evaluate_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse, use_llm=False)
 
     entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
-    assert entries["no"].status == "insufficient_ticks"
-    assert entries["yes"].status == "insufficient_ticks"
-    assert entries["no"].status_basis == "max_tick_limit_reached"
+    assert entries["no"].status == "realized"
+    assert entries["yes"].status == "eliminated"
+    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
 
 
 def test_god_final_tick_updates_are_deadline_settled(db: Session):
@@ -714,9 +716,157 @@ def test_god_final_tick_updates_are_deadline_settled(db: Session):
 
     assert ledger is not None
     entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
-    assert entries["no"].status == "insufficient_ticks"
-    assert entries["yes"].status == "insufficient_ticks"
-    assert entries["no"].status_basis == "max_tick_limit_reached"
+    assert entries["no"].status == "realized"
+    assert entries["yes"].status == "eliminated"
+    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
+
+
+def test_endpoint_finalization_uses_branch_premise_for_forced_yes_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 5}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 5}],
+        "branch_context": {
+            "branch_premise": "Preserve the alternate future where Candidate A wins the authority announcement before the deadline."
+        },
+        "god_reviews": [
+            {
+                "decision": "mark_ready_for_report",
+                "rationale": "Final path evidence favors Candidate A winning the authority announcement in this branch.",
+            }
+        ],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "insufficient_ticks",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "insufficient_ticks",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+    assert by_key["yes"]["status"] == "realized"
+    assert by_key["no"]["status"] == "eliminated"
+    assert by_key["yes"]["meta"]["final_horizon_forced_binary_settlement"] is True
+
+
+def test_endpoint_finalization_uses_branch_premise_for_forced_no_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 5}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 5}],
+        "branch_context": {
+            "branch_premise": (
+                "Preserve an alternate path where the authority is pulled toward a broader humanitarian "
+                "field rather than Candidate A's democracy-rights symbolism."
+            )
+        },
+        "god_reviews": [
+            {
+                "decision": "mark_ready_for_report",
+                "rationale": "The path remains competitive and asks whether Candidate A won, but broader-field evidence is stronger.",
+            }
+        ],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "insufficient_ticks",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "insufficient_ticks",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status"] == "realized"
+    assert by_key["no"]["meta"]["final_horizon_forced_binary_settlement"] is True
+
+
+def test_endpoint_finalization_recomputes_prior_forced_settlement_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 5}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 5}],
+        "branch_context": {
+            "branch_premise": (
+                "Preserve an alternate path where the authority is pulled toward a broader humanitarian "
+                "field rather than Candidate A's democracy-rights symbolism."
+            )
+        },
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "realized",
+                "meta": {
+                    "endpoint_role": "primary_candidate",
+                    "candidate_endpoint_id": "yes",
+                    "final_horizon_forced_binary_settlement": True,
+                },
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "eliminated",
+                "meta": {
+                    "endpoint_role": "primary_candidate",
+                    "candidate_endpoint_id": "no",
+                    "final_horizon_forced_binary_settlement": True,
+                },
+            },
+        ],
+        evidence=evidence,
+    )
+
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status"] == "realized"
 
 
 def test_endpoint_finalization_settles_deadline_aware_binary_yes_at_final_horizon():

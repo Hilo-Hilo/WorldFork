@@ -1108,13 +1108,13 @@ def _try_llm_endpoint_evaluation(
         "instructions": [
             "Track endpoint states, not process moves.",
             "Use statuses active, weakened, eliminated, realized, unresolved, or process_only.",
-            "Use insufficient_ticks when a final tick limit stops the timeline before a terminal endpoint resolves.",
+            "Use insufficient_ticks for auxiliary endpoints when a final tick limit stops before terminal mechanism resolution.",
             "Use eliminated only when the endpoint is impossible from hard evidence or final-horizon God review, not merely because it has not happened yet.",
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
             "When scenario_candidate_endpoints contains primary yes/no endpoints, resolve those explicit binary candidates before auxiliary mechanisms.",
-            "At the forecast deadline, settle yes/no only from simulated terminal events, hard authority evidence, or the original forecast-card source packet.",
-            "If the simulated path merely lacks a terminal announcement, result, launch, or authority event, mark the explicit yes/no candidates insufficient_ticks instead of realizing no from absence alone.",
+            "At the forecast deadline, explicit yes/no primary candidates must settle realized/eliminated. Simulated terminal events and hard authority evidence win.",
+            "If no terminal event exists at the deadline, force a binary settlement from final path evidence, branch premise, God review, and source packet context instead of returning insufficient_ticks for yes/no.",
             "Auxiliary mechanism endpoints must not keep a binary forecast unresolved after the yes/no candidate has settled.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
@@ -1252,7 +1252,6 @@ def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any]
     if evidence is not None:
         entries = _settle_primary_binary_candidates_from_terminal_event(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_source_packet_baseline(entries, evidence=evidence)
-        entries = _downgrade_absence_only_primary_binary_settlement(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
         entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
@@ -1304,7 +1303,10 @@ def _settle_primary_binary_candidates_at_final_horizon(
     no = by_candidate["no"]
     if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no) or _has_source_packet_baseline_settlement(yes) or _has_source_packet_baseline_settlement(no):
         return entries
-    if yes.get("status") == "realized":
+    forced_candidate = _forced_final_horizon_binary_candidate(evidence)
+    if _has_forced_final_horizon_settlement(yes) or _has_forced_final_horizon_settlement(no):
+        replacement = _forced_final_horizon_binary_replacement(yes, no, forced_candidate=forced_candidate, evidence=evidence)
+    elif yes.get("status") == "realized":
         replacement = {
             "yes": _mark_candidate_deadline_settlement(yes, status="realized", evidence=evidence),
             "no": _mark_candidate_deadline_settlement(
@@ -1325,7 +1327,7 @@ def _settle_primary_binary_candidates_at_final_horizon(
             "no": _mark_candidate_deadline_settlement(no, status="realized", evidence=evidence),
         }
     else:
-        return entries
+        replacement = _forced_final_horizon_binary_replacement(yes, no, forced_candidate=forced_candidate, evidence=evidence)
 
     settled: list[dict[str, Any]] = []
     for entry in entries:
@@ -1343,6 +1345,144 @@ def _has_terminal_event_settlement(entry: dict[str, Any]) -> bool:
 def _has_source_packet_baseline_settlement(entry: dict[str, Any]) -> bool:
     meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
     return bool(meta.get("source_packet_baseline_settlement"))
+
+
+def _has_forced_final_horizon_settlement(entry: dict[str, Any]) -> bool:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    return bool(meta.get("final_horizon_forced_binary_settlement"))
+
+
+def _forced_final_horizon_binary_replacement(
+    yes: dict[str, Any],
+    no: dict[str, Any],
+    *,
+    forced_candidate: str,
+    evidence: dict[str, Any] | None,
+) -> dict[str, dict[str, Any]]:
+    if forced_candidate == "yes":
+        return {
+            "yes": _mark_candidate_deadline_settlement(
+                yes,
+                status="realized",
+                evidence=evidence,
+                rationale=_forced_final_horizon_rationale("yes", evidence),
+                forced=True,
+            ),
+            "no": _mark_candidate_deadline_settlement(
+                no,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The forced final-horizon path settlement chose yes, so the no candidate is eliminated.",
+                forced=True,
+            ),
+        }
+    return {
+        "yes": _mark_candidate_deadline_settlement(
+            yes,
+            status="eliminated",
+            evidence=evidence,
+            rationale="The forced final-horizon path settlement chose no, so the yes candidate is eliminated.",
+            forced=True,
+        ),
+        "no": _mark_candidate_deadline_settlement(
+            no,
+            status="realized",
+            evidence=evidence,
+            rationale=_forced_final_horizon_rationale("no", evidence),
+            forced=True,
+        ),
+    }
+
+
+def _forced_final_horizon_binary_candidate(evidence: dict[str, Any] | None) -> str:
+    if _source_packet_baseline_supports_yes(evidence):
+        return "yes"
+    branch_text = _branch_context_path_text(evidence)
+    if _path_text_supports_no(branch_text):
+        return "no"
+    if _path_text_supports_yes(branch_text):
+        return "yes"
+    text = _final_horizon_path_text(evidence)
+    yes_supported = _path_text_supports_yes(text)
+    no_supported = _path_text_supports_no(text)
+    if no_supported:
+        return "no"
+    if yes_supported:
+        return "yes"
+    return "no"
+
+
+def _forced_final_horizon_rationale(candidate_id: str, evidence: dict[str, Any] | None) -> str:
+    forecast_metadata = (evidence or {}).get("forecast_metadata")
+    deadline = None
+    if isinstance(forecast_metadata, dict):
+        deadline = forecast_metadata.get("forecast_deadline_date")
+    if candidate_id == "yes":
+        return (
+            "The deadline-aware simulated horizon ended without a terminal event, so the explicit binary "
+            "forecast is forced to settle from final path evidence; branch/review evidence favors yes"
+            + (f" by {deadline}." if deadline else ".")
+        )
+    return (
+        "The deadline-aware simulated horizon ended without a terminal yes event, so the explicit binary "
+        "forecast is forced to settle from the final simulated path; absent stronger yes-path evidence, "
+        "the event is treated as not occurring"
+        + (f" by {deadline}." if deadline else ".")
+    )
+
+
+def _final_horizon_path_text(evidence: dict[str, Any] | None) -> str:
+    values: list[Any] = []
+    branch_context = (evidence or {}).get("branch_context")
+    if isinstance(branch_context, dict):
+        values.extend(
+            [
+                branch_context.get("branch_premise"),
+                branch_context.get("branch_hypothesis_signature"),
+            ]
+        )
+    for review in (evidence or {}).get("god_reviews") or []:
+        if isinstance(review, dict):
+            values.extend([review.get("decision"), review.get("rationale")])
+    for tick in (evidence or {}).get("ticks") or []:
+        if isinstance(tick, dict):
+            values.extend([tick.get("summary"), tick.get("god_decision")])
+    return " ".join(_text_fragments(values)).lower()
+
+
+def _branch_context_path_text(evidence: dict[str, Any] | None) -> str:
+    branch_context = (evidence or {}).get("branch_context")
+    if not isinstance(branch_context, dict):
+        return ""
+    return " ".join(
+        _text_fragments([branch_context.get("branch_premise"), branch_context.get("branch_hypothesis_signature")])
+    ).lower()
+
+
+def _path_text_supports_yes(text: str) -> bool:
+    if not text:
+        return False
+    patterns = [
+        r"\b(?:wins|won|winning|receives|received|awarded|selected|chosen)\b.{0,80}\b(?:by|before)\s+(?:the\s+)?deadline\b",
+        r"\b(?:candidate|forecast subject|event|outcome)\b.{0,80}\b(?:wins|won|winning|receives|received|awarded|selected|chosen|occurs|occurred|happens|happened)\b",
+        r"\bfavor(?:s|ed|ing)?\b.{0,80}\b(?:candidate|yes|winning|occurrence)\b",
+        r"\bresolve(?:s|d)?\b.{0,80}\b(?:forecast|endpoint|outcome)\b.{0,80}\b(?:as|to)\s+yes\b",
+    ]
+    return any(re.search(pattern, text) for pattern in patterns)
+
+
+def _path_text_supports_no(text: str) -> bool:
+    if not text:
+        return False
+    patterns = [
+        r"\b(?:does not|did not|fails to|failed to)\b.{0,80}\b(?:occur|happen|win|receive|launch|release|resolve)\b",
+        r"\b(?:alternative|different|competing|broader|crisis|humanitarian)\b.{0,120}\b(?:rather than|over|instead of)\b.{0,80}\b(?:candidate|forecast subject|yes)\b",
+        r"\b(?:rather than|instead of)\b.{0,80}\b(?:candidate|forecast subject|yes)\b",
+        r"\b(?:alternative|different|competing)\b.{0,80}\b(?:symbolic-target|symbolic target|field|theme|pressure)\b",
+        r"\b(?:weaker|weakened|reduced|lower)\b.{0,80}\b(?:candidate|yes|democracy-rights|democracy rights)\b",
+        r"\bresolve(?:s|d)?\b.{0,80}\b(?:forecast|endpoint|outcome)\b.{0,80}\b(?:as|to)\s+no\b",
+    ]
+    return any(re.search(pattern, text) for pattern in patterns)
 
 
 def _settle_primary_binary_candidates_from_terminal_event(
@@ -1610,6 +1750,7 @@ def _mark_candidate_deadline_settlement(
     status: str,
     evidence: dict[str, Any] | None,
     rationale: str | None = None,
+    forced: bool = False,
 ) -> dict[str, Any]:
     meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
     forecast_metadata = (evidence or {}).get("forecast_metadata")
@@ -1631,7 +1772,11 @@ def _mark_candidate_deadline_settlement(
                 "tick_index": latest_tick,
             },
         ],
-        "meta": {**meta, "final_horizon_candidate_settlement": True},
+        "meta": {
+            **meta,
+            "final_horizon_candidate_settlement": True,
+            **({"final_horizon_forced_binary_settlement": True} if forced else {}),
+        },
     }
 
 
