@@ -1828,6 +1828,31 @@ def test_agent_prompt_context_sanitizes_sociology_influences_and_omits_raw_corpu
     assert "raw_text_artifact_id" not in context["current_state"]["scenario_summary"]
 
 
+def test_agent_prompt_context_includes_forecast_deadline_clock_context():
+    context = build_agent_prompt_context(
+        clock_context=SimpleNamespace(
+            tick_index=3,
+            tick_duration="10080 minutes",
+            as_prompt_text=lambda: "Current tick: T3",
+        ),
+        current_state={
+            "scenario_input": {
+                "forecast_metadata": {
+                    "as_of_date": "2025-09-10",
+                    "forecast_deadline_date": "2025-09-30",
+                    "deadline_tick": 3,
+                    "tick_horizon_policy": "deadline_aware",
+                }
+            }
+        },
+        sociology_prompt_influences=[],
+    )
+
+    assert context["forecast_clock"]["deadline_tick_reached"] is True
+    assert context["forecast_clock"]["forecast_deadline_date"] == "2025-09-30"
+    assert "T3 is the forecast deadline" in context["forecast_clock"]["deadline_instruction"]
+
+
 def test_forbidden_god_tool_aliases_are_rejected():
     calls = god_agent._normalize_tool_calls(
         [

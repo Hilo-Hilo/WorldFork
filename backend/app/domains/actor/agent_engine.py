@@ -569,7 +569,15 @@ def _social_post_body(value) -> str:
     return str(value)
 
 
-def queue_agent_events(db: Session, *, big_bang_id, multiverse_id, tick_index: int, parsed_actions: list[dict]) -> list[dict]:
+def queue_agent_events(
+    db: Session,
+    *,
+    big_bang_id,
+    multiverse_id,
+    tick_index: int,
+    parsed_actions: list[dict],
+    max_scheduled_tick: int | None = None,
+) -> list[dict]:
     queued = []
     for action in parsed_actions:
         if not isinstance(action, dict):
@@ -579,6 +587,8 @@ def queue_agent_events(db: Session, *, big_bang_id, multiverse_id, tick_index: i
             continue
         title = event_payload.get("title") or "Agent proposed event"
         scheduled_tick = _parse_scheduled_tick(event_payload.get("scheduled_tick"), tick_index + 1)
+        if max_scheduled_tick is not None and scheduled_tick > max_scheduled_tick:
+            continue
         event = models.Event(
             big_bang_id=big_bang_id,
             multiverse_id=multiverse_id,

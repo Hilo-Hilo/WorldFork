@@ -882,12 +882,20 @@ def _execute_checkpoint_payload(
             tick_index=tick_index,
             parsed_actions=agent_result["parsed_actions"],
         )
+        simulation_config = simulation_config_for_multiverse(db, multiverse)
+        forecast_metadata = (big_bang.scenario_input or {}).get("forecast_metadata") if isinstance(big_bang.scenario_input, dict) else {}
+        max_scheduled_tick = None
+        if isinstance(forecast_metadata, dict) and forecast_metadata.get("tick_horizon_policy") in {None, "deadline_aware"}:
+            max_ticks = simulation_config.get("max_ticks")
+            if max_ticks is not None:
+                max_scheduled_tick = int(max_ticks)
         queued_events = queue_agent_events(
             db,
             big_bang_id=multiverse.big_bang_id,
             multiverse_id=multiverse.id,
             tick_index=tick_index,
             parsed_actions=agent_result["parsed_actions"],
+            max_scheduled_tick=max_scheduled_tick,
         )
         due_events = load_due_events(db, multiverse.id, tick_index)
         executed_events = execute_due_events(db, due_events, tick_snapshot_id=tick.id)

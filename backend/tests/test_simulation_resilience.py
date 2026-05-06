@@ -150,6 +150,43 @@ def test_agent_decision_payloads_skip_bad_list_items_and_default_casts(db, monke
     assert [item["scheduled_tick"] for item in queued] == [7, 4, 7, 4]
 
 
+def test_queue_agent_events_drops_future_events_after_deadline_tick(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+
+    queued = agent_engine.queue_agent_events(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=3,
+        parsed_actions=[
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Official settlement happens too late",
+                    "event_type": "announcement",
+                    "scheduled_tick": 4,
+                    "expected_impact": {"endpoint": "would resolve after deadline"},
+                },
+            },
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Same-tick deadline clarification",
+                    "event_type": "announcement",
+                    "scheduled_tick": 3,
+                    "expected_impact": {"endpoint": "deadline tick evidence"},
+                },
+            },
+        ],
+        max_scheduled_tick=3,
+    )
+
+    assert [item["title"] for item in queued] == ["Same-tick deadline clarification"]
+    assert [event.title for event in db.query(models.Event).order_by(models.Event.title)] == [
+        "Same-tick deadline clarification"
+    ]
+
+
 def test_social_action_dict_body_is_serialized_for_text_column(db):
     big_bang, root, alpha, _beta = _seed_world(db)
 

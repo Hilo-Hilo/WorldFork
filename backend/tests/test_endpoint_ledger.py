@@ -485,6 +485,69 @@ def test_endpoint_finalization_terminal_event_overrides_conflicting_binary_updat
     assert by_key["yes"]["meta"]["terminal_event_settlement"] is True
 
 
+def test_endpoint_finalization_rejects_absence_only_no_against_source_packet_baseline():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 3}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 3}],
+        "events": [
+            {
+                "title": "Preorder demand and shipment preparation continue",
+                "event_type": "operational_update",
+                "status": "executed",
+                "scheduled_tick": 3,
+                "actual_impact": {
+                    "status": "applied",
+                    "summary": "Commercial momentum remains strong; no authoritative delay or miss is announced.",
+                },
+            }
+        ],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-09-30",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "forecast_source_guidance": {
+            "official_baseline_supports_yes": True,
+            "no_requires_hard_negative_evidence": True,
+            "baseline_summary": "Company announcement says availability will begin later in September.",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "eliminated",
+                "rationale": "No direct evidence of customer-facing availability by the deadline was observed.",
+                "evidence_refs": ["No confirmed customer delivery or in-store availability yet."],
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "realized",
+                "rationale": "Final-horizon settlement favors no because the modeled path stops short of verified availability.",
+                "evidence_refs": [
+                    "Retail and media framed current evidence as preorder and estimated ship windows.",
+                    "No event confirms in-store stock or completed customer availability by the deadline.",
+                ],
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["yes"]["status"] == "realized"
+    assert by_key["no"]["status"] == "eliminated"
+    assert by_key["yes"]["status_basis"] == "source_packet_baseline_binary_candidate_settlement"
+    assert by_key["yes"]["meta"]["source_packet_baseline_settlement"] is True
+
+
 def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: Session):
     big_bang, multiverse, _actor = _world(db)
     big_bang.scenario_input = {

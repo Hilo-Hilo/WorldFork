@@ -497,6 +497,7 @@ def _collect_evidence(
         },
         "scenario_candidate_endpoints": candidate_endpoints,
         "forecast_metadata": forecast_metadata,
+        "forecast_source_guidance": _forecast_source_guidance(scenario, initializer),
         "scope": "multiverse" if multiverse is not None else "big_bang",
         "multiverse": {
             "id": str(multiverse.id),
@@ -1220,6 +1221,7 @@ def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any]
     entries = _normalize_entries(entries)
     if evidence is not None:
         entries = _settle_primary_binary_candidates_from_terminal_event(entries, evidence=evidence)
+        entries = _settle_primary_binary_candidates_from_source_packet_baseline(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
         entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
@@ -1269,7 +1271,7 @@ def _settle_primary_binary_candidates_at_final_horizon(
 
     yes = by_candidate["yes"]
     no = by_candidate["no"]
-    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no):
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no) or _has_source_packet_baseline_settlement(yes) or _has_source_packet_baseline_settlement(no):
         return entries
     if yes.get("status") == "realized":
         replacement = {
@@ -1305,6 +1307,11 @@ def _settle_primary_binary_candidates_at_final_horizon(
 def _has_terminal_event_settlement(entry: dict[str, Any]) -> bool:
     meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
     return bool(meta.get("terminal_event_settlement"))
+
+
+def _has_source_packet_baseline_settlement(entry: dict[str, Any]) -> bool:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    return bool(meta.get("source_packet_baseline_settlement"))
 
 
 def _settle_primary_binary_candidates_from_terminal_event(
@@ -1366,6 +1373,56 @@ def _settle_primary_binary_candidates_from_terminal_event(
     return settled
 
 
+def _settle_primary_binary_candidates_from_source_packet_baseline(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _final_horizon_reached(evidence) or not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate = _primary_binary_candidates(entries)
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no) or _has_source_packet_baseline_settlement(yes) or _has_source_packet_baseline_settlement(no):
+        return entries
+    if yes.get("status") != "eliminated" or no.get("status") not in {"realized", "active", "weakened", "unresolved", "insufficient_ticks"}:
+        return entries
+    if not _source_packet_baseline_supports_yes(evidence):
+        return entries
+    if not _no_realization_is_absence_only(no, yes, evidence=evidence):
+        return entries
+
+    replacement = {
+        "yes": _mark_candidate_source_baseline_settlement(
+            yes,
+            status="realized",
+            evidence=evidence,
+            rationale=(
+                "The source packet's official baseline supports occurrence by the forecast deadline, "
+                "and this path contains no hard authoritative miss or delay; absence-only no evidence is insufficient."
+            ),
+        ),
+        "no": _mark_candidate_source_baseline_settlement(
+            no,
+            status="eliminated",
+            evidence=evidence,
+            rationale=(
+                "The no candidate was based on absence of verification rather than hard miss/delay evidence, "
+                "so it is eliminated against the source-packet baseline at the forecast deadline."
+            ),
+        ),
+    }
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
 def _settle_primary_binary_candidates_from_counterpart(
     entries: list[dict[str, Any]],
     *,
@@ -1379,7 +1436,7 @@ def _settle_primary_binary_candidates_from_counterpart(
 
     yes = by_candidate["yes"]
     no = by_candidate["no"]
-    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no):
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no) or _has_source_packet_baseline_settlement(yes) or _has_source_packet_baseline_settlement(no):
         return entries
     if yes.get("status") == "realized" or no.get("status") == "eliminated":
         replacement = {
@@ -1523,6 +1580,35 @@ def _mark_candidate_terminal_event_settlement(
     }
 
 
+def _mark_candidate_source_baseline_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    evidence: dict[str, Any] | None,
+    rationale: str,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    guidance = (evidence or {}).get("forecast_source_guidance")
+    if not isinstance(guidance, dict):
+        guidance = {}
+    guidance_ref = {
+        "source": "forecast_source_packet_baseline",
+        "baseline_summary": guidance.get("baseline_summary"),
+        "tick_index": latest_tick,
+    }
+    return {
+        **entry,
+        "status": status,
+        "evidence_refs": [*list(entry.get("evidence_refs") or []), guidance_ref],
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "source_packet_baseline_binary_candidate_settlement",
+        "rationale": rationale,
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or latest_tick,
+        "meta": {**meta, "source_packet_baseline_settlement": True},
+    }
+
+
 def _mark_candidate_counterpart_settlement(
     entry: dict[str, Any],
     *,
@@ -1599,6 +1685,118 @@ def _terminal_event_actual_summary(event: dict[str, Any]) -> str:
         actual.get("description"),
     ]
     return " ".join(str(part) for part in parts if part)
+
+
+def _source_packet_baseline_supports_yes(evidence: dict[str, Any] | None) -> bool:
+    guidance = (evidence or {}).get("forecast_source_guidance")
+    if not isinstance(guidance, dict):
+        return False
+    return bool(guidance.get("official_baseline_supports_yes") and guidance.get("no_requires_hard_negative_evidence"))
+
+
+def _no_realization_is_absence_only(
+    no_entry: dict[str, Any],
+    yes_entry: dict[str, Any],
+    *,
+    evidence: dict[str, Any] | None,
+) -> bool:
+    text = " ".join(
+        [
+            _entry_resolution_text(no_entry),
+            _entry_resolution_text(yes_entry),
+            _events_resolution_text(evidence),
+        ]
+    ).lower()
+    cleaned = _remove_negated_hard_negative_mentions(text)
+    if _contains_hard_negative_outcome(cleaned):
+        return False
+    absence_cues = (
+        "absence",
+        "absent",
+        "no direct evidence",
+        "no event confirms",
+        "no verified",
+        "not verified",
+        "unverified",
+        "not confirmed",
+        "unconfirmed",
+        "not evidenced",
+        "without verified",
+        "without direct",
+        "stops short",
+        "short of",
+        "preorder",
+        "estimated ship",
+        "ship window",
+        "ship-date",
+    )
+    return any(cue in text for cue in absence_cues)
+
+
+def _entry_resolution_text(entry: dict[str, Any]) -> str:
+    values: list[Any] = [
+        entry.get("rationale"),
+        entry.get("status_basis"),
+        entry.get("contradiction_notes"),
+        entry.get("blockers"),
+        entry.get("evidence_refs"),
+        entry.get("negative_evidence_refs"),
+    ]
+    return " ".join(_text_fragments(values))
+
+
+def _events_resolution_text(evidence: dict[str, Any] | None) -> str:
+    values: list[Any] = []
+    for event in (evidence or {}).get("events") or []:
+        if not isinstance(event, dict) or str(event.get("status") or "").lower() != "executed":
+            continue
+        values.append(event.get("title"))
+        actual = event.get("actual_impact") if isinstance(event.get("actual_impact"), dict) else {}
+        values.extend([actual.get("summary"), actual.get("rationale"), actual.get("description")])
+    return " ".join(_text_fragments(values))
+
+
+def _text_fragments(values: Any) -> list[str]:
+    if isinstance(values, str):
+        return [values]
+    if isinstance(values, dict):
+        return _text_fragments(list(values.values()))
+    if isinstance(values, list) or isinstance(values, tuple):
+        fragments: list[str] = []
+        for value in values:
+            fragments.extend(_text_fragments(value))
+        return fragments
+    if values is None:
+        return []
+    return [str(values)]
+
+
+def _remove_negated_hard_negative_mentions(text: str) -> str:
+    replacements = [
+        r"\bno\s+(?:hard\s+|authoritative\s+|official\s+)?(?:delay|miss|cancellation|denial)\b",
+        r"\bnot\s+(?:delayed|cancelled|canceled|denied|missed|unavailable)\b",
+        r"\bwithout\s+(?:a\s+)?(?:hard\s+|authoritative\s+|official\s+)?(?:delay|miss|cancellation|denial)\b",
+    ]
+    cleaned = text
+    for pattern in replacements:
+        cleaned = re.sub(pattern, " ", cleaned)
+    return cleaned
+
+
+def _contains_hard_negative_outcome(text: str) -> bool:
+    patterns = [
+        r"\b(?:official|authoritative|confirmed|announced)\s+(?:delay|miss|cancellation|cancelation|denial)\b",
+        r"\b(?:delayed|pushed|slipped|postponed)\s+(?:past|beyond|after)\s+(?:the\s+)?deadline\b",
+        r"\bmissed\s+(?:the\s+)?deadline\b",
+        r"\bdeadline\s+passed\s+without\b",
+        r"\bcontinued\s+non-availability\b",
+        r"\bnot\s+available\s+by\s+(?:the\s+)?deadline\b",
+        r"\bcancelled\b",
+        r"\bcanceled\b",
+        r"\bdenied\b",
+        r"\bwill\s+not\s+(?:occur|happen|be\s+available|launch|release)\b",
+    ]
+    return any(re.search(pattern, text) for pattern in patterns)
 
 
 def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
@@ -1714,12 +1912,78 @@ def _compact_evidence(evidence: dict[str, Any]) -> dict[str, Any]:
         "initializer": _compact_value(evidence.get("initializer") or {}, max_items=10),
         "scenario_candidate_endpoints": _compact_value(evidence.get("scenario_candidate_endpoints") or [], max_items=8),
         "forecast_metadata": _compact_value(evidence.get("forecast_metadata") or {}, max_items=8),
+        "forecast_source_guidance": _compact_value(evidence.get("forecast_source_guidance") or {}, max_items=8),
         "timeline_statuses": evidence.get("timeline_statuses"),
         "ticks": _compact_value((evidence.get("ticks") or [])[:8], max_items=8),
         "events": _compact_value((evidence.get("events") or [])[:12], max_items=8),
         "god_reviews": _compact_value((evidence.get("god_reviews") or [])[:8], max_items=8),
         "candidate_endpoint": _compact_value(evidence.get("candidate_endpoint") or {}, max_items=8),
     }
+
+
+def _forecast_source_guidance(scenario: dict[str, Any], initializer: dict[str, Any]) -> dict[str, Any]:
+    scenario_text = str(scenario.get("scenario_text") or scenario.get("prompt") or scenario.get("premise") or "")
+    brief = initializer.get("simulation_brief") if isinstance(initializer.get("simulation_brief"), dict) else {}
+    brief_text = " ".join(
+        str(part)
+        for part in [
+            brief.get("summary"),
+            brief.get("question"),
+            brief.get("resolution_rule"),
+            brief.get("forecast_horizon"),
+        ]
+        if part
+    )
+    source_text = "\n".join(part for part in [scenario_text, brief_text] if part)
+    lowered = source_text.lower()
+    no_requires_hard_negative = (
+        "resolve no only" in lowered
+        or "absence of independent proof" in lowered
+        or "absence of external proof" in lowered
+        or "absence of direct" in lowered
+        or "not enough by itself" in lowered
+    )
+    official_baseline_supports_yes = bool(
+        re.search(
+            r"\b(?:company|authority|official|announced|schedule|scheduled|plan|planned|expected|expects|will)\b"
+            r".{0,140}\b(?:will|begin|availability|available|release|launch|occur|happen|start|open)\b",
+            lowered,
+        )
+        or re.search(
+            r"\b(?:availability|release|launch|event)\b.{0,80}\b(?:will|scheduled|expected|planned|announced)\b",
+            lowered,
+        )
+    )
+    baseline_summary = _first_matching_sentence(
+        source_text,
+        (
+            "announced schedule",
+            "availability will",
+            "will begin",
+            "scheduled",
+            "expected",
+            "planned",
+            "official schedule",
+            "company says",
+        ),
+    )
+    return {
+        "official_baseline_supports_yes": official_baseline_supports_yes,
+        "no_requires_hard_negative_evidence": no_requires_hard_negative,
+        "baseline_summary": baseline_summary,
+    }
+
+
+def _first_matching_sentence(text: str, needles: tuple[str, ...]) -> str | None:
+    sentences = re.split(r"(?<=[.!?])\s+|\n+", text)
+    for sentence in sentences:
+        stripped = " ".join(sentence.split())
+        if not stripped:
+            continue
+        lowered = stripped.lower()
+        if any(needle in lowered for needle in needles):
+            return _truncate(stripped, 500)
+    return None
 
 
 def _extract_known_uncertainties(*values: Any) -> list[Any]:
