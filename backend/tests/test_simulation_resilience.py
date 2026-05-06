@@ -399,6 +399,50 @@ def test_forecast_deadline_commentary_can_mention_announcement_without_candidate
     assert repaired["event_validation"]["status"] == "passed"
 
 
+def test_forecast_process_statement_is_not_terminal_without_candidate_marker(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    big_bang.scenario_input = {
+        "forecast_metadata": {
+            "deadline_tick": 5,
+            "forecast_deadline_date": "2026-03-15",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+    agent_result = {
+        "actor_outputs": [],
+        "emotion_self_ratings": [],
+        "parsed_actions": [
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Academy releases standard pre-ceremony voting integrity statement",
+                    "event_type": "announcement",
+                    "scheduled_tick": 5,
+                    "expected_impact": {
+                        "summary": "The statement describes process safeguards without naming a winner."
+                    },
+                },
+            }
+        ],
+    }
+
+    repaired = agent_engine.validate_and_repair_event_actions(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        tick_index=1,
+        prompt_context={"forecast_clock": {"deadline_tick": 5, "deadline_tick_reached": False}},
+        agent_result=agent_result,
+        max_retries=0,
+    )
+
+    assert repaired["event_validation"]["status"] == "passed"
+
+
 def test_execute_due_events_carries_candidate_endpoint_marker_to_actual_impact(db):
     big_bang, root, _alpha, _beta = _seed_world(db)
     event = models.Event(

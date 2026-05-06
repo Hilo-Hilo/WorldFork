@@ -621,6 +621,27 @@ FORECAST_TERMINAL_HINTS = re.compile(
     re.I,
 )
 
+FORECAST_ANNOUNCEMENT_OUTCOME_HINTS = re.compile(
+    r"\b("
+    r"final result|forecast (?:question|endpoint|result)|resolves? (?:the )?forecast|"
+    r"winner|wins?|won|laureate|named|selected|award goes to|best picture|"
+    r"certif(?:y|ies|ication)|decision announced|target range|court orders?|"
+    r"fine(?:d)?|merger closes?"
+    r")\b",
+    re.I,
+)
+
+FORECAST_PROCESS_ANNOUNCEMENT_HINTS = re.compile(
+    r"\b(process|protocol|integrity|voting|pre-ceremony|statement|safeguards?|procedures?|tabulation)\b",
+    re.I,
+)
+
+FORECAST_DECISIVE_ANNOUNCEMENT_HINTS = re.compile(
+    r"\b(?:announces?|declares?|names?|confirms?|selects?|awards?|reveals?)\b.{0,100}"
+    r"\b(?:winner|laureate|best picture|forecast result)\b",
+    re.I | re.S,
+)
+
 CONDITIONAL_BINARY_PLACEHOLDER = re.compile(
     r"\bif\b.{0,160}\byes\b.{0,160}\b(?:otherwise|else|if not|no)\b",
     re.I | re.S,
@@ -693,13 +714,21 @@ def _forecast_deadline_tick(big_bang: models.BigBang | None, prompt_context: dic
 
 def _looks_like_forecast_terminal_event(payload: dict, text: str) -> bool:
     event_type = str(payload.get("event_type") or "").strip().lower()
-    if event_type in FORECAST_TERMINAL_EVENT_TYPES and FORECAST_TERMINAL_HINTS.search(text):
-        return True
-    return CONDITIONAL_BINARY_PLACEHOLDER.search(text) is not None or re.search(
+    if CONDITIONAL_BINARY_PLACEHOLDER.search(text) is not None or re.search(
         r"\b(?:forecast (?:question|endpoint)|resolves? (?:the )?forecast)\b",
         text,
         re.I,
-    ) is not None
+    ) is not None:
+        return True
+    if event_type not in FORECAST_TERMINAL_EVENT_TYPES:
+        return False
+    if _candidate_endpoint_marker(payload) in {"yes", "no"}:
+        return True
+    if event_type == "announcement":
+        if FORECAST_PROCESS_ANNOUNCEMENT_HINTS.search(text) and not FORECAST_DECISIVE_ANNOUNCEMENT_HINTS.search(text):
+            return False
+        return FORECAST_ANNOUNCEMENT_OUTCOME_HINTS.search(text) is not None
+    return FORECAST_TERMINAL_HINTS.search(text) is not None
 
 
 def _candidate_endpoint_marker(payload: dict) -> str | None:
