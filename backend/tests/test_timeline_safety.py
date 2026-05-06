@@ -192,6 +192,58 @@ def test_complete_universe_decision_normalizes_to_mark_ready_tool(db):
     ]
 
 
+def test_final_tick_skips_heuristic_branch_tool(db):
+    _, root = _seed_world(db, max_ticks=5)
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.99,
+            "final_tick_context": {
+                "is_final_allowed_tick": True,
+                "max_ticks": 5,
+                "current_tick_index": 5,
+            },
+        },
+        parsed={"decision": "branch", "tool_calls": []},
+        tick_index=5,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+    assert "Final allowed tick reached" in calls[0]["arguments"]["reason"]
+
+
+def test_final_tick_removes_explicit_branch_tool_before_execution(db):
+    _, root = _seed_world(db, max_ticks=5)
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.99,
+            "final_tick_context": {
+                "is_final_allowed_tick": True,
+                "max_ticks": 5,
+                "current_tick_index": 5,
+            },
+        },
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {"reason": "zero-horizon fork", "fork_tick_index": 5},
+                }
+            ],
+        },
+        tick_index=5,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+    assert "Final allowed tick reached" in calls[0]["arguments"]["reason"]
+
+
 def test_run_until_complete_stops_when_god_marks_ready(db, monkeypatch):
     big_bang, root = _seed_world(db, max_ticks=12)
     _patch_successful_tick(monkeypatch)

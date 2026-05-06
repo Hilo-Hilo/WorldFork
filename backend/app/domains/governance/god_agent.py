@@ -256,6 +256,12 @@ def _prepare_tool_calls(
     tool_calls = _normalize_tool_calls(parsed.get("tool_calls"), multiverse.id, tick_index)
     tool_calls = _attach_candidate_ids(tool_calls, provisional_bundle)
     tool_calls = _prune_tool_calls(tool_calls)
+    final_tick_context = provisional_bundle.get("final_tick_context") or {}
+    is_final_allowed_tick = isinstance(final_tick_context, dict) and bool(
+        final_tick_context.get("is_final_allowed_tick")
+    )
+    if is_final_allowed_tick:
+        tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
     idle_assessment = provisional_bundle.get("idle_assessment") or {}
     if idle_assessment.get("should_terminate"):
         return [
@@ -300,7 +306,12 @@ def _prepare_tool_calls(
     has_structural = any(call["tool_name"] in structural_tools for call in tool_calls)
     has_branch = any(call["tool_name"] == "create_branch" for call in tool_calls)
     branch_threshold = _branch_score_threshold(db, multiverse)
-    if branch_score >= branch_threshold and not has_branch and (has_structural or not explicit_continue):
+    if (
+        not is_final_allowed_tick
+        and branch_score >= branch_threshold
+        and not has_branch
+        and (has_structural or not explicit_continue)
+    ):
         tool_calls.append(
             {
                 "tool_name": "create_branch",
@@ -322,10 +333,15 @@ def _prepare_tool_calls(
             }
         )
     elif not tool_calls:
+        reason = (
+            "Final allowed tick reached; terminal settlement must use the endpoint ledger instead of creating a branch."
+            if is_final_allowed_tick
+            else "No validated branch trigger in this tick."
+        )
         tool_calls.append(
             {
                 "tool_name": "continue_timeline",
-                "arguments": {"reason": "No validated branch trigger in this tick."},
+                "arguments": {"reason": reason},
                 "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:continue",
             }
         )
