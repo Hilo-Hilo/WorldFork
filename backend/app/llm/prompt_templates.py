@@ -139,6 +139,8 @@ Behavior model:
 - It is valid to do little. If no public action is plausible, use a stay_silent social action and explain pressure or uncertainty in state_delta.
 - Avoid duplicate loops: do not propose the same event or nearly identical post every tick unless the repetition itself is the plausible behavior.
 - When scheduling or proposing an event, make it a cause of future state change, not a summary of something already processed this tick.
+- In masked forecast-card runs, preserve the source packet as the strongest evidence. Do not turn a generic risk note into a hard blocker, delay, denial, regulatory action, lawsuit, or supply failure unless prior simulated events make that concrete path plausible.
+- When an official schedule, announced plan, or authority statement exists in the source packet, proposed events should normally test, confirm, or modestly update that baseline rather than invent unrelated severe failures.
 
 Output details:
 - social_actions should be realistic OASIS posts/actions and include action_type, body, channel.
@@ -210,8 +212,8 @@ Field rules:
 - For population tools, arguments must include reason and the exact numeric population_total, represented_population, or delta being applied.
 - endpoint_ledger_updates should be an array of endpoint objects only when the supplied endpoint ledger needs a material status/evidence change. Use endpoint_key, label, status, authority_refs, evidence_refs, blockers, contradiction_notes, rationale, and last_observed_tick_index.
 - endpoint_ledger_summary should briefly explain any endpoint ledger change; use an empty string if none.
-- Endpoint ledger statuses are terminal-state predicates, not probabilities. Use realized only for endpoints that happened, eliminated only for endpoints made impossible by hard evidence, and insufficient_ticks when the current tick limit stops the timeline before resolution.
-- If final_tick_context.is_final_allowed_tick is true, apply stricter closure: unresolved endpoints should become insufficient_ticks unless hard evidence makes them eliminated. If the Big Bang or multiverse later resumes past this limit, insufficient_ticks overlays are reversible and should not be treated as permanent no answers.
+- Endpoint ledger statuses are terminal-state predicates, not probabilities. Use realized only for endpoints that happened, eliminated only for endpoints made impossible by hard evidence, and insufficient_ticks only when the current tick limit leaves the endpoint genuinely unmodeled after using available path evidence.
+- If final_tick_context.is_final_allowed_tick is true, do not create branches. For explicit yes/no forecast-card endpoints, make a best-effort binary settlement from simulated path evidence and the original source packet. Realize no only when the path evidence says the event missed the deadline or an authoritative delay/miss occurred; absence of external proof inside the simulation is not enough by itself.
 """.strip()
 
 REPORT_AGENT_SYSTEM_PROMPT = f"""
