@@ -19,7 +19,11 @@ from app.db import models
 from app.llm import audit as llm_audit
 from app.llm import openai_compatible_provider
 from app.llm import openrouter_provider
-from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
+from app.llm.prompt_builder import (
+    budget_agent_prompt_context,
+    build_agent_prompt_context,
+    sanitize_sociology_prompt_influences,
+)
 from app.llm.provider import DeterministicLLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
 from app.llm.routing import resolve_audited_llm_route
@@ -1851,6 +1855,28 @@ def test_agent_prompt_context_includes_forecast_deadline_clock_context():
     assert context["forecast_clock"]["deadline_tick_reached"] is True
     assert context["forecast_clock"]["forecast_deadline_date"] == "2025-09-30"
     assert "T3 is the forecast deadline" in context["forecast_clock"]["deadline_instruction"]
+
+
+def test_agent_prompt_context_budget_trims_large_shared_lists():
+    context = {
+        "clock": "T1",
+        "current_state": {
+            "scenario_summary": {"scenario_text_excerpt": "keep this"},
+            "cohort_current_states": [
+                {"actor_id": f"cohort-{index}", "state": {"stance": "x" * 700}}
+                for index in range(12)
+            ],
+            "trait_vectors": [{"name": f"trait-{index}", "notes": "y" * 700} for index in range(12)],
+        },
+        "sociology_prompt_influences": [{"actor_name": f"A{index}", "influence": {"pressure": "z" * 700}} for index in range(12)],
+    }
+
+    budgeted = budget_agent_prompt_context(context, max_chars=2_000)
+
+    assert budgeted["current_state"]["scenario_summary"]["scenario_text_excerpt"] == "keep this"
+    assert budgeted["prompt_budget"]["kind"] == "agent_prompt_context"
+    assert budgeted["prompt_budget"]["trimmed_paths"]
+    assert len(str(budgeted)) < len(str(context))
 
 
 def test_forbidden_god_tool_aliases_are_rejected():

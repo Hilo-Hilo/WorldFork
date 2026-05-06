@@ -268,9 +268,10 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
     messages = captured_messages[0]["messages"]
     assert messages[1]["content"].startswith("Shared tick context for all actor decisions")
     assert "Actor:" not in messages[1]["content"]
-    assert "Past water pressure loss" in messages[2]["content"]
+    assert "Past water pressure loss" in messages[1]["content"]
     assert "Alpha schedules clinic briefing" in messages[2]["content"]
-    assert "own_queued_events" in messages[2]["content"]
+    assert "actor_event_queue" in messages[2]["content"]
+    assert "Past water pressure loss" not in messages[2]["content"]
     assert captured_messages[0]["metadata"]["prompt_cache_strategy"] == "openrouter_implicit_sticky"
     assert captured_messages[0]["metadata"]["prompt_cache_stable_prefix_messages"] == 2
 
@@ -618,8 +619,8 @@ def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(
             scheduled_tick=1,
             status="executed",
             title=title,
-            description=f"{title} description",
-            expected_impact={},
+            description=f"{title} description " + ("detail " * 500) + "TAIL_MARKER",
+            expected_impact={"impact": "pressure", "long_note": "context " * 500},
             actual_impact={},
             meta={},
         )
@@ -629,7 +630,7 @@ def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(
     calls = []
 
     def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
-        calls.append({"purpose": purpose, "model": model, "messages": messages})
+        calls.append({"purpose": purpose, "model": model, "messages": messages, "metadata": metadata})
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return (
             LLMResponse(
@@ -654,9 +655,11 @@ def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(
 
     assert len(calls) == 1
     assert calls[0]["purpose"].startswith("event_summary_tick_")
-    assert "all executed simulation events" in calls[0]["messages"][0]["content"]
+    assert "compact JSON object" in calls[0]["messages"][0]["content"]
     assert "First pressure shock" in calls[0]["messages"][1]["content"]
     assert "Second coalition response" in calls[0]["messages"][1]["content"]
+    assert "TAIL_MARKER" not in calls[0]["messages"][1]["content"]
+    assert calls[0]["metadata"]["max_tokens"] == 900
     assert len(summaries) == 2
     assert {item["summary"] for item in summaries} == {
         "First event moved attention.",

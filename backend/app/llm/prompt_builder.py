@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from datetime import datetime, timedelta
+import json
 import re
 
 from app.core.clock import ClockContext
@@ -18,6 +20,7 @@ def build_agent_prompt_context(
     sociology_prompt_influences: list[dict],
     event_queue: dict | None = None,
 ) -> dict:
+    settings = get_settings()
     compact_state = compact_simulation_state(current_state)
     context = {
         "clock": clock_context.as_prompt_text(),
@@ -35,9 +38,73 @@ def build_agent_prompt_context(
     if event_queue:
         context["event_queue"] = budget_event_queue_context(
             event_queue,
-            max_chars=get_settings().prompt_event_queue_max_chars,
+            max_chars=settings.prompt_event_queue_max_chars,
         )
-    return context
+    return budget_agent_prompt_context(context, max_chars=settings.prompt_agent_context_max_chars)
+
+
+def budget_agent_prompt_context(context: dict, *, max_chars: int) -> dict:
+    if not isinstance(context, dict):
+        return {}
+    budgeted = deepcopy(context)
+    budget_meta = {
+        "kind": "agent_prompt_context",
+        "max_chars": max_chars,
+        "trimmed_paths": {},
+    }
+    trim_paths = [
+        ("current_state", "trait_vectors"),
+        ("current_state", "channels"),
+        ("current_state", "last_sociology", "signals"),
+        ("current_state", "last_sociology", "cohort_state_updates"),
+        ("current_state", "last_sociology", "hero_state_updates"),
+        ("current_state", "last_executed_events"),
+        ("current_state", "heroes"),
+        ("current_state", "cohorts"),
+        ("current_state", "hero_current_states"),
+        ("current_state", "cohort_current_states"),
+        ("sociology_prompt_influences",),
+    ]
+    for path in trim_paths:
+        while _json_chars(budgeted) > max_chars and _trim_list_path_once(budgeted, path):
+            path_key = ".".join(path)
+            budget_meta["trimmed_paths"][path_key] = int(budget_meta["trimmed_paths"].get(path_key) or 0) + 1
+        if _json_chars(budgeted) <= max_chars:
+            break
+    budget_meta["estimated_chars"] = _json_chars(budgeted)
+    if budget_meta["trimmed_paths"]:
+        budgeted["prompt_budget"] = budget_meta
+    return budgeted
+
+
+def _trim_list_path_once(payload: dict, path: tuple[str, ...]) -> bool:
+    current = payload
+    for key in path[:-1]:
+        if not isinstance(current, dict):
+            return False
+        current = current.get(key)
+    if not isinstance(current, dict):
+        return False
+    key = path[-1]
+    rows = current.get(key)
+    if not isinstance(rows, list) or not rows:
+        return False
+    removed = rows.pop()
+    if isinstance(removed, dict):
+        title = removed.get("name") or removed.get("actor_name") or removed.get("title") or removed.get("actor_id")
+    else:
+        title = None
+    omitted = current.setdefault(f"{key}_omitted", {"count": 0, "examples": []})
+    if isinstance(omitted, dict):
+        omitted["count"] = int(omitted.get("count") or 0) + 1
+        examples = omitted.setdefault("examples", [])
+        if title and isinstance(examples, list) and len(examples) < 4:
+            examples.append(str(title))
+    return True
+
+
+def _json_chars(value) -> int:  # noqa: ANN001
+    return len(json.dumps(value, sort_keys=True, default=str))
 
 
 def compact_simulation_state(state: dict) -> dict:

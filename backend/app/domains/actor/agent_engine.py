@@ -82,13 +82,20 @@ def run_actor_decision(
     multiverse_id = multiverse.id
     route = route_for_actor_type(actor_type)
     model = _actor_fallback_model(actor_type)
-    shared_prompt_context = dict(prompt_context or {})
-    actor_prompt_context = _with_actor_event_queue(
+    base_prompt_context = dict(prompt_context or {})
+    if "event_queue" not in base_prompt_context and hasattr(db, "scalars"):
+        base_prompt_context["event_queue"] = build_event_queue_prompt_context(
+            db,
+            multiverse_id=multiverse.id,
+            tick_index=tick_index,
+        )
+    shared_prompt_context = _shared_actor_prompt_context(base_prompt_context)
+    actor_prompt_context = _actor_specific_prompt_context(
         db,
         multiverse=multiverse,
         actor=actor,
         tick_index=tick_index,
-        prompt_context=prompt_context,
+        prompt_context=base_prompt_context,
     )
     if release_db_connection_before_llm and isinstance(db, Session):
         db.commit()
@@ -105,15 +112,18 @@ def run_actor_decision(
             },
             {
                 "role": "user",
-                "content": f"Shared tick context for all actor decisions in this tick:\n{shared_prompt_context}",
+                "content": (
+                    "Shared tick context for all actor decisions in this tick. "
+                    f"It is identical across actors for prompt-cache reuse:\n{_prompt_json(shared_prompt_context)}"
+                ),
             },
             {
                 "role": "user",
                 "content": (
                     f"Actor-specific deliberation request:\n"
                     f"Actor: {actor_name}\n"
-                    f"Archetype: {actor_archetype}\n"
-                    f"Actor context: {actor_prompt_context}"
+                    f"Archetype: {_prompt_json(_compact_prompt_value(actor_archetype))}\n"
+                    f"Actor context: {_prompt_json(actor_prompt_context)}"
                 ),
             },
         ],
@@ -273,7 +283,19 @@ def validate_and_repair_event_actions(
     return agent_result
 
 
-def _with_actor_event_queue(
+def _shared_actor_prompt_context(prompt_context: dict) -> dict:
+    """Keep the cacheable actor prefix shared; actor-only feedback belongs later."""
+
+    if not isinstance(prompt_context, dict):
+        return {}
+    return {
+        key: value
+        for key, value in prompt_context.items()
+        if key not in {"event_validation_feedback"}
+    }
+
+
+def _actor_specific_prompt_context(
     db: Session,
     *,
     multiverse: models.Multiverse,
@@ -281,16 +303,64 @@ def _with_actor_event_queue(
     tick_index: int,
     prompt_context: dict,
 ) -> dict:
-    actor_context = dict(prompt_context or {})
+    actor_context: dict = {}
+    if isinstance(prompt_context, dict) and prompt_context.get("event_validation_feedback"):
+        actor_context["event_validation_feedback"] = _compact_prompt_value(prompt_context["event_validation_feedback"])
     if not hasattr(db, "scalars"):
         return actor_context
-    actor_context["event_queue"] = build_event_queue_prompt_context(
+    event_queue = build_event_queue_prompt_context(
         db,
         multiverse_id=multiverse.id,
         tick_index=tick_index,
         actor_id=actor.id,
     )
+    actor_context["actor_event_queue"] = {
+        "current_tick": event_queue.get("current_tick"),
+        "own_queued_events": event_queue.get("own_queued_events") or [],
+        "prompt_budget": {
+            "kind": "actor_specific_event_queue",
+            "source": "global due/past/upcoming events are in the shared tick context",
+            "own_queued_events": (event_queue.get("prompt_budget") or {}).get("sections", {}).get("own_queued_events", {}),
+        },
+    }
     return actor_context
+
+
+def _prompt_json(value) -> str:  # noqa: ANN001
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _compact_prompt_value(value, *, depth: int = 0, max_items: int = 10, string_limit: int = 700):  # noqa: ANN001
+    if depth > 4:
+        return _excerpt_text(str(value), 240)
+    if isinstance(value, dict):
+        compact = {}
+        for index, (key, item) in enumerate(value.items()):
+            if index >= max_items:
+                compact["_truncated_keys"] = len(value) - max_items
+                break
+            compact[str(key)] = _compact_prompt_value(
+                item,
+                depth=depth + 1,
+                max_items=max_items,
+                string_limit=string_limit,
+            )
+        return compact
+    if isinstance(value, list):
+        items = [
+            _compact_prompt_value(item, depth=depth + 1, max_items=max_items, string_limit=string_limit)
+            for item in value[:max_items]
+        ]
+        if len(value) > max_items:
+            items.append({"_truncated_items": len(value) - max_items})
+        return items
+    if isinstance(value, str):
+        return _excerpt_text(value, string_limit)
+    return value
+
+
+def _excerpt_text(value: str, limit: int) -> str:
+    return value if len(value) <= limit else value[:limit] + "..."
 
 
 DIRECT_AUTHORITY_PATTERNS = (

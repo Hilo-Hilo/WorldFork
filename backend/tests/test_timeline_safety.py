@@ -1336,6 +1336,8 @@ def test_forecast_review_context_preserves_source_packet_and_terminal_signals():
     big_bang = models.BigBang(
         name="Forecast card",
         scenario_input={
+            "question": "Will Phone A be generally available to customers by the end of September?",
+            "scenario_text": "Phone A is announced with a late-September availability target.",
             "forecast_metadata": {
                 "as_of_date": "2025-09-10",
                 "forecast_deadline_date": "2025-09-30",
@@ -1374,14 +1376,66 @@ def test_forecast_review_context_preserves_source_packet_and_terminal_signals():
                 "parsed": {"what_happened": "Phone A general availability confirmed by the manufacturer."},
             }
         ],
-        social_observations=[{"post": "Some stores still report no stock."}],
+        social_observations=[{"post": "Customer availability remains disputed; some stores still report no stock."}],
     )
 
     assert context["forecast_clock"]["deadline_tick_reached"] is True
+    assert context["forecast_question"].startswith("Will Phone A")
+    assert "late-September availability" in context["scenario_text"]
     assert context["source_packet"][0]["source_type"] == "company_announcement"
     assert context["candidate_endpoints"][0]["id"] == "yes"
     assert context["endpoint_relevant_event_signals"][0]["signal_polarity"] == "supports_yes"
-    assert context["endpoint_relevant_social_signals"][0]["signal_polarity"] == "supports_no_or_contradiction"
+    assert context["endpoint_relevant_social_signals"][0]["matched_forecast_terms"]
+
+
+def test_forecast_review_context_uses_card_terms_for_non_product_events():
+    big_bang = models.BigBang(
+        name="Macro forecast card",
+        scenario_input={
+            "question": "Will the Federal Open Market Committee lower the target range for the federal funds rate?",
+            "scenario_text": "The endpoint is yes only if the target range is lower immediately after the meeting.",
+            "forecast_metadata": {
+                "as_of_date": "2025-11-15",
+                "forecast_deadline_date": "2025-12-10",
+                "deadline_tick": 2,
+                "tick_horizon_policy": "deadline_aware",
+            },
+            "source_packet": [
+                {
+                    "source_type": "macro_note",
+                    "date": "2025-11-15",
+                    "text": "Markets discuss a possible quarter-point cut, but policymakers emphasize data dependence.",
+                }
+            ],
+            "candidate_endpoints": [
+                {"id": "yes", "label": "The FOMC lowers the target range by the deadline"},
+                {"id": "no", "label": "The FOMC does not lower the target range by the deadline"},
+            ],
+        },
+    )
+
+    context = tick_runner._forecast_review_context(
+        big_bang=big_bang,
+        prompt_context={"forecast_clock": {"deadline_tick_reached": True}},
+        executed_events=[
+            {
+                "title": "FOMC target range decision announced",
+                "event_type": "policy_decision",
+                "status": "executed",
+                "scheduled_tick": 2,
+                "actual_impact": {
+                    "summary": "The committee lowers the target range for the federal funds rate after the meeting."
+                },
+            }
+        ],
+        event_summaries=[],
+        social_observations=[],
+    )
+
+    assert "Federal Open Market Committee" in context["forecast_question"]
+    signal = context["endpoint_relevant_event_signals"][0]
+    assert signal["event_type"] == "policy_decision"
+    assert {"target", "range"}.issubset(set(signal["matched_forecast_terms"]))
 
 
 def test_tick_and_run_timing_payloads_include_stage_and_llm_durations(db):

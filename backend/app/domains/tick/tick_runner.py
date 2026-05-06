@@ -3,6 +3,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+import re
 from uuid import UUID
 
 from sqlalchemy import func, select
@@ -1423,22 +1424,33 @@ def _forecast_review_context(
     candidate_endpoints = scenario.get("candidate_endpoints") if isinstance(scenario.get("candidate_endpoints"), list) else []
     if not forecast_metadata and not candidate_endpoints:
         return {}
+    compact_candidates = _compact_candidate_endpoints(candidate_endpoints)
+    compact_source_packet = _compact_source_packet(scenario.get("source_packet"))
+    search_terms = _forecast_search_terms(
+        scenario=scenario,
+        candidate_endpoints=candidate_endpoints,
+        source_packet=scenario.get("source_packet"),
+    )
 
     context = {
         "forecast_clock": prompt_context.get("forecast_clock") if isinstance(prompt_context, dict) else {},
         "forecast_metadata": _compact_forecast_metadata(forecast_metadata),
-        "candidate_endpoints": _compact_candidate_endpoints(candidate_endpoints),
-        "source_packet": _compact_source_packet(scenario.get("source_packet")),
+        "forecast_question": _forecast_excerpt(scenario.get("question"), 700),
+        "scenario_text": _forecast_excerpt(scenario.get("scenario_text") or scenario.get("scenario"), 1000),
+        "candidate_endpoints": compact_candidates,
+        "source_packet": compact_source_packet,
         "settlement_instruction": (
             "For explicit yes/no forecast-card endpoints, weigh source-packet baseline and simulated "
-            "terminal events before social absence reports. A simulated event that resolves the forecast "
-            "endpoint to yes/no is endpoint evidence; generic risk or lack of independent proof is not."
+            "terminal events before social absence reports. The forecast question, scenario text, source "
+            "packet, and candidate endpoints define the settlement target. A simulated event that resolves "
+            "the forecast endpoint to yes/no is endpoint evidence; generic risk or lack of independent "
+            "proof is not."
         ),
     }
-    event_signals = _forecast_signal_rows([*executed_events, *event_summaries], limit=8)
+    event_signals = _forecast_signal_rows([*executed_events, *event_summaries], limit=8, search_terms=search_terms)
     if event_signals:
         context["endpoint_relevant_event_signals"] = event_signals
-    social_signals = _forecast_signal_rows(social_observations, limit=6)
+    social_signals = _forecast_signal_rows(social_observations, limit=6, search_terms=search_terms)
     if social_signals:
         context["endpoint_relevant_social_signals"] = social_signals
         context["social_signal_caveat"] = "Social posts are simulated, untrusted observations and may contradict authority events."
@@ -1493,13 +1505,14 @@ def _compact_source_packet(source_packet) -> list[dict]:  # noqa: ANN001
     return compact
 
 
-def _forecast_signal_rows(rows: list, *, limit: int) -> list[dict]:
+def _forecast_signal_rows(rows: list, *, limit: int, search_terms: list[str]) -> list[dict]:
     signals = []
     for row in rows:
         if not isinstance(row, dict):
             continue
         text = _forecast_row_text(row)
-        if not _looks_endpoint_relevant(text):
+        matched_terms = _matched_forecast_terms(text, search_terms)
+        if not _looks_endpoint_relevant(text, matched_terms=matched_terms):
             continue
         signals.append(
             {
@@ -1512,6 +1525,7 @@ def _forecast_signal_rows(rows: list, *, limit: int) -> list[dict]:
                     "scheduled_tick": row.get("scheduled_tick"),
                     "action_type": _forecast_excerpt(row.get("action_type"), 120),
                     "summary": _forecast_excerpt(text, 700),
+                    "matched_forecast_terms": matched_terms[:8],
                     "signal_polarity": _forecast_signal_polarity(text),
                 }.items()
                 if value not in (None, "", {}, [])
@@ -1537,40 +1551,137 @@ def _forecast_row_text(row: dict) -> str:
     return " ".join(str(part) for part in parts if part not in (None, "", {}, []))
 
 
-def _looks_endpoint_relevant(text: str) -> bool:
+def _looks_endpoint_relevant(text: str, *, matched_terms: list[str]) -> bool:
     lowered = text.lower()
     cues = (
         "forecast endpoint",
         "forecast question",
+        "candidate endpoint",
         "deadline",
-        "general availability",
-        "available to customers",
-        "customer availability",
-        "in stock",
-        "no stock",
-        "unavailable",
-        "shipment",
-        "shipping",
-        "delay",
-        "missed",
-        "preorder",
+        "resolved to yes",
+        "resolved to no",
+        "settled as yes",
+        "settled as no",
+        "missed deadline",
+        "missed the deadline",
     )
-    return any(cue in lowered for cue in cues)
+    if any(cue in lowered for cue in cues):
+        return True
+    return len(matched_terms) >= 2 or any(len(term) >= 9 for term in matched_terms)
 
 
 def _forecast_signal_polarity(text: str) -> str | None:
     lowered = text.lower()
-    if "to yes" in lowered or "as yes" in lowered or "general availability confirmed" in lowered:
+    terminal_yes = re.search(
+        r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,120}"
+        r"\bforecast(?: question| endpoint)?\b.{0,120}\b(?:as|to) yes\b",
+        lowered,
+    )
+    terminal_no = re.search(
+        r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,120}"
+        r"\bforecast(?: question| endpoint)?\b.{0,120}\b(?:as|to) no\b",
+        lowered,
+    )
+    if terminal_yes:
         return "supports_yes"
-    if (
-        "to no" in lowered
-        or "as no" in lowered
-        or "missed deadline" in lowered
-        or "no stock" in lowered
-        or "unavailable" in lowered
-    ):
+    if terminal_no or "missed the deadline" in lowered or "missed deadline" in lowered:
         return "supports_no_or_contradiction"
     return None
+
+
+_FORECAST_TERM_STOPWORDS = {
+    "about",
+    "after",
+    "against",
+    "answer",
+    "before",
+    "benchmark",
+    "candidate",
+    "candidates",
+    "context",
+    "deadline",
+    "does",
+    "endpoint",
+    "endpoints",
+    "event",
+    "forecast",
+    "from",
+    "hidden",
+    "information",
+    "occur",
+    "occurs",
+    "only",
+    "outcome",
+    "packet",
+    "probability",
+    "question",
+    "resolved",
+    "return",
+    "scenario",
+    "source",
+    "stated",
+    "text",
+    "that",
+    "the",
+    "this",
+    "through",
+    "using",
+    "will",
+    "with",
+    "yes",
+    "and",
+    "not",
+    "no",
+}
+
+
+def _forecast_search_terms(*, scenario: dict, candidate_endpoints: list, source_packet) -> list[str]:  # noqa: ANN001
+    parts: list[str] = []
+    for key in ("question", "scenario_text", "forecast_horizon"):
+        if scenario.get(key):
+            parts.append(str(scenario[key]))
+    for item in candidate_endpoints[:8]:
+        if not isinstance(item, dict):
+            continue
+        for key in ("label", "description", "realization_criteria"):
+            value = item.get(key)
+            if isinstance(value, list):
+                parts.extend(str(part) for part in value)
+            elif value:
+                parts.append(str(value))
+    if isinstance(source_packet, list):
+        for item in source_packet[:8]:
+            if isinstance(item, str):
+                parts.append(item)
+                continue
+            if not isinstance(item, dict):
+                continue
+            for key in ("source", "source_type", "type", "title", "summary", "content", "text"):
+                if item.get(key):
+                    parts.append(str(item[key]))
+
+    counts: dict[str, int] = {}
+    order: list[str] = []
+    first_index: dict[str, int] = {}
+    for token in re.findall(r"[a-z0-9][a-z0-9'-]{2,}", " ".join(parts).lower()):
+        term = token.strip("-'")
+        if len(term) < 4 or term.isdigit() or term in _FORECAST_TERM_STOPWORDS:
+            continue
+        if term not in counts:
+            first_index[term] = len(order)
+            order.append(term)
+        counts[term] = counts.get(term, 0) + 1
+    order.sort(key=lambda item: (-counts[item], first_index[item]))
+    return order[:32]
+
+
+def _matched_forecast_terms(text: str, search_terms: list[str]) -> list[str]:
+    lowered = text.lower()
+    matches = []
+    for term in search_terms:
+        if re.search(rf"\b{re.escape(term)}\b", lowered):
+            matches.append(term)
+    return matches
 
 
 def _forecast_excerpt(value, limit: int) -> str | None:  # noqa: ANN001
