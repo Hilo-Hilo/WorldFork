@@ -344,6 +344,14 @@ def test_final_report_weights_endpoints_by_multiverse_path_probability(db: Sessi
     assert report_version.content["outcome_distribution"]["endpoint_path_mass_method"] == "path_mass_by_endpoint_status"
     assert histogram["settlement"]["path_mass"] == 0.7
     assert histogram["collapse"]["path_mass"] == 0.3
+    forecast = report_version.content["forecast_predictions"]["primary"]
+    assert forecast["p_yes"] == 0.7
+    assert forecast["mass"]["yes"] == 0.7
+    assert forecast["mass"]["no"] == 0.3
+    assert report_version.content["outcome_distribution"]["forecast_probability"]["p_yes"] == 0.7
+    prompt_content = report_engine._report_agent_prompt_content(report_version.content, mode="standard")
+    assert prompt_content["forecast_predictions"]["primary"]["p_yes"] == 0.7
+    assert prompt_content["probability_context"]["forecast_p_yes"] == 0.7
     plot_rows = {
         item["endpoint_key"]: item
         for item in report_version.content["endpoint_path_mass_distribution"]
