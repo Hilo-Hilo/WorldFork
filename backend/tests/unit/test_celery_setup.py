@@ -54,10 +54,10 @@ class TestCeleryAppConfig:
         assert celery_app.conf.task_default_retry_delay == 10
 
     def test_time_limit(self):
-        assert celery_app.conf.task_time_limit == 3600
+        assert celery_app.conf.task_time_limit == 21600
 
     def test_soft_time_limit(self):
-        assert celery_app.conf.task_soft_time_limit == 3300
+        assert celery_app.conf.task_soft_time_limit == 20100
 
 
 # ---------------------------------------------------------------------------

@@ -53,13 +53,16 @@ celery_app.conf.update(
         "worldfork.execute_job": {"queue": "p1"},
     },
     task_default_retry_delay=10,
-    # Long enough for the full per-tick LLM chain (cohort + hero + institution +
-    # event summaries + god review) on the smart model, which is currently
-    # serialized and routinely runs 6–10 minutes per tick. The per-task
-    # `time_limit=3600` decorator on worldfork.execute_job does not override this
-    # global in the way the docs suggest, so this value is the effective ceiling.
-    task_time_limit=3600,
-    task_soft_time_limit=3300,
+    # 6h ceiling. The orchestrator is sequential across active multiverses; an
+    # 8-mv run with ~12 ticks each routinely needs 80–120 minutes of pure
+    # simulation work plus per-mv reports plus the final report. The per-task
+    # decorator does not override this global the way Celery's docs suggest,
+    # so this value is the effective ceiling. If a task is genuinely hung
+    # past 6 hours, killing it is the right call. Supersedes the 3600s value
+    # that landed via PR #43 — main multi-fork runs were still hitting the
+    # SoftTimeLimit at 55 min.
+    task_time_limit=21600,
+    task_soft_time_limit=20100,
 )
 
 
