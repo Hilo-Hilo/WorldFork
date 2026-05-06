@@ -2795,6 +2795,13 @@ def public_case_markdown(card: dict[str, Any]) -> str:
                 "Resolve no when the stated deadline or public settlement point passes without the event occurring.",
                 "Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.",
                 "Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.",
+                "",
+                "## Forecast simulation guidance",
+                "Treat source-packet statements from the relevant authority, company, organizer, regulator, or official schedule as the baseline prior for future ticks.",
+                "Generic risk notes identify possible slip mechanisms; they are not evidence that the slip, blockage, denial, or miss has already happened.",
+                "At the deadline or settlement tick, make a best-effort yes/no path outcome consistent with the strongest source-packet evidence and simulated events.",
+                "Resolve no only when simulated events show an authoritative miss, delay beyond the deadline, cancellation, denial, or continued non-availability; absence of independent proof inside the simulation is not enough by itself.",
+                "A preorder-only note prevents premature yes before customer availability; it does not negate a later scheduled availability event.",
             ]
         )
     for key in [
