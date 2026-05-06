@@ -354,6 +354,7 @@ def complete_with_audit(
         "caller_metadata": metadata,
     }
     sanitized_request = redact_payload(request_payload)
+    prompt_metrics = _prompt_metrics(messages)
     audit_store = LLMCallAuditStore(db, big_bang_id=big_bang_id)
     call = audit_store.create_running_call(
         provider=initial_candidate.provider,
@@ -364,6 +365,7 @@ def complete_with_audit(
         metadata=initial_request_metadata,
         caller_metadata=metadata,
         route_meta=resolved_route.audit_meta(),
+        prompt_metrics=prompt_metrics,
     )
     attempts: list[dict[str, Any]] = []
     response: LLMResponse | None = None
@@ -526,6 +528,7 @@ class LLMCallAuditStore:
         metadata: dict[str, Any],
         caller_metadata: dict[str, Any],
         route_meta: dict[str, Any],
+        prompt_metrics: dict[str, Any],
     ) -> models.LLMCall:
         def write(audit_db: Session) -> models.LLMCall:
             store = ArtifactStore()
@@ -557,6 +560,7 @@ class LLMCallAuditStore:
                     "caller_request_metadata": caller_metadata,
                     "raw_request_artifact_id": str(raw_request_artifact.id),
                     "llm_route": route_meta,
+                    "prompt_metrics": prompt_metrics,
                     "audit_commit_mode": (
                         "independent_session" if self._use_independent_session else "caller_session"
                     ),
@@ -740,6 +744,21 @@ def _can_use_independent_audit_session(db: Session, big_bang_id: Any) -> bool:
 def _response_usage(raw: dict[str, Any]) -> dict[str, Any] | None:
     usage = raw.get("usage") if isinstance(raw, dict) else None
     return usage if isinstance(usage, dict) else None
+
+
+def _prompt_metrics(messages: list[dict[str, str]]) -> dict[str, Any]:
+    contents = [
+        str(message.get("content") or "")
+        for message in messages
+        if isinstance(message, dict)
+    ]
+    char_count = sum(len(content) for content in contents)
+    return {
+        "message_count": len(contents),
+        "char_count": char_count,
+        "estimated_tokens": max(1, (char_count + 3) // 4),
+        "max_message_chars": max((len(content) for content in contents), default=0),
+    }
 
 
 def _prompt_cache_usage(raw: dict[str, Any]) -> dict[str, Any]:

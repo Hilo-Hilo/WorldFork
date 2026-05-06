@@ -1564,6 +1564,53 @@ def test_god_agent_review_budgets_large_provisional_bundle(db, monkeypatch):
     assert review["input_summary"]["prompt_budget"]["sections"]["queued_events"]["omitted_count"] == 24
 
 
+def test_god_agent_review_compacts_raw_actor_outputs(db, monkeypatch):
+    _big_bang, root = _seed_world(db)
+    captured_messages = []
+
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, route, messages, metadata):
+        captured_messages.append(messages)
+        return (
+            LLMResponse(content="", parsed={"decision": "continue", "confidence": 0.8, "tool_calls": []}, raw={}),
+            types.SimpleNamespace(id=uuid4(), model="gpt-5.4"),
+        )
+
+    monkeypatch.setattr(god_agent, "complete_with_audit", fake_complete_with_audit)
+    provisional_bundle = {
+        "tick_index": 2,
+        "branch_score": 0.2,
+        "endpoint_ledger": {"version": 1, "entries": []},
+        "final_tick_context": {"is_final_allowed_tick": False},
+        "forecast_review_context": {"forecast_question": "Will Candidate A win?"},
+        "agent_outputs": [
+            {
+                "actor_id": "actor-1",
+                "llm_call_id": "call-1",
+                "parsed": {
+                    "social_actions": [
+                        {"action_type": "post", "body": "Candidate path remains contested."},
+                    ],
+                    "proposed_events": [
+                        {
+                            "title": "Authority publishes endpoint result",
+                            "description": "RAW_AGENT_EVENT_DESCRIPTION " + ("detail " * 500),
+                        }
+                    ],
+                    "state_delta": {"stance": "wait_for_authority", "long_note": "STATE_RAW " + ("x" * 3000)},
+                },
+            }
+        ],
+    }
+
+    god_agent.review_provisional_tick(db, root, provisional_bundle)
+
+    prompt_text = captured_messages[0][1]["content"]
+    assert "Authority publishes endpoint result" in prompt_text
+    assert "Candidate path remains contested" in prompt_text
+    assert "RAW_AGENT_EVENT_DESCRIPTION" not in prompt_text
+    assert "STATE_RAW" not in prompt_text
+
+
 def test_final_tick_god_review_drops_branch_tool_calls():
     review_payload = {
         "decision": "branch",

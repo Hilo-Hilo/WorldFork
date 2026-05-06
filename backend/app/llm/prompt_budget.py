@@ -141,7 +141,7 @@ def budget_god_provisional_bundle(
         if not isinstance(rows, list):
             rows = []
         limit = GOD_BUNDLE_SECTION_LIMITS[section]
-        included = [_compact_value(row) for row in rows[:limit]]
+        included = [_compact_god_section_row(section, row) for row in rows[:limit]]
         omitted = rows[limit:]
         budgeted[section] = included
         budget_meta["sections"][section] = _omission_summary(
@@ -208,7 +208,78 @@ def _compact_event_row(row: dict[str, Any]) -> dict[str, Any]:
         "source",
         "inherited_from_event_id",
     )
-    return {key: _compact_value(row.get(key), string_limit=600) for key in fields if row.get(key) not in (None, {}, [])}
+    return {key: _compact_value(row.get(key), string_limit=320) for key in fields if row.get(key) not in (None, {}, [])}
+
+
+def _compact_god_section_row(section: str, row: Any) -> Any:
+    if not isinstance(row, dict):
+        return _compact_value(row)
+    if section == "agent_outputs":
+        return _compact_agent_output(row)
+    if section == "social_observations":
+        return _compact_social_observation(row)
+    if section == "event_summaries":
+        return {
+            key: _compact_value(row.get(key), string_limit=500)
+            for key in ("event_id", "summary", "llm_call_id")
+            if row.get(key) not in (None, {}, [])
+        }
+    return _compact_value(row)
+
+
+def _compact_agent_output(row: dict[str, Any]) -> dict[str, Any]:
+    parsed = row.get("parsed") if isinstance(row.get("parsed"), dict) else {}
+    compact = {
+        "actor_id": row.get("actor_id"),
+        "llm_call_id": row.get("llm_call_id"),
+        "social_actions": [_compact_social_observation(item) for item in _dict_rows(parsed.get("social_actions"))[:4]],
+        "proposed_events": [_compact_proposed_event(item) for item in _dict_rows(parsed.get("proposed_events"))[:4]],
+    }
+    state_delta = parsed.get("state_delta")
+    if isinstance(state_delta, dict):
+        compact["state_delta"] = {
+            key: _compact_value(state_delta.get(key), string_limit=180)
+            for key in (
+                "stance",
+                "expression_level",
+                "attention",
+                "fatigue",
+                "perceived_pressure",
+                "strategy",
+                "current_strategy",
+            )
+            if state_delta.get(key) not in (None, {}, [])
+        }
+    return {key: value for key, value in compact.items() if value not in (None, {}, [])}
+
+
+def _compact_social_observation(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: _compact_value(row.get(key), string_limit=220)
+        for key in ("actor_id", "action_type", "channel", "body", "post")
+        if row.get(key) not in (None, {}, [])
+    }
+
+
+def _compact_proposed_event(row: dict[str, Any]) -> dict[str, Any]:
+    expected = row.get("expected_impact") if isinstance(row.get("expected_impact"), dict) else {}
+    compact = {
+        key: _compact_value(row.get(key), string_limit=220)
+        for key in ("title", "event_type", "scheduled_tick")
+        if row.get(key) not in (None, {}, [])
+    }
+    endpoint_fields = {
+        key: _compact_value(expected.get(key), string_limit=180)
+        for key in ("candidate_endpoint_id", "endpoint", "outcome", "result", "summary")
+        if expected.get(key) not in (None, {}, [])
+    }
+    if endpoint_fields:
+        compact["expected_impact"] = endpoint_fields
+    return compact
+
+
+def _dict_rows(value: Any) -> list[dict[str, Any]]:
+    return [item for item in (value if isinstance(value, list) else []) if isinstance(item, dict)]
 
 
 def _compact_value(value: Any, *, depth: int = 0, string_limit: int = 900) -> Any:

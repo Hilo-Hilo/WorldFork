@@ -13,10 +13,8 @@ import csv
 import hashlib
 import json
 import math
-import os
 import random
 import re
-import socket
 import statistics
 import sys
 import time
@@ -27,7 +25,6 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
-
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
@@ -551,6 +548,119 @@ def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -
         except (TimeoutError, urllib.error.URLError, OSError) as exc:
             payload = {"ok": False, "error": {"type": type(exc).__name__, "reason": str(exc), "path": path}}
         _write_json(out_dir / f"{name}.json", payload)
+
+
+def _write_worldfork_perf_summary(out_dir: Path, prediction: dict[str, Any]) -> dict[str, Any]:
+    timing = _artifact_dict(_read_json_artifact(out_dir / "timing.json"))
+    calls = _timing_llm_calls(timing)
+    tick_durations = [
+        value
+        for value in (_float_or_none(tick.get("duration_seconds")) for tick in timing.get("ticks", []) if isinstance(tick, dict))
+        if value is not None
+    ]
+    by_purpose: dict[str, dict[str, Any]] = {}
+    provider_model_counts: dict[str, int] = {}
+    for call in calls:
+        purpose = _llm_purpose_group(call.get("purpose"))
+        row = by_purpose.setdefault(
+            purpose,
+            {
+                "call_count": 0,
+                "duration_seconds": 0.0,
+                "max_duration_seconds": 0.0,
+                "prompt_chars": 0,
+                "prompt_estimated_tokens": 0,
+                "prompt_tokens": 0,
+                "completion_tokens": 0,
+                "total_tokens": 0,
+                "cached_prompt_tokens": 0,
+            },
+        )
+        duration = _float_or_none(call.get("duration_seconds")) or 0.0
+        row["call_count"] += 1
+        row["duration_seconds"] = round(float(row["duration_seconds"]) + duration, 6)
+        row["max_duration_seconds"] = max(float(row["max_duration_seconds"]), duration)
+        for key in (
+            "prompt_chars",
+            "prompt_estimated_tokens",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "cached_prompt_tokens",
+        ):
+            row[key] += _int_value(call.get(key))
+        model_key = f"{call.get('provider')}/{call.get('model')}"
+        provider_model_counts[model_key] = provider_model_counts.get(model_key, 0) + 1
+    summary = {
+        "case_id": prediction.get("case_id"),
+        "condition": prediction.get("condition"),
+        "score": _prediction_score_summary(prediction),
+        "tick_duration_seconds": {
+            "count": len(tick_durations),
+            "total": round(sum(tick_durations), 6),
+            "mean": _mean(tick_durations),
+            "max": max(tick_durations) if tick_durations else None,
+        },
+        "llm_by_purpose": by_purpose,
+        "provider_model_counts": provider_model_counts,
+    }
+    _write_json(out_dir / "perf_summary.json", summary)
+    return summary
+
+
+def _timing_llm_calls(timing: dict[str, Any]) -> list[dict[str, Any]]:
+    calls: list[dict[str, Any]] = []
+    initializer = timing.get("initializer") if isinstance(timing.get("initializer"), dict) else {}
+    for call in initializer.get("llm_calls", []) if isinstance(initializer.get("llm_calls"), list) else []:
+        if isinstance(call, dict):
+            calls.append(call)
+    for tick in timing.get("ticks", []) if isinstance(timing.get("ticks"), list) else []:
+        if not isinstance(tick, dict):
+            continue
+        for call in tick.get("llm_calls", []) if isinstance(tick.get("llm_calls"), list) else []:
+            if isinstance(call, dict):
+                calls.append(call)
+    return calls
+
+
+def _llm_purpose_group(purpose: Any) -> str:
+    text = str(purpose or "")
+    if text.startswith("agent_"):
+        return "actor"
+    if text.startswith("event_summary"):
+        return "event_summary"
+    if text.startswith("god_review"):
+        return "god_review"
+    if text.startswith("initializer"):
+        return "initializer"
+    if "endpoint_ledger" in text:
+        return "endpoint_ledger"
+    if text.startswith("report"):
+        return "report"
+    return text.split("_", 1)[0] or "unknown"
+
+
+def _prediction_score_summary(prediction: dict[str, Any]) -> dict[str, Any]:
+    private = {
+        row["case_id"]: row
+        for row in read_jsonl(PRIVATE_36)
+        if row.get("resolution") in {"yes", "no"}
+    }
+    case_id = str(prediction.get("case_id") or "")
+    resolution = (private.get(case_id) or {}).get("resolution")
+    p_yes = float(prediction.get("p_yes", prediction.get("forecast_distribution", {}).get("yes", 0.5)))
+    unresolved = float(prediction.get("unresolved_mass", prediction.get("forecast_distribution", {}).get("unresolved", 0.0)))
+    if resolution not in {"yes", "no"}:
+        return {"resolution": resolution, "p_yes": p_yes, "unresolved_mass": unresolved}
+    y = 1.0 if resolution == "yes" else 0.0
+    p_true = p_yes if resolution == "yes" else 1.0 - p_yes
+    return {
+        "resolution": resolution,
+        "p_yes": p_yes,
+        "brier": (p_yes - y) ** 2,
+        "log_score": -math.log(clamp(p_true)),
+        "unresolved_mass": unresolved,
+    }
 
 
 def _prediction_output_path(run_root: Path, value: str | None) -> Path:
@@ -2125,6 +2235,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             )
             prediction["tick_duration_minutes"] = tick_duration_minutes
             prediction["forecast_metadata"] = runtime_context.get("forecast_metadata")
+            _write_worldfork_perf_summary(out_dir, prediction)
             append_jsonl(output, prediction)
             result_payload = run_result.get("result") or {}
             append_jsonl(
@@ -2378,6 +2489,7 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
             )
             prediction["tick_duration_minutes"] = int(info.get("tick_duration_minutes") or args.tick_duration_minutes)
             prediction["forecast_metadata"] = runtime_context.get("forecast_metadata")
+            _write_worldfork_perf_summary(out_dir, prediction)
             append_jsonl(output, prediction)
         append_jsonl(
             manifest,
@@ -3712,7 +3824,7 @@ def verify_sources(args: argparse.Namespace) -> None:
                         end = lower.find(b"</title>", start)
                         if start > 0 and end > start:
                             title_hint = content[start:end].decode("utf-8", errors="replace").strip()
-            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, socket.timeout) as exc:
+            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
                 status = "error"
                 error = str(exc)
                 if isinstance(exc, urllib.error.HTTPError):

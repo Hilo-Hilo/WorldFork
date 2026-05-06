@@ -71,11 +71,11 @@ class Settings(BaseSettings):
     sqlalchemy_async_max_overflow: int = Field(default=4, ge=0, le=200)
     sqlalchemy_async_pool_timeout: float = Field(default=30, ge=0.1, le=600)
     sqlalchemy_async_pool_recycle: int = Field(default=1800, ge=-1, le=86_400)
-    prompt_event_queue_max_chars: int = Field(default=16_000, ge=4_000, le=200_000)
-    prompt_agent_context_max_chars: int = Field(default=28_000, ge=8_000, le=200_000)
-    prompt_god_bundle_max_chars: int = Field(default=48_000, ge=8_000, le=400_000)
-    prompt_event_summary_max_chars: int = Field(default=12_000, ge=4_000, le=120_000)
-    event_summary_max_tokens: int = Field(default=900, ge=300, le=4_000)
+    prompt_event_queue_max_chars: int = Field(default=10_000, ge=4_000, le=200_000)
+    prompt_agent_context_max_chars: int = Field(default=18_000, ge=8_000, le=200_000)
+    prompt_god_bundle_max_chars: int = Field(default=28_000, ge=8_000, le=400_000)
+    prompt_event_summary_max_chars: int = Field(default=8_000, ge=4_000, le=120_000)
+    event_summary_max_tokens: int = Field(default=600, ge=300, le=4_000)
     branch_score_threshold: float = 0.7
     initializer_direct_context_char_budget: int = 64_000 * 4
     initializer_chunk_chars: int = 64_000 * 4

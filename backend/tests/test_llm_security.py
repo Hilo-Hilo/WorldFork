@@ -364,6 +364,37 @@ def test_complete_with_audit_does_not_commit_caller_transaction(monkeypatch, tmp
         verify_db.close()
 
 
+def test_complete_with_audit_records_prompt_size_metadata(monkeypatch):
+    class PromptMetricsProvider:
+        async def complete(self, request):
+            return LLMResponse(content='{"decision": "continue"}', parsed={"decision": "continue"}, raw={})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: PromptMetricsProvider())
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    _response, call = llm_audit.complete_with_audit(
+        FakeDB(),
+        big_bang_id=uuid4(),
+        purpose="prompt_size_probe",
+        model="test-model",
+        messages=[
+            {"role": "system", "content": "System prompt"},
+            {"role": "user", "content": "User prompt with endpoint evidence"},
+        ],
+        metadata={"max_tokens": 50},
+    )
+
+    assert call.meta["prompt_metrics"]["message_count"] == 2
+    assert call.meta["prompt_metrics"]["char_count"] >= len("System promptUser prompt with endpoint evidence")
+    assert call.meta["prompt_metrics"]["estimated_tokens"] >= 1
+
+
 def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     captured = {}
 

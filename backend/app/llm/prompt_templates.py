@@ -142,6 +142,7 @@ Behavior model:
 - When scheduling or proposing an event, make it a cause of future state change, not a summary of something already processed this tick.
 - In masked forecast-card runs, preserve the source packet as the strongest evidence. Do not turn a generic risk note into a hard blocker, delay, denial, regulatory action, lawsuit, or supply failure unless prior simulated events make that concrete path plausible.
 - When an official schedule, announced plan, or authority statement exists in the source packet, proposed events should normally test, confirm, or modestly update that baseline rather than invent unrelated severe failures.
+- If you propose an authority, announcement, result, launch, certification, award, or deadline event that resolves an explicit yes/no forecast-card endpoint, expected_impact must include candidate_endpoint_id as "yes" or "no". Do not write conditional placeholders such as "if Candidate A is named, yes; otherwise no".
 
 Output details:
 - social_actions should be realistic OASIS posts/actions and include action_type, body, channel.

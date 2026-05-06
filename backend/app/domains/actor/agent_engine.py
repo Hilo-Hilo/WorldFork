@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 from collections import defaultdict
+from typing import Any
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -114,7 +115,7 @@ def run_actor_decision(
                 "role": "user",
                 "content": (
                     "Shared tick context for all actor decisions in this tick. "
-                    f"It is identical across actors for prompt-cache reuse:\n{_prompt_json(shared_prompt_context)}"
+                    f"It is identical across actors for prompt-cache reuse:\n{_render_actor_shared_context(shared_prompt_context)}"
                 ),
             },
             {
@@ -140,6 +141,7 @@ def run_actor_decision(
             "tick_index": tick_index,
             "prompt_cache_strategy": "openrouter_implicit_sticky",
             "prompt_cache_stable_prefix_messages": 2,
+            "cache_control": {"type": "ephemeral", "ttl": "1h"},
         },
     )
     parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -190,7 +192,12 @@ def validate_and_repair_event_actions(
     validation_attempts: list[dict] = []
 
     for retry_round in range(0, max_retries + 1):
-        invalid = _invalid_event_proposals(db, parsed_actions)
+        invalid = _invalid_event_proposals(
+            db,
+            parsed_actions,
+            big_bang=big_bang,
+            prompt_context=prompt_context,
+        )
         validation_attempts.append(
             {
                 "round": retry_round,
@@ -326,6 +333,130 @@ def _actor_specific_prompt_context(
     return actor_context
 
 
+def _render_actor_shared_context(prompt_context: dict) -> str:
+    if not isinstance(prompt_context, dict):
+        return "CLOCK: not provided"
+    lines: list[str] = []
+    lines.append(f"CLOCK: {_one_line(prompt_context.get('clock') or 'not provided')}")
+    forecast_lines = _forecast_context_lines(prompt_context)
+    if forecast_lines:
+        lines.append("FORECAST:")
+        lines.extend(f"- {line}" for line in forecast_lines)
+    branch = _branch_context(prompt_context)
+    if branch:
+        lines.append("BRANCH:")
+        lines.append(f"- {_one_line(branch.get('branch_premise') or branch.get('prompt_instruction') or branch)}")
+    state_lines = _state_context_lines(prompt_context)
+    if state_lines:
+        lines.append("STATE:")
+        lines.extend(f"- {line}" for line in state_lines)
+    event_queue = prompt_context.get("event_queue") if isinstance(prompt_context.get("event_queue"), dict) else {}
+    if event_queue:
+        _append_event_section(lines, "DUE EVENTS", event_queue.get("due_events"))
+        _append_event_section(lines, "UPCOMING", event_queue.get("upcoming_events"), limit=8)
+        _append_event_section(lines, "PAST EVENTS", event_queue.get("past_events"), limit=8)
+        budget = event_queue.get("prompt_budget") if isinstance(event_queue.get("prompt_budget"), dict) else {}
+        omitted = budget.get("omitted_total")
+        if omitted:
+            lines.append(f"EVENT QUEUE WINDOW: {omitted} older/lower-priority rows omitted; use visible sections only.")
+    influences = prompt_context.get("sociology_prompt_influences")
+    if isinstance(influences, list) and influences:
+        lines.append("SOCIOLOGY:")
+        for index, item in enumerate(influences[:6], start=1):
+            lines.append(f"{index}. {_one_line(item, limit=260)}")
+    policy = prompt_context.get("untrusted_content_policy")
+    if policy:
+        lines.append(f"POLICY: {_one_line(policy, limit=360)}")
+    return "\n".join(lines)
+
+
+def _forecast_context_lines(prompt_context: dict) -> list[str]:
+    lines: list[str] = []
+    forecast_clock = prompt_context.get("forecast_clock")
+    if isinstance(forecast_clock, dict) and forecast_clock:
+        parts = []
+        for key in (
+            "as_of_date",
+            "forecast_deadline_date",
+            "current_tick",
+            "deadline_tick",
+            "deadline_tick_reached",
+            "estimated_current_date",
+        ):
+            if forecast_clock.get(key) is not None:
+                parts.append(f"{key}={forecast_clock[key]}")
+        if parts:
+            lines.append("; ".join(parts))
+        if forecast_clock.get("forecast_horizon"):
+            lines.append(f"horizon={_one_line(forecast_clock['forecast_horizon'], limit=240)}")
+    state = prompt_context.get("current_state") if isinstance(prompt_context.get("current_state"), dict) else {}
+    scenario = state.get("scenario_summary") if isinstance(state.get("scenario_summary"), dict) else {}
+    if scenario.get("scenario_text_excerpt"):
+        lines.append(f"scenario={_one_line(scenario['scenario_text_excerpt'], limit=360)}")
+    if scenario.get("simulation_brief"):
+        lines.append(f"brief={_one_line(scenario['simulation_brief'], limit=260)}")
+    return lines
+
+
+def _branch_context(prompt_context: dict) -> dict[str, Any]:
+    state = prompt_context.get("current_state") if isinstance(prompt_context.get("current_state"), dict) else {}
+    branch = state.get("branch_context")
+    return branch if isinstance(branch, dict) else {}
+
+
+def _state_context_lines(prompt_context: dict) -> list[str]:
+    state = prompt_context.get("current_state") if isinstance(prompt_context.get("current_state"), dict) else {}
+    lines: list[str] = []
+    if state.get("last_tick_index") is not None:
+        lines.append(f"last_tick={state['last_tick_index']}")
+    graph = state.get("graph_summary")
+    if isinstance(graph, dict) and graph:
+        lines.append(f"graph={_one_line(graph, limit=320)}")
+    for section in ("cohorts", "heroes"):
+        rows = state.get(section)
+        if isinstance(rows, list) and rows:
+            labels = [
+                str(row.get("name") or row.get("actor_name") or row.get("id") or row)[:80]
+                for row in rows[:6]
+                if isinstance(row, dict)
+            ]
+            if labels:
+                lines.append(f"{section}={'; '.join(labels)}")
+    return lines
+
+
+def _append_event_section(lines: list[str], title: str, rows: Any, *, limit: int = 12) -> None:
+    if not isinstance(rows, list) or not rows:
+        return
+    lines.append(f"{title}:")
+    for index, row in enumerate([item for item in rows if isinstance(item, dict)][:limit], start=1):
+        lines.append(f"{index}. {_event_line(row)}")
+
+
+def _event_line(row: dict[str, Any]) -> str:
+    tick = row.get("scheduled_tick")
+    tick_text = f"T{tick}" if tick is not None else "T?"
+    title = row.get("title") or "untitled"
+    event_type = row.get("event_type") or "event"
+    status = row.get("status")
+    impact = row.get("actual_impact") or row.get("expected_impact") or {}
+    parts = [tick_text, str(event_type), _one_line(title, limit=160)]
+    if status:
+        parts.append(f"status={status}")
+    if impact:
+        parts.append(f"impact={_one_line(impact, limit=220)}")
+    return " | ".join(parts)
+
+
+def _one_line(value: Any, *, limit: int = 700) -> str:
+    if isinstance(value, str):
+        text = value
+    else:
+        text = json.dumps(_compact_prompt_value(value), sort_keys=True, separators=(",", ":"), default=str)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text if len(text) <= limit else text[:limit] + "..."
+
+
 def _prompt_json(value) -> str:  # noqa: ANN001
     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
 
@@ -408,7 +539,13 @@ AUTHORITY_ACTOR_TYPES = {
 }
 
 
-def _invalid_event_proposals(db: Session, parsed_actions: list[dict]) -> list[dict]:
+def _invalid_event_proposals(
+    db: Session,
+    parsed_actions: list[dict],
+    *,
+    big_bang: models.BigBang | None = None,
+    prompt_context: dict | None = None,
+) -> list[dict]:
     invalid: list[dict] = []
     for action in parsed_actions:
         if not isinstance(action, dict):
@@ -417,7 +554,11 @@ def _invalid_event_proposals(db: Session, parsed_actions: list[dict]) -> list[di
         if not isinstance(payload, dict):
             continue
         actor = db.get(models.Actor, action.get("actor_id")) if action.get("actor_id") else None
-        violation = _event_policy_violation(actor, payload)
+        violation = _event_policy_violation(actor, payload) or _forecast_terminal_event_violation(
+            big_bang,
+            prompt_context,
+            payload,
+        )
         if violation is None:
             continue
         invalid.append(
@@ -455,6 +596,129 @@ def _event_policy_violation(actor: models.Actor | None, payload: dict) -> dict |
             ),
         }
     return None
+
+
+FORECAST_TERMINAL_EVENT_TYPES = {
+    "announcement",
+    "award_announcement",
+    "certification",
+    "commercial_milestone",
+    "court_order",
+    "decision",
+    "launch",
+    "policy_decision",
+    "release",
+    "result",
+    "ruling",
+}
+
+FORECAST_TERMINAL_HINTS = re.compile(
+    r"\b("
+    r"official announcement|announces?|announcement|certif(?:y|ies|ication)|decision announced|"
+    r"final result|forecast (?:question|endpoint)|resolves? (?:the )?forecast|winner|laureate|"
+    r"released?|launch(?:ed)?|available|target range|court orders?|fine(?:d)?|merger closes?"
+    r")\b",
+    re.I,
+)
+
+CONDITIONAL_BINARY_PLACEHOLDER = re.compile(
+    r"\bif\b.{0,160}\byes\b.{0,160}\b(?:otherwise|else|if not|no)\b",
+    re.I | re.S,
+)
+
+
+def _forecast_terminal_event_violation(
+    big_bang: models.BigBang | None,
+    prompt_context: dict | None,
+    payload: dict,
+) -> dict | None:
+    if not _deadline_aware_binary_forecast(big_bang):
+        return None
+    text = _event_policy_text(payload)
+    if not _looks_like_forecast_terminal_event(payload, text):
+        return None
+    deadline_tick = _forecast_deadline_tick(big_bang, prompt_context)
+    scheduled_tick = _parse_scheduled_tick(payload.get("scheduled_tick"), -1)
+    if deadline_tick is not None and scheduled_tick >= 0 and scheduled_tick < deadline_tick and "forecast" not in text.lower():
+        return None
+    if _candidate_endpoint_marker(payload) in {"yes", "no"}:
+        return None
+    return {
+        "rule_id": "forecast_terminal_event_missing_candidate_endpoint",
+        "reason": (
+            "Deadline-aware forecast terminal events must commit to an explicit yes/no candidate endpoint. "
+            "Conditional placeholders leave the endpoint ledger unable to settle."
+        ),
+        "guidance": (
+            'Set expected_impact.candidate_endpoint_id to "yes" or "no" and state the simulated authority '
+            "outcome directly. Do not write placeholders such as 'if Candidate A is named, yes; otherwise no'."
+        ),
+    }
+
+
+def _deadline_aware_binary_forecast(big_bang: models.BigBang | None) -> bool:
+    scenario = big_bang.scenario_input if big_bang is not None and isinstance(big_bang.scenario_input, dict) else {}
+    metadata = scenario.get("forecast_metadata") if isinstance(scenario.get("forecast_metadata"), dict) else {}
+    if metadata.get("tick_horizon_policy") not in {None, "deadline_aware"}:
+        return False
+    candidates = scenario.get("candidate_endpoints") if isinstance(scenario.get("candidate_endpoints"), list) else []
+    ids = {str(item.get("id") or item.get("endpoint_key") or "").strip().lower() for item in candidates if isinstance(item, dict)}
+    return {"yes", "no"}.issubset(ids)
+
+
+def _forecast_deadline_tick(big_bang: models.BigBang | None, prompt_context: dict | None) -> int | None:
+    clock = prompt_context.get("forecast_clock") if isinstance(prompt_context, dict) else {}
+    if isinstance(clock, dict) and clock.get("deadline_tick") is not None:
+        return _parse_scheduled_tick(clock.get("deadline_tick"), -1)
+    scenario = big_bang.scenario_input if big_bang is not None and isinstance(big_bang.scenario_input, dict) else {}
+    metadata = scenario.get("forecast_metadata") if isinstance(scenario.get("forecast_metadata"), dict) else {}
+    if metadata.get("deadline_tick") is not None:
+        return _parse_scheduled_tick(metadata.get("deadline_tick"), -1)
+    return None
+
+
+def _looks_like_forecast_terminal_event(payload: dict, text: str) -> bool:
+    event_type = str(payload.get("event_type") or "").strip().lower()
+    if event_type in FORECAST_TERMINAL_EVENT_TYPES and FORECAST_TERMINAL_HINTS.search(text):
+        return True
+    return CONDITIONAL_BINARY_PLACEHOLDER.search(text) is not None or re.search(
+        r"\b(?:forecast (?:question|endpoint)|resolves? (?:the )?forecast)\b",
+        text,
+        re.I,
+    ) is not None
+
+
+def _candidate_endpoint_marker(payload: dict) -> str | None:
+    markers = set()
+    for container in _candidate_marker_containers(payload):
+        for key in ("candidate_endpoint_id", "endpoint", "outcome", "result"):
+            marker = _normalize_candidate_marker(container.get(key))
+            if marker:
+                markers.add(marker)
+    text = _event_policy_text(payload)
+    if not CONDITIONAL_BINARY_PLACEHOLDER.search(text):
+        for marker in ("yes", "no"):
+            if re.search(rf"\bforecast(?: question| endpoint)?\b.{{0,120}}\b(?:as|to|=)\s*{marker}\b", text, re.I):
+                markers.add(marker)
+            if re.search(rf"\bcandidate_endpoint_id\b.{{0,40}}\b{marker}\b", text, re.I):
+                markers.add(marker)
+    return markers.pop() if len(markers) == 1 else None
+
+
+def _candidate_marker_containers(payload: dict) -> list[dict]:
+    containers = [payload]
+    expected = payload.get("expected_impact")
+    if isinstance(expected, dict):
+        containers.append(expected)
+    meta = payload.get("meta")
+    if isinstance(meta, dict):
+        containers.append(meta)
+    return containers
+
+
+def _normalize_candidate_marker(value: Any) -> str | None:
+    text = str(value or "").strip().lower()
+    return text if text in {"yes", "no"} else None
 
 
 RULE_AUTHORITY_HINTS = {
@@ -659,6 +923,14 @@ def queue_agent_events(
         scheduled_tick = _parse_scheduled_tick(event_payload.get("scheduled_tick"), tick_index + 1)
         if max_scheduled_tick is not None and scheduled_tick > max_scheduled_tick:
             continue
+        expected_impact = event_payload.get("expected_impact", {})
+        expected_impact = expected_impact if isinstance(expected_impact, dict) else {"summary": expected_impact}
+        candidate_endpoint_id = _candidate_endpoint_marker(event_payload)
+        if candidate_endpoint_id:
+            expected_impact = {**expected_impact, "candidate_endpoint_id": candidate_endpoint_id}
+        meta = {"source": "agent_proposal"}
+        if candidate_endpoint_id:
+            meta["candidate_endpoint_id"] = candidate_endpoint_id
         event = models.Event(
             big_bang_id=big_bang_id,
             multiverse_id=multiverse_id,
@@ -669,8 +941,8 @@ def queue_agent_events(
             status="queued",
             title=title,
             description=event_payload.get("description"),
-            expected_impact=event_payload.get("expected_impact", {}),
-            meta={"source": "agent_proposal"},
+            expected_impact=expected_impact,
+            meta=meta,
         )
         db.add(event)
         db.flush()

@@ -176,15 +176,21 @@ def _attempt_timing_payload(attempt: models.NodeAttempt) -> dict[str, Any]:
 def _llm_call_timing_payload(call: models.LLMCall) -> dict[str, Any]:
     meta = call.meta if isinstance(call.meta, dict) else {}
     usage = meta.get("usage") if isinstance(meta.get("usage"), dict) else {}
+    prompt_metrics = meta.get("prompt_metrics") if isinstance(meta.get("prompt_metrics"), dict) else {}
+    cache_usage = meta.get("prompt_cache_usage") if isinstance(meta.get("prompt_cache_usage"), dict) else {}
     return {
         "id": str(call.id),
         "purpose": call.purpose,
         "provider": call.provider,
         "model": call.model,
         "status": call.status,
+        "prompt_chars": int(prompt_metrics.get("char_count") or 0),
+        "prompt_estimated_tokens": int(prompt_metrics.get("estimated_tokens") or 0),
+        "prompt_message_count": int(prompt_metrics.get("message_count") or 0),
         "prompt_tokens": int(usage.get("prompt_tokens") or 0),
         "completion_tokens": int(usage.get("completion_tokens") or 0),
         "total_tokens": int(usage.get("total_tokens") or 0),
+        "cached_prompt_tokens": int(cache_usage.get("cached_tokens") or 0),
         "cost_usd": usage.get("cost") or usage.get("total_cost") or usage.get("cost_usd"),
         "created_at": call.created_at,
         "updated_at": call.updated_at,
@@ -236,12 +242,20 @@ def _llm_summary(calls: list[models.LLMCall]) -> dict[str, Any]:
         for value in (duration_seconds(call.created_at, call.updated_at) for call in calls)
         if value is not None
     ]
+    prompt_metrics = [
+        call.meta.get("prompt_metrics")
+        for call in calls
+        if isinstance(call.meta, dict) and isinstance(call.meta.get("prompt_metrics"), dict)
+    ]
     return {
         "total_calls": len(calls),
         "status_counts": _counts([call.status for call in calls]),
         "total_duration_seconds": round(sum(durations), 4),
         "max_duration_seconds": max(durations) if durations else None,
         "models": _counts([f"{call.provider}/{call.model}" for call in calls]),
+        "purpose_groups": _counts([_purpose_group(call.purpose) for call in calls]),
+        "total_prompt_chars": sum(int(item.get("char_count") or 0) for item in prompt_metrics),
+        "total_prompt_estimated_tokens": sum(int(item.get("estimated_tokens") or 0) for item in prompt_metrics),
     }
 
 
@@ -250,6 +264,23 @@ def _counts(values: list[str]) -> dict[str, int]:
     for value in values:
         result[value] = result.get(value, 0) + 1
     return result
+
+
+def _purpose_group(purpose: str | None) -> str:
+    text = str(purpose or "")
+    if text.startswith("agent_"):
+        return "actor"
+    if text.startswith("event_summary"):
+        return "event_summary"
+    if text.startswith("god_review"):
+        return "god_review"
+    if text.startswith("initializer"):
+        return "initializer"
+    if "endpoint_ledger" in text:
+        return "endpoint_ledger"
+    if text.startswith("report"):
+        return "report"
+    return text.split("_", 1)[0] or "unknown"
 
 
 def _first_non_null(values: list[Any]) -> Any | None:

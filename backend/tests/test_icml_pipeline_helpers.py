@@ -416,6 +416,59 @@ def test_extract_worldfork_forecast_filters_to_explicit_candidate_keys() -> None
     assert forecast["extraction_note"] == "derived_from_candidate_endpoint_path_mass_distribution"
 
 
+def test_worldfork_perf_summary_records_prompt_latency_and_brier(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    out_dir = tmp_path / "run"
+    out_dir.mkdir()
+    (out_dir / "timing.json").write_text(
+        json.dumps(
+            {
+                "ticks": [
+                    {
+                        "duration_seconds": 12.5,
+                        "llm_calls": [
+                            {
+                                "purpose": "agent_cohort_actor_tick_1",
+                                "provider": "openrouter",
+                                "model": "deepseek/deepseek-v4-flash",
+                                "duration_seconds": 4.0,
+                                "prompt_chars": 1200,
+                                "prompt_estimated_tokens": 300,
+                                "prompt_tokens": 310,
+                                "cached_prompt_tokens": 100,
+                            },
+                            {
+                                "purpose": "god_review_mv_tick_1_iter_1",
+                                "provider": "openai",
+                                "model": "gpt-5.4",
+                                "duration_seconds": 7.0,
+                                "prompt_chars": 2400,
+                                "prompt_estimated_tokens": 600,
+                                "prompt_tokens": 610,
+                            },
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = pipeline._write_worldfork_perf_summary(
+        out_dir,
+        {"case_id": "resolved_001", "condition": "worldfork_branching_short", "p_yes": 0.25, "unresolved_mass": 0.1},
+    )
+
+    assert (out_dir / "perf_summary.json").exists()
+    assert summary["score"]["resolution"] == "yes"
+    assert summary["score"]["brier"] == pytest.approx(0.5625)
+    assert summary["tick_duration_seconds"]["max"] == pytest.approx(12.5)
+    assert summary["llm_by_purpose"]["actor"]["prompt_chars"] == 1200
+    assert summary["llm_by_purpose"]["god_review"]["duration_seconds"] == pytest.approx(7.0)
+    assert summary["provider_model_counts"]["openrouter/deepseek/deepseek-v4-flash"] == 1
+    assert summary["llm_by_purpose"]["actor"]["cached_prompt_tokens"] == 100
+
+
 def test_compute_direct_prior_blend_scores_reports_grid_and_leave_one_out() -> None:
     pipeline = load_icml_pipeline()
 

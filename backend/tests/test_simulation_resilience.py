@@ -187,6 +187,164 @@ def test_queue_agent_events_drops_future_events_after_deadline_tick(db):
     ]
 
 
+def test_forecast_terminal_event_without_candidate_marker_is_rejected(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    big_bang.scenario_input = {
+        "forecast_metadata": {
+            "deadline_tick": 5,
+            "forecast_deadline_date": "2025-10-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+    agent_result = {
+        "actor_outputs": [],
+        "emotion_self_ratings": [],
+        "parsed_actions": [
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Official announcement of the masked forecast result",
+                    "event_type": "announcement",
+                    "scheduled_tick": 5,
+                    "expected_impact": {
+                        "summary": "Resolves the forecast question. If Candidate A is named, yes; otherwise, no."
+                    },
+                },
+            }
+        ],
+    }
+
+    with pytest.raises(agent_engine.EventValidationError) as exc:
+        agent_engine.validate_and_repair_event_actions(
+            db,
+            big_bang=big_bang,
+            multiverse=root,
+            tick_index=4,
+            prompt_context={"forecast_clock": {"deadline_tick": 5, "deadline_tick_reached": False}},
+            agent_result=agent_result,
+            max_retries=0,
+        )
+
+    assert exc.value.invalid_events[0]["rule_id"] == "forecast_terminal_event_missing_candidate_endpoint"
+
+
+def test_forecast_terminal_event_with_candidate_marker_passes_gate(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    big_bang.scenario_input = {
+        "forecast_metadata": {
+            "deadline_tick": 5,
+            "forecast_deadline_date": "2025-10-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+    agent_result = {
+        "actor_outputs": [],
+        "emotion_self_ratings": [],
+        "parsed_actions": [
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Official announcement confirms Candidate A",
+                    "event_type": "announcement",
+                    "scheduled_tick": 5,
+                    "expected_impact": {
+                        "candidate_endpoint_id": "yes",
+                        "summary": "The authority announcement resolves the forecast endpoint to yes.",
+                    },
+                },
+            }
+        ],
+    }
+
+    repaired = agent_engine.validate_and_repair_event_actions(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        tick_index=4,
+        prompt_context={"forecast_clock": {"deadline_tick": 5, "deadline_tick_reached": False}},
+        agent_result=agent_result,
+        max_retries=0,
+    )
+
+    assert repaired["event_validation"]["status"] == "passed"
+
+
+def test_forecast_deadline_commentary_can_mention_announcement_without_candidate_marker(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    big_bang.scenario_input = {
+        "forecast_metadata": {
+            "deadline_tick": 5,
+            "forecast_deadline_date": "2025-10-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+    agent_result = {
+        "actor_outputs": [],
+        "emotion_self_ratings": [],
+        "parsed_actions": [
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Forecast market commentary before the announcement",
+                    "event_type": "media_discussion",
+                    "scheduled_tick": 5,
+                    "expected_impact": {"summary": "Public commentary notes that no one knows the sealed result."},
+                },
+            }
+        ],
+    }
+
+    repaired = agent_engine.validate_and_repair_event_actions(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        tick_index=4,
+        prompt_context={"forecast_clock": {"deadline_tick": 5, "deadline_tick_reached": False}},
+        agent_result=agent_result,
+        max_retries=0,
+    )
+
+    assert repaired["event_validation"]["status"] == "passed"
+
+
+def test_execute_due_events_carries_candidate_endpoint_marker_to_actual_impact(db):
+    big_bang, root, _alpha, _beta = _seed_world(db)
+    event = models.Event(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        event_type="announcement",
+        created_tick=4,
+        scheduled_tick=5,
+        status="queued",
+        title="Official forecast result",
+        description="Authority result commits the masked endpoint.",
+        expected_impact={
+            "candidate_endpoint_id": "yes",
+            "summary": "The authority announcement resolves the forecast endpoint to yes.",
+        },
+        meta={},
+    )
+    db.add(event)
+    db.flush()
+
+    executed = event_engine.execute_due_events(db, [event])
+
+    assert executed[0]["actual_impact"]["candidate_endpoint_id"] == "yes"
+    assert event.actual_impact["candidate_endpoint_id"] == "yes"
+
+
 def test_social_action_dict_body_is_serialized_for_text_column(db):
     big_bang, root, alpha, _beta = _seed_world(db)
 
@@ -268,12 +426,16 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
     messages = captured_messages[0]["messages"]
     assert messages[1]["content"].startswith("Shared tick context for all actor decisions")
     assert "Actor:" not in messages[1]["content"]
+    assert "CLOCK:" in messages[1]["content"]
+    assert "PAST EVENTS:" in messages[1]["content"]
+    assert "visible_events" not in messages[1]["content"]
     assert "Past water pressure loss" in messages[1]["content"]
     assert "Alpha schedules clinic briefing" in messages[2]["content"]
     assert "actor_event_queue" in messages[2]["content"]
     assert "Past water pressure loss" not in messages[2]["content"]
     assert captured_messages[0]["metadata"]["prompt_cache_strategy"] == "openrouter_implicit_sticky"
     assert captured_messages[0]["metadata"]["prompt_cache_stable_prefix_messages"] == 2
+    assert captured_messages[0]["metadata"]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
 
 
 def test_event_queue_prompt_context_budgets_long_queues_with_omission_summary(db):
@@ -659,7 +821,7 @@ def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(
     assert "First pressure shock" in calls[0]["messages"][1]["content"]
     assert "Second coalition response" in calls[0]["messages"][1]["content"]
     assert "TAIL_MARKER" not in calls[0]["messages"][1]["content"]
-    assert calls[0]["metadata"]["max_tokens"] == 900
+    assert calls[0]["metadata"]["max_tokens"] == 600
     assert len(summaries) == 2
     assert {item["summary"] for item in summaries} == {
         "First event moved attention.",

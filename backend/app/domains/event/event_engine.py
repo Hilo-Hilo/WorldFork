@@ -128,6 +128,7 @@ def execute_due_events(db: Session, events: list[models.Event], tick_snapshot_id
             "status": "applied",
             "summary": event.expected_impact or {},
         }
+        event.actual_impact.update(_terminal_endpoint_fields(event.expected_impact or {}, event.meta or {}))
         log = models.EventLog(
             event_id=event.id,
             tick_snapshot_id=tick_snapshot_id,
@@ -148,6 +149,29 @@ def execute_due_events(db: Session, events: list[models.Event], tick_snapshot_id
             }
         )
     return executed
+
+
+def _terminal_endpoint_fields(*payloads: dict[str, Any]) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    for payload in payloads:
+        if not isinstance(payload, dict):
+            continue
+        for key in ("candidate_endpoint_id", "endpoint", "outcome", "result"):
+            value = payload.get(key)
+            if value not in (None, "", {}, []):
+                fields[key] = value
+    candidate = _binary_candidate_marker(fields)
+    if candidate:
+        fields["candidate_endpoint_id"] = candidate
+    return fields
+
+
+def _binary_candidate_marker(payload: dict[str, Any]) -> str | None:
+    for key in ("candidate_endpoint_id", "endpoint", "outcome", "result"):
+        value = str(payload.get(key) or "").strip().lower()
+        if value in {"yes", "no"}:
+            return value
+    return None
 
 
 def summarize_executed_events(
