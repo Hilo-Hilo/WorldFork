@@ -1,0 +1,12 @@
+condition,n,mean_brier,mean_log_score,mean_unresolved_mass,source_scores,note
+direct_llm_core12,12,0.219867,0.673259,0.000000,results/forecast_scores.csv,same 12 IDs as E3 branching core-12
+structured_direct_llm_core12,12,0.215517,0.637058,0.000000,results/forecast_scores.csv,same 12 IDs as E3 branching core-12
+direct_llm_deepseek_v4_flash_core12,12,0.211408,0.628736,0.000000,results/forecast_scores_deepseek_v4_flash.csv,same 12 IDs as E3 branching core-12
+structured_direct_llm_deepseek_v4_flash_core12,12,0.194950,0.591768,0.000000,results/forecast_scores_deepseek_v4_flash.csv,same 12 IDs as E3 branching core-12
+worldfork_branching_aggregate_core12,12,0.224597,0.613304,0.000000,results/worldfork_deadline_aware_branching_core12_posthoc_fixed_scores.csv,path-mass aggregate across branching multiverses
+worldfork_plus_direct_llm_equal_blend_core12,12,0.203041,0.584103,0.000000,results/e3_direct_prior_blend_best.csv,50/50 blend of direct prior and E3 branching path-mass aggregate
+worldfork_plus_structured_direct_llm_equal_blend_core12,12,0.201275,0.581340,0.000000,results/e3_direct_prior_blend_best.csv,50/50 blend of structured direct prior and E3 branching path-mass aggregate
+worldfork_plus_direct_llm_deepseek_v4_flash_equal_blend_core12,12,0.195263,0.566538,0.000000,results/e3_direct_prior_blend_best.csv,50/50 blend of DeepSeek direct prior and E3 branching path-mass aggregate
+worldfork_plus_structured_direct_llm_deepseek_v4_flash_equal_blend_core12,12,0.190560,0.553376,0.000000,results/e3_direct_prior_blend_best.csv,50/50 blend of DeepSeek structured direct prior and E3 branching path-mass aggregate
+worldfork_plus_structured_direct_llm_deepseek_v4_flash_best_brier_in_sample_core12,12,0.187705,0.555867,0.000000,results/e3_direct_prior_blend_best.csv,diagnostic only; alpha=0.70 tuned on the same 12 cases by Brier
+worldfork_plus_structured_direct_llm_deepseek_v4_flash_leave_one_out_brier_tuned_core12,12,0.232795,0.672304,0.000000,results/e3_direct_prior_blend_best.csv,leave-one-out estimate; alpha selected per held-out fold by training Brier

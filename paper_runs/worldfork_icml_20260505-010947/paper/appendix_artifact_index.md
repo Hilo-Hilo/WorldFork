@@ -1,6 +1,6 @@
 # Appendix Artifact Index
 
-Generated: 2026-05-05 22:40 UTC
+Generated: 2026-05-06 00:59 UTC
 
 ## Core Package
 
@@ -19,8 +19,13 @@ Generated: 2026-05-05 22:40 UTC
 - Resolution source inventory: `results/resolution_sources.csv`
 - Source fetch verification: `results/source_verification.csv`, `results/source_verification.md`
 - Forecast scores: `results/forecast_scores.csv`
+- DeepSeek v4 Flash forecast scores: `results/forecast_scores_deepseek_v4_flash.csv`
 - WorldFork default-route 16-tick scores: `results/worldfork_default_route_16tick_scores.csv`
 - WorldFork default-route 35-tick resume scores: `results/worldfork_default_route_35tick_resume_scores.csv`
+- WorldFork E3 core-12 same-run comparison scores: `results/e3_core12_comparison_scores.csv`
+- WorldFork E3 highest-probability single-path diagnostic scores: `results/worldfork_deadline_aware_branching_core12_most_probable_path_proxy_scores.csv`
+- WorldFork deadline-aware branching core-12 posthoc fixed scores: `results/worldfork_deadline_aware_branching_core12_posthoc_fixed_scores.csv`
+- E3 direct-prior blend alpha grid and best rows: `results/e3_direct_prior_blend_alpha_grid.csv`, `results/e3_direct_prior_blend_best.csv`
 - Bootstrap intervals for available E2/E3 no-branch rows: `results/bootstrap_intervals.json`
 - Table 2 runtime/cost summary: `results/table2_runtime_cost_summary.csv`
 - E1 automated rubric proxy and preserved coverage table: `results/init_scores.csv`, `results/init_coverage_scores.csv`
@@ -35,7 +40,9 @@ Generated: 2026-05-05 22:40 UTC
 - E3 queued tick/report smoke: `raw/E3_queue_smoke/resolved_004/`
 - E3 default-route no-branch 16-tick run: `raw/E3_worldfork_default_route_16tick/`
 - E3 default-route no-branch 35-tick resume: `raw/E3_worldfork_default_route_35tick_resume/`
-- E3 default-route branching core12 run: `raw/E3_worldfork_default_route_branching_core12/` (live/partial until terminal path-mass capture and scoring)
+- E3 deadline-aware branching core12 source run: `raw/E3_worldfork_deadline_aware_branching_core12/`
+- E3 deadline-aware branching core12 highest-probability single-path proxy: `raw/E3_worldfork_deadline_aware_branching_core12_most_probable_path_proxy/`
+- E3 deadline-aware branching core12 posthoc fixed predictions: `raw/E3_worldfork_deadline_aware_branching_core12_posthoc_fixed/`
 - E4 minimum-6 long-horizon run: `raw/E4_minimum_long_horizon_6/` (live/partial until terminal path-mass, cost, timing, and audit capture)
 
 ## Paper Artifacts

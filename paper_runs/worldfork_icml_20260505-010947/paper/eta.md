@@ -1,25 +1,27 @@
 # ETA Snapshot
 
-Generated: 2026-05-05 22:23 UTC
+Generated: 2026-05-06 00:59 UTC
 
 ## Live Update
 
-The current critical path is the corrected E3 deadline-aware branching core-12
-run on the isolated `worldfork-icml` stack. It is running under
-`ICML-forecasting` branch code with the binary endpoint/forecast-clock fixes.
+The E3 deadline-aware branching core-12 run on the isolated `worldfork-icml`
+stack is terminal and scored. The main E3 comparison now uses branching
+path-mass aggregation across explicit yes/no candidate endpoints. The
+highest-probability single path is diagnostic only.
 
 Live queue/runtime state at this snapshot:
 
-- Active corrected E3 cases: 12/12 core fallback cases.
-- Active branch paths: 48.
-- Latest branch-path tick range: 2 to 10; mean latest tick: 4.71.
-- Remaining branch-path ticks to the 16 cap: about 542, unless explicit
-  yes/no endpoint ledgers resolve earlier.
-- Recent observed tick-snapshot throughput: 36 in the last 10 minutes, 51 in
-  the last 20 minutes, 88 in the last 30 minutes.
-- Current p1 execution layout: 4 older `e3cap` workers still finishing active
-  jobs, 7 fresh `e3long` workers with 27,000/28,800 second soft/hard Celery
-  limits, plus one direct recovery process.
+- E3 core-12 cases: 12/12 terminal.
+- Branch paths: 68 terminal multiverses across the core-12 batch.
+- Latest branch-path tick range: all paths reached tick 16.
+- Branching aggregate row: mean Brier 0.224597, mean log score 0.613304,
+  mean unresolved mass 0.0.
+- DeepSeek structured direct core-12 row: mean Brier 0.194950, mean log score
+  0.591768, mean unresolved mass 0.0.
+- 50/50 DeepSeek structured direct prior plus E3 branch aggregate: mean Brier
+  0.190560, mean log score 0.553376, mean unresolved mass 0.0.
+- Current p1 execution layout: E3 long-limit workers are no longer needed for
+  E3; remaining live work is E4.
 - Postgres is not the active bottleneck at this snapshot; connection pressure
   is low relative to the raised ICML cap.
 
@@ -27,15 +29,15 @@ ETA from this snapshot:
 
 | Deliverable | ETA | Basis |
 | --- | ---: | --- |
-| Corrected E3 deadline-aware branching core-12 terminal artifacts | 1.5-3 hours | 542 branch-path ticks remaining at roughly 3.0-6.0 branch ticks/minute after worker expansion; may finish earlier if the binary endpoint ledger resolves naturally |
-| E3 score refresh and table update after terminal artifacts | 10-20 minutes | Local artifact capture plus `score-forecasts` |
+| E3 deadline-aware branching core-12 terminal artifacts | Done | 12/12 jobs terminal |
+| E3 branching aggregate plus direct-prior blend score refresh | Done | `results/e3_core12_comparison_scores.csv`; `results/e3_direct_prior_blend_best.csv` |
 | Minimum E4 audit recovery/finalization | 8-24 hours | Still dominated by long-horizon branching unless narrowed to already-running minimum rows |
 | E5 social-state scoring from E4 artifacts | 2-5 hours | Offline scoring/audit after E4 artifacts exist |
 | Paper draft/table refresh after E3 plus available E4/E5 evidence | 1-3 hours | Existing draft scaffold and tables already exist; final quality depends on E4 coverage |
 
-Shortest defensible paper path remains: use corrected E3 core-12 as the main
-WorldFork resolved-card row, keep old fixed-720-minute E3 rows as pilot/ablation
-only, complete minimum E4/E5 evidence if full E4 cannot finish in time, and state
+Shortest defensible paper path remains: use the E3 core-12 branching aggregate
+as the main WorldFork resolved-card row, use fixed direct-prior blends as
+sensitivity rows, keep older E3 rows as diagnostic artifacts only, and state
 coverage limits plainly.
 
 These estimates use live runs on the isolated `worldfork-icml` stack: `resolved_003` initialization completed in 146.20 seconds; a one-tick synchronous run plus report generation completed in 408.49 seconds; a queued `run-until-complete/jobs` smoke on `resolved_004` initialized in 131.22 seconds, then completed one tick plus reports in a 219.47 second job wait; a scored no-branch validation on `resolved_001` initialized in 135.12 seconds and completed 8 queued ticks in a 705.58 second job wait; a batched no-branch run on `resolved_003`, `resolved_005`, and `resolved_007` submitted three p1 run jobs concurrently and completed 8 ticks each with per-job waits of 648.90, 709.14, and 754.11 seconds; a scored branching validation on `resolved_001` initialized in 120.12 seconds and completed 27 tick snapshots across four multiverses in a 2131.68 second job wait; a four-case queued initializer batch completed within the first 148.14 second wait after submission; an eight-case queued initializer batch ran with p1 at 8 active jobs and finished all eight jobs in roughly 3.2 minutes from submission; a 22-case queued add-on batch finished in 464.64 seconds wall time; and the remaining 72 existing public cards finished as queued p1 jobs in 1796.65 seconds wall time.
@@ -48,13 +50,13 @@ Tick counts are budget caps, not mandatory endpoints. If a ledger resolves natur
 | P0 live setup validation | Docker, migrations, seed, status, readyz, agent discover, model routing | Complete on `worldfork-icml` ports `18045/15445/16445` | Done |
 | Source verification | Fetch/check resolution URLs for 24 resolved cards | 39/40 URLs verified ok after browser follow-up; remaining Reuters URL is gated but the same case has a primary court-source row marked ok | Done for current evidence package |
 | E1 init screen | 108 `worldfork init` runs, no ticks | Complete: 108/108 live initializations evidenced; automated coverage table generated | Done |
-| E2 direct baselines | 24 cards x 2 direct forecast prompts | Complete | Done |
-| E3 short WorldFork resolved runs | 24 cards x 2 conditions | Default-route no-branch complete at 16 ticks and through a 35-tick resume. The 35-tick extracted path-mass forecasts are unchanged from 16 ticks, with mean unresolved mass 0.923611. Default-route branching remains pending. | No-branch done for current evidence package; branching full 24 roughly 15-24 hours under current policy, core-12 fallback roughly half |
+| E2 direct baselines | 24 cards x GPT-5.4 and DeepSeek v4 Flash direct forecast prompts | Complete | Done |
+| E3 short WorldFork resolved runs | Core-12 branching aggregate plus direct-prior sensitivity | Deadline-aware branching core-12 is complete. The branching aggregate scores Brier 0.224597 / log 0.613304 / unresolved 0.0; the 50/50 DeepSeek structured direct prior blend scores Brier 0.190560 / log 0.553376 / unresolved 0.0. | Done for current evidence package; full 24-card branching remains optional and roughly 15-24 hours under current policy |
 | E4 long-horizon audit | 18 cases x 30-35 ticks | Not started | 24-72 hours; minimum-6 fallback roughly 8-24 hours |
 | E5 social-state audit | Scoring existing E4 artifacts | Not started | 2-5 hours after E4 |
 | Paper finalization | Tables, figures, anonymized final draft | Draft scaffold exists | 2-4 hours after scores |
 
-The shortest defensible completion path is: run E3 default-route branching on the core-12 fallback first, then E4 minimum-6 if full E4 is too slow, then score E5 from the E4 artifacts. Running E3 branching full-24 and E4 full-18 is still the stronger evidence package, but it is a multi-day wall-clock path under the current branching policy.
+The shortest defensible completion path is now: keep the E3 core-12 branching aggregate and fixed direct-prior blend as the resolved forecast evidence. Running E3 branching full-24 and E4 full-18 is still the stronger evidence package, but it is a multi-day wall-clock path under the current branching policy.
 
 Future default ICML E3/E4/E5 runs should use OpenRouter `deepseek/deepseek-v4-flash` for `cohort_agent` and `hero_agent`, with governance/report routes on a strong configured model. The existing Codex-only rows are smoke/ablation rows and should not be aggregated with default-route rows unless the table separates route policy.
 

@@ -2974,6 +2974,323 @@ def clamp(p: float, lo: float = 0.01, hi: float = 0.99) -> float:
     return max(lo, min(hi, p))
 
 
+def _prediction_p_yes(row: dict[str, Any]) -> float:
+    return float(row.get("p_yes", row.get("forecast_distribution", {}).get("yes", 0.5)))
+
+
+def _prediction_unresolved_mass(row: dict[str, Any]) -> float:
+    return float(row.get("unresolved_mass", row.get("forecast_distribution", {}).get("unresolved", 0.0)))
+
+
+def _blend_metric_row(
+    *,
+    direct_condition: str,
+    worldfork_condition: str,
+    alpha: float,
+    case_ids: list[str],
+    labels: dict[str, float],
+    worldfork_predictions: dict[str, dict[str, Any]],
+    direct_predictions: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    brier_scores: list[float] = []
+    log_scores: list[float] = []
+    unresolved_masses: list[float] = []
+    for case_id in case_ids:
+        y = labels[case_id]
+        direct_p = _prediction_p_yes(direct_predictions[case_id])
+        worldfork_p = _prediction_p_yes(worldfork_predictions[case_id])
+        p_yes = alpha * direct_p + (1.0 - alpha) * worldfork_p
+        p_true = p_yes if y == 1.0 else 1.0 - p_yes
+        direct_unresolved = _prediction_unresolved_mass(direct_predictions[case_id])
+        worldfork_unresolved = _prediction_unresolved_mass(worldfork_predictions[case_id])
+        unresolved = alpha * direct_unresolved + (1.0 - alpha) * worldfork_unresolved
+        brier_scores.append((p_yes - y) ** 2)
+        log_scores.append(-math.log(clamp(p_true)))
+        unresolved_masses.append(unresolved)
+    return {
+        "direct_condition": direct_condition,
+        "worldfork_condition": worldfork_condition,
+        "alpha": alpha,
+        "n": len(case_ids),
+        "mean_brier": statistics.fmean(brier_scores),
+        "mean_log_score": statistics.fmean(log_scores),
+        "mean_unresolved_mass": statistics.fmean(unresolved_masses),
+    }
+
+
+def compute_direct_prior_blend_scores(
+    *,
+    labels: dict[str, float],
+    worldfork_predictions: dict[str, dict[str, Any]],
+    direct_predictions_by_condition: dict[str, dict[str, dict[str, Any]]],
+    alphas: list[float],
+    worldfork_condition: str,
+) -> dict[str, list[dict[str, Any]]]:
+    grid_rows: list[dict[str, Any]] = []
+    selection_rows: list[dict[str, Any]] = []
+    alpha_grid = sorted({round(float(alpha), 10) for alpha in alphas if 0.0 <= float(alpha) <= 1.0})
+    if not alpha_grid:
+        raise ValueError("at least one alpha in [0, 1] is required")
+
+    for direct_condition, direct_predictions in sorted(direct_predictions_by_condition.items()):
+        case_ids = sorted(set(labels) & set(worldfork_predictions) & set(direct_predictions))
+        if not case_ids:
+            continue
+        condition_grid: list[dict[str, Any]] = []
+        for alpha in alpha_grid:
+            row = _blend_metric_row(
+                direct_condition=direct_condition,
+                worldfork_condition=worldfork_condition,
+                alpha=alpha,
+                case_ids=case_ids,
+                labels=labels,
+                worldfork_predictions=worldfork_predictions,
+                direct_predictions=direct_predictions,
+            )
+            condition_grid.append(row)
+            grid_rows.append(row)
+
+        best_brier = min(condition_grid, key=lambda row: (row["mean_brier"], row["mean_log_score"], row["alpha"]))
+        best_log = min(condition_grid, key=lambda row: (row["mean_log_score"], row["mean_brier"], row["alpha"]))
+
+        def selection(selection_name: str, row: dict[str, Any], note: str) -> dict[str, Any]:
+            return {
+                **row,
+                "selection": selection_name,
+                "selected_alpha_mean": row["alpha"],
+                "selected_alpha_min": row["alpha"],
+                "selected_alpha_max": row["alpha"],
+                "note": note,
+            }
+
+        selection_rows.extend(
+            [
+                selection(
+                    "worldfork_only",
+                    _blend_metric_row(
+                        direct_condition=direct_condition,
+                        worldfork_condition=worldfork_condition,
+                        alpha=0.0,
+                        case_ids=case_ids,
+                        labels=labels,
+                        worldfork_predictions=worldfork_predictions,
+                        direct_predictions=direct_predictions,
+                    ),
+                    "E3 branching path-mass aggregate without a direct-call prior",
+                ),
+                selection(
+                    "equal_blend",
+                    _blend_metric_row(
+                        direct_condition=direct_condition,
+                        worldfork_condition=worldfork_condition,
+                        alpha=0.5,
+                        case_ids=case_ids,
+                        labels=labels,
+                        worldfork_predictions=worldfork_predictions,
+                        direct_predictions=direct_predictions,
+                    ),
+                    "50/50 direct-call prior and E3 branching path-mass aggregate",
+                ),
+                selection(
+                    "direct_only",
+                    _blend_metric_row(
+                        direct_condition=direct_condition,
+                        worldfork_condition=worldfork_condition,
+                        alpha=1.0,
+                        case_ids=case_ids,
+                        labels=labels,
+                        worldfork_predictions=worldfork_predictions,
+                        direct_predictions=direct_predictions,
+                    ),
+                    "Direct-call forecast without WorldFork path-mass adjustment",
+                ),
+                selection("best_brier_in_sample", best_brier, "Alpha selected on the same scored cases by mean Brier"),
+                selection("best_log_in_sample", best_log, "Alpha selected on the same scored cases by mean log score"),
+            ]
+        )
+
+        if len(case_ids) >= 2:
+            heldout_brier: list[float] = []
+            heldout_log: list[float] = []
+            heldout_unresolved: list[float] = []
+            selected_alphas: list[float] = []
+            for heldout_case_id in case_ids:
+                train_case_ids = [case_id for case_id in case_ids if case_id != heldout_case_id]
+                train_rows = [
+                    _blend_metric_row(
+                        direct_condition=direct_condition,
+                        worldfork_condition=worldfork_condition,
+                        alpha=alpha,
+                        case_ids=train_case_ids,
+                        labels=labels,
+                        worldfork_predictions=worldfork_predictions,
+                        direct_predictions=direct_predictions,
+                    )
+                    for alpha in alpha_grid
+                ]
+                selected = min(train_rows, key=lambda row: (row["mean_brier"], row["mean_log_score"], row["alpha"]))
+                selected_alpha = float(selected["alpha"])
+                selected_alphas.append(selected_alpha)
+                heldout_row = _blend_metric_row(
+                    direct_condition=direct_condition,
+                    worldfork_condition=worldfork_condition,
+                    alpha=selected_alpha,
+                    case_ids=[heldout_case_id],
+                    labels=labels,
+                    worldfork_predictions=worldfork_predictions,
+                    direct_predictions=direct_predictions,
+                )
+                heldout_brier.append(float(heldout_row["mean_brier"]))
+                heldout_log.append(float(heldout_row["mean_log_score"]))
+                heldout_unresolved.append(float(heldout_row["mean_unresolved_mass"]))
+
+            selection_rows.append(
+                {
+                    "direct_condition": direct_condition,
+                    "worldfork_condition": worldfork_condition,
+                    "selection": "leave_one_out_brier_tuned",
+                    "alpha": statistics.fmean(selected_alphas),
+                    "selected_alpha_mean": statistics.fmean(selected_alphas),
+                    "selected_alpha_min": min(selected_alphas),
+                    "selected_alpha_max": max(selected_alphas),
+                    "n": len(case_ids),
+                    "mean_brier": statistics.fmean(heldout_brier),
+                    "mean_log_score": statistics.fmean(heldout_log),
+                    "mean_unresolved_mass": statistics.fmean(heldout_unresolved),
+                    "note": "Each held-out case scored with alpha selected by mean Brier on the other cases",
+                }
+            )
+
+    return {"grid_rows": grid_rows, "selection_rows": selection_rows}
+
+
+def _alpha_grid(step: float) -> list[float]:
+    if step <= 0.0 or step > 1.0:
+        raise SystemExit("--alpha-step must be in (0, 1]")
+    count = int(round(1.0 / step))
+    values = [round(index * step, 10) for index in range(count + 1)]
+    if values[-1] != 1.0:
+        values.append(1.0)
+    return sorted(set(values))
+
+
+def _read_prediction_map(path: Path, *, condition: str | None = None) -> dict[str, dict[str, Any]]:
+    predictions: dict[str, dict[str, Any]] = {}
+    for row in read_jsonl(path):
+        row_condition = str(row.get("condition") or "")
+        if condition and row_condition != condition:
+            continue
+        case_id = str(row.get("case_id") or "")
+        if not case_id:
+            continue
+        predictions[case_id] = row
+    return predictions
+
+
+def _resolve_run_relative_path(run_root: Path, path: Path) -> Path:
+    if path.is_absolute():
+        return path
+    run_relative = run_root / path
+    if run_relative.exists():
+        return run_relative
+    return path
+
+
+def _format_float(value: Any) -> str:
+    return f"{float(value):.6f}"
+
+
+def _write_blend_csv(path: Path, rows: list[dict[str, Any]], *, include_selection: bool) -> None:
+    fieldnames = [
+        "direct_condition",
+        "worldfork_condition",
+        "alpha",
+        "n",
+        "mean_brier",
+        "mean_log_score",
+        "mean_unresolved_mass",
+    ]
+    if include_selection:
+        fieldnames = [
+            "direct_condition",
+            "worldfork_condition",
+            "selection",
+            "alpha",
+            "selected_alpha_mean",
+            "selected_alpha_min",
+            "selected_alpha_max",
+            "n",
+            "mean_brier",
+            "mean_log_score",
+            "mean_unresolved_mass",
+            "note",
+        ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        for row in rows:
+            formatted = dict(row)
+            for key in ["alpha", "selected_alpha_mean", "selected_alpha_min", "selected_alpha_max", "mean_brier", "mean_log_score", "mean_unresolved_mass"]:
+                if key in formatted:
+                    formatted[key] = _format_float(formatted[key])
+            writer.writerow({key: formatted.get(key, "") for key in fieldnames})
+
+
+def score_e3_direct_prior_blends(args: argparse.Namespace) -> None:
+    run_root = args.run_root
+    worldfork_path = _resolve_run_relative_path(run_root, args.worldfork_predictions)
+    worldfork_predictions = _read_prediction_map(worldfork_path, condition=args.worldfork_condition)
+    if not worldfork_predictions:
+        raise SystemExit(f"no WorldFork predictions found for {args.worldfork_condition}: {worldfork_path}")
+
+    direct_predictions_by_condition: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    for input_path in args.direct_predictions:
+        path = _resolve_run_relative_path(run_root, input_path)
+        for row in read_jsonl(path):
+            condition = str(row.get("condition") or "")
+            case_id = str(row.get("case_id") or "")
+            if not condition or not case_id:
+                continue
+            direct_predictions_by_condition[condition][case_id] = row
+
+    labels = {
+        row["case_id"]: 1.0 if row["resolution"] == "yes" else 0.0
+        for row in read_jsonl(PRIVATE_36)
+        if row.get("resolution") in {"yes", "no"}
+    }
+    scores = compute_direct_prior_blend_scores(
+        labels=labels,
+        worldfork_predictions=worldfork_predictions,
+        direct_predictions_by_condition=dict(direct_predictions_by_condition),
+        alphas=_alpha_grid(args.alpha_step),
+        worldfork_condition=args.worldfork_condition,
+    )
+    grid_output = args.grid_output if args.grid_output.is_absolute() else run_root / args.grid_output
+    best_output = args.best_output if args.best_output.is_absolute() else run_root / args.best_output
+    _write_blend_csv(grid_output, scores["grid_rows"], include_selection=False)
+    _write_blend_csv(best_output, scores["selection_rows"], include_selection=True)
+    print(
+        json.dumps(
+            {
+                "worldfork_predictions": str(worldfork_path),
+                "worldfork_condition": args.worldfork_condition,
+                "grid_output": str(grid_output),
+                "best_output": str(best_output),
+                "grid_rows": len(scores["grid_rows"]),
+                "selection_rows": len(scores["selection_rows"]),
+                "best_brier_rows": [
+                    row
+                    for row in scores["selection_rows"]
+                    if row.get("selection") in {"best_brier_in_sample", "leave_one_out_brier_tuned"}
+                ],
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+
 def score_forecasts(args: argparse.Namespace) -> None:
     predictions = read_jsonl(args.predictions)
     private = {row["case_id"]: row for row in read_jsonl(PRIVATE_36) if row.get("resolution") in {"yes", "no"}}
@@ -3401,6 +3718,23 @@ def main() -> None:
     score.add_argument("--condition", default="unknown")
     score.add_argument("--normalize-yes-no", action="store_true")
     score.set_defaults(func=score_forecasts)
+
+    blend = sub.add_parser(
+        "score-e3-direct-prior-blends",
+        help="Score existing E2 direct-call priors blended with the E3 branching path-mass aggregate.",
+    )
+    blend.add_argument("--run-root", type=Path, required=True)
+    blend.add_argument(
+        "--worldfork-predictions",
+        type=Path,
+        default=Path("raw/E3_worldfork_deadline_aware_branching_core12_posthoc_fixed/worldfork_predictions.jsonl"),
+    )
+    blend.add_argument("--worldfork-condition", default="worldfork_branching_short")
+    blend.add_argument("--direct-predictions", type=Path, nargs="+", required=True)
+    blend.add_argument("--alpha-step", type=float, default=0.05)
+    blend.add_argument("--grid-output", type=Path, default=Path("results/e3_direct_prior_blend_alpha_grid.csv"))
+    blend.add_argument("--best-output", type=Path, default=Path("results/e3_direct_prior_blend_best.csv"))
+    blend.set_defaults(func=score_e3_direct_prior_blends)
 
     assemble = sub.add_parser(
         "assemble-worldfork-latest-predictions",

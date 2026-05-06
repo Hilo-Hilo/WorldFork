@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 
 def load_icml_pipeline():
     script = Path(__file__).resolve().parents[2] / "ICML-forecasting/scripts/icml_pipeline.py"
@@ -256,6 +258,94 @@ def test_extract_worldfork_forecast_filters_to_explicit_candidate_keys() -> None
     assert forecast["unresolved_mass"] == 0.0
     assert forecast["matched_endpoint_rows"] == 2
     assert forecast["extraction_note"] == "derived_from_candidate_endpoint_path_mass_distribution"
+
+
+def test_compute_direct_prior_blend_scores_reports_grid_and_leave_one_out() -> None:
+    pipeline = load_icml_pipeline()
+
+    result = pipeline.compute_direct_prior_blend_scores(
+        labels={"case_yes": 1.0, "case_no": 0.0},
+        worldfork_predictions={
+            "case_yes": {"p_yes": 0.25, "unresolved_mass": 0.2},
+            "case_no": {"p_yes": 0.25, "unresolved_mass": 0.4},
+        },
+        direct_predictions_by_condition={
+            "direct_llm": {
+                "case_yes": {"p_yes": 0.75, "unresolved_mass": 0.0},
+                "case_no": {"p_yes": 0.75, "unresolved_mass": 0.0},
+            }
+        },
+        alphas=[0.0, 0.5, 1.0],
+        worldfork_condition="worldfork_branching_short",
+    )
+
+    grid = {row["alpha"]: row for row in result["grid_rows"]}
+    assert grid[0.5]["n"] == 2
+    assert grid[0.5]["mean_brier"] == pytest.approx(0.25)
+    assert grid[0.5]["mean_unresolved_mass"] == pytest.approx(0.15)
+
+    selections = {row["selection"]: row for row in result["selection_rows"]}
+    assert selections["best_brier_in_sample"]["alpha"] == 0.5
+    assert selections["best_brier_in_sample"]["mean_brier"] == pytest.approx(0.25)
+    assert selections["leave_one_out_brier_tuned"]["mean_brier"] == pytest.approx(0.5625)
+    assert selections["leave_one_out_brier_tuned"]["selected_alpha_mean"] == pytest.approx(0.5)
+
+
+def test_score_e3_direct_prior_blends_writes_outputs_under_run_root(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    run_root = tmp_path / "run"
+    direct_path = run_root / "raw/E2/direct_predictions.jsonl"
+    worldfork_path = run_root / "raw/E3/worldfork_predictions.jsonl"
+    private_path = tmp_path / "private.jsonl"
+    direct_path.parent.mkdir(parents=True)
+    worldfork_path.parent.mkdir(parents=True)
+    private_path.write_text(
+        "\n".join(
+            [
+                json.dumps({"case_id": "case_yes", "resolution": "yes"}),
+                json.dumps({"case_id": "case_no", "resolution": "no"}),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    direct_path.write_text(
+        "\n".join(
+            [
+                json.dumps({"case_id": "case_yes", "condition": "direct_llm", "p_yes": 0.75}),
+                json.dumps({"case_id": "case_no", "condition": "direct_llm", "p_yes": 0.75}),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    worldfork_path.write_text(
+        "\n".join(
+            [
+                json.dumps({"case_id": "case_yes", "condition": "worldfork_branching_short", "p_yes": 0.25}),
+                json.dumps({"case_id": "case_no", "condition": "worldfork_branching_short", "p_yes": 0.25}),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    pipeline.PRIVATE_36 = private_path
+
+    pipeline.score_e3_direct_prior_blends(
+        SimpleNamespace(
+            run_root=run_root,
+            worldfork_predictions=Path("raw/E3/worldfork_predictions.jsonl"),
+            worldfork_condition="worldfork_branching_short",
+            direct_predictions=[Path("raw/E2/direct_predictions.jsonl")],
+            alpha_step=0.5,
+            grid_output=Path("results/grid.csv"),
+            best_output=Path("results/best.csv"),
+        )
+    )
+
+    assert (run_root / "results/grid.csv").exists()
+    assert (run_root / "results/best.csv").exists()
+    assert not (tmp_path / "results/grid.csv").exists()
 
 
 def test_prepare_worldfork_resume_continues_terminal_multiverses(tmp_path: Path) -> None:
