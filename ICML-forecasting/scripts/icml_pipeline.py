@@ -1647,6 +1647,41 @@ def _endpoint_matches(entry: dict[str, Any], target: str) -> bool:
     return False
 
 
+def _endpoint_status_path_masses(entry: dict[str, Any]) -> dict[str, float]:
+    status_masses = entry.get("status_path_masses") if isinstance(entry.get("status_path_masses"), dict) else {}
+    parsed = {
+        str(status): float(value)
+        for status, value in status_masses.items()
+        if _float_or_none(value) is not None and float(value) > 0
+    }
+    if parsed:
+        return parsed
+    path_mass = _float_or_none(entry.get("path_mass")) or 0.0
+    status = str(entry.get("status") or "").strip().lower()
+    if not status:
+        realized = entry.get("realized")
+        if realized is True:
+            status = "realized"
+        elif realized is False:
+            status = "eliminated"
+    return {status: path_mass} if status and path_mass > 0 else {}
+
+
+def _binary_candidate_unresolved_mass(status_masses_by_row: list[dict[str, float]]) -> float:
+    if not status_masses_by_row:
+        return 0.0
+    return min(
+        1.0,
+        max(
+            (
+                float(status_masses.get("unresolved") or 0.0)
+                + float(status_masses.get("insufficient_ticks") or 0.0)
+            )
+            for status_masses in status_masses_by_row
+        ),
+    )
+
+
 def extract_worldfork_forecast(
     case_id: str,
     condition: str,
@@ -1671,41 +1706,48 @@ def extract_worldfork_forecast(
         ]
     yes_mass = 0.0
     no_mass = 0.0
-    unresolved_mass = 0.0
+    status_masses_by_candidate_row: list[dict[str, float]] = []
     matched_rows = 0
     for entry in rows:
         if not isinstance(entry, dict):
             continue
-        mass = float(entry.get("path_mass") or 0.0)
-        status_masses = entry.get("status_path_masses") if isinstance(entry.get("status_path_masses"), dict) else {}
-        unresolved_mass += float(status_masses.get("unresolved") or 0.0)
-        unresolved_mass += float(status_masses.get("insufficient_ticks") or 0.0)
+        status_masses = _endpoint_status_path_masses(entry)
+        if not status_masses:
+            continue
         if _endpoint_matches(entry, "yes"):
-            yes_mass += mass
+            yes_mass += float(status_masses.get("realized") or 0.0)
+            no_mass += float(status_masses.get("eliminated") or 0.0)
+            status_masses_by_candidate_row.append(status_masses)
             matched_rows += 1
         elif _endpoint_matches(entry, "no"):
-            no_mass += mass
+            no_mass += float(status_masses.get("realized") or 0.0)
+            yes_mass += float(status_masses.get("eliminated") or 0.0)
+            status_masses_by_candidate_row.append(status_masses)
             matched_rows += 1
-    denom = yes_mass + no_mass
+    unresolved = _binary_candidate_unresolved_mass(status_masses_by_candidate_row)
+    denom = yes_mass + no_mass + unresolved
     if denom > 0:
-        p_yes = yes_mass / denom
-        p_no = no_mass / denom
+        p_yes = (yes_mass + 0.5 * unresolved) / denom
+        p_no = 1.0 - p_yes
     else:
         p_yes = 0.5
         p_no = 0.5
-    unresolved = min(1.0, unresolved_mass / max(1, matched_rows)) if matched_rows else 1.0
     return {
         "case_id": case_id,
         "condition": condition,
-        "p_yes": p_yes,
-        "p_no": p_no,
+        "p_yes": round(p_yes, 10),
+        "p_no": round(p_no, 10),
         "unresolved_mass": unresolved,
+        "yes_realized_mass": round(yes_mass, 10),
+        "no_realized_mass": round(no_mass, 10),
+        "binary_status_mass_total": round(denom, 10),
         "forecast_distribution": {"yes": p_yes, "no": p_no, "unresolved": unresolved},
         "extraction_note": (
             "derived_from_candidate_endpoint_path_mass_distribution"
             if normalized_candidate_keys
             else "derived_from_endpoint_path_mass_distribution"
         ),
+        "mass_extraction_method": "binary_candidate_status_path_masses_with_unresolved_split",
         "matched_endpoint_rows": matched_rows,
         "candidate_endpoint_keys": normalized_candidate_keys,
     }

@@ -192,7 +192,7 @@ def test_assemble_latest_prediction_rows_uses_later_inputs_without_double_counti
     assert rows[0]["condition"] == "worldfork_branching_short_final"
 
 
-def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
+def test_extract_worldfork_forecast_uses_candidate_status_masses() -> None:
     pipeline = load_icml_pipeline()
 
     forecast = pipeline.extract_worldfork_forecast(
@@ -210,7 +210,7 @@ def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
                     "endpoint_key": "no",
                     "label": "Event does not occur",
                     "path_mass": 0.3,
-                    "status_path_masses": {"unresolved": 0.3},
+                    "status_path_masses": {"realized": 0.3},
                 },
             ]
         },
@@ -218,7 +218,39 @@ def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
 
     assert forecast["p_yes"] == 0.7
     assert forecast["p_no"] == 0.3
-    assert forecast["unresolved_mass"] == 0.15
+    assert forecast["unresolved_mass"] == 0.0
+    assert forecast["matched_endpoint_rows"] == 2
+
+
+def test_extract_worldfork_forecast_splits_unresolved_candidate_mass() -> None:
+    pipeline = load_icml_pipeline()
+
+    forecast = pipeline.extract_worldfork_forecast(
+        "resolved_001",
+        "worldfork_branching_short",
+        {
+            "endpoint_path_mass_distribution": [
+                {
+                    "endpoint_key": "yes",
+                    "label": "Event occurs",
+                    "path_mass": 1.0,
+                    "status_path_masses": {"realized": 0.4, "unresolved": 0.2},
+                },
+                {
+                    "endpoint_key": "no",
+                    "label": "Event does not occur",
+                    "path_mass": 1.0,
+                    "status_path_masses": {"realized": 0.2, "unresolved": 0.4},
+                },
+            ]
+        },
+    )
+
+    assert forecast["p_yes"] == 0.6
+    assert forecast["p_no"] == 0.4
+    assert forecast["unresolved_mass"] == 0.4
+    assert forecast["yes_realized_mass"] == 0.4
+    assert forecast["no_realized_mass"] == 0.2
     assert forecast["matched_endpoint_rows"] == 2
 
 
