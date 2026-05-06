@@ -337,7 +337,19 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
                 "current_tick_index": 1,
             },
         },
-        parsed={"decision": "continue", "tool_calls": []},
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {
+                        "reason": "God-proposed generic branch should not consume the forecast seed budget.",
+                        "fork_tick_index": 1,
+                        "branch_probability": 0.4,
+                    },
+                }
+            ],
+        },
         tick_index=1,
     )
 
@@ -347,6 +359,7 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
     assert calls[1]["arguments"]["branch_probability"] == pytest.approx(0.99)
     assert calls[0]["arguments"]["branch_premise"] == "YES path: the award candidate wins."
     assert calls[1]["arguments"]["branch_premise"] == "NO path: the award candidate does not win."
+    assert all("generic branch" not in call["arguments"]["reason"] for call in calls)
 
 
 def test_forecast_branch_hypotheses_only_seed_root_once(db):
@@ -382,6 +395,57 @@ def test_forecast_branch_hypotheses_only_seed_root_once(db):
         },
         parsed={"decision": "continue", "tool_calls": []},
         tick_index=1,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+
+
+def test_forecast_seeded_root_suppresses_later_generic_branches(db):
+    big_bang, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2, "min_branch_runway_ticks": 2})
+    big_bang.scenario_input = {
+        "branch_hypotheses": [
+            {"candidate_endpoint_id": "yes", "alternate_path": "YES path."},
+            {"candidate_endpoint_id": "no", "alternate_path": "NO path."},
+        ]
+    }
+    db.add(
+        models.MultiverseLineageEdge(
+            big_bang_id=root.big_bang_id,
+            parent_multiverse_id=root.id,
+            child_multiverse_id=uuid4(),
+            fork_tick_index=1,
+            reason="forecast yes/no branch already seeded",
+            parent_path_probability=0.5,
+            child_path_probability=0.5,
+            branch_probability=0.5,
+        )
+    )
+    db.flush()
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 1.0,
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 2,
+            },
+        },
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {
+                        "reason": "Do not let the low-mass seeded parent keep making generic branches.",
+                        "fork_tick_index": 2,
+                    },
+                }
+            ],
+        },
+        tick_index=2,
     )
 
     assert [call["tool_name"] for call in calls] == ["continue_timeline"]

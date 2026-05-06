@@ -266,6 +266,7 @@ def _prepare_tool_calls(
         provisional_bundle=provisional_bundle,
         tick_index=tick_index,
     )
+    forecast_root_seeded = False
     if branch_runway["suppress_branching"]:
         tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
     else:
@@ -276,19 +277,16 @@ def _prepare_tool_calls(
             tick_index=tick_index,
         )
         if seeded_branches:
-            existing_candidate_ids = {
-                str((call.get("arguments") or {}).get("candidate_endpoint_id") or "").strip().lower()
+            tool_calls = [
+                call
                 for call in tool_calls
-                if call.get("tool_name") == "create_branch"
-            }
-            tool_calls = [call for call in tool_calls if call.get("tool_name") != "continue_timeline"]
-            for call in seeded_branches:
-                candidate_id = str((call.get("arguments") or {}).get("candidate_endpoint_id") or "").strip().lower()
-                if candidate_id and candidate_id in existing_candidate_ids:
-                    continue
-                tool_calls.append(call)
-                existing_candidate_ids.add(candidate_id)
+                if call.get("tool_name") not in {"continue_timeline", "create_branch"}
+            ]
+            tool_calls.extend(seeded_branches)
             tool_calls = _prune_tool_calls(tool_calls)
+        elif _forecast_root_already_seeded(db, multiverse):
+            tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
+            forecast_root_seeded = True
     idle_assessment = provisional_bundle.get("idle_assessment") or {}
     if idle_assessment.get("should_terminate"):
         return [
@@ -335,6 +333,7 @@ def _prepare_tool_calls(
     branch_threshold = _branch_score_threshold(db, multiverse)
     if (
         not branch_runway["suppress_branching"]
+        and not forecast_root_seeded
         and branch_score >= branch_threshold
         and not has_branch
         and (has_structural or not explicit_continue)
@@ -446,6 +445,22 @@ def _existing_child_branch_count(db: Session, multiverse: models.Multiverse) -> 
         )
         or 0
     )
+
+
+def _forecast_root_already_seeded(db: Session, multiverse: models.Multiverse) -> bool:
+    if multiverse.parent_multiverse_id is not None:
+        return False
+    if _existing_child_branch_count(db, multiverse) <= 0:
+        return False
+    big_bang = db.get(models.BigBang, multiverse.big_bang_id)
+    scenario = big_bang.scenario_input if big_bang is not None and isinstance(big_bang.scenario_input, dict) else {}
+    hypotheses = scenario.get("branch_hypotheses") if isinstance(scenario.get("branch_hypotheses"), list) else []
+    candidate_ids = {
+        str(item.get("candidate_endpoint_id") or item.get("candidate_id") or "").strip().lower()
+        for item in hypotheses
+        if isinstance(item, dict)
+    }
+    return {"yes", "no"}.issubset(candidate_ids)
 
 
 def _forecast_branch_hypotheses_for_review(
