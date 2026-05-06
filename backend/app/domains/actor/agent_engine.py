@@ -641,7 +641,21 @@ def _forecast_terminal_event_violation(
     scheduled_tick = _parse_scheduled_tick(payload.get("scheduled_tick"), -1)
     if deadline_tick is not None and scheduled_tick >= 0 and scheduled_tick < deadline_tick and "forecast" not in text.lower():
         return None
-    if _candidate_endpoint_marker(payload) in {"yes", "no"}:
+    candidate_marker = _candidate_endpoint_marker(payload)
+    branch_marker = _branch_candidate_endpoint_marker(prompt_context)
+    if candidate_marker in {"yes", "no"}:
+        if branch_marker in {"yes", "no"} and candidate_marker != branch_marker:
+            return {
+                "rule_id": "forecast_terminal_event_branch_candidate_conflict",
+                "reason": (
+                    f"Terminal event resolves candidate {candidate_marker}, but this branch premise expected "
+                    f"{branch_marker}."
+                ),
+                "guidance": (
+                    f"This branch is committed to candidate_endpoint_id={branch_marker}. Terminal settlement "
+                    "events must either match that candidate or be non-terminal process/commentary events."
+                ),
+            }
         return None
     return {
         "rule_id": "forecast_terminal_event_missing_candidate_endpoint",
@@ -719,6 +733,31 @@ def _candidate_marker_containers(payload: dict) -> list[dict]:
 def _normalize_candidate_marker(value: Any) -> str | None:
     text = str(value or "").strip().lower()
     return text if text in {"yes", "no"} else None
+
+
+def _branch_candidate_endpoint_marker(prompt_context: dict | None) -> str | None:
+    if not isinstance(prompt_context, dict):
+        return None
+    current_state = prompt_context.get("current_state")
+    if not isinstance(current_state, dict):
+        return None
+    branch_context = current_state.get("branch_context")
+    if not isinstance(branch_context, dict):
+        return None
+    containers = [branch_context]
+    probability_basis = branch_context.get("probability_basis")
+    if isinstance(probability_basis, dict):
+        containers.append(probability_basis)
+    for container in containers:
+        marker = _normalize_candidate_marker(container.get("candidate_endpoint_id") or container.get("candidate_id"))
+        if marker:
+            return marker
+    premise = str(branch_context.get("branch_premise") or branch_context.get("reason") or "").strip().lower()
+    if premise.startswith("yes path"):
+        return "yes"
+    if premise.startswith("no path"):
+        return "no"
+    return None
 
 
 RULE_AUTHORITY_HINTS = {

@@ -302,6 +302,61 @@ def test_forecast_terminal_event_with_candidate_marker_passes_gate(db):
     assert repaired["event_validation"]["status"] == "passed"
 
 
+def test_forecast_terminal_event_conflicting_with_branch_candidate_is_rejected(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    big_bang.scenario_input = {
+        "forecast_metadata": {
+            "deadline_tick": 5,
+            "forecast_deadline_date": "2026-03-15",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+    agent_result = {
+        "actor_outputs": [],
+        "emotion_self_ratings": [],
+        "parsed_actions": [
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Official ceremony announcement",
+                    "event_type": "announcement",
+                    "scheduled_tick": 5,
+                    "expected_impact": {
+                        "summary": "The envelope is opened and the forecast resolves yes.",
+                        "candidate_endpoint_id": "yes",
+                    },
+                },
+            }
+        ],
+    }
+
+    with pytest.raises(agent_engine.EventValidationError) as exc:
+        agent_engine.validate_and_repair_event_actions(
+            db,
+            big_bang=big_bang,
+            multiverse=root,
+            tick_index=5,
+            prompt_context={
+                "forecast_clock": {"deadline_tick": 5, "deadline_tick_reached": True},
+                "current_state": {
+                    "branch_context": {
+                        "branch_premise": "NO path: the candidate does not win by the deadline.",
+                        "probability_basis": {"candidate_endpoint_id": "no"},
+                    }
+                },
+            },
+            agent_result=agent_result,
+            max_retries=0,
+        )
+
+    assert exc.value.invalid_events[0]["rule_id"] == "forecast_terminal_event_branch_candidate_conflict"
+    assert "expected no" in exc.value.invalid_events[0]["reason"]
+
+
 def test_forecast_deadline_commentary_can_mention_announcement_without_candidate_marker(db):
     big_bang, root, alpha, _beta = _seed_world(db)
     big_bang.scenario_input = {
