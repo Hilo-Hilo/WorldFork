@@ -61,9 +61,20 @@ def test_advertised_job_types_are_executable_and_payload_validated():
 
     validate_job_payload(
         "run_big_bang_until_complete",
-        {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": True, "skip_reports": True},
+        {
+            "max_total_ticks": 16,
+            "max_ticks_per_multiverse": 8,
+            "stop_when_endpoint_ledger_resolved": True,
+            "skip_reports": True,
+        },
         big_bang_id=uuid4(),
     )
+    with pytest.raises(ValueError, match="max_ticks_per_multiverse must be a positive integer"):
+        validate_job_payload(
+            "run_big_bang_until_complete",
+            {"max_total_ticks": 16, "max_ticks_per_multiverse": 0},
+            big_bang_id=uuid4(),
+        )
     with pytest.raises(ValueError, match="stop_when_endpoint_ledger_resolved must be a boolean"):
         validate_job_payload(
             "run_big_bang_until_complete",
@@ -203,6 +214,78 @@ def test_run_until_complete_respects_existing_tick_cap(monkeypatch):
 
         assert result["ticks_run"] == 0
         assert result["stopped_reason"] == "max_total_ticks_reached"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
+
+
+def test_run_until_complete_respects_total_tick_cap_across_active_branches(monkeypatch):
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Branch total cap", scenario_input={}, status="active", current_config_version=1)
+        db.add(big_bang)
+        db.flush()
+        multiverses = []
+        for index in range(2):
+            multiverse = models.Multiverse(
+                big_bang_id=big_bang.id,
+                parent_multiverse_id=None,
+                fork_tick_index=None,
+                ui_label=f"M{index + 1}",
+                depth=0,
+                status="active",
+                branch_reason="Root",
+                state={},
+                report_status="not_ready",
+            )
+            db.add(multiverse)
+            multiverses.append(multiverse)
+        db.flush()
+        job = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=big_bang.id,
+            payload={"max_total_ticks": 1, "max_ticks_per_multiverse": 5, "skip_reports": True},
+            result={},
+            idempotency_key=f"run:{uuid4()}",
+        )
+        db.add(job)
+        db.flush()
+        calls = []
+
+        def fake_run_next_tick(db, *, multiverse, queue_job=None):
+            calls.append(str(multiverse.id))
+            tick = models.TickSnapshot(
+                big_bang_id=big_bang.id,
+                multiverse_id=multiverse.id,
+                tick_index=1,
+                ui_label=f"{multiverse.ui_label}:T1",
+                status="final",
+                provisional_bundle={},
+                final_bundle={},
+                summary="Synthetic tick.",
+            )
+            db.add(tick)
+            db.flush()
+            return tick
+
+        monkeypatch.setattr(jobs_executor, "run_next_tick", fake_run_next_tick)
+
+        result = jobs_executor._execute_run_big_bang_until_complete_job(db, job)
+
+        assert len(calls) == 1
+        assert result["ticks_run"] == 1
+        assert result["stopped_reason"] == "max_total_ticks_reached"
+        assert result["progress"]["max_ticks_per_multiverse"] == 5
     finally:
         db.close()
         with warnings.catch_warnings():

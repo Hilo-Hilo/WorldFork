@@ -161,7 +161,12 @@ def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | Non
     big_bang = require(db, models.BigBang, big_bang_id)
     reject_archived_big_bang(big_bang)
     try:
-        result = run_big_bang_until_complete(db, big_bang=big_bang, max_total_ticks=request.max_total_ticks)
+        result = run_big_bang_until_complete(
+            db,
+            big_bang=big_bang,
+            max_total_ticks=request.max_total_ticks,
+            max_ticks_per_multiverse=request.max_ticks_per_multiverse,
+        )
     except LLMCallError as exc:
         db.rollback()
         raise_llm_unavailable(exc)
@@ -182,6 +187,8 @@ def run_until_complete_job(
     big_bang = require(db, models.BigBang, big_bang_id)
     reject_archived_big_bang(big_bang)
     job_payload = {"max_total_ticks": request.max_total_ticks}
+    if request.max_ticks_per_multiverse is not None:
+        job_payload["max_ticks_per_multiverse"] = request.max_ticks_per_multiverse
     if request.stop_when_endpoint_ledger_resolved:
         job_payload["stop_when_endpoint_ledger_resolved"] = True
     if request.skip_reports:

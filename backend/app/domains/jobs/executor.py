@@ -112,6 +112,8 @@ def validate_job_payload(job_type: str, payload: dict | None, *, big_bang_id=Non
         _require_positive_int(payload["count"], "count")
     if job_type == "run_big_bang_until_complete" and "max_total_ticks" in payload:
         _require_positive_int(payload["max_total_ticks"], "max_total_ticks")
+    if job_type == "run_big_bang_until_complete" and "max_ticks_per_multiverse" in payload:
+        _require_positive_int(payload["max_ticks_per_multiverse"], "max_ticks_per_multiverse")
     if job_type == "run_big_bang_until_complete" and "stop_when_endpoint_ledger_resolved" in payload:
         if not isinstance(payload["stop_when_endpoint_ledger_resolved"], bool):
             raise ValueError("stop_when_endpoint_ledger_resolved must be a boolean")
@@ -300,6 +302,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
 
     payload = job.payload or {}
     max_total_ticks = int(payload.get("max_total_ticks", 24))
+    max_ticks_per_multiverse = int(payload.get("max_ticks_per_multiverse") or max_total_ticks)
     stop_when_endpoint_ledger_resolved = bool(payload.get("stop_when_endpoint_ledger_resolved", False))
     skip_reports = bool(payload.get("skip_reports", False))
     endpoint_resolution_keys = [
@@ -309,6 +312,8 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     ]
     if max_total_ticks < 1:
         raise ValueError("max_total_ticks must be a positive integer")
+    if max_ticks_per_multiverse < 1:
+        raise ValueError("max_ticks_per_multiverse must be a positive integer")
 
     big_bang = db.get(models.BigBang, job.big_bang_id or payload.get("big_bang_id"))
     if not big_bang:
@@ -337,12 +342,14 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             "progress": {
                 "completed_ticks": len(tick_ids),
                 "requested_ticks": max_total_ticks,
+                "max_total_ticks": max_total_ticks,
+                "max_ticks_per_multiverse": max_ticks_per_multiverse,
                 "percent": min(100, round((len(tick_ids) / max_total_ticks) * 100, 2)),
             },
             "endpoint_ledger_resolution": endpoint_ledger_resolution,
         }
 
-    for _ in range(max_total_ticks):
+    while len(tick_ids) < max_total_ticks:
         interrupt_status = _job_interrupt_status(db, job)
         if interrupt_status == "cancelled":
             return _mark_job_cancelled(db, job, result=make_progress("cancelled"))
@@ -359,10 +366,14 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
         active_multiverses = [
             multiverse
             for multiverse in non_terminal_multiverses
-            if _latest_multiverse_tick_index(db, multiverse=multiverse) < max_total_ticks
+            if _latest_multiverse_tick_index(db, multiverse=multiverse) < max_ticks_per_multiverse
         ]
         if non_terminal_multiverses and not active_multiverses:
-            stopped_reason = "max_total_ticks_reached"
+            stopped_reason = (
+                "max_ticks_per_multiverse_reached"
+                if max_ticks_per_multiverse != max_total_ticks
+                else "max_total_ticks_reached"
+            )
             if stop_when_endpoint_ledger_resolved:
                 endpoint_ledger_resolution = _big_bang_endpoint_ledger_resolution(
                     db,
@@ -378,6 +389,9 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
 
         made_progress = False
         for multiverse in active_multiverses:
+            if len(tick_ids) >= max_total_ticks:
+                stopped_reason = "max_total_ticks_reached"
+                break
             interrupt_status = _job_interrupt_status(db, job)
             if interrupt_status == "cancelled":
                 return _mark_job_cancelled(db, job, result=make_progress("cancelled"))
@@ -403,6 +417,9 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             db.add(job)
             db.flush()
             db.commit()
+            if len(tick_ids) >= max_total_ticks:
+                stopped_reason = "max_total_ticks_reached"
+                break
 
         if not made_progress:
             stopped_reason = "no_tick_progress"
@@ -416,6 +433,8 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             if endpoint_ledger_resolution["resolved"]:
                 stopped_reason = "endpoint_ledger_resolved"
                 break
+        if stopped_reason == "max_total_ticks_reached":
+            break
 
     multiverses = db.scalars(
         select(models.Multiverse)

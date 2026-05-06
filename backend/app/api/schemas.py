@@ -419,6 +419,7 @@ class SimulateTicksRequest(BaseModel):
 
 class RunUntilCompleteRequest(BaseModel):
     max_total_ticks: int = Field(default=24, ge=1, le=500)
+    max_ticks_per_multiverse: int | None = Field(default=None, ge=1, le=500)
 
 
 class RunUntilCompleteJobRequest(RunUntilCompleteRequest):

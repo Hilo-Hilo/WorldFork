@@ -50,6 +50,16 @@ def test_build_init_job_payload_uses_public_scenario_only(tmp_path: Path) -> Non
     assert "private_eval" not in payload["payload"]["initializer_prompt"]
 
 
+def test_worldfork_run_tick_budget_separates_total_and_per_path_caps() -> None:
+    pipeline = load_icml_pipeline()
+
+    no_branch = pipeline.worldfork_run_tick_budget("worldfork_no_branch_short", 5)
+    branching = pipeline.worldfork_run_tick_budget("worldfork_branching_short", 5)
+
+    assert no_branch == {"max_total_ticks": 5, "max_ticks_per_multiverse": 5}
+    assert branching == {"max_total_ticks": 15, "max_ticks_per_multiverse": 5}
+
+
 def test_no_branch_policy_disables_branch_creation() -> None:
     pipeline = load_icml_pipeline()
 

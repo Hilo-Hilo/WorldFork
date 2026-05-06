@@ -79,6 +79,22 @@ WORLDFORK_SHORT_POLICIES = {
 WORLDFORK_LONG_POLICIES = {
     "worldfork_full_branching_long": LONG_BRANCH_POLICY,
 }
+
+
+def worldfork_run_tick_budget(condition: str, per_path_ticks: int) -> dict[str, int]:
+    if per_path_ticks < 1:
+        raise ValueError("per_path_ticks must be positive")
+    policy = WORLDFORK_SHORT_POLICIES.get(condition) or WORLDFORK_LONG_POLICIES.get(condition) or {}
+    max_active = int(policy.get("max_active_multiverses") or 1)
+    max_branches_per_tick = int(policy.get("max_branches_per_tick") or 0)
+    if max_active <= 1:
+        total_ticks = per_path_ticks
+    else:
+        expected_paths = max(2, min(max_active, max_branches_per_tick + 1))
+        total_ticks = per_path_ticks * expected_paths
+    return {"max_total_ticks": total_ticks, "max_ticks_per_multiverse": per_path_ticks}
+
+
 PUBLIC_FORECAST_DEADLINES = {
     "resolved_001": "2025-10-10",
     "resolved_002": "2025-10-08",
@@ -2814,7 +2830,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             (out_dir / "big_bang_id.txt").write_text(big_bang_id + "\n", encoding="utf-8")
             _capture_init_artifacts(client, out_dir, big_bang_id)
 
-            run_payload = {"max_total_ticks": args.max_ticks}
+            run_payload = worldfork_run_tick_budget(condition, args.max_ticks)
             if not getattr(args, "generate_reports", False):
                 run_payload["skip_reports"] = True
             if runtime_context.get("endpoint_resolution_keys"):
@@ -3046,7 +3062,7 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         (out_dir / "big_bang_id.txt").write_text(big_bang_id + "\n", encoding="utf-8")
         _capture_init_artifacts(client, out_dir, big_bang_id)
 
-        run_payload = {"max_total_ticks": args.max_ticks}
+        run_payload = worldfork_run_tick_budget(condition, args.max_ticks)
         if not getattr(args, "generate_reports", False):
             run_payload["skip_reports"] = True
         runtime_context = info.get("runtime_context") if isinstance(info.get("runtime_context"), dict) else {}

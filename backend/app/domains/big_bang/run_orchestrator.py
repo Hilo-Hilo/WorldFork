@@ -53,23 +53,33 @@ def _job_interrupt_requested(db: Session, queue_job: models.Job | None) -> bool:
     return getattr(queue_job, "status", None) == "interrupt_requested"
 
 
-def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_total_ticks: int = 24) -> dict:
+def run_big_bang_until_complete(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+    max_total_ticks: int = 24,
+    max_ticks_per_multiverse: int | None = None,
+) -> dict:
     if big_bang.status == "archived":
         raise ValueError("big bang is archived")
     if big_bang.status == "paused":
         raise ValueError("big bang is paused")
 
+    per_multiverse_cap = max_ticks_per_multiverse or max_total_ticks
     ticks_run = []
-    for _ in range(max_total_ticks):
+    while len(ticks_run) < max_total_ticks:
         active = db.scalars(
             select(models.Multiverse)
             .where(models.Multiverse.big_bang_id == big_bang.id, models.Multiverse.status == "active")
             .order_by(models.Multiverse.ui_label)
         ).all()
+        active = [multiverse for multiverse in active if _latest_multiverse_tick_index(db, multiverse) < per_multiverse_cap]
         if not active:
             break
         made_progress = False
         for multiverse in active:
+            if len(ticks_run) >= max_total_ticks:
+                break
             try:
                 tick = run_next_tick(db, multiverse=multiverse)
             except ValueError:
@@ -109,3 +119,13 @@ def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_to
         "report_versions": [str(item.id) for item in report_versions],
         "final_report_version_id": str(final_report.id),
     }
+
+
+def _latest_multiverse_tick_index(db: Session, multiverse: models.Multiverse) -> int:
+    latest_tick = db.scalar(
+        select(models.TickSnapshot.tick_index)
+        .where(models.TickSnapshot.multiverse_id == multiverse.id)
+        .order_by(models.TickSnapshot.tick_index.desc())
+        .limit(1)
+    )
+    return int(latest_tick or 0)
