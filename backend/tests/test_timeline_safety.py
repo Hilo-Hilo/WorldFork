@@ -311,7 +311,15 @@ def test_disabled_branch_policy_suppresses_explicit_branch_tool(db):
 
 
 def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
-    _, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2, "min_branch_runway_ticks": 2})
+    _, root = _seed_world(
+        db,
+        max_ticks=5,
+        branch_policy={
+            "max_branches_per_tick": 2,
+            "min_branch_runway_ticks": 2,
+            "candidate_endpoint_branches_only": True,
+        },
+    )
 
     calls = god_agent._prepare_tool_calls(
         db,
@@ -362,6 +370,69 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
     assert calls[0]["arguments"]["branch_premise"] == "YES path: the award candidate wins."
     assert calls[1]["arguments"]["branch_premise"] == "NO path: the award candidate does not win."
     assert all("generic branch" not in call["arguments"]["reason"] for call in calls)
+
+
+def test_candidate_endpoint_branch_only_policy_suppresses_child_generic_branches(db):
+    big_bang, root = _seed_world(
+        db,
+        max_ticks=5,
+        branch_policy={
+            "max_branches_per_tick": 2,
+            "min_branch_runway_ticks": 2,
+            "candidate_endpoint_branches_only": True,
+        },
+    )
+    child = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=root.id,
+        fork_tick_index=1,
+        ui_label="M1.1",
+        depth=1,
+        status="active",
+        branch_reason="YES candidate endpoint path",
+        path_probability=0.5,
+        state={
+            "branch": {
+                "candidate_endpoint_id": "yes",
+                "probability_basis": {"candidate_endpoint_id": "yes"},
+            }
+        },
+    )
+    db.add(child)
+    db.flush()
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=child,
+        provisional_bundle={
+            "branch_score": 1.0,
+            "forecast_branch_hypotheses": [
+                {"candidate_endpoint_id": "yes", "alternate_path": "YES path."},
+                {"candidate_endpoint_id": "no", "alternate_path": "NO path."},
+            ],
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 2,
+            },
+        },
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {
+                        "reason": "Generic second-level branch should not run in candidate-only E3 mode.",
+                        "fork_tick_index": 2,
+                    },
+                }
+            ],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+    assert "Candidate endpoint branch-only policy" in calls[0]["arguments"]["reason"]
 
 
 def test_forecast_branch_hypotheses_only_seed_root_once(db):
@@ -494,6 +565,77 @@ def test_create_branch_tool_preserves_forecast_branch_premise(db):
     assert call.status == "succeeded"
     assert child.state["branch"]["branch_premise"] == "YES path: the award candidate wins."
     assert child.state["branch"]["probability_basis"]["candidate_endpoint_id"] == "yes"
+
+
+def test_branch_inheritance_prunes_conflicting_forecast_terminal_events(db):
+    _big_bang, root = _seed_world(db, max_ticks=5, branch_policy={"max_branches_per_tick": 2})
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=1,
+            ui_label="M1:T1",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            idempotency_key=f"{root.id}:tick:1",
+        )
+    )
+    queued_yes_event = models.Event(
+        big_bang_id=root.big_bang_id,
+        multiverse_id=root.id,
+        creator_actor_id=None,
+        event_type="announcement",
+        created_tick=1,
+        scheduled_tick=5,
+        status="queued",
+        title="Forecast settlement announcement",
+        description="Future authority event resolves the benchmark yes.",
+        expected_impact={
+            "candidate_endpoint_id": "yes",
+            "description": "Official announcement resolves the forecast as yes.",
+        },
+        meta={"candidate_endpoint_id": "yes"},
+    )
+    db.add(queued_yes_event)
+    db.flush()
+
+    no_child = branch_engine.create_branch(
+        db,
+        parent=root,
+        fork_tick_index=1,
+        reason="NO candidate endpoint path",
+        idempotency_key="create-no-forecast-branch",
+        branch_probability=0.5,
+        parent_continuation_probability=0.5,
+        probability_basis={
+            "source": "forecast_branch_hypothesis",
+            "candidate_endpoint_id": "no",
+            "alternate_path": "NO path: the event does not occur by the deadline.",
+        },
+    )
+    yes_child = branch_engine.create_branch(
+        db,
+        parent=root,
+        fork_tick_index=1,
+        reason="YES candidate endpoint path",
+        idempotency_key="create-yes-forecast-branch-after-no",
+        branch_probability=1.0,
+        parent_continuation_probability=0.0,
+        probability_basis={
+            "source": "forecast_branch_hypothesis",
+            "candidate_endpoint_id": "yes",
+            "alternate_path": "YES path: the event occurs by the deadline.",
+        },
+    )
+
+    no_events = db.scalars(select(models.Event).where(models.Event.multiverse_id == no_child.id)).all()
+    yes_events = db.scalars(select(models.Event).where(models.Event.multiverse_id == yes_child.id)).all()
+
+    assert no_events == []
+    assert len(yes_events) == 1
+    assert yes_events[0].title == "Forecast settlement announcement"
+    assert yes_events[0].meta["inherited_from_event_id"] == str(queued_yes_event.id)
 
 
 def test_branch_engine_rejects_near_horizon_branch_runway(db):

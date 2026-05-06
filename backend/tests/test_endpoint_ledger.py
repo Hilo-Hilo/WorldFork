@@ -818,6 +818,54 @@ def test_endpoint_finalization_uses_branch_premise_for_forced_no_at_final_horizo
     assert by_key["no"]["meta"]["final_horizon_forced_binary_settlement"] is True
 
 
+def test_endpoint_finalization_branch_premise_overrides_source_baseline_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 5}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 5}],
+        "branch_context": {
+            "branch_premise": "NO path: the event does not occur by the deadline.",
+            "probability_basis": {"candidate_endpoint_id": "no"},
+        },
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-09-30",
+            "tick_horizon_policy": "deadline_aware",
+        },
+        "forecast_source_guidance": {
+            "official_baseline_supports_yes": True,
+            "no_requires_hard_negative_evidence": True,
+            "baseline_summary": "Official schedule says the event is expected to occur.",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "active",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "active",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status"] == "realized"
+    assert by_key["no"]["meta"]["final_horizon_forced_binary_settlement"] is True
+    assert "source_packet_baseline_settlement" not in by_key["yes"]["meta"]
+
+
 def test_endpoint_finalization_recomputes_prior_forced_settlement_at_final_horizon():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 5}},

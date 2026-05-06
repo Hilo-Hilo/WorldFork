@@ -1395,12 +1395,12 @@ def _forced_final_horizon_binary_replacement(
 
 
 def _forced_final_horizon_binary_candidate(evidence: dict[str, Any] | None) -> str:
-    if _source_packet_baseline_supports_yes(evidence):
-        return "yes"
     branch_text = _branch_context_path_text(evidence)
     if _path_text_supports_no(branch_text):
         return "no"
     if _path_text_supports_yes(branch_text):
+        return "yes"
+    if _source_packet_baseline_supports_yes(evidence):
         return "yes"
     text = _final_horizon_path_text(evidence)
     yes_supported = _path_text_supports_yes(text)

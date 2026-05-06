@@ -452,6 +452,7 @@ def _inherit_queued_events(
     child: models.Multiverse,
     fork_tick_index: int,
 ) -> None:
+    branch_candidate_id = _branch_candidate_endpoint_id(child)
     events = db.scalars(
         select(models.Event).where(
             models.Event.multiverse_id == parent.id,
@@ -461,6 +462,10 @@ def _inherit_queued_events(
         )
     ).all()
     for event in events:
+        event_candidate_id = _event_candidate_endpoint_id(event)
+        if branch_candidate_id in {"yes", "no"} and event_candidate_id in {"yes", "no"}:
+            if event_candidate_id != branch_candidate_id:
+                continue
         inherited_event = models.Event(
             big_bang_id=event.big_bang_id,
             multiverse_id=child.id,
@@ -507,6 +512,38 @@ def _inherit_queued_events(
             if revision.id == event.current_revision_id:
                 current_revision_id = inherited_revision.id
         inherited_event.current_revision_id = current_revision_id or latest_revision_id
+
+
+def _branch_candidate_endpoint_id(child: models.Multiverse) -> str | None:
+    state = child.state if isinstance(child.state, dict) else {}
+    branch = state.get("branch") if isinstance(state.get("branch"), dict) else {}
+    basis = branch.get("probability_basis") if isinstance(branch.get("probability_basis"), dict) else {}
+    for value in (
+        basis.get("candidate_endpoint_id"),
+        basis.get("candidate_endpoint"),
+        branch.get("candidate_endpoint_id"),
+    ):
+        normalized = str(value or "").strip().lower()
+        if normalized in {"yes", "no"}:
+            return normalized
+    return None
+
+
+def _event_candidate_endpoint_id(event: models.Event) -> str | None:
+    for container in (event.expected_impact, event.actual_impact, event.meta):
+        if not isinstance(container, dict):
+            continue
+        for key in ("candidate_endpoint_id", "endpoint", "outcome", "result"):
+            normalized = str(container.get(key) or "").strip().lower()
+            if normalized in {"yes", "no"}:
+                return normalized
+        summary = container.get("summary")
+        if isinstance(summary, dict):
+            for key in ("candidate_endpoint_id", "endpoint", "outcome", "result"):
+                normalized = str(summary.get(key) or "").strip().lower()
+                if normalized in {"yes", "no"}:
+                    return normalized
+    return None
 
 
 def _inherit_latest_actor_state_rows(

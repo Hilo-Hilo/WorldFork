@@ -264,6 +264,7 @@ def test_build_init_job_payload_preserves_complementary_branch_hypotheses(tmp_pa
     scenario_input = payload["payload"]["scenario_input"]
     assert [item["candidate_endpoint_id"] for item in scenario_input["branch_hypotheses"]] == ["yes", "no"]
     assert payload["payload"]["branch_policy"]["max_branches_per_tick"] == 2
+    assert payload["payload"]["branch_policy"]["candidate_endpoint_branches_only"] is True
     assert "return exactly two complementary branch_hypotheses" in payload["payload"]["initializer_prompt"]
 
 

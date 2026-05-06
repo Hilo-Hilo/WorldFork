@@ -64,6 +64,7 @@ SHORT_BRANCH_POLICY = {
     "max_branches_per_tick": 2,
     "branch_score_threshold": 0.75,
     "min_branch_runway_ticks": 2,
+    "candidate_endpoint_branches_only": True,
 }
 LONG_BRANCH_POLICY = {
     "max_branch_depth": 3,

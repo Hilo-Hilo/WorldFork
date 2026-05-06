@@ -269,7 +269,13 @@ def _prepare_tool_calls(
         provisional_bundle=provisional_bundle,
         tick_index=tick_index,
     )
+    candidate_only_forecast_branching = _candidate_endpoint_branches_only_for_forecast(
+        db,
+        multiverse=multiverse,
+        provisional_bundle=provisional_bundle,
+    )
     forecast_root_seeded = False
+    suppress_generic_forecast_branching = False
     if branch_runway["suppress_branching"]:
         tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
     else:
@@ -290,6 +296,10 @@ def _prepare_tool_calls(
         elif _forecast_root_already_seeded(db, multiverse):
             tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
             forecast_root_seeded = True
+            suppress_generic_forecast_branching = True
+        elif candidate_only_forecast_branching:
+            tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
+            suppress_generic_forecast_branching = True
     idle_assessment = provisional_bundle.get("idle_assessment") or {}
     if idle_assessment.get("should_terminate"):
         return [
@@ -337,6 +347,7 @@ def _prepare_tool_calls(
     if (
         not branch_runway["suppress_branching"]
         and not forecast_root_seeded
+        and not suppress_generic_forecast_branching
         and branch_score >= branch_threshold
         and not has_branch
         and (has_structural or not explicit_continue)
@@ -375,6 +386,8 @@ def _prepare_tool_calls(
                 f"{branch_runway['remaining_ticks']} ticks remain, "
                 f"requires {branch_runway['min_branch_runway_ticks']}."
             )
+        elif suppress_generic_forecast_branching:
+            reason = "Candidate endpoint branch-only policy suppresses generic forecast branches."
         else:
             reason = "No validated branch trigger in this tick."
         tool_calls.append(
@@ -390,6 +403,23 @@ def _prepare_tool_calls(
         branch_score=branch_score,
         branch_threshold=branch_threshold,
     )
+
+
+def _candidate_endpoint_branches_only_for_forecast(
+    db: Session,
+    *,
+    multiverse: models.Multiverse,
+    provisional_bundle: dict,
+) -> bool:
+    branch_policy = branch_policy_for_multiverse(db, multiverse)
+    enabled = bool(
+        branch_policy.get("candidate_endpoint_branches_only")
+        or branch_policy.get("forecast_candidate_branches_only")
+    )
+    if not enabled:
+        return False
+    hypotheses = _forecast_branch_hypotheses_for_review(db, multiverse, provisional_bundle)
+    return len(_select_binary_candidate_hypotheses(hypotheses)) >= 2
 
 
 def _forecast_candidate_branch_tool_calls(
