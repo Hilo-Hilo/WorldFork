@@ -265,6 +265,20 @@ function ReportPageWired({
     );
   }
 
+  // Surface fetch failures explicitly so an outage doesn't masquerade as
+  // "no reports yet" — that messaging tells the user to re-run the
+  // simulation, which is the wrong remediation when the backend is down.
+  if (reportsQ.isError) {
+    const reason = (reportsQ.error as Error | undefined)?.message
+      ?? "unknown error";
+    return (
+      <EmptyState
+        runId={runId}
+        message={`Could not load reports for this run: ${reason}. Check the backend (/readyz) and reload.`}
+      />
+    );
+  }
+
   if (!reportsQ.isLoading && reports.length === 0) {
     return (
       <EmptyState

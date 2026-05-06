@@ -159,8 +159,13 @@ export const api = {
           Array.isArray(r) ? r : r.ticks,
         ),
 
+  // Demo runs are intentionally backend-less; return an empty list so
+  // ReportPage falls into the "No reports yet" branch rather than firing a
+  // live request that would 404 in offline / no-backend demo sessions.
   listReports: (bigBangId: string) =>
-    http<Report[]>(`/api/big-bangs/${bigBangId}/reports`),
+    isDemoRun(bigBangId)
+      ? Promise.resolve([] as Report[])
+      : http<Report[]>(`/api/big-bangs/${bigBangId}/reports`),
 
   listReportVersions: (reportId: string) =>
     http<ReportVersion[]>(`/api/reports/${reportId}/versions`),
