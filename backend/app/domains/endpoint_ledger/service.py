@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import models
+from app.domains.multiverse.runtime_config import simulation_config_for_multiverse
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.llm.audit import LLMCallError, complete_with_audit
 from app.llm.routing import AuditedLLMRoute, ResolvedLLMRoute, resolve_audited_llm_route
@@ -470,7 +471,10 @@ def _collect_evidence(
         .order_by(models.BigBangConfig.version.desc())
         .limit(1)
     )
-    simulation_config = config.simulation_config if config is not None and isinstance(config.simulation_config, dict) else {}
+    if multiverse is not None:
+        simulation_config = simulation_config_for_multiverse(db, multiverse)
+    else:
+        simulation_config = config.simulation_config if config is not None and isinstance(config.simulation_config, dict) else {}
     raw_initializer = scenario.get("initializer_output")
     initializer: dict[str, Any] = raw_initializer if isinstance(raw_initializer, dict) else {}
     candidate_endpoints = scenario.get("candidate_endpoints")
@@ -668,10 +672,21 @@ def _entries_from_evidence(
             }
     candidate = evidence.get("candidate_endpoint")
     if isinstance(candidate, dict):
-        label = candidate.get("label") or candidate.get("endpoint_key") or candidate.get("description") or "Candidate endpoint"
-        key = _endpoint_key(candidate.get("endpoint_key") or label)
+        raw_candidate_id = candidate.get("id") or candidate.get("endpoint_key")
+        label = candidate.get("label") or raw_candidate_id or candidate.get("description") or "Candidate endpoint"
+        key = _endpoint_key(raw_candidate_id or label)
+        candidate_id = str(raw_candidate_id or key).strip().lower()
         existing = entries.get(key, {})
         existing_meta = existing.get("meta") if isinstance(existing.get("meta"), dict) else {}
+        primary_candidate_meta = (
+            {
+                "endpoint_role": "primary_candidate",
+                "candidate_endpoint_id": candidate_id,
+                "candidate_endpoint_role": candidate_id,
+            }
+            if candidate_id in {"yes", "no"}
+            else {}
+        )
         entries[key] = {
             **existing,
             "endpoint_key": key,
@@ -682,7 +697,7 @@ def _entries_from_evidence(
             "realization_criteria": _list_value(candidate.get("realization_criteria")),
             "authority_refs": _list_value(candidate.get("authority_refs")),
             "evidence_refs": [
-                {"source": "posthoc_candidate", "label": candidate.get("label") or key},
+                {"source": "posthoc_candidate", "label": candidate.get("label") or key, "candidate_endpoint_id": candidate_id},
                 *_list_value(candidate.get("evidence_refs")),
             ],
             "negative_evidence_refs": _list_value(candidate.get("negative_evidence_refs")),
@@ -692,7 +707,7 @@ def _entries_from_evidence(
             or "Posthoc candidate requires comparison against existing timeline evidence.",
             "rationale": candidate.get("rationale") or "Added through post-simulation endpoint evaluation.",
             "last_observed_tick_index": _optional_int(candidate.get("last_observed_tick_index")),
-            "meta": {**existing_meta, "source": "posthoc_candidate"},
+            "meta": {**existing_meta, "source": "posthoc_candidate", **primary_candidate_meta},
         }
     if not entries:
         latest_tick_index = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)

@@ -123,6 +123,30 @@ def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     assert endpoint_ledger_report_payload(db, posthoc)["histogram"]
 
 
+def test_posthoc_candidate_endpoint_id_preserves_primary_binary_key(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+
+    posthoc = evaluate_endpoint_ledger(
+        db,
+        big_bang=big_bang,
+        multiverse=multiverse,
+        source_type="posthoc_test",
+        use_llm=False,
+        candidate_endpoint={
+            "id": "yes",
+            "label": "The event occurs by the deadline",
+            "description": "Benchmark yes candidate repaired after simulation.",
+        },
+    )
+
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, posthoc.id)}
+    assert "yes" in entries
+    assert entries["yes"].label == "The event occurs by the deadline"
+    assert entries["yes"].meta["source"] == "posthoc_candidate"
+    assert entries["yes"].meta["endpoint_role"] == "primary_candidate"
+    assert entries["yes"].meta["candidate_endpoint_id"] == "yes"
+
+
 def test_endpoint_ledger_seed_uses_initializer_endpoint_ledger_entries(db: Session):
     big_bang, multiverse, _actor = _world(db)
     initializer_output = dict(big_bang.scenario_input["initializer_output"])
@@ -398,6 +422,55 @@ def test_endpoint_finalization_settles_deadline_aware_binary_no_at_final_horizon
     assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
     assert by_key["no"]["meta"]["final_horizon_candidate_settlement"] is True
     assert by_key["auxiliary"]["status"] == "insufficient_ticks"
+
+
+def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+    big_bang.scenario_input = {
+        **big_bang.scenario_input,
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    multiverse.status = "active"
+    multiverse.state = {
+        **(multiverse.state or {}),
+        "runtime_overrides": {"simulation_config": {"max_ticks": 3}},
+    }
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=1,
+            simulation_config={"max_ticks": 24},
+            model_config={},
+            branch_policy={},
+        )
+    )
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            tick_index=3,
+            ui_label="M1 T3",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            summary="The deadline-aware simulated horizon has been reached without yes evidence.",
+        )
+    )
+    db.flush()
+
+    ledger = evaluate_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse, use_llm=False)
+
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, ledger.id)}
+    assert entries["no"].status == "realized"
+    assert entries["yes"].status == "eliminated"
+    assert entries["no"].status_basis == "deadline_aware_binary_candidate_settlement"
 
 
 def test_endpoint_finalization_settles_deadline_aware_binary_yes_at_final_horizon():

@@ -204,7 +204,11 @@ def test_long_running_big_bang_routes_create_jobs(monkeypatch):
         )
         run_response = client.post(
             f"/api/big-bangs/{big_bang_id}/run-until-complete/jobs",
-            json={"max_total_ticks": 30, "stop_when_endpoint_ledger_resolved": True},
+            json={
+                "max_total_ticks": 30,
+                "stop_when_endpoint_ledger_resolved": True,
+                "endpoint_resolution_keys": ["yes", "no"],
+            },
         )
 
     assert final_response.status_code == 200, final_response.text
@@ -215,7 +219,11 @@ def test_long_running_big_bang_routes_create_jobs(monkeypatch):
     assert final_job["payload"] == {"title": "Final report", "summary": "Queued"}
     run_job = run_response.json()
     assert run_job["job_type"] == "run_big_bang_until_complete"
-    assert run_job["payload"] == {"max_total_ticks": 30, "stop_when_endpoint_ledger_resolved": True}
+    assert run_job["payload"] == {
+        "max_total_ticks": 30,
+        "stop_when_endpoint_ledger_resolved": True,
+        "endpoint_resolution_keys": ["yes", "no"],
+    }
     assert len(enqueued) == 2
 
 
