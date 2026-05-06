@@ -127,3 +127,25 @@ worldfork demo atlas
 ```
 
 Narrate the phases: Big Bang initialization, tick execution, branch creation, endpoint-ledger updates, report generation, and how to inspect printed IDs.
+
+## Optional: Frontend Dashboard
+
+WorldFork ships a Next.js 15 dashboard under `frontend/`. It is a thin browser-side wrapper over the same API the CLI uses — every action it surfaces (creating runs, watching ticks, opening reports) also has a `worldfork` CLI equivalent. You can skip this section entirely and run headless.
+
+Prerequisites: Node 20+, npm.
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The dev server runs on `http://localhost:3003`. Backend host resolution honors (in order): `NEXT_PUBLIC_API_URL`, `API_BASE_URL`, `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, then defaults to `http://127.0.0.1:8003`.
+
+Three pages:
+- `/` — runs list (polled every 3s)
+- `/input` — scenario form for creating a Big Bang
+- `/dashboard?run=<big-bang-id>` — live multiverse tree, cohort signals, active heroes
+- `/report?run=<big-bang-id>` — final report viewer with TOC + render-to-PDF
+
+Browser-side fetches go through a Next.js rewrite (`/backend/*` → backend) to avoid CORS. The rewrite has a 5-minute proxy timeout in `next.config.mjs` because some POSTs (initializer, run-until-complete) take minutes — without it the browser sees a generic "Internal Server Error" at 30s.

@@ -38,3 +38,11 @@ Cohorts carry `represented_population`, `population_share_of_archetype`, and `re
 ## Stop Conditions
 
 A multiverse can stop because it reaches the configured tick limit, is terminated/frozen by tool call, becomes report-ready, or is otherwise no longer active. Endpoint ledgers may remain unresolved when the tick horizon is insufficient.
+
+## Surfaces
+
+Two surfaces consume the same backend API:
+- **CLI** (`worldfork`) — primary, agent-facing, headless. The canonical operator and agent surface.
+- **Frontend** (Next.js dashboard at `frontend/`, optional) — three browser pages over the same API: a runs list, a scenario form, a live multiverse-tree dashboard with cohort signals + active heroes per timeline, and a report viewer. Polling-based, no WebSockets. Useful for visual review, not required for headless operation.
+
+WorldFork is API-first; both surfaces are interchangeable for any action they expose. When debugging, prefer CLI commands so the run is reproducible.
