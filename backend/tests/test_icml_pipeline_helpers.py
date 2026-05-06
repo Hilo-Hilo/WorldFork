@@ -239,6 +239,7 @@ def test_binary_branch_hypotheses_include_yes_and_no_candidates() -> None:
     assert all("2026-03-15" in item["realization_criteria"][0] for item in hypotheses)
     assert "Nominee S win Best Picture" in hypotheses[0]["alternate_path"]
     assert "does not" in hypotheses[1]["alternate_path"]
+    assert [item["prior_probability"] for item in hypotheses] == [0.5, 0.5]
 
 
 def test_build_init_job_payload_preserves_complementary_branch_hypotheses(tmp_path: Path) -> None:
@@ -266,6 +267,7 @@ def test_build_init_job_payload_preserves_complementary_branch_hypotheses(tmp_pa
     assert payload["payload"]["branch_policy"]["max_branches_per_tick"] == 2
     assert payload["payload"]["branch_policy"]["candidate_endpoint_branches_only"] is True
     assert "return exactly two complementary branch_hypotheses" in payload["payload"]["initializer_prompt"]
+    assert "prior_probability" in payload["payload"]["initializer_prompt"]
 
 
 def test_resolve_case_file_finds_public_existing_and_additional_cases(tmp_path: Path) -> None:

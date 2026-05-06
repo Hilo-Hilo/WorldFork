@@ -449,17 +449,39 @@ def _merge_scenario_branch_hypotheses(
         scenario_items = [dict(item) for item in _list_value(scenario_input.get("branch_hypotheses")) if isinstance(item, dict)]
     if not scenario_items:
         return generated
-    merged: list[dict] = []
-    seen: set[str] = set()
+    merged_by_key: dict[str, dict] = {}
+    order: list[str] = []
     for source in (scenario_items, generated):
         for item in source:
             key = _branch_hypothesis_key(item)
-            if key in seen:
+            if key in merged_by_key:
+                merged_by_key[key] = _merge_branch_hypothesis_fields(merged_by_key[key], item)
                 continue
-            merged.append(dict(item))
-            seen.add(key)
-            if len(merged) >= limit:
-                return merged
+            merged_by_key[key] = dict(item)
+            order.append(key)
+            if len(order) >= limit:
+                return [merged_by_key[item_key] for item_key in order]
+    return [merged_by_key[item_key] for item_key in order]
+
+
+_BRANCH_HYPOTHESIS_PROBABILITY_FIELDS = {
+    "prior_probability",
+    "target_path_probability",
+    "path_probability",
+    "probability",
+    "branch_probability",
+    "probability_rationale",
+    "probability_basis",
+}
+
+
+def _merge_branch_hypothesis_fields(existing: dict, incoming: dict) -> dict:
+    merged = dict(existing)
+    for key, value in incoming.items():
+        if value in (None, "", {}, []):
+            continue
+        if key in _BRANCH_HYPOTHESIS_PROBABILITY_FIELDS or merged.get(key) in (None, "", {}, []):
+            merged[key] = value
     return merged
 
 

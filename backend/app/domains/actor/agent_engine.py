@@ -78,7 +78,7 @@ def run_actor_decision(
     big_bang_id = big_bang.id
     actor_id = actor.id
     actor_type = actor.actor_type
-    actor_name = actor.name
+    actor_name = _actor_display_name(actor)
     actor_archetype = actor.archetype
     multiverse_id = multiverse.id
     route = route_for_actor_type(actor_type)
@@ -152,7 +152,7 @@ def run_actor_decision(
         social_actions = [
             {
                 "action_type": "post",
-                "body": f"{actor.name} reacts to the current tick.",
+                "body": f"{actor_name} reacts to the current tick.",
                 "channel": "oasis",
             }
         ]
@@ -300,6 +300,18 @@ def _shared_actor_prompt_context(prompt_context: dict) -> dict:
         for key, value in prompt_context.items()
         if key not in {"event_validation_feedback"}
     }
+
+
+def _actor_display_name(actor: models.Actor) -> str:
+    name = str(getattr(actor, "name", "") or "").strip()
+    if name and name.lower() not in {"unnamed actor", "unnamed"}:
+        return name
+    archetype = actor.archetype if isinstance(actor.archetype, dict) else {}
+    for key in ("actor_name", "name", "label", "archetype_id"):
+        value = str(archetype.get(key) or "").strip()
+        if value:
+            return value
+    return name or "Unnamed actor"
 
 
 def _actor_specific_prompt_context(
@@ -522,6 +534,12 @@ def _branch_hypothesis_lines(value: Any) -> list[str]:
         if not candidate:
             continue
         parts = [f"{candidate}: {_one_line(label, limit=180)}"]
+        prior = item.get("prior_probability") or item.get("target_path_probability") or item.get("path_probability")
+        if prior is not None:
+            parts.append(f"prior={_one_line(prior, limit=40)}")
+        rationale = item.get("probability_rationale")
+        if rationale:
+            parts.append(f"why={_one_line(rationale, limit=220)}")
         trigger = item.get("trigger")
         if trigger:
             parts.append(f"trigger={_one_line(trigger, limit=220)}")

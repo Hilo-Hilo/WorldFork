@@ -332,12 +332,14 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
                     "label": "YES candidate endpoint path",
                     "alternate_path": "YES path: the award candidate wins.",
                     "trigger": "official settlement evidence supports yes",
+                    "prior_probability": 0.35,
                 },
                 {
                     "candidate_endpoint_id": "no",
                     "label": "NO candidate endpoint path",
                     "alternate_path": "NO path: the award candidate does not win.",
                     "trigger": "official settlement evidence supports no",
+                    "prior_probability": 0.65,
                 },
             ],
             "final_tick_context": {
@@ -364,12 +366,86 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
 
     assert [call["tool_name"] for call in calls] == ["create_branch", "create_branch"]
     assert [call["arguments"]["candidate_endpoint_id"] for call in calls] == ["yes", "no"]
-    assert calls[0]["arguments"]["branch_probability"] == pytest.approx(0.5)
+    assert calls[0]["arguments"]["branch_probability"] == pytest.approx(0.35)
+    assert calls[0]["arguments"]["parent_continuation_probability"] == pytest.approx(0.65)
     assert calls[1]["arguments"]["branch_probability"] == pytest.approx(1.0)
     assert calls[1]["arguments"]["parent_continuation_probability"] == pytest.approx(0.0)
+    assert calls[0]["arguments"]["probability_basis"]["target_path_probability"] == pytest.approx(0.35)
+    assert calls[1]["arguments"]["probability_basis"]["target_path_probability"] == pytest.approx(0.65)
     assert calls[0]["arguments"]["branch_premise"] == "YES path: the award candidate wins."
     assert calls[1]["arguments"]["branch_premise"] == "NO path: the award candidate does not win."
     assert all("generic branch" not in call["arguments"]["reason"] for call in calls)
+
+
+def test_forecast_branch_hypotheses_fallback_to_uniform_candidate_priors(db):
+    _, root = _seed_world(
+        db,
+        max_ticks=5,
+        branch_policy={
+            "max_branches_per_tick": 2,
+            "min_branch_runway_ticks": 2,
+            "candidate_endpoint_branches_only": True,
+        },
+    )
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.0,
+            "forecast_branch_hypotheses": [
+                {"candidate_endpoint_id": "yes", "alternate_path": "YES path."},
+                {"candidate_endpoint_id": "no", "alternate_path": "NO path."},
+            ],
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 5,
+                "current_tick_index": 1,
+            },
+        },
+        parsed={"decision": "continue", "tool_calls": []},
+        tick_index=1,
+    )
+
+    assert [call["arguments"]["candidate_endpoint_id"] for call in calls] == ["yes", "no"]
+    assert calls[0]["arguments"]["branch_probability"] == pytest.approx(0.5)
+    assert calls[1]["arguments"]["branch_probability"] == pytest.approx(1.0)
+    assert calls[0]["arguments"]["probability_basis"]["target_path_probability"] == pytest.approx(0.5)
+    assert calls[1]["arguments"]["probability_basis"]["target_path_probability"] == pytest.approx(0.5)
+
+
+def test_forecast_branch_hypotheses_context_prefers_initializer_calibrated_priors():
+    big_bang = models.BigBang(
+        name="Forecast card",
+        scenario_input={
+            "branch_hypotheses": [
+                {"candidate_endpoint_id": "yes", "alternate_path": "YES path.", "prior_probability": 0.5},
+                {"candidate_endpoint_id": "no", "alternate_path": "NO path.", "prior_probability": 0.5},
+            ],
+            "initializer_output": {
+                "branch_hypotheses": [
+                    {
+                        "candidate_endpoint_id": "yes",
+                        "alternate_path": "YES calibrated path.",
+                        "prior_probability": 0.3,
+                        "probability_rationale": "Public evidence makes yes less likely.",
+                    },
+                    {
+                        "candidate_endpoint_id": "no",
+                        "alternate_path": "NO calibrated path.",
+                        "prior_probability": 0.7,
+                        "probability_rationale": "Public evidence makes no more likely.",
+                    },
+                ]
+            },
+        },
+    )
+
+    context = tick_runner._forecast_branch_hypotheses_context(big_bang)
+
+    assert [item["candidate_endpoint_id"] for item in context] == ["yes", "no"]
+    assert [item["prior_probability"] for item in context] == [0.3, 0.7]
+    assert context[0]["alternate_path"] == "YES calibrated path."
 
 
 def test_candidate_endpoint_branch_only_policy_suppresses_child_generic_branches(db):
@@ -636,6 +712,9 @@ def test_branch_inheritance_prunes_conflicting_forecast_terminal_events(db):
     assert len(yes_events) == 1
     assert yes_events[0].title == "Forecast settlement announcement"
     assert yes_events[0].meta["inherited_from_event_id"] == str(queued_yes_event.id)
+    assert root.path_probability == pytest.approx(0.0)
+    assert root.status == "completed"
+    assert root.ended_at is not None
 
 
 def test_branch_engine_rejects_near_horizon_branch_runway(db):

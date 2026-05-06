@@ -183,17 +183,18 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
 
     actor_by_name = {}
     for item in actors:
+        actor_name = _initializer_actor_name(item)
         actor = models.Actor(
             big_bang_id=big_bang.id,
             actor_type=item.get("actor_type", "entity"),
-            name=item.get("name", "Unnamed actor"),
+            name=actor_name,
             description=item.get("description"),
             archetype=item,
             created_tick_index=0,
         )
         db.add(actor)
         db.flush()
-        actor_by_name[actor.name.lower()] = actor
+        actor_by_name[actor_name.lower()] = actor
 
     for item in initializer_output.get("population_archetypes", []):
         if isinstance(item, dict):
@@ -229,7 +230,7 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     db.flush()
 
     for item in cohorts:
-        actor = actor_by_name.get(str(item.get("name", "")).lower())
+        actor = actor_by_name.get(_initializer_actor_name(item).lower())
         db.add(models.CohortState(
             big_bang_id=big_bang.id,
             multiverse_id=root.id,
@@ -240,11 +241,11 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
         ))
 
     for item in heroes:
-        actor = actor_by_name.get(str(item.get("name", "")).lower())
+        actor = actor_by_name.get(_initializer_actor_name(item).lower())
         hero = models.HeroArchetype(
             big_bang_id=big_bang.id,
             actor_id=actor.id if actor else None,
-            name=item.get("name", "Generated hero"),
+            name=_initializer_actor_name(item),
             definition=item.get("definition", item),
         )
         db.add(hero)
@@ -345,6 +346,14 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     seed_endpoint_ledger(db, big_bang=big_bang, multiverse=root)
     db.flush()
     return big_bang
+
+
+def _initializer_actor_name(item: dict) -> str:
+    for key in ("name", "actor_name", "label", "archetype_id"):
+        value = str(item.get(key) or "").strip()
+        if value:
+            return value
+    return "Unnamed actor"
 
 
 def cleanup_failed_big_bang_initialization(db: Session, big_bang_id) -> None:

@@ -113,6 +113,13 @@ def compact_simulation_state(state: dict) -> dict:
         return {}
     scenario = state.get("scenario_input", {}) if isinstance(state, dict) else {}
     initializer = state.get("initializer_output", {}) if isinstance(state, dict) else {}
+    branch_hypotheses = (
+        initializer.get("branch_hypotheses")
+        if isinstance(initializer, dict) and isinstance(initializer.get("branch_hypotheses"), list)
+        else state.get("branch_hypotheses")
+    )
+    if not isinstance(branch_hypotheses, list):
+        branch_hypotheses = scenario.get("branch_hypotheses")
     compact = {
         "scenario_summary": {
             "premise": scenario.get("premise"),
@@ -123,7 +130,7 @@ def compact_simulation_state(state: dict) -> dict:
             "forecast_metadata": _compact_value(scenario.get("forecast_metadata", {})),
             "source_packet": _compact_source_packet(scenario.get("source_packet")),
             "candidate_endpoints": _compact_candidate_endpoints(scenario.get("candidate_endpoints")),
-            "branch_hypotheses": _compact_branch_hypotheses(scenario.get("branch_hypotheses")),
+            "branch_hypotheses": _compact_branch_hypotheses(branch_hypotheses),
             "simulation_brief": initializer.get("simulation_brief"),
         },
         "cohorts": _compact_list(state.get("cohorts", [])),
@@ -276,9 +283,13 @@ def _compact_branch_hypotheses(value: Any, *, limit: int = 4) -> list[dict]:
                 "alternate_path",
                 "expected_divergence",
                 "observable_divergence_signal",
+                "probability_rationale",
             )
             if item.get(key) not in (None, "", {}, [])
         }
+        for key in ("prior_probability", "target_path_probability", "path_probability", "probability"):
+            if item.get(key) not in (None, "", {}, []):
+                row[key] = item.get(key)
         criteria = item.get("realization_criteria")
         if isinstance(criteria, list):
             row["realization_criteria"] = [_excerpt(value, 260) for value in criteria[:3] if isinstance(value, str)]

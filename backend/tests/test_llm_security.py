@@ -1963,6 +1963,7 @@ Score p_yes with binary Brier.
                     {
                         "candidate_endpoint_id": "yes",
                         "label": "YES candidate endpoint path",
+                        "prior_probability": 0.5,
                         "trigger": "Official settlement evidence supports yes by the deadline.",
                         "realization_criteria": ["The official award announcement names Nominee S."],
                         "observable_divergence_signal": "Authority event names the yes outcome.",
@@ -1970,6 +1971,7 @@ Score p_yes with binary Brier.
                     {
                         "candidate_endpoint_id": "no",
                         "label": "NO candidate endpoint path",
+                        "prior_probability": 0.5,
                         "trigger": "Official settlement evidence supports no by the deadline.",
                         "realization_criteria": ["The official award announcement names another nominee."],
                         "observable_divergence_signal": "Authority event names the no outcome.",
@@ -1980,7 +1982,23 @@ Score p_yes with binary Brier.
                 "simulation_brief": {
                     "summary": "Award race forecast with a nomination-strength signal and consensus-ballot risk.",
                     "uncertainty_notes": ["The source packet does not identify final voter distribution."],
-                }
+                },
+                "branch_hypotheses": [
+                    {
+                        "candidate_endpoint_id": "yes",
+                        "label": "YES calibrated candidate endpoint path",
+                        "prior_probability": 0.3,
+                        "probability_rationale": "Consensus-ballot risk makes the nomination leader less than even money.",
+                        "realization_criteria": ["The official award announcement names Nominee S."],
+                    },
+                    {
+                        "candidate_endpoint_id": "no",
+                        "label": "NO calibrated candidate endpoint path",
+                        "prior_probability": 0.7,
+                        "probability_rationale": "Preferential ballots make another nominee more likely.",
+                        "realization_criteria": ["The official award announcement names another nominee."],
+                    },
+                ],
             },
         },
         sociology_prompt_influences=[],
@@ -2001,7 +2019,9 @@ Score p_yes with binary Brier.
     assert "Resolve no when the deadline passes without that win." in rendered
     assert "focus=award_forecasting, preferential_ballot" in rendered
     assert "BRANCH HYPOTHESES:" in rendered
-    assert "yes: YES candidate endpoint path" in rendered
+    assert "yes: YES calibrated candidate endpoint path" in rendered
+    assert "prior=0.3" in rendered
+    assert "Consensus-ballot risk makes the nomination leader less than even money." in rendered
     assert "The official award announcement names another nominee." in rendered
     assert "state_delta.endpoint_assessment" in rendered
     assert "final voter distribution" in rendered

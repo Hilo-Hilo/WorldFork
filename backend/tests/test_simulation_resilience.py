@@ -628,6 +628,36 @@ def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
     assert metadata["actor_type"] == "cohort"
 
 
+def test_actor_prompt_uses_archetype_name_when_persisted_actor_name_is_generic(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    alpha.name = "Unnamed actor"
+    alpha.archetype = {
+        "actor_name": "academy_voting_body",
+        "actor_type": "cohort_actor",
+        "public_role": "award voting cohort",
+    }
+    captured_messages = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        captured_messages.append(messages)
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=2,
+        prompt_context={},
+    )
+
+    assert "Actor: academy_voting_body" in captured_messages[0][2]["content"]
+    assert "Actor: Unnamed actor" not in captured_messages[0][2]["content"]
+
+
 def test_actor_worker_mode_releases_db_transaction_before_llm_call(db, monkeypatch):
     big_bang, root, alpha, _beta = _seed_world(db)
     observed = {}
@@ -708,6 +738,53 @@ def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_pa
     ]
     assert [event["title"] for event in event_queue["past_events"]] == ["Pressure failure already visible"]
     assert [event["title"] for event in event_queue["upcoming_events"]] == ["Court hearing scheduled"]
+
+
+def test_initializer_actor_persistence_uses_actor_name_fallback(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(
+        initializer,
+        "run_initializer_agent",
+        lambda *args, **kwargs: {
+            "actors": [{"actor_name": "academy_voting_body", "actor_type": "cohort"}],
+            "cohort_states": [
+                {
+                    "actor_name": "academy_voting_body",
+                    "represented_population": 9000,
+                    "population_share_of_archetype": 1.0,
+                    "representation_mode": "aggregate",
+                    "state": {"stance": "undecided"},
+                }
+            ],
+            "initial_events": [],
+        },
+    )
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Forecast",
+            scenario_text="A forecast-card setup.",
+            use_initializer_agent=True,
+        ),
+    )
+
+    actor = db.query(models.Actor).filter_by(big_bang_id=big_bang.id).one()
+    cohort_state = db.query(models.CohortState).filter_by(big_bang_id=big_bang.id).one()
+    assert actor.name == "academy_voting_body"
+    assert cohort_state.actor_id == actor.id
 
 
 def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_path):

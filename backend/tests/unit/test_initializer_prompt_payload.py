@@ -234,9 +234,18 @@ def test_initializer_output_preserves_scenario_branch_hypotheses_first():
         {
             "branch_hypotheses": [
                 {
-                    "label": "generic market surprise",
-                    "trigger": "market chatter changes",
-                    "candidate_endpoint_id": "maybe",
+                    "label": "YES candidate wins with lower odds",
+                    "trigger": "official settlement evidence supports the yes endpoint",
+                    "candidate_endpoint_id": "yes",
+                    "prior_probability": 0.3,
+                    "probability_rationale": "Source packet makes the yes endpoint plausible but less likely.",
+                },
+                {
+                    "label": "NO candidate wins with higher odds",
+                    "trigger": "official settlement evidence supports the no endpoint",
+                    "candidate_endpoint_id": "no",
+                    "prior_probability": 0.7,
+                    "probability_rationale": "Source packet makes the no endpoint more likely.",
                 }
             ],
         },
@@ -261,4 +270,6 @@ def test_initializer_output_preserves_scenario_branch_hypotheses_first():
 
     candidate_ids = [item.get("candidate_endpoint_id") for item in normalized["branch_hypotheses"][:2]]
     assert candidate_ids == ["yes", "no"]
-    assert normalized["branch_hypotheses"][2]["candidate_endpoint_id"] == "maybe"
+    assert normalized["branch_hypotheses"][0]["prior_probability"] == 0.3
+    assert normalized["branch_hypotheses"][1]["prior_probability"] == 0.7
+    assert normalized["branch_hypotheses"][0]["expected_divergence"] == "The primary binary endpoint resolves yes."

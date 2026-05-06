@@ -48,8 +48,9 @@ FORECAST_CARD_INITIALIZER_PROMPT = (
     "yes/no candidate endpoints; auxiliary diagnostic endpoints are optional and must not obscure "
     "the binary yes/no forecast. When yes/no candidate endpoints are present, return exactly two "
     "complementary branch_hypotheses: one tied to candidate_endpoint_id yes and one tied to "
-    "candidate_endpoint_id no. Keep all fields compact, evidence-grounded, and free of private "
-    "resolution data."
+    "candidate_endpoint_id no. Include a calibrated prior_probability for each yes/no branch "
+    "hypothesis based only on the public card/source packet; the two prior_probability values "
+    "should sum to 1. Keep all fields compact, evidence-grounded, and free of private resolution data."
 )
 NO_BRANCH_POLICY = {
     "branching_enabled": False,
@@ -277,6 +278,8 @@ def binary_branch_hypotheses_for_forecast_context(context: dict[str, Any]) -> li
         {
             "label": "YES candidate endpoint path",
             "candidate_endpoint_id": "yes",
+            "prior_probability": 0.5,
+            "probability_rationale": "Neutral default prior; initializer may recalibrate from public evidence.",
             "trigger": f"Official or high-confidence settlement evidence supports yes by {deadline}.",
             "alternate_path": f"YES path: {question}.",
             "expected_divergence": "The endpoint ledger realizes candidate_endpoint_id=yes and eliminates candidate_endpoint_id=no.",
@@ -288,6 +291,8 @@ def binary_branch_hypotheses_for_forecast_context(context: dict[str, Any]) -> li
         {
             "label": "NO candidate endpoint path",
             "candidate_endpoint_id": "no",
+            "prior_probability": 0.5,
+            "probability_rationale": "Neutral default prior; initializer may recalibrate from public evidence.",
             "trigger": f"Official or high-confidence settlement evidence supports no by {deadline}.",
             "alternate_path": f"NO path: {question} does not occur by the deadline.",
             "expected_divergence": "The endpoint ledger realizes candidate_endpoint_id=no and eliminates candidate_endpoint_id=yes.",

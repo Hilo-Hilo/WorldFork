@@ -1467,7 +1467,12 @@ def _forecast_review_context(
 def _forecast_branch_hypotheses_context(big_bang: models.BigBang | None) -> list[dict]:
     if big_bang is None or not isinstance(big_bang.scenario_input, dict):
         return []
-    raw = big_bang.scenario_input.get("branch_hypotheses")
+    initializer_output = big_bang.scenario_input.get("initializer_output")
+    raw = None
+    if isinstance(initializer_output, dict) and isinstance(initializer_output.get("branch_hypotheses"), list):
+        raw = initializer_output.get("branch_hypotheses")
+    if raw is None:
+        raw = big_bang.scenario_input.get("branch_hypotheses")
     if not isinstance(raw, list):
         return []
     compact: list[dict] = []
@@ -1488,6 +1493,8 @@ def _forecast_branch_hypotheses_context(big_bang: models.BigBang | None) -> list
                 ),
                 "expected_divergence": _forecast_excerpt(item.get("expected_divergence"), 320),
                 "observable_divergence_signal": _forecast_excerpt(item.get("observable_divergence_signal"), 240),
+                "prior_probability": item.get("prior_probability"),
+                "probability_rationale": _forecast_excerpt(item.get("probability_rationale"), 240),
             }
         )
     return [item for item in compact if item.get("candidate_endpoint_id")]

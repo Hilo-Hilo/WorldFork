@@ -439,14 +439,33 @@ def _forecast_candidate_branch_tool_calls(
     selected = _select_binary_candidate_hypotheses(hypotheses)[:max_per_tick]
     if len(selected) < 2:
         return []
+    target_path_probabilities = _candidate_target_path_probabilities(selected)
     calls: list[dict] = []
+    remaining_parent_mass = 1.0
     for index, item in enumerate(selected):
-        remaining = len(selected) - index
-        branch_probability = round(1.0 / remaining, 4) if remaining > 1 else 1.0
+        target_path_probability = target_path_probabilities[index]
+        if index == len(selected) - 1:
+            branch_probability = 1.0
+        elif remaining_parent_mass <= 0:
+            branch_probability = 1.0
+        else:
+            branch_probability = _round_probability(target_path_probability / remaining_parent_mass)
         parent_continuation = round(max(0.0, 1.0 - branch_probability), 4)
+        remaining_parent_mass = max(0.0, remaining_parent_mass - target_path_probability)
         candidate_id = str(item.get("candidate_endpoint_id") or "").strip().lower()
         premise = _branch_hypothesis_premise(item)
         label = str(item.get("label") or f"{candidate_id.upper()} candidate endpoint path").strip()
+        probability_basis = {
+            "source": "forecast_branch_hypothesis",
+            "basis": "Seeded from complementary yes/no forecast-card branch hypotheses.",
+            "candidate_endpoint_id": candidate_id,
+            "target_path_probability": target_path_probability,
+            "raw_candidate_probability": _candidate_prior_probability(item),
+            "branch_premise": premise,
+        }
+        rationale = item.get("probability_rationale") or item.get("probability_basis")
+        if isinstance(rationale, str) and rationale.strip():
+            probability_basis["rationale"] = rationale.strip()
         calls.append(
             {
                 "tool_name": "create_branch",
@@ -456,7 +475,7 @@ def _forecast_candidate_branch_tool_calls(
                     "branch_probability": branch_probability,
                     "parent_continuation_probability": parent_continuation,
                     "probability_source": "forecast_branch_hypothesis",
-                    "probability_basis": "Seeded from complementary yes/no forecast-card branch hypotheses.",
+                    "probability_basis": probability_basis,
                     "branch_premise": premise,
                     "alternate_path": premise,
                     "candidate_endpoint_id": candidate_id,
@@ -465,6 +484,52 @@ def _forecast_candidate_branch_tool_calls(
             }
         )
     return calls
+
+
+def _candidate_target_path_probabilities(items: list[dict]) -> list[float]:
+    raw = [_candidate_prior_probability(item) for item in items]
+    if len(items) == 2:
+        first, second = raw
+        if first is not None and second is None:
+            first = _bounded_candidate_prior(first)
+            return [_round_probability(first), _round_probability(1.0 - first)]
+        if second is not None and first is None:
+            second = _bounded_candidate_prior(second)
+            return [_round_probability(1.0 - second), _round_probability(second)]
+    explicit = [_bounded_candidate_prior(value) if value is not None else None for value in raw]
+    explicit_total = sum(value for value in explicit if value is not None)
+    missing = sum(1 for value in explicit if value is None)
+    if explicit_total <= 0 and missing == len(items):
+        return [_round_probability(1.0 / len(items)) for _ in items]
+    remaining = max(0.0, 1.0 - explicit_total)
+    fill = remaining / missing if missing else 0.0
+    probabilities = [value if value is not None else fill for value in explicit]
+    total = sum(probabilities)
+    if total <= 0:
+        return [_round_probability(1.0 / len(items)) for _ in items]
+    return [_round_probability(value / total) for value in probabilities]
+
+
+def _candidate_prior_probability(item: dict) -> float | None:
+    for key in (
+        "prior_probability",
+        "target_path_probability",
+        "path_probability",
+        "probability",
+        "branch_probability",
+    ):
+        value = _coerce_probability(item.get(key))
+        if value is not None:
+            return value
+    return None
+
+
+def _bounded_candidate_prior(value: float) -> float:
+    return max(0.01, min(0.99, float(value)))
+
+
+def _round_probability(value: float) -> float:
+    return round(max(0.0, min(1.0, float(value))), 6)
 
 
 def _existing_child_branch_count(db: Session, multiverse: models.Multiverse) -> int:
@@ -505,7 +570,8 @@ def _forecast_branch_hypotheses_for_review(
     if not raw:
         big_bang = db.get(models.BigBang, multiverse.big_bang_id)
         scenario = big_bang.scenario_input if big_bang is not None and isinstance(big_bang.scenario_input, dict) else {}
-        raw = scenario.get("branch_hypotheses")
+        initializer_output = scenario.get("initializer_output") if isinstance(scenario.get("initializer_output"), dict) else {}
+        raw = initializer_output.get("branch_hypotheses") or scenario.get("branch_hypotheses")
     if not isinstance(raw, list):
         return []
     return [item for item in raw if isinstance(item, dict)]

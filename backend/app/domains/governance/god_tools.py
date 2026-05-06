@@ -165,6 +165,19 @@ def _execute(
             actor_status="killed" if tool_name == "kill_hero" else "inactive",
         )
     if tool_name == "create_branch":
+        supplied_probability_basis = arguments.get("probability_basis")
+        probability_basis = {
+            "source": arguments.get("probability_source") or "god_agent",
+            "branch_probability": arguments.get("branch_probability"),
+            "parent_continuation_probability": arguments.get("parent_continuation_probability"),
+            "branch_premise": arguments.get("branch_premise"),
+            "alternate_path": arguments.get("alternate_path"),
+            "candidate_endpoint_id": arguments.get("candidate_endpoint_id"),
+        }
+        if isinstance(supplied_probability_basis, dict):
+            probability_basis.update(supplied_probability_basis)
+        else:
+            probability_basis["basis"] = supplied_probability_basis or arguments.get("reason")
         child = create_branch(
             db,
             parent=multiverse,
@@ -173,15 +186,7 @@ def _execute(
             idempotency_key=idempotency_key,
             branch_probability=arguments.get("branch_probability"),
             parent_continuation_probability=arguments.get("parent_continuation_probability"),
-            probability_basis={
-                "source": arguments.get("probability_source") or "god_agent",
-                "basis": arguments.get("probability_basis") or arguments.get("reason"),
-                "branch_probability": arguments.get("branch_probability"),
-                "parent_continuation_probability": arguments.get("parent_continuation_probability"),
-                "branch_premise": arguments.get("branch_premise"),
-                "alternate_path": arguments.get("alternate_path"),
-                "candidate_endpoint_id": arguments.get("candidate_endpoint_id"),
-            },
+            probability_basis=probability_basis,
         )
         return {
             "status": "created",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import func, select
@@ -10,6 +11,8 @@ from app.core.labels import next_child_label, tick_label
 from app.db import models
 from app.domains.multiverse.runtime_config import branch_policy_for_multiverse, simulation_config_for_multiverse
 from app.domains.tick.tick_bundles import hydrate_tick_bundle, inherited_tick_bundle_ref
+
+ZERO_PATH_PROBABILITY_EPSILON = 1e-9
 
 
 def create_branch(
@@ -95,6 +98,9 @@ def create_branch(
         parent_continuation_probability=parent_continuation_probability,
     )
     parent.path_probability = split["parent_path_probability_after"]
+    if parent.path_probability <= ZERO_PATH_PROBABILITY_EPSILON:
+        parent.status = "completed"
+        parent.ended_at = datetime.now(timezone.utc)
     child_label = next_child_label(parent.ui_label, child_count)
     child = models.Multiverse(
         big_bang_id=parent.big_bang_id,

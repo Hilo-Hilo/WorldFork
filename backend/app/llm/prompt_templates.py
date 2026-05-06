@@ -95,7 +95,7 @@ Actor/cohort state requirements:
 Event and branch seed requirements:
 - initial_events should mix already-visible setup events with imminent future events. Schedule future events at integer ticks within the configured horizon when that context is available.
 - expected_impact should describe social, graph, or sociology pressure effects without making the outcome deterministic.
-- branch_hypotheses should identify a trigger, a plausible alternate path, and the observable divergence signal a reviewer should watch for.
+- branch_hypotheses should identify a trigger, a plausible alternate path, the observable divergence signal a reviewer should watch for, and any calibrated prior_probability when the scenario implies relative endpoint odds.
 - merge_hypotheses should identify what shared dependency, coalition fatigue, legitimacy repair, or common adversary could make timelines/groups converge.
 
 Emotion and sociology policy:
