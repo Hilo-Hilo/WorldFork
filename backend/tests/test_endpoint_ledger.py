@@ -424,6 +424,67 @@ def test_endpoint_finalization_does_not_default_deadline_aware_binary_to_no_at_f
     assert by_key["auxiliary"]["status"] == "insufficient_ticks"
 
 
+def test_endpoint_finalization_terminal_event_overrides_conflicting_binary_update():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 3}},
+        "multiverse": {"status": "active"},
+        "ticks": [{"tick_index": 3}],
+        "events": [
+            {
+                "title": "Customer availability begins",
+                "event_type": "announcement",
+                "status": "executed",
+                "scheduled_tick": 3,
+                "actual_impact": {
+                    "status": "applied",
+                    "summary": "Resolves the forecast question as yes by confirming customer availability by the deadline.",
+                },
+            },
+            {
+                "title": "Public verification remains noisy",
+                "event_type": "public_discussion",
+                "status": "executed",
+                "scheduled_tick": 3,
+                "actual_impact": {
+                    "status": "applied",
+                    "summary": "Some public reports still ask for additional point-of-sale confirmation.",
+                },
+            },
+        ],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-09-30",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "eliminated",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "realized",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["yes"]["status"] == "realized"
+    assert by_key["no"]["status"] == "eliminated"
+    assert by_key["yes"]["status_basis"] == "terminal_event_binary_candidate_settlement"
+    assert by_key["yes"]["meta"]["terminal_event_settlement"] is True
+
+
 def test_multiverse_endpoint_evaluation_uses_runtime_override_final_horizon(db: Session):
     big_bang, multiverse, _actor = _world(db)
     big_bang.scenario_input = {

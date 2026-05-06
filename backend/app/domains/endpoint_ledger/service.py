@@ -1219,6 +1219,7 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     entries = _normalize_entries(entries)
     if evidence is not None:
+        entries = _settle_primary_binary_candidates_from_terminal_event(entries, evidence=evidence)
         entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
         entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
@@ -1268,6 +1269,8 @@ def _settle_primary_binary_candidates_at_final_horizon(
 
     yes = by_candidate["yes"]
     no = by_candidate["no"]
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no):
+        return entries
     if yes.get("status") == "realized":
         replacement = {
             "yes": _mark_candidate_deadline_settlement(yes, status="realized", evidence=evidence),
@@ -1299,6 +1302,70 @@ def _settle_primary_binary_candidates_at_final_horizon(
     return settled
 
 
+def _has_terminal_event_settlement(entry: dict[str, Any]) -> bool:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    return bool(meta.get("terminal_event_settlement"))
+
+
+def _settle_primary_binary_candidates_from_terminal_event(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate = _primary_binary_candidates(entries)
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+    signal = _terminal_binary_event_signal(evidence)
+    if signal is None:
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if signal["candidate_id"] == "yes":
+        replacement = {
+            "yes": _mark_candidate_terminal_event_settlement(
+                yes,
+                status="realized",
+                evidence=evidence,
+                event=signal["event"],
+                rationale="An executed terminal event in the simulated path explicitly resolved the forecast question as yes.",
+            ),
+            "no": _mark_candidate_terminal_event_settlement(
+                no,
+                status="eliminated",
+                evidence=evidence,
+                event=signal["event"],
+                rationale="An executed terminal event in the simulated path resolved yes, so the no candidate is eliminated.",
+            ),
+        }
+    else:
+        replacement = {
+            "yes": _mark_candidate_terminal_event_settlement(
+                yes,
+                status="eliminated",
+                evidence=evidence,
+                event=signal["event"],
+                rationale="An executed terminal event in the simulated path resolved no, so the yes candidate is eliminated.",
+            ),
+            "no": _mark_candidate_terminal_event_settlement(
+                no,
+                status="realized",
+                evidence=evidence,
+                event=signal["event"],
+                rationale="An executed terminal event in the simulated path explicitly resolved the forecast question as no.",
+            ),
+        }
+
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
 def _settle_primary_binary_candidates_from_counterpart(
     entries: list[dict[str, Any]],
     *,
@@ -1312,6 +1379,8 @@ def _settle_primary_binary_candidates_from_counterpart(
 
     yes = by_candidate["yes"]
     no = by_candidate["no"]
+    if _has_terminal_event_settlement(yes) or _has_terminal_event_settlement(no):
+        return entries
     if yes.get("status") == "realized" or no.get("status") == "eliminated":
         replacement = {
             "yes": _mark_candidate_counterpart_settlement(
@@ -1421,6 +1490,39 @@ def _mark_candidate_deadline_settlement(
     }
 
 
+def _mark_candidate_terminal_event_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    evidence: dict[str, Any] | None,
+    event: dict[str, Any],
+    rationale: str,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    event_tick = _optional_int(event.get("scheduled_tick")) or latest_tick
+    event_ref = {
+        "source": "terminal_event",
+        "event_id": event.get("event_id"),
+        "title": event.get("title"),
+        "event_type": event.get("event_type"),
+        "scheduled_tick": event_tick,
+        "actual_impact_summary": _terminal_event_actual_summary(event),
+    }
+    authority_ref = f"terminal_event:{event.get('event_type') or 'event'}"
+    return {
+        **entry,
+        "status": status,
+        "authority_refs": list(entry.get("authority_refs") or []) or [authority_ref],
+        "evidence_refs": [*list(entry.get("evidence_refs") or []), event_ref],
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "terminal_event_binary_candidate_settlement",
+        "rationale": rationale,
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or event_tick,
+        "meta": {**meta, "terminal_event_settlement": True},
+    }
+
+
 def _mark_candidate_counterpart_settlement(
     entry: dict[str, Any],
     *,
@@ -1453,6 +1555,50 @@ def _mark_candidate_counterpart_settlement(
         "last_observed_tick_index": entry.get("last_observed_tick_index") or counterpart.get("last_observed_tick_index") or latest_tick,
         "meta": {**meta, "binary_counterpart_settlement": True},
     }
+
+
+def _terminal_binary_event_signal(evidence: dict[str, Any] | None) -> dict[str, Any] | None:
+    signals: list[dict[str, Any]] = []
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    for event in (evidence or {}).get("events") or []:
+        if not isinstance(event, dict) or str(event.get("status") or "").lower() != "executed":
+            continue
+        event_tick = _optional_int(event.get("scheduled_tick"))
+        if latest_tick is not None and event_tick is not None and event_tick > latest_tick:
+            continue
+        candidate_id = _terminal_binary_candidate_from_event(event)
+        if candidate_id in {"yes", "no"}:
+            signals.append({"candidate_id": candidate_id, "event": event})
+    candidate_ids = {item["candidate_id"] for item in signals}
+    if len(candidate_ids) != 1:
+        return None
+    return signals[0]
+
+
+def _terminal_binary_candidate_from_event(event: dict[str, Any]) -> str | None:
+    actual = event.get("actual_impact") if isinstance(event.get("actual_impact"), dict) else {}
+    for key in ("endpoint", "outcome", "result", "candidate_endpoint_id"):
+        value = str(actual.get(key) or "").strip().lower()
+        if value in {"yes", "no"}:
+            return value
+    text = _terminal_event_actual_summary(event).lower()
+    normalized = re.sub(r"['\"`]", "", text)
+    if re.search(r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}\bforecast(?: question| endpoint)?\b.{0,80}\bas yes\b", normalized):
+        return "yes"
+    if re.search(r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}\bforecast(?: question| endpoint)?\b.{0,80}\bas no\b", normalized):
+        return "no"
+    return None
+
+
+def _terminal_event_actual_summary(event: dict[str, Any]) -> str:
+    actual = event.get("actual_impact") if isinstance(event.get("actual_impact"), dict) else {}
+    parts = [
+        event.get("title"),
+        actual.get("summary"),
+        actual.get("rationale"),
+        actual.get("description"),
+    ]
+    return " ".join(str(part) for part in parts if part)
 
 
 def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
