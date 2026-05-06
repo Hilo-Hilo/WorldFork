@@ -43,8 +43,11 @@ def test_build_init_job_payload_uses_public_scenario_only(tmp_path: Path) -> Non
         "max_ticks": 1,
         "tick_duration_minutes": 720,
     }
+    assert "initializer_prompt" in payload["payload"]
+    assert "Do not exceed 4 actors total" in payload["payload"]["initializer_prompt"]
     assert "resolution" not in payload["payload"]
     assert "private_eval" not in payload["payload"]["scenario_text"]
+    assert "private_eval" not in payload["payload"]["initializer_prompt"]
 
 
 def test_public_case_markdown_includes_forecast_clock_and_binary_contract() -> None:
@@ -115,6 +118,7 @@ def test_build_init_job_payload_preserves_structured_public_forecast_context(tmp
     assert "target range" in scenario_input["scenario_text"]
     assert scenario_input["source_packet"]
     assert scenario_input["candidate_endpoints"][0]["id"] == "yes"
+    assert "yes/no candidate endpoints" in payload["payload"]["initializer_prompt"]
     serialized = json.dumps(scenario_input).lower()
     assert "private_eval" not in serialized
     assert "correct_answer" not in serialized

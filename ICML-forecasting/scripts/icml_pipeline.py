@@ -38,6 +38,19 @@ PUBLIC_36 = PACKAGE / "worldfork_additional_36_public.jsonl"
 PRIVATE_36 = PACKAGE / "worldfork_additional_36_private_eval.jsonl"
 LEGACY_36 = PACKAGE / "worldfork_additional_36_legacy_schema.jsonl"
 RUN_MATRIX = PACKAGE / "AGENT_BENCHMARK_RUN_MATRIX.json"
+FORECAST_CARD_INITIALIZER_PROMPT = (
+    "Build a compact WorldFork initialization state for a binary forecast-card benchmark. "
+    "Prioritize the explicit question, source packet, candidate endpoints, and deadline. "
+    "Use 3-4 total acting entities across actors/cohort_states/hero_archetypes/hero_states: "
+    "one authority or scheduler, one affected public or customer cohort, one operational/risk actor, "
+    "and only one optional observer/media/market actor if needed. Do not exceed 4 actors total, "
+    "2 cohort_states, or 1 hero_state unless the public card explicitly names more necessary actors. "
+    "Keep graph_edges <= 12, trait_vectors <= 8, initial_events <= 3, branch_hypotheses <= 2, "
+    "merge_hypotheses <= 1, and risk_flags <= 3. For endpoint_ledger, align first to the explicit "
+    "yes/no candidate endpoints; auxiliary diagnostic endpoints are optional and must not obscure "
+    "the binary yes/no forecast. Keep all fields compact, evidence-grounded, and free of private "
+    "resolution data."
+)
 NO_BRANCH_POLICY = {
     "max_branch_depth": 1,
     "max_active_multiverses": 1,
@@ -296,6 +309,7 @@ def build_init_job_payload(
             "cohorts": [],
             "heroes": [],
             "use_initializer_agent": True,
+            "initializer_prompt": FORECAST_CARD_INITIALIZER_PROMPT,
         },
     }
 
