@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { isValidElement, useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -113,6 +113,39 @@ type FlatVersion = {
   version: ReportVersion;
 };
 
+/** Walk a React children tree and concatenate the plain text. Needed so heading
+ * IDs match the TOC slugs even when the heading contains inline markdown
+ * (emphasis, code, links) — String(children) on a node tree returns
+ * "[object Object]" which diverges from the TOC's text-based slugs. */
+function extractText(node: ReactNode): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (isValidElement(node)) {
+    const props = node.props as { children?: ReactNode };
+    return extractText(props.children);
+  }
+  return "";
+}
+
+/** Strip the most common inline markdown syntax so a TOC label parsed from
+ * raw markdown matches the rendered text content that extractText() returns
+ * on the <h2>. Keeps the slug derivation symmetric on both sides. */
+function stripInlineMarkdown(text: string): string {
+  return text
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .trim();
+}
+
+function slugify(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 export default function ReportPage({
   runId,
   initialVersionId,
@@ -215,9 +248,12 @@ function ReportPageWired({
     md.split("\n").forEach((line) => {
       const m = /^##\s+(.+)/.exec(line);
       if (m) {
-        const label = m[1].trim();
-        const id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        items.push({ id, label });
+        // Strip inline markdown so the slug matches what extractText() will
+        // produce on the rendered <h2>. Without this, `## **Bold** title`
+        // would slug to "bold-title" here but "object-object-title" in the
+        // h2 renderer (or some other divergence), breaking deep-link nav.
+        const plain = stripInlineMarkdown(m[1].trim());
+        items.push({ id: slugify(plain), label: plain });
       }
     });
     return items;
@@ -406,11 +442,12 @@ function ReportPageWired({
                 remarkPlugins={[remarkGfm]}
                 components={{
                   h2: ({ children }) => {
-                    const text = String(children);
-                    const id = text
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/^-|-$/g, "");
+                    // Walk the React node tree to extract plain text.
+                    // String(children) returns "[object Object]" for any
+                    // heading that contains inline markdown (emphasis, code,
+                    // links), which would diverge from the TOC slugs (built
+                    // from raw markdown text) and break in-page anchors.
+                    const id = slugify(extractText(children));
                     return <h2 id={id}>{children}</h2>;
                   },
                 }}

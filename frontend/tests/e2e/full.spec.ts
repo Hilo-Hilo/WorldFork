@@ -236,8 +236,10 @@ test("dashboard: real run renders top bar, rail, and tree", async ({ page, reque
   await expect(page.locator(".rail-list .mv-item").first()).toBeVisible({ timeout: 8000 });
   // Tree SVG renders
   await expect(page.locator(".tree-svg")).toBeVisible();
-  // At least one node in the tree
-  await expect(page.locator(".tree-svg .node").first()).toBeVisible();
+  // At least one node in the tree. The tree renders <g class="node-group">
+  // wrappers — there's no plain ".node" class, so the assertion has to match
+  // the actual class produced by MultiverseTree.
+  await expect(page.locator(".tree-svg .node-group").first()).toBeVisible();
 
   // Top-bar action buttons present
   await expect(page.getByRole("button", { name: /Pause|Resume/ })).toBeVisible();
