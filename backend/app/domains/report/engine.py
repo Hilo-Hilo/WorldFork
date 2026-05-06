@@ -385,7 +385,7 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
     histogram = content.get("endpoint_histogram") or []
     if not histogram:
         return
-    top = max(histogram, key=lambda item: float(item.get("probability") or 0))
+    top = max(histogram, key=_endpoint_histogram_selection_key)
     if top.get("endpoint_key") in {"endpoint_unresolved", "endpoint_insufficient_ticks"} or top.get("status") in {
         "unresolved",
         "process_only",
@@ -404,6 +404,26 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
         f"and status={top.get('status')}. {previous}"
     ).strip()
     conclusions["likely_endpoint"] = likely
+
+
+def _endpoint_histogram_selection_key(item: dict[str, Any]) -> tuple[int, float, float, int, str]:
+    status_rank = {
+        "realized": 3,
+        "eliminated": 2,
+        "active": 1,
+        "weakened": 1,
+        "unresolved": 0,
+        "process_only": 0,
+        "insufficient_ticks": 0,
+    }.get(str(item.get("status") or ""), 0)
+    status_masses = item.get("status_path_masses") if isinstance(item.get("status_path_masses"), dict) else {}
+    return (
+        status_rank,
+        _float_or_default(status_masses.get("realized"), 0.0),
+        _float_or_default(item.get("path_mass"), 0.0),
+        int(item.get("supporting_evidence_count") or 0),
+        str(item.get("endpoint_key") or ""),
+    )
 
 
 def _patch_outcome_conclusions_from_timeline_adjudication(db: Session, content: dict[str, Any]) -> None:

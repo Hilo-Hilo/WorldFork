@@ -280,10 +280,41 @@ def _latest_multiverse_ledger_entries(
 
 
 def _top_non_eliminated_entry(entries: list[models.EndpointLedgerEntry]) -> models.EndpointLedgerEntry | None:
-    for entry in entries:
-        if entry.status != "eliminated":
-            return entry
-    return entries[0] if entries else None
+    retained = [entry for entry in entries if entry.status != "eliminated"]
+    if not retained:
+        return entries[0] if entries else None
+    primary = [entry for entry in retained if _is_primary_binary_entry(entry)]
+    pool = primary or retained
+    return min(pool, key=_endpoint_adjudication_sort_key)
+
+
+def _is_primary_binary_entry(entry: models.EndpointLedgerEntry) -> bool:
+    meta = entry.meta if isinstance(entry.meta, dict) else {}
+    candidate_id = str(meta.get("candidate_endpoint_id") or entry.endpoint_key or "").strip().lower()
+    return meta.get("endpoint_role") == "primary_candidate" and candidate_id in {"yes", "no"}
+
+
+def _endpoint_adjudication_sort_key(entry: models.EndpointLedgerEntry) -> tuple[int, float, int, int, str]:
+    status_order = {
+        "realized": 0,
+        "active": 1,
+        "weakened": 2,
+        "unresolved": 3,
+        "insufficient_ticks": 4,
+        "process_only": 5,
+        "eliminated": 6,
+    }
+    try:
+        probability = float(entry.probability or 0.0)
+    except (TypeError, ValueError):
+        probability = 0.0
+    return (
+        status_order.get(str(entry.status or ""), 7),
+        -probability,
+        -len(entry.authority_refs or []),
+        -len(entry.evidence_refs or []),
+        entry.endpoint_key,
+    )
 
 
 def _latest_tick_index(db: Session, multiverse_id) -> int | None:

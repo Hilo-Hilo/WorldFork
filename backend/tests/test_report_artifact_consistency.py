@@ -386,6 +386,98 @@ def test_final_report_weights_endpoints_by_multiverse_path_probability(db: Sessi
     assert child_path["viability_status"] == "valid"
 
 
+def test_final_report_prefers_primary_terminal_endpoint_over_auxiliary_process_row(db: Session, monkeypatch):
+    big_bang = models.BigBang(
+        name="Primary endpoint selection",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    multiverse = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="completed",
+        branch_reason="Root",
+        branch_probability=1.0,
+        path_probability=1.0,
+        state={},
+        report_status="completed",
+    )
+    db.add(multiverse)
+    db.flush()
+    ledger = models.EndpointLedgerVersion(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        scope="multiverse",
+        version=1,
+        status="completed",
+        source_type="test",
+        created_by="test",
+        summary="Test ledger.",
+        payload={},
+    )
+    db.add(ledger)
+    db.flush()
+    db.add_all(
+        [
+            models.EndpointLedgerEntry(
+                ledger_version_id=ledger.id,
+                endpoint_key="aaa_auxiliary_process",
+                label="Auxiliary process update",
+                description=None,
+                status="process_only",
+                probability=None,
+                realization_criteria=["Process evidence exists."],
+                authority_refs=[],
+                evidence_refs=[{"source": "test"}],
+                negative_evidence_refs=[],
+                blockers=[],
+                status_basis="process_update",
+                contradiction_notes=None,
+                rationale="Alphabetically earlier process row.",
+                last_observed_tick_index=None,
+                meta={"endpoint_role": "auxiliary_mechanism"},
+            ),
+            models.EndpointLedgerEntry(
+                ledger_version_id=ledger.id,
+                endpoint_key="no",
+                label="The event does not occur by the deadline",
+                description=None,
+                status="realized",
+                probability=None,
+                realization_criteria=["Official settlement confirms no."],
+                authority_refs=["official_result"],
+                evidence_refs=[{"source": "test"}],
+                negative_evidence_refs=[],
+                blockers=[],
+                status_basis="deadline_aware_binary_candidate_settlement",
+                contradiction_notes=None,
+                rationale="Primary binary no endpoint settled.",
+                last_observed_tick_index=None,
+                meta={"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            ),
+        ]
+    )
+    db.flush()
+    _install_fake_report_agent(monkeypatch)
+
+    report_version = report_engine.generate_final_big_bang_report(db, big_bang=big_bang)
+
+    adjudication_entry = report_version.content["timeline_adjudication"]["entries"][0]
+    assert adjudication_entry["include_in_final"] is True
+    assert adjudication_entry["viability_status"] == "valid"
+    assert adjudication_entry["endpoint_key"] == "no"
+    histogram = {item["endpoint_key"]: item for item in report_version.content["endpoint_histogram"]}
+    assert histogram["no"]["path_mass"] == 1.0
+    assert report_version.content["outcome_conclusions"]["likely_endpoint"]["endpoint_key"] == "no"
+
+
 def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Adjudicated endpoints",

@@ -19,6 +19,7 @@ from app.main import app
 from app.domains.report import engine as report_engine
 from app.domains.tick import tick_runner
 from app.domains.multiverse.branch_engine import create_branch
+from app.domains.endpoint_ledger.service import endpoint_ledger_entries, latest_endpoint_ledger
 from app.api.schemas import SimulateTickRequest
 from app.db.session import get_db
 from app.domains.tick.tick_bundles import (
@@ -113,6 +114,86 @@ def test_branch_creation_assigns_path_probability(db: Session):
     assert float(edge.child_path_probability) == 0.25
     assert edge.probability_basis["source"] == "test"
     assert child.state["branch"]["path_probability"] == 0.25
+
+
+def test_branch_creation_inherits_latest_endpoint_ledger(db: Session):
+    big_bang, root, _root_tick = _seed_root_tick(db)
+    parent_ledger = models.EndpointLedgerVersion(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        scope="multiverse",
+        version=1,
+        status="completed",
+        source_type="god_tick_review",
+        created_by="god_agent",
+        summary="Root settled yes.",
+        payload={"source": "test"},
+    )
+    db.add(parent_ledger)
+    db.flush()
+    db.add_all(
+        [
+            models.EndpointLedgerEntry(
+                ledger_version_id=parent_ledger.id,
+                endpoint_key="yes",
+                label="The event occurs by the deadline",
+                description=None,
+                status="realized",
+                probability=None,
+                realization_criteria=["Official evidence confirms yes."],
+                authority_refs=["official_release"],
+                evidence_refs=[{"source": "tick", "tick_index": 0}],
+                negative_evidence_refs=[],
+                blockers=[],
+                status_basis="god_tick_review",
+                contradiction_notes=None,
+                rationale="Parent timeline settled yes.",
+                last_observed_tick_index=0,
+                meta={"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            ),
+            models.EndpointLedgerEntry(
+                ledger_version_id=parent_ledger.id,
+                endpoint_key="no",
+                label="The event does not occur by the deadline",
+                description=None,
+                status="eliminated",
+                probability=None,
+                realization_criteria=["Official evidence confirms yes."],
+                authority_refs=["official_release"],
+                evidence_refs=[{"source": "tick", "tick_index": 0}],
+                negative_evidence_refs=[],
+                blockers=[],
+                status_basis="god_tick_review",
+                contradiction_notes=None,
+                rationale="No is eliminated because yes settled.",
+                last_observed_tick_index=0,
+                meta={"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            ),
+        ]
+    )
+    db.flush()
+
+    child = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="branch after endpoint settlement",
+        idempotency_key="branch:inherits-ledger",
+    )
+
+    child_ledger = latest_endpoint_ledger(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse_id=child.id,
+        scope="multiverse",
+    )
+    assert child_ledger is not None
+    assert child_ledger.parent_ledger_version_id == parent_ledger.id
+    assert child_ledger.source_type == "branch_inherited"
+    child_entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, child_ledger.id)}
+    assert child_entries["yes"].status == "realized"
+    assert child_entries["no"].status == "eliminated"
+    assert child_entries["yes"].meta["inherited_from_multiverse_id"] == str(root.id)
 
 
 def test_http_tick_readers_return_hydrated_shape(db: Session):

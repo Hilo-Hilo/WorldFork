@@ -282,6 +282,98 @@ def _inherit_executable_state(
     )
     _inherit_latest_graph_edges(db, parent=parent, child=child, fork_tick_index=fork_tick_index)
     _inherit_prompt_influences(db, parent=parent, child=child, fork_tick_index=fork_tick_index)
+    _inherit_latest_endpoint_ledger(db, parent=parent, child=child)
+
+
+def _inherit_latest_endpoint_ledger(
+    db: Session,
+    *,
+    parent: models.Multiverse,
+    child: models.Multiverse,
+) -> None:
+    parent_ledger = db.scalar(
+        select(models.EndpointLedgerVersion)
+        .where(
+            models.EndpointLedgerVersion.big_bang_id == parent.big_bang_id,
+            models.EndpointLedgerVersion.multiverse_id == parent.id,
+            models.EndpointLedgerVersion.scope == "multiverse",
+        )
+        .order_by(
+            models.EndpointLedgerVersion.version.desc(),
+            models.EndpointLedgerVersion.created_at.desc(),
+            models.EndpointLedgerVersion.id.desc(),
+        )
+        .limit(1)
+    )
+    if parent_ledger is None:
+        return
+    existing_child_ledger = db.scalar(
+        select(models.EndpointLedgerVersion.id)
+        .where(
+            models.EndpointLedgerVersion.big_bang_id == parent.big_bang_id,
+            models.EndpointLedgerVersion.multiverse_id == child.id,
+            models.EndpointLedgerVersion.scope == "multiverse",
+        )
+        .limit(1)
+    )
+    if existing_child_ledger is not None:
+        return
+
+    child_ledger = models.EndpointLedgerVersion(
+        big_bang_id=parent.big_bang_id,
+        multiverse_id=child.id,
+        scope="multiverse",
+        version=1,
+        status=parent_ledger.status,
+        source_type="branch_inherited",
+        source_tick_snapshot_id=parent_ledger.source_tick_snapshot_id,
+        source_report_version_id=parent_ledger.source_report_version_id,
+        parent_ledger_version_id=parent_ledger.id,
+        created_by="branch_engine",
+        summary=f"Inherited endpoint ledger from {parent.ui_label} at branch creation.",
+        model=parent_ledger.model,
+        llm_call_id=parent_ledger.llm_call_id,
+        payload={
+            "inherited_from_ledger_version_id": str(parent_ledger.id),
+            "inherited_from_multiverse_id": str(parent.id),
+            "source_payload": deepcopy(parent_ledger.payload or {}),
+        },
+    )
+    db.add(child_ledger)
+    db.flush()
+
+    parent_entries = db.scalars(
+        select(models.EndpointLedgerEntry)
+        .where(models.EndpointLedgerEntry.ledger_version_id == parent_ledger.id)
+        .order_by(models.EndpointLedgerEntry.endpoint_key)
+    ).all()
+    for entry in parent_entries:
+        entry_meta = deepcopy(entry.meta or {})
+        db.add(
+            models.EndpointLedgerEntry(
+                ledger_version_id=child_ledger.id,
+                endpoint_key=entry.endpoint_key,
+                label=entry.label,
+                description=entry.description,
+                status=entry.status,
+                probability=entry.probability,
+                realization_criteria=deepcopy(entry.realization_criteria or []),
+                authority_refs=deepcopy(entry.authority_refs or []),
+                evidence_refs=deepcopy(entry.evidence_refs or []),
+                negative_evidence_refs=deepcopy(entry.negative_evidence_refs or []),
+                blockers=deepcopy(entry.blockers or []),
+                status_basis=entry.status_basis,
+                contradiction_notes=entry.contradiction_notes,
+                rationale=entry.rationale,
+                last_observed_tick_index=entry.last_observed_tick_index,
+                meta={
+                    **entry_meta,
+                    "inherited_from_ledger_entry_id": str(entry.id),
+                    "inherited_from_ledger_version_id": str(parent_ledger.id),
+                    "inherited_from_multiverse_id": str(parent.id),
+                },
+            )
+        )
 
 
 def _inherit_queued_events(
