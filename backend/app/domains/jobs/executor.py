@@ -327,7 +327,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             return _mark_job_cancelled(db, job, result=make_progress("cancelled"))
         if interrupt_status:
             return _mark_job_interrupted(db, job, result={**make_progress("interrupted"), "status": "interrupted"})
-        active_multiverses = db.scalars(
+        non_terminal_multiverses = db.scalars(
             select(models.Multiverse)
             .where(
                 models.Multiverse.big_bang_id == big_bang.id,
@@ -335,6 +335,14 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             )
             .order_by(models.Multiverse.created_at.asc())
         ).all()
+        active_multiverses = [
+            multiverse
+            for multiverse in non_terminal_multiverses
+            if _latest_multiverse_tick_index(db, multiverse=multiverse) < max_total_ticks
+        ]
+        if non_terminal_multiverses and not active_multiverses:
+            stopped_reason = "max_total_ticks_reached"
+            break
         if not active_multiverses:
             stopped_reason = "all_multiverses_terminal"
             break
@@ -401,6 +409,15 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     result["report_version_ids"] = report_version_ids
     result["final_report_version_id"] = final_report_version_id
     return result
+
+
+def _latest_multiverse_tick_index(db: Session, *, multiverse: models.Multiverse) -> int:
+    from sqlalchemy import func
+
+    latest_tick = db.scalar(
+        select(func.max(models.TickSnapshot.tick_index)).where(models.TickSnapshot.multiverse_id == multiverse.id)
+    )
+    return int(latest_tick or 0)
 
 
 def _require_uuid_payload(payload: dict, key: str) -> UUID:
