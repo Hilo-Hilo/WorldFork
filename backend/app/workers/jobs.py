@@ -45,6 +45,24 @@ _log = logging.getLogger(__name__)
 def heartbeat(self):  # type: ignore[no-untyped-def]
     """Periodic liveness probe.  Runs every 30 s via Beat."""
     logger.info("heartbeat", task_id=self.request.id)
+    try:
+        from app.db.session import SessionLocal
+        from app.domains.jobs.lifecycle import recover_stale_running_jobs
+        from app.domains.jobs.queues import enqueue_job
+
+        db = SessionLocal()
+        try:
+            summary = recover_stale_running_jobs(db, enqueue=enqueue_job)
+            db.commit()
+            if summary["stale_running_jobs"]:
+                logger.warning("stale_running_jobs_recovered", **summary)
+        except Exception as exc:  # noqa: BLE001 - heartbeat must not crash the worker.
+            db.rollback()
+            logger.exception("stale_running_job_recovery_failed", error=str(exc))
+        finally:
+            db.close()
+    except Exception as exc:  # noqa: BLE001 - preserve heartbeat liveness if recovery imports fail.
+        logger.exception("stale_running_job_recovery_unavailable", error=str(exc))
 
 
 # ---------------------------------------------------------------------------

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from typing import Any, cast
+from typing import Any, Callable, cast
+from uuid import UUID
 
 from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.orm import Session
@@ -116,6 +117,78 @@ def job_should_enqueue_for_retry(job: models.Job, *, now: datetime | None = None
     return updated_at <= running_job_lease_cutoff(now)
 
 
+def stale_running_jobs_filter(now: datetime | None = None):
+    current = now or datetime.now(timezone.utc)
+    lease_cutoff = running_job_lease_cutoff(current)
+    return and_(
+        models.Job.status == "running",
+        or_(
+            models.Job.lease_expires_at <= current,
+            and_(
+                models.Job.lease_expires_at.is_(None),
+                models.Job.updated_at <= lease_cutoff,
+            ),
+        ),
+    )
+
+
+def stale_running_jobs_count(db: Session, *, now: datetime | None = None) -> int:
+    return int(db.scalar(select(func.count(models.Job.id)).where(stale_running_jobs_filter(now))) or 0)
+
+
+def recover_stale_running_jobs(
+    db: Session,
+    *,
+    enqueue: Callable[[UUID], None],
+    now: datetime | None = None,
+    limit: int = 100,
+) -> dict[str, Any]:
+    current = now or datetime.now(timezone.utc)
+    if limit < 1:
+        return {
+            "stale_running_jobs": 0,
+            "requeued": 0,
+            "failed_to_enqueue": 0,
+            "job_ids": [],
+            "failed_job_ids": [],
+        }
+    jobs = list(
+        db.scalars(
+            select(models.Job)
+            .where(stale_running_jobs_filter(current))
+            .order_by(models.Job.updated_at.asc(), models.Job.created_at.asc())
+            .limit(limit)
+        )
+    )
+    requeued: list[str] = []
+    failed: list[str] = []
+    for job in jobs:
+        recovery = {
+            "reason": "expired running job lease",
+            "enqueued_at": current.isoformat(),
+            "lease_expires_at": job.lease_expires_at.isoformat() if job.lease_expires_at else None,
+            "last_heartbeat_at": job.last_heartbeat_at.isoformat() if job.last_heartbeat_at else None,
+        }
+        job.result = {**(job.result or {}), "stale_recovery": recovery}
+        try:
+            enqueue(job.id)
+        except Exception as exc:  # noqa: BLE001 - recovery must report per-job failures.
+            job.error = f"stale running job lease expired; recovery enqueue failed: {exc}"
+            failed.append(str(job.id))
+        else:
+            job.error = "stale running job lease expired; recovery enqueued"
+            requeued.append(str(job.id))
+        db.add(job)
+    db.flush()
+    return {
+        "stale_running_jobs": len(jobs),
+        "requeued": len(requeued),
+        "failed_to_enqueue": len(failed),
+        "job_ids": requeued,
+        "failed_job_ids": failed,
+    }
+
+
 def pause_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
     current = now or datetime.now(timezone.utc)
     if job.status == "queued":
@@ -206,19 +279,23 @@ def requeue_job(db: Session, job: models.Job, *, now: datetime | None = None) ->
     return job
 
 
-def queue_health_snapshot(db: Session) -> dict:
+def queue_health_snapshot(db: Session, *, now: datetime | None = None) -> dict:
     counts_by_status: dict[str, int] = {}
     for status, count in db.execute(
         select(models.Job.status, func.count(models.Job.id)).group_by(models.Job.status)
     ):
         counts_by_status[str(status)] = int(count)
     running = counts_by_status.get("running", 0)
+    stale_running = stale_running_jobs_count(db, now=now)
+    active_running = max(0, running - stale_running)
     return {
         "counts_by_status": counts_by_status,
         "capacity": {
             "max_concurrent_jobs": DEFAULT_MAX_CONCURRENT_JOBS,
             "running_jobs": running,
-            "available_slots": max(0, DEFAULT_MAX_CONCURRENT_JOBS - running),
+            "stale_running_jobs": stale_running,
+            "active_running_jobs": active_running,
+            "available_slots": max(0, DEFAULT_MAX_CONCURRENT_JOBS - active_running),
         },
     }
 

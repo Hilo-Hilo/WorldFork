@@ -23,6 +23,7 @@ from app.domains.jobs.executor import (
     claim_job_for_execution,
     execute_job,
     job_should_enqueue_for_retry,
+    recover_stale_running_jobs,
     validate_job_payload,
 )
 
@@ -480,6 +481,122 @@ def test_running_job_retry_respects_live_lease_even_with_stale_updated_at():
 
     assert job_should_enqueue_for_retry(live, now=now) is False
     assert job_should_enqueue_for_retry(expired, now=now) is True
+
+
+def test_recover_stale_running_jobs_enqueues_only_expired_leases():
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        now = datetime.now(timezone.utc)
+        expired = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=uuid4(),
+            payload={},
+            result={},
+            idempotency_key="expired-for-recovery",
+            lease_expires_at=now - timedelta(seconds=5),
+            last_heartbeat_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        fresh = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=uuid4(),
+            payload={},
+            result={},
+            idempotency_key="fresh-running",
+            lease_expires_at=now + timedelta(seconds=JOB_LEASE_SECONDS),
+            last_heartbeat_at=now,
+        )
+        legacy_expired = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=uuid4(),
+            payload={},
+            result={},
+            idempotency_key="legacy-expired-for-recovery",
+            lease_expires_at=None,
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        db.add_all([expired, fresh, legacy_expired])
+        db.commit()
+
+        enqueued: list[str] = []
+        summary = recover_stale_running_jobs(
+            db,
+            enqueue=lambda job_id: enqueued.append(str(job_id)),
+            now=now,
+        )
+
+        assert summary["stale_running_jobs"] == 2
+        assert summary["requeued"] == 2
+        assert summary["failed_to_enqueue"] == 0
+        assert set(enqueued) == {str(expired.id), str(legacy_expired.id)}
+        assert expired.status == "running"
+        assert legacy_expired.status == "running"
+        assert fresh.error is None
+        assert expired.error == "stale running job lease expired; recovery enqueued"
+        assert legacy_expired.result["stale_recovery"]["reason"] == "expired running job lease"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
+
+
+def test_queue_health_excludes_stale_running_jobs_from_active_capacity():
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        now = datetime.now(timezone.utc)
+        db.add_all(
+            [
+                models.Job(
+                    job_type="run_big_bang_until_complete",
+                    queue_name="p1",
+                    status="running",
+                    payload={},
+                    result={},
+                    idempotency_key="stale-capacity",
+                    lease_expires_at=now - timedelta(seconds=1),
+                ),
+                models.Job(
+                    job_type="run_big_bang_until_complete",
+                    queue_name="p1",
+                    status="running",
+                    payload={},
+                    result={},
+                    idempotency_key="live-capacity",
+                    lease_expires_at=now + timedelta(minutes=10),
+                ),
+            ]
+        )
+        db.commit()
+
+        health = jobs_executor.queue_health_snapshot(db, now=now)
+
+        assert health["capacity"]["running_jobs"] == 2
+        assert health["capacity"]["stale_running_jobs"] == 1
+        assert health["capacity"]["active_running_jobs"] == 1
+        assert health["capacity"]["available_slots"] == jobs_executor.DEFAULT_MAX_CONCURRENT_JOBS - 1
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
 
 
 class _ExecutionDb:
