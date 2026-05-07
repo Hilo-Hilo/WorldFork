@@ -1,5 +1,3 @@
-from sqlalchemy import create_engine
-
 from app.core.config import Settings
 from app.db.session import create_db_engine
 

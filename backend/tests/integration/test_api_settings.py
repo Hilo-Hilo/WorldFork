@@ -394,11 +394,13 @@ async def test_get_model_routing_empty(client):
     effective = {entry["route"]: entry for entry in data["effective_entries"]}
     assert effective["cohort_agent"]["preferred_provider"] == "openrouter"
     assert effective["cohort_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
+    assert effective["hero_agent"]["preferred_provider"] == "openrouter"
     assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
+    assert effective["event_summary"]["preferred_provider"] == "openrouter"
+    assert effective["event_summary"]["preferred_model"] == settings.event_summary_model
     expected_route_models = {
         "initializer_agent": settings.initializer_agent_model,
         "god_agent": settings.god_agent_model,
-        "event_summary": settings.event_summary_model,
         "endpoint_ledger": settings.god_agent_model,
         "report_agent": settings.report_agent_model,
     }

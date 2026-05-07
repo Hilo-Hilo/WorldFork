@@ -53,7 +53,7 @@ class Settings(BaseSettings):
     god_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
     cohort_agent_model: str = OPENROUTER_DEFAULT_MODEL
     hero_agent_model: str = OPENROUTER_DEFAULT_MODEL
-    event_summary_model: str = OPENAI_CODEX_DEFAULT_MODEL
+    event_summary_model: str = OPENROUTER_DEFAULT_MODEL
     report_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
     app_name: str = "WorldFork Backend"
     api_prefix: str = "/api"

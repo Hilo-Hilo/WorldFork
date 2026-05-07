@@ -324,7 +324,11 @@ def test_seeded_routes_derive_from_settings_provider_defaults() -> None:
     for row in _ROUTING_DEFAULTS:
         routed = _routing_model_defaults(row)
         expected_model = expected_model_by_job_type.get(row["job_type"], OPENROUTER_MODEL)
-        expected_provider = "openai-codex" if row["job_type"] in expected_model_by_job_type else "openrouter"
+        expected_provider = (
+            "openai-codex"
+            if expected_model == settings.openai_codex_default_model
+            else settings.default_llm_provider
+        )
         assert routed["preferred_provider"] == expected_provider
         assert routed["preferred_model"] == expected_model
         assert routed["fallback_provider"] == expected_provider

@@ -76,14 +76,14 @@ worldfork settings llm
 Use `worldfork setup` as the provider-choice map. Explain the tradeoff:
 
 - OpenRouter: cheap/fast high-volume cohort, hero, action, and simulation routes.
-- Strong governance/report route: stronger initialization, God review, endpoint-ledger, event-summary, and report routes. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi/Claude models.
+- Strong governance/report route: stronger initialization, God review, endpoint-ledger, and report routes. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi/Claude models.
 - Local OpenAI-compatible runtimes: lower cost, but only use after JSON-quality testing.
 
 Recommended Atlas policy:
 
 ```text
-openrouter/deepseek/deepseek-v4-flash for cohort/hero/action work
-strong governance/report model route, such as openai-codex/gpt-5.4 or OpenRouter-hosted Kimi/Claude, for initializer/God/endpoint-ledger/event-summary/report work
+openrouter/deepseek/deepseek-v4-flash for cohort/hero/action/event-summary work
+strong governance/report model route, such as openai-codex/gpt-5.4 or OpenRouter-hosted Kimi/Claude, for initializer/God/endpoint-ledger/report work
 ```
 
 Inspect before changes:
