@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 
 settings = get_settings()
 
@@ -17,21 +17,19 @@ def _enable_sqlite_foreign_keys(dbapi_connection, _connection_record) -> None:
         cursor.close()
 
 
-def create_db_engine(database_url: str) -> Engine:
-    # Pool needs to comfortably exceed `max_parallel_cohort_decisions` (16 by
-    # default) since the per-tick cohort/hero fan-out opens one Session per
-    # worker thread. Default 5+10 was hitting QueuePool timeout mid-run.
-    is_sqlite = database_url.startswith("sqlite")
-    kwargs: dict = {"pool_pre_ping": True}
-    if not is_sqlite:
-        kwargs.update(pool_size=20, max_overflow=20, pool_recycle=1800)
-    db_engine = create_engine(database_url, **kwargs)
+def create_db_engine(database_url: str, *, settings: Settings | None = None) -> Engine:
+    active_settings = settings or get_settings()
+    db_engine = create_engine(
+        database_url,
+        pool_pre_ping=True,
+        **active_settings.sync_database_pool_kwargs(database_url),
+    )
     if db_engine.url.get_backend_name() == "sqlite":
         event.listen(db_engine, "connect", _enable_sqlite_foreign_keys)
     return db_engine
 
 
-engine = create_db_engine(settings.database_url_sync)
+engine = create_db_engine(settings.database_url_sync, settings=settings)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False, expire_on_commit=False)
 
 
