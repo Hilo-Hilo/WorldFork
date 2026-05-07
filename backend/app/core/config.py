@@ -45,6 +45,8 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
+    celery_task_time_limit: int = Field(default=21600, ge=60, le=86_400)
+    celery_task_soft_time_limit: int = Field(default=20100, ge=60, le=86_400)
     default_model: str = OPENROUTER_DEFAULT_MODEL
     fallback_model: str = OPENROUTER_DEFAULT_MODEL
     initializer_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
