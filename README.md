@@ -176,6 +176,17 @@ WorldFork keeps asking that question across forks.
 
 ## Core Concepts
 
+### Scenario Questions And Reports
+
+WorldFork separates the scenario source from the question the report must
+answer. The scenario source can be a long Markdown dossier, while the dedicated
+report question is stored in `scenario_input.primary_question` with optional
+`resolution_criteria` and `supporting_questions`.
+
+Reports use that question context when extracting prediction predicates,
+resolving timeline evidence, and writing the final answer. This keeps a large
+scenario file from accidentally becoming the forecast contract.
+
 ### 1) From Big Bang to Multiverse Tree
 
 <p align="center">

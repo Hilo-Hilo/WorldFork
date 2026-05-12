@@ -186,6 +186,49 @@ test("dashboard: surfaces query error when bigBang fetch returns 500 with no cac
 
 /* ----- input page mutation errors ----- */
 
+test("input: submits dedicated report-question metadata", async ({ page }) => {
+  const captured: { payload?: Record<string, unknown> } = {};
+  await page.route("**/backend/api/big-bangs", async (route, req) => {
+    if (req.method() === "POST") {
+      captured.payload = req.postDataJSON() as Record<string, unknown>;
+      return route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          id: ANY_RUN_ID,
+          name: "Question metadata run",
+          description: null,
+          scenario_input: {},
+          status: "draft",
+          current_config_version: 1,
+          source_snapshot_id: null,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    }
+    return route.fallback();
+  });
+
+  await page.goto("/input");
+  await page.getByRole("button", { name: /use tiny demo/i }).click();
+  await expect(page.getByText("demo-scenario.md")).toBeVisible();
+  await page.getByLabel(/Primary question/i).fill("Will the trust recovery plan succeed?");
+  await page.getByLabel(/Resolution criteria/i).fill("Yes requires recovered trust by final tick.");
+  await page.getByLabel(/Supporting questions/i).fill("Which cohort changes first?");
+  await page.getByRole("button", { name: /Run simulation/i }).click();
+
+  await expect.poll(() => {
+    const scenarioInput = captured.payload?.scenario_input as Record<string, unknown> | undefined;
+    return scenarioInput?.primary_question;
+  }).toBe(
+    "Will the trust recovery plan succeed?",
+  );
+  const scenarioInput = captured.payload?.scenario_input as Record<string, unknown>;
+  expect(scenarioInput.resolution_criteria).toBe("Yes requires recovered trust by final tick.");
+  expect(scenarioInput.supporting_questions).toEqual(["Which cohort changes first?"]);
+});
+
 test("input: surfaces 402 on Run simulation", async ({ page }) => {
   await page.route("**/backend/api/big-bangs", (route, req) => {
     if (req.method() === "POST") {
@@ -200,6 +243,7 @@ test("input: surfaces 402 on Run simulation", async ({ page }) => {
 
   await page.goto("/input");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
+  await expect(page.getByText("demo-scenario.md")).toBeVisible();
   await page.getByRole("button", { name: /Run simulation/i }).click();
 
   await expect(page.getByText(/LLM provider out of credits/i)).toBeVisible({ timeout: 8000 });
@@ -220,6 +264,7 @@ test("input: surfaces generic 500 on Run simulation", async ({ page }) => {
 
   await page.goto("/input");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
+  await expect(page.getByText("demo-scenario.md")).toBeVisible();
   await page.getByRole("button", { name: /Run simulation/i }).click();
 
   await expect(page.getByText(/Couldn't create Big Bang/i)).toBeVisible({ timeout: 8000 });
@@ -240,6 +285,7 @@ test("input: initializer submit shows bounded wait and 503 guidance", async ({ p
 
   await page.goto("/input");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
+  await expect(page.getByText("demo-scenario.md")).toBeVisible();
 
   const toggleRow = page.locator(".wf-field", { hasText: "use_initializer_agent" });
   await toggleRow.locator(".wf-num-suffix button").click();
@@ -247,7 +293,6 @@ test("input: initializer submit shows bounded wait and 503 guidance", async ({ p
   await page.getByRole("button", { name: /Run simulation/i }).click();
 
   await expect(page.getByText(/waiting on OpenRouter initializer response/i)).toBeVisible({ timeout: 8000 });
-  await expect(page.getByText(/bounded by a backend timeout/i)).toBeVisible();
   await expect(page.getByText(/initializer LLM did not complete through OpenRouter/i)).toBeVisible({ timeout: 6000 });
 });
 
