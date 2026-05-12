@@ -42,6 +42,51 @@ def db() -> Session:
             models.Base.metadata.drop_all(engine)
 
 
+def test_report_question_context_prefers_dedicated_question_metadata(db: Session):
+    big_bang = models.BigBang(
+        name="Question metadata",
+        description=None,
+        scenario_input={
+            "scenario_text": "Long dossier context that should not become the report question.",
+            "primary_question": "Will the city regain trust before the final tick?",
+            "resolution_criteria": "Yes requires trust recovery to dominate retained path mass.",
+            "supporting_questions": [
+                "Which response path restores trust fastest?",
+                "Which cohorts remain mobilized?",
+            ],
+        },
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+
+    context = report_engine._scenario_question_context(db, big_bang_id=big_bang.id)
+
+    assert context["scenario_question"] == "Will the city regain trust before the final tick?"
+    assert context["scenario_resolution_criteria"] == (
+        "Yes requires trust recovery to dominate retained path mass."
+    )
+    assert context["scenario_supporting_questions"] == [
+        "Which response path restores trust fastest?",
+        "Which cohorts remain mobilized?",
+    ]
+
+
+def test_prediction_extractor_prompt_includes_resolution_context():
+    text = report_engine._prediction_question_text(
+        {
+            "scenario_question": "Will the city regain trust before the final tick?",
+            "scenario_resolution_criteria": "Yes requires trust recovery to dominate retained path mass.",
+            "scenario_supporting_questions": ["Which cohort changes first?"],
+        }
+    )
+
+    assert "Primary question: Will the city regain trust before the final tick?" in text
+    assert "Resolution criteria: Yes requires trust recovery" in text
+    assert "- Which cohort changes first?" in text
+
+
 def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Report consistency",

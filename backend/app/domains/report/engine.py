@@ -111,7 +111,7 @@ def generate_multiverse_report(
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
     if big_bang is None:
         raise ValueError("big bang not found")
-    content["scenario_question"] = _scenario_question_text(db, big_bang_id=big_bang.id)
+    _attach_scenario_question_content(db, content, big_bang_id=big_bang.id)
     endpoint_ledger = evaluate_endpoint_ledger(
         db,
         big_bang=big_bang,
@@ -1454,7 +1454,7 @@ def _resolve_predictions_into_content(
     """Lever 3: extract predicates from the scenario, resolve them per timeline,
     and roll up into content. Best-effort: any failure leaves content untouched
     and the report agent falls back to inference."""
-    scenario_text = content.get("scenario_question")
+    scenario_text = _prediction_question_text(content)
     if not scenario_text:
         return
     predicates = _extract_prediction_predicates(
@@ -1492,7 +1492,69 @@ def _resolve_predictions_into_content(
     content["predicate_resolutions_per_timeline"] = per_timeline
 
 
+def _attach_scenario_question_content(db: Session, content: dict[str, Any], *, big_bang_id) -> None:
+    content.update(_scenario_question_context(db, big_bang_id=big_bang_id))
+
+
+def _scenario_question_context(db: Session, *, big_bang_id) -> dict[str, Any]:
+    big_bang = db.get(models.BigBang, big_bang_id)
+    scenario_input = big_bang.scenario_input if big_bang is not None else {}
+    scenario_input = scenario_input if isinstance(scenario_input, dict) else {}
+
+    primary_question = _first_text_value(
+        scenario_input,
+        (
+            "primary_question",
+            "forecast_question",
+            "question",
+            "report_question",
+            "scenario_question",
+        ),
+    )
+    resolution_criteria = _first_text_value(
+        scenario_input,
+        (
+            "resolution_criteria",
+            "resolution",
+            "answer_criteria",
+            "yes_no_criteria",
+        ),
+    )
+    supporting_questions = _question_list_value(
+        scenario_input,
+        (
+            "supporting_questions",
+            "reporting_questions",
+            "expected_reports_questions",
+            "important_questions",
+        ),
+    )
+    if primary_question:
+        supporting_questions = [
+            item for item in supporting_questions if item != primary_question
+        ]
+        return {
+            "scenario_question": primary_question,
+            "scenario_resolution_criteria": resolution_criteria,
+            "scenario_supporting_questions": supporting_questions,
+        }
+
+    return {
+        "scenario_question": _scenario_question_text_fallback(
+            db, big_bang_id=big_bang_id, big_bang=big_bang
+        ),
+        "scenario_resolution_criteria": resolution_criteria,
+        "scenario_supporting_questions": supporting_questions,
+    }
+
+
 def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
+    return _scenario_question_context(db, big_bang_id=big_bang_id).get("scenario_question")
+
+
+def _scenario_question_text_fallback(
+    db: Session, *, big_bang_id, big_bang: models.BigBang | None = None
+) -> str | None:
     """Return the original scenario_text for a big bang (best-effort).
 
     Two sources to try in order:
@@ -1524,7 +1586,8 @@ def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
 
     # Fallback: read from the big_bang.scenario_input dict, which always
     # carries the original text regardless of initializer-agent choice.
-    big_bang = db.get(models.BigBang, big_bang_id)
+    if big_bang is None:
+        big_bang = db.get(models.BigBang, big_bang_id)
     if big_bang is None:
         return None
     scenario_input = big_bang.scenario_input or {}
@@ -1537,6 +1600,55 @@ def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
             if stripped:
                 return stripped
     return None
+
+
+def _first_text_value(source: dict[str, Any], keys: tuple[str, ...]) -> str | None:
+    for key in keys:
+        candidate = source.get(key)
+        if isinstance(candidate, str):
+            stripped = candidate.strip()
+            if stripped:
+                return stripped
+    return None
+
+
+def _question_list_value(source: dict[str, Any], keys: tuple[str, ...]) -> list[str]:
+    questions: list[str] = []
+    for key in keys:
+        candidate = source.get(key)
+        values = candidate if isinstance(candidate, list) else [candidate]
+        for value in values:
+            text: str | None = None
+            if isinstance(value, str):
+                text = value.strip()
+            elif isinstance(value, dict):
+                text = _first_text_value(value, ("question", "prompt", "text", "description"))
+            if text and text not in questions:
+                questions.append(text)
+    return questions
+
+
+def _prediction_question_text(content: dict[str, Any]) -> str | None:
+    question = _string_or_none(content.get("scenario_question"))
+    if not question:
+        return None
+    parts = [f"Primary question: {question}"]
+    criteria = _string_or_none(content.get("scenario_resolution_criteria"))
+    if criteria:
+        parts.append(f"Resolution criteria: {criteria}")
+    supporting = content.get("scenario_supporting_questions")
+    if isinstance(supporting, list):
+        cleaned = [item.strip() for item in supporting if isinstance(item, str) and item.strip()]
+        if cleaned:
+            parts.append("Supporting questions:\n" + "\n".join(f"- {item}" for item in cleaned[:8]))
+    return "\n\n".join(parts)
+
+
+def _string_or_none(value: Any) -> str | None:
+    if not isinstance(value, str):
+        return None
+    stripped = value.strip()
+    return stripped or None
 
 
 def _build_final_report_content(
@@ -1570,13 +1682,13 @@ def _build_final_report_content(
         comparison=comparison,
         lineage_edges=lineage_edges,
     )
-    scenario_question = _scenario_question_text(db, big_bang_id=big_bang.id)
+    scenario_question_context = _scenario_question_context(db, big_bang_id=big_bang.id)
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report_type": "final_big_bang",
         "title": title,
         "summary": summary or f"Structured final report across {len(multiverses)} multiverse timelines.",
-        "scenario_question": scenario_question,
+        **scenario_question_context,
         "source": {
             "big_bang_id": str(big_bang.id),
             "big_bang_status": big_bang.status,
@@ -2187,6 +2299,13 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
             "title": content.get("title"),
             "summary": content.get("summary"),
             "scenario_question": scenario_question,
+            "scenario_resolution_criteria": _truncate_text(
+                content.get("scenario_resolution_criteria") or "", 2000
+            )
+            or None,
+            "scenario_supporting_questions": _compact_report_value(
+                content.get("scenario_supporting_questions") or [], max_items=8
+            ),
             "prediction_predicates": content.get("prediction_predicates") or [],
             "predicate_resolutions": content.get("predicate_resolutions") or [],
             "source": _compact_source(content.get("source") or {}),
@@ -2230,6 +2349,13 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         "title": content.get("title"),
         "summary": content.get("summary"),
         "scenario_question": scenario_question,
+        "scenario_resolution_criteria": _truncate_text(
+            content.get("scenario_resolution_criteria") or "", 2000
+        )
+        or None,
+        "scenario_supporting_questions": _compact_report_value(
+            content.get("scenario_supporting_questions") or [], max_items=8
+        ),
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
@@ -2744,7 +2870,8 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
             )
         opening = (
             "You are the WorldFork prediction report agent. The user asked one or more specific "
-            "questions (scenario_question); your primary job is to answer them. "
+            "questions (scenario_question); your primary job is to answer them using any supplied "
+            "scenario_resolution_criteria and scenario_supporting_questions. "
             + scope_note
         )
     else:

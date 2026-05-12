@@ -108,6 +108,7 @@ test("input: all sections render and submit is disabled with no scenario", async
   await page.goto("/input");
   await expect(page.getByRole("heading", { name: /configure a scenario run/i })).toBeVisible();
   await expect(page.getByText("Scenario source")).toBeVisible();
+  await expect(page.getByText("Question to answer")).toBeVisible();
   await expect(page.getByText("Initializer prompt")).toBeVisible();
   await expect(page.getByText("Simulation config")).toBeVisible();
   await expect(page.getByText("use_initializer_agent")).toBeVisible();
@@ -123,6 +124,7 @@ test("input: tiny demo loads scenario and enables CTA", async ({ page }) => {
   await page.goto("/input");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
   await expect(page.getByText("demo-scenario.md")).toBeVisible();
+  await expect(page.getByLabel(/Primary question/i)).toHaveValue(/regain public trust/i);
   await expect(page.getByRole("button", { name: /run simulation/i })).toBeEnabled();
   // Char count meta updates
   await expect(page.getByText(/scenario.*chars/)).toBeVisible();
@@ -136,6 +138,7 @@ test("input: paste tab accepts text and enables CTA", async ({ page }) => {
   const ta = page.locator("textarea.wf-paste");
   await expect(ta).toBeVisible();
   await ta.fill("# Test\n\nA tiny pasted scenario.");
+  await page.getByLabel(/Primary question/i).fill("Will the test scenario resolve before the final tick?");
   await expect(page.getByRole("button", { name: /run simulation/i })).toBeEnabled();
   assertNoErrors(errs);
 });
@@ -150,7 +153,7 @@ test("input: initializer toggle flips and prompt textarea enables", async ({ pag
   const toggle = toggleRow.locator(".wf-num-suffix button");
   await expect(toggle).toHaveText("off");
 
-  const promptTa = page.locator("textarea.wf-textarea");
+  const promptTa = page.getByPlaceholder(/Bias the initializer/i);
   await expect(promptTa).toBeDisabled();
 
   await toggle.click();
