@@ -45,6 +45,21 @@ worldfork ledgers path-mass <big-bang-id>
 
 The Markdown view can include the outcome summary, outcome distribution, multiverse comparison, report inventory, and evidence appendix when those sections are present in the structured content.
 
+## Question Context
+
+Reports prefer dedicated question metadata over raw scenario text. The frontend
+and API can store:
+
+- `scenario_input.primary_question`
+- `scenario_input.resolution_criteria`
+- `scenario_input.supporting_questions`
+
+The primary question becomes the forecast contract the report answers directly.
+Resolution criteria define what should count as yes, no, or unresolved, and
+supporting questions guide the report sections and evidence review. If those
+fields are absent, reporting falls back to the original scenario text for
+legacy runs.
+
 ## Multiverse Reports
 
 Generate a report for one terminal multiverse:
