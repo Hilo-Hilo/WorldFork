@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
-from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_report
+from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_reports_parallel
 from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, UNFINISHED_TICK_STATUSES, run_next_tick
 
 
@@ -97,10 +97,7 @@ def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_to
     if unfinished_ticks or non_terminal:
         raise ValueError("big bang has active or unfinished timelines")
 
-    report_versions = []
-    for multiverse in multiverses:
-        if multiverse.report_status in {"ready", "not_ready"}:
-            report_versions.append(generate_multiverse_report(db, multiverse=multiverse))
+    report_versions = generate_multiverse_reports_parallel(db, multiverses=list(multiverses))
     big_bang.status = "completed"
     final_report = generate_final_big_bang_report(db, big_bang=big_bang)
     return {

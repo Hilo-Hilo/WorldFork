@@ -41,9 +41,15 @@ worldfork reports pack <big-bang-id> --mode summary
 worldfork reports adjudicate <big-bang-id>
 worldfork reports adjudication <big-bang-id>
 worldfork ledgers path-mass <big-bang-id>
+worldfork query GET /api/big-bangs/<big-bang-id>/report-status
 ```
 
 The Markdown view can include the outcome summary, outcome distribution, multiverse comparison, report inventory, and evidence appendix when those sections are present in the structured content.
+
+Use `report-status` while generation is running. It reports whether the run is
+still simulating, generating single-universe reports, resolving predicates, or
+generating the final multiverse report, plus the active job/LLM call when one is
+available.
 
 ## Question Context
 

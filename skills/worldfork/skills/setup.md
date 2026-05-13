@@ -46,7 +46,7 @@ worldfork --help
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`. Configure a strong governance/report route after the CLI is installed. For OpenAI Codex OAuth:
+Set `OPENROUTER_API_KEY` in `.env`. The default live route policy uses OpenRouter for both fast and strong lanes. If you intentionally route strong calls to OpenAI Codex instead, authenticate it after the CLI is installed:
 
 ```bash
 worldfork settings openai-codex-login
@@ -75,15 +75,16 @@ worldfork settings llm
 
 Use `worldfork setup` as the provider-choice map. Explain the tradeoff:
 
-- OpenRouter: cheap/fast high-volume cohort, hero, action, and simulation routes.
-- Strong governance/report route: stronger initialization, God review, endpoint-ledger, event-summary, and report routes. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi/Claude models.
+- OpenRouter Flash lane: cheap/fast high-volume cohort, hero, action, event-summary, predicate, and single-report routes.
+- OpenRouter Pro lane: stronger initialization, God review, endpoint-ledger, report fallback, and final-report routes.
 - Local OpenAI-compatible runtimes: lower cost, but only use after JSON-quality testing.
 
 Recommended Atlas policy:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash for cohort/hero/action work
-strong governance/report model route, such as openai-codex/gpt-5.4 or OpenRouter-hosted Kimi/Claude, for initializer/God/endpoint-ledger/event-summary/report work
+openrouter/deepseek/deepseek-v4-flash for event-summary, predicate, and single-report work
+openrouter/deepseek/deepseek-v4-pro for initializer/God/endpoint-ledger/report-fallback/final-report work
 ```
 
 Inspect before changes:

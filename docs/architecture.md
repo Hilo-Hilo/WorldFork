@@ -11,8 +11,8 @@ WorldFork is backend-first and CLI-first. Conceptually, it is a Monte Carlo tree
 | Postgres | Durable Big Bang, multiverse, tick, job, report, and log state |
 | Redis | Broker, result backend, and runtime coordination |
 | LangGraph | Checkpointed tick graph execution |
-| OpenRouter | LLM provider surface for low-cost cohort/hero/action routes and supported Kimi/Claude governance/report routes |
-| OpenAI Codex | Supported strong governance/report route for initializer, God-review, endpoint-ledger, and report work |
+| OpenRouter | LLM provider surface for the default DeepSeek Flash fast lane and DeepSeek Pro governance/report lane |
+| OpenAI Codex | Optional alternate strong-model route when explicitly configured |
 | Artifact store | Non-regenerable evidence and audit payload files |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
@@ -104,6 +104,10 @@ Branches are constrained by branch policy:
 - idle termination behavior
 
 Child multiverses inherit parent ticks through lineage references and receive their own executable state after the fork point.
+When a tick's `branch_score` crosses the configured threshold, backend policy
+creates a `create_branch` tool call if the God-agent did not supply one. A
+plain `continue_timeline` response is not allowed to veto threshold-crossing
+branch pressure.
 
 ## Jobs And Control
 

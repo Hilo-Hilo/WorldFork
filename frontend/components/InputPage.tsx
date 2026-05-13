@@ -450,6 +450,7 @@ function ErrorState({
 
 export default function InputPage() {
   const router = useRouter();
+  const [runName, setRunName] = useState(() => `Scenario ${new Date().toLocaleString()}`);
   const [scenario, setScenario] = useState<Scenario>(null);
   const [primaryQuestion, setPrimaryQuestion] = useState("");
   const [resolutionCriteria, setResolutionCriteria] = useState("");
@@ -462,6 +463,7 @@ export default function InputPage() {
   const [useInitializer, setUseInitializer] = useState(false);
 
   const scenarioText = scenario?.kind === "file" ? scenario.text : scenario?.kind === "paste" ? scenario.text : "";
+  const trimmedRunName = runName.trim();
   const trimmedPrimaryQuestion = primaryQuestion.trim();
   const trimmedResolutionCriteria = resolutionCriteria.trim();
   const supportingQuestionList = supportingQuestions
@@ -478,6 +480,7 @@ export default function InputPage() {
       preview: TINY_SAMPLE.slice(0, 600),
       text: TINY_SAMPLE,
     });
+    setRunName((value) => value.trim() ? value : "City trust crisis demo");
     setPrimaryQuestion((value) => value || TINY_SAMPLE_QUESTION);
     setResolutionCriteria((value) => value || TINY_SAMPLE_RESOLUTION);
     setSupportingQuestions((value) => value || TINY_SAMPLE_SUPPORTING);
@@ -486,7 +489,7 @@ export default function InputPage() {
   const submit = useMutation({
     mutationFn: () =>
       api.createBigBang({
-        name: `Scenario ${new Date().toLocaleString()}`,
+        name: trimmedRunName,
         scenario_text: scenarioText,
         scenario_input: {
           primary_question: trimmedPrimaryQuestion,
@@ -508,7 +511,7 @@ export default function InputPage() {
     onSuccess: (bb) => router.push(`/dashboard?run=${bb.id}`),
   });
 
-  const canSubmit = !!scenarioText && !!trimmedPrimaryQuestion && !submit.isPending;
+  const canSubmit = !!trimmedRunName && !!scenarioText && !!trimmedPrimaryQuestion && !submit.isPending;
 
   const apiErr = submit.error instanceof ApiError ? submit.error : null;
   const errCode = apiErr ? `HTTP_${apiErr.status}` : "ERR_UNKNOWN";
@@ -557,20 +560,41 @@ export default function InputPage() {
           short demo run — flip the initializer toggle and bump max_ticks once you trust the loop.
         </p>
 
-        {/* 01 Scenario */}
+        {/* 01 Name */}
         <section className="wf-section">
           <div className="wf-section-head">
             <span className="wf-section-num">01</span>
+            <span className="wf-section-title">Simulation name</span>
+            <span className="wf-section-hint">required</span>
+          </div>
+          <label className="wf-question-field">
+            <span className="wf-question-label">Run name</span>
+            <input
+              className="wf-input"
+              aria-label="Simulation name"
+              value={runName}
+              onChange={(e) => setRunName(e.target.value)}
+              maxLength={240}
+              placeholder="e.g. City trust crisis, May 2026"
+              required
+            />
+          </label>
+        </section>
+
+        {/* 02 Scenario */}
+        <section className="wf-section">
+          <div className="wf-section-head">
+            <span className="wf-section-num">02</span>
             <span className="wf-section-title">Scenario source</span>
             <span className="wf-section-hint">required</span>
           </div>
           <DropZone value={scenario} onChange={setScenario} onUseTinyDemo={useTinyDemo} />
         </section>
 
-        {/* 02 Question */}
+        {/* 03 Question */}
         <section className="wf-section">
           <div className="wf-section-head">
-            <span className="wf-section-num">02</span>
+            <span className="wf-section-num">03</span>
             <span className="wf-section-title">Question to answer</span>
             <span className="wf-section-hint">required for reports</span>
           </div>
@@ -609,10 +633,10 @@ export default function InputPage() {
           </div>
         </section>
 
-        {/* 03 Initializer prompt */}
+        {/* 04 Initializer prompt */}
         <section className="wf-section">
           <div className="wf-section-head">
-            <span className="wf-section-num">03</span>
+            <span className="wf-section-num">04</span>
             <span className="wf-section-title">Initializer prompt</span>
             <span className="wf-section-hint">optional &nbsp;·&nbsp; only used if initializer agent is on</span>
           </div>
@@ -626,10 +650,10 @@ export default function InputPage() {
           />
         </section>
 
-        {/* 04 Simulation config */}
+        {/* 05 Simulation config */}
         <section className="wf-section">
           <div className="wf-section-head">
-            <span className="wf-section-num">04</span>
+            <span className="wf-section-num">05</span>
             <span className="wf-section-title">Simulation config</span>
             <span className="wf-section-hint">cheap defaults</span>
           </div>
@@ -731,7 +755,7 @@ export default function InputPage() {
         {/* state-specific surfaces */}
         {submit.isPending && (
           <LoadingState
-            scenarioName={scenario?.kind === "file" ? scenario.name : "scenario"}
+            scenarioName={trimmedRunName || (scenario?.kind === "file" ? scenario.name : "scenario")}
             useInitializer={useInitializer}
           />
         )}
@@ -750,6 +774,7 @@ export default function InputPage() {
         {/* CTA */}
         <div className="wf-actions">
           <div className="wf-actions-meta">
+            <span>name&nbsp;<b style={{ color: trimmedRunName ? "var(--fg-2)" : "var(--warn)" }}>{trimmedRunName ? "set" : "required"}</b></span>
             <span>scenario&nbsp;<b style={{ color: "var(--fg-2)" }}>{scenarioText ? `${scenarioText.length.toLocaleString()} chars` : "—"}</b></span>
             <span>question&nbsp;<b style={{ color: trimmedPrimaryQuestion ? "var(--fg-2)" : "var(--warn)" }}>{trimmedPrimaryQuestion ? "set" : "required"}</b></span>
             <span>init LLM&nbsp;<b style={{ color: useInitializer ? "var(--warn)" : "var(--fg-2)" }}>{useInitializer ? "on" : "off"}</b></span>

@@ -55,8 +55,8 @@ ATLAS_GOVERNANCE_SUBSTITUTES = (
     },
     {
         "provider": "openrouter",
-        "model": "moonshotai/kimi-k2",
-        "note": "OpenRouter-hosted Kimi option for governance and report routes.",
+        "model": "deepseek/deepseek-v4-pro",
+        "note": "OpenRouter-hosted DeepSeek V4 Pro option for governance and report routes.",
     },
     {
         "provider": "openrouter-claude",
@@ -116,7 +116,7 @@ SETUP_PROVIDER_OPTIONS = (
         "supported": True,
         "best_for": list(ATLAS_GOVERNANCE_ROUTES),
         "setup": "Run worldfork settings openai-codex-login if the user chooses Codex; use it as one strong-provider option for initialization, God review, endpoint-ledger evaluation, and reports.",
-        "atlas_recommendation": "Valid high-leverage governance/report option during Atlas; OpenRouter-hosted Kimi/Claude and OpenAI-compatible providers can substitute.",
+        "atlas_recommendation": "Valid high-leverage governance/report option during Atlas; OpenRouter-hosted DeepSeek Pro/Claude and OpenAI-compatible providers can substitute.",
     },
     {
         "provider": "openai",
@@ -1914,7 +1914,7 @@ def _setup_payload(
             "worldfork settings llm, unless explicit expected pairs are supplied."
         ),
         "governance_substitute_summary": (
-            "OpenRouter-hosted Claude/OpenAI-compatible substitutes, including Kimi, are valid "
+            "OpenRouter-hosted DeepSeek Pro/Claude/OpenAI-compatible substitutes are valid "
             "governance/report choices when routing points there."
         ),
         "patch_command": "worldfork setup --include-patch",
