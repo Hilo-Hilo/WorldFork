@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import warnings
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
@@ -193,6 +194,34 @@ def test_report_status_tracks_single_and_final_report_progress(db: Session):
 
     assert status["stage"] == "ready"
     assert status["final_report"]["has_version"] is True
+
+    rerun_started = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    rerun_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="deepseek/deepseek-v4-pro",
+        purpose=f"report_agent_final_big_bang_{big_bang.id}_2_standard_attempt_1",
+        status="running",
+        created_at=rerun_started,
+        updated_at=rerun_started,
+        meta={},
+    )
+    db.add(rerun_call)
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "final_report"
+    assert status["active_llm_call"]["id"] == str(rerun_call.id)
+
+    rerun_call.status = "failed"
+    rerun_call.updated_at = rerun_started + timedelta(seconds=30)
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "failed"
+    assert status["latest_failed_llm_call"]["id"] == str(rerun_call.id)
 
 
 def test_viewer_summary_distinguishes_final_from_single_reports():

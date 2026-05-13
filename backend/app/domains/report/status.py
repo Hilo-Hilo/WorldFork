@@ -48,6 +48,7 @@ def build_report_status(db: Session, *, big_bang: models.BigBang) -> dict[str, A
     latest_llm = _latest_llm_call(db, big_bang=big_bang, statuses=None)
     active_llm = _latest_llm_call(db, big_bang=big_bang, statuses={"created", "running"})
     failed_llm = _latest_llm_call(db, big_bang=big_bang, statuses={"failed"})
+    active_job = next((job for job in jobs if job.status in ACTIVE_JOB_STATUSES), None)
     latest_failed_job = next((job for job in jobs if job.status == "failed"), None)
 
     report_by_multiverse_id = {
@@ -70,6 +71,9 @@ def build_report_status(db: Session, *, big_bang: models.BigBang) -> dict[str, A
         multiverse_items=multiverse_items,
         final_item=final_item,
         active_llm=active_llm,
+        active_job=active_job,
+        latest_llm=latest_llm,
+        latest_job=jobs[0] if jobs else None,
         failed_job=latest_failed_job,
         failed_llm=failed_llm,
     )
@@ -88,7 +92,7 @@ def build_report_status(db: Session, *, big_bang: models.BigBang) -> dict[str, A
             "items": multiverse_items,
         },
         "final_report": final_item,
-        "active_job": _job_payload(next((job for job in jobs if job.status in ACTIVE_JOB_STATUSES), None)),
+        "active_job": _job_payload(active_job),
         "latest_failed_job": _job_payload(latest_failed_job),
         "latest_llm_call": _llm_payload(latest_llm),
         "active_llm_call": _llm_payload(active_llm),
@@ -174,11 +178,12 @@ def _derive_stage(
     multiverse_items: list[dict[str, Any]],
     final_item: dict[str, Any],
     active_llm: models.LLMCall | None,
+    active_job: models.Job | None,
+    latest_llm: models.LLMCall | None,
+    latest_job: models.Job | None,
     failed_job: models.Job | None,
     failed_llm: models.LLMCall | None,
 ) -> str:
-    if final_item["has_version"]:
-        return "ready"
     if active_llm is not None:
         purpose = active_llm.purpose or ""
         if purpose.startswith("report_agent_final_big_bang"):
@@ -187,7 +192,10 @@ def _derive_stage(
             return "predicate_resolution"
         if purpose.startswith("report_agent_multiverse"):
             return "single_reports"
-    if failed_job is not None or failed_llm is not None:
+    active_job_stage = _stage_for_active_job(active_job)
+    if active_job_stage is not None:
+        return active_job_stage
+    if _is_current_failure(latest_job=latest_job, failed_job=failed_job, latest_llm=latest_llm, failed_llm=failed_llm):
         return "failed"
     if any(multiverse.status not in TERMINAL_MULTIVERSE_STATUSES for multiverse in multiverses):
         return "simulation"
@@ -195,9 +203,64 @@ def _derive_stage(
         return "single_reports"
     if final_item["status"] in {"draft", "running"}:
         return "final_report"
+    if final_item["has_version"]:
+        return "ready"
     if big_bang.status == "completed":
-        return "ready" if final_item["has_version"] else "final_report"
+        return "final_report"
     return "waiting"
+
+
+def _stage_for_active_job(job: models.Job | None) -> str | None:
+    if job is None:
+        return None
+    if job.job_type == "generate_final_big_bang_report":
+        return "final_report"
+    if job.job_type == "generate_multiverse_report":
+        return "single_reports"
+    if job.job_type != "run_big_bang_until_complete":
+        return None
+    result = job.result or {}
+    phase = str(result.get("phase") or "").lower()
+    if phase == "generating_final_report":
+        return "final_report"
+    if phase in {"generating_reports", "generating_multiverse_reports"}:
+        return "single_reports"
+    if phase in {"predicate_resolution", "resolving_predicates"}:
+        return "predicate_resolution"
+    return "simulation"
+
+
+def _is_current_failure(
+    *,
+    latest_job: models.Job | None,
+    failed_job: models.Job | None,
+    latest_llm: models.LLMCall | None,
+    failed_llm: models.LLMCall | None,
+) -> bool:
+    failure_times = [
+        _updated_at(item)
+        for item in (
+            latest_job if latest_job is not None and latest_job.status == "failed" else None,
+            failed_job,
+            latest_llm if latest_llm is not None and latest_llm.status == "failed" else None,
+            failed_llm,
+        )
+        if item is not None
+    ]
+    if not failure_times:
+        return False
+
+    success_times = [
+        _updated_at(item)
+        for item in (
+            latest_job if latest_job is not None and latest_job.status not in {"failed", *ACTIVE_JOB_STATUSES} else None,
+            latest_llm if latest_llm is not None and latest_llm.status != "failed" else None,
+        )
+        if item is not None
+    ]
+    latest_failure = max(failure_times)
+    latest_success = max(success_times) if success_times else None
+    return latest_success is None or latest_failure >= latest_success
 
 
 def _stage_message(
@@ -266,6 +329,10 @@ def _llm_payload(call: models.LLMCall | None) -> dict[str, Any] | None:
         "created_at": _iso(call.created_at),
         "updated_at": _iso(call.updated_at),
     }
+
+
+def _updated_at(item: models.Job | models.LLMCall) -> datetime:
+    return item.updated_at or item.created_at or datetime.min
 
 
 def _iso(value: datetime | None) -> str | None:
