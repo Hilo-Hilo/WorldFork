@@ -43,6 +43,12 @@ on social media before officials confirm or deny.
 - second video
 - protest splintering
 `;
+const TINY_SAMPLE_QUESTION =
+  "Will the city administration regain public trust within the simulated crisis window?";
+const TINY_SAMPLE_RESOLUTION =
+  "Answer yes if retained timelines show trust-recovery signals overtaking mobilization and rumor persistence by the final tick. Answer no if distrust, protest escalation, or unresolved information gaps dominate the retained path mass.";
+const TINY_SAMPLE_SUPPORTING =
+  "Which response path restores trust fastest?\nWhich cohorts remain mobilized at the end?\nWhich branch triggers create durable divergence?";
 
 /* ===== Icons ===== */
 
@@ -132,7 +138,15 @@ function fmtBytes(n: number) {
   return (n / (1024 * 1024)).toFixed(2) + " MB";
 }
 
-function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario) => void }) {
+function DropZone({
+  value,
+  onChange,
+  onUseTinyDemo,
+}: {
+  value: Scenario;
+  onChange: (v: Scenario) => void;
+  onUseTinyDemo: () => void;
+}) {
   const [mode, setMode] = useState<"file" | "paste">("file");
   const [over, setOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -157,10 +171,10 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
   return (
     <div>
       <div className="wf-tab-row" role="tablist">
-        <button className="wf-tab" role="tab" aria-selected={mode === "file"} onClick={() => setMode("file")}>
+        <button className="wf-tab" role="tab" aria-selected={mode === "file"} onClick={() => setMode("file")} type="button">
           upload .md
         </button>
-        <button className="wf-tab" role="tab" aria-selected={mode === "paste"} onClick={() => setMode("paste")}>
+        <button className="wf-tab" role="tab" aria-selected={mode === "paste"} onClick={() => setMode("paste")} type="button">
           paste text
         </button>
       </div>
@@ -186,7 +200,7 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
                     {Math.round(value.text.length / 4)} tokens
                   </div>
                 </div>
-                <button className="wf-file-remove" onClick={removeFile} title="Remove">
+                <button className="wf-file-remove" onClick={removeFile} title="Remove" type="button">
                   <Icon.Close style={{ width: 12, height: 12 }} />
                 </button>
               </div>
@@ -208,21 +222,14 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
               <div className="wf-drop-sub">.md &nbsp;·&nbsp; up to 2&thinsp;MB &nbsp;·&nbsp; UTF-8</div>
               <div className="wf-drop-actions">
                 <span>or</span>
-                <button className="wf-link" onClick={() => inputRef.current?.click()}>
+                <button className="wf-link" onClick={() => inputRef.current?.click()} type="button">
                   browse
                 </button>
                 <span>·</span>
                 <button
                   className="wf-link"
-                  onClick={() =>
-                    onChange({
-                      kind: "file",
-                      name: "demo-scenario.md",
-                      size: TINY_SAMPLE.length,
-                      preview: TINY_SAMPLE.slice(0, 600),
-                      text: TINY_SAMPLE,
-                    })
-                  }
+                  onClick={onUseTinyDemo}
+                  type="button"
                 >
                   use tiny demo (~1 KB)
                 </button>
@@ -427,10 +434,10 @@ function ErrorState({
           </pre>
         )}
         <div className="wf-error-actions">
-          <button className="wf-secondary" onClick={onDismiss}>
+          <button className="wf-secondary" onClick={onDismiss} type="button">
             Edit scenario
           </button>
-          <button className="wf-cta" onClick={onRetry} style={{ padding: "8px 14px", fontSize: 12 }}>
+          <button className="wf-cta" onClick={onRetry} style={{ padding: "8px 14px", fontSize: 12 }} type="button">
             Retry
           </button>
         </div>
@@ -443,7 +450,11 @@ function ErrorState({
 
 export default function InputPage() {
   const router = useRouter();
+  const [runName, setRunName] = useState(() => `Scenario ${new Date().toLocaleString()}`);
   const [scenario, setScenario] = useState<Scenario>(null);
+  const [primaryQuestion, setPrimaryQuestion] = useState("");
+  const [resolutionCriteria, setResolutionCriteria] = useState("");
+  const [supportingQuestions, setSupportingQuestions] = useState("");
   const [initPrompt, setInitPrompt] = useState("");
   const [maxTicks, setMaxTicks] = useState(4);
   const [tickMins, setTickMins] = useState(720);
@@ -452,13 +463,41 @@ export default function InputPage() {
   const [useInitializer, setUseInitializer] = useState(false);
 
   const scenarioText = scenario?.kind === "file" ? scenario.text : scenario?.kind === "paste" ? scenario.text : "";
+  const trimmedRunName = runName.trim();
+  const trimmedPrimaryQuestion = primaryQuestion.trim();
+  const trimmedResolutionCriteria = resolutionCriteria.trim();
+  const supportingQuestionList = supportingQuestions
+    .split("\n")
+    .map((item) => item.trim())
+    .filter(Boolean);
   const overChunkBudget = useInitializer && scenarioText.length > CHUNKER_BUDGET;
+
+  const useTinyDemo = () => {
+    setScenario({
+      kind: "file",
+      name: "demo-scenario.md",
+      size: TINY_SAMPLE.length,
+      preview: TINY_SAMPLE.slice(0, 600),
+      text: TINY_SAMPLE,
+    });
+    setRunName((value) => value.trim() ? value : "City trust crisis demo");
+    setPrimaryQuestion((value) => value || TINY_SAMPLE_QUESTION);
+    setResolutionCriteria((value) => value || TINY_SAMPLE_RESOLUTION);
+    setSupportingQuestions((value) => value || TINY_SAMPLE_SUPPORTING);
+  };
 
   const submit = useMutation({
     mutationFn: () =>
       api.createBigBang({
-        name: `Scenario ${new Date().toLocaleString()}`,
+        name: trimmedRunName,
         scenario_text: scenarioText,
+        scenario_input: {
+          primary_question: trimmedPrimaryQuestion,
+          forecast_question: trimmedPrimaryQuestion,
+          resolution_criteria: trimmedResolutionCriteria || undefined,
+          supporting_questions: supportingQuestionList,
+          reporting_questions: [trimmedPrimaryQuestion, ...supportingQuestionList],
+        },
         simulation_config: { max_ticks: maxTicks, tick_duration_minutes: tickMins },
         branch_policy: {
           max_branch_depth: policy.depth,
@@ -472,7 +511,7 @@ export default function InputPage() {
     onSuccess: (bb) => router.push(`/dashboard?run=${bb.id}`),
   });
 
-  const canSubmit = !!scenarioText && !submit.isPending;
+  const canSubmit = !!trimmedRunName && !!scenarioText && !!trimmedPrimaryQuestion && !submit.isPending;
 
   const apiErr = submit.error instanceof ApiError ? submit.error : null;
   const errCode = apiErr ? `HTTP_${apiErr.status}` : "ERR_UNKNOWN";
@@ -521,20 +560,83 @@ export default function InputPage() {
           short demo run — flip the initializer toggle and bump max_ticks once you trust the loop.
         </p>
 
-        {/* 01 Scenario */}
+        {/* 01 Name */}
         <section className="wf-section">
           <div className="wf-section-head">
             <span className="wf-section-num">01</span>
-            <span className="wf-section-title">Scenario source</span>
+            <span className="wf-section-title">Simulation name</span>
             <span className="wf-section-hint">required</span>
           </div>
-          <DropZone value={scenario} onChange={setScenario} />
+          <label className="wf-question-field">
+            <span className="wf-question-label">Run name</span>
+            <input
+              className="wf-input"
+              aria-label="Simulation name"
+              value={runName}
+              onChange={(e) => setRunName(e.target.value)}
+              maxLength={240}
+              placeholder="e.g. City trust crisis, May 2026"
+              required
+            />
+          </label>
         </section>
 
-        {/* 02 Initializer prompt */}
+        {/* 02 Scenario */}
         <section className="wf-section">
           <div className="wf-section-head">
             <span className="wf-section-num">02</span>
+            <span className="wf-section-title">Scenario source</span>
+            <span className="wf-section-hint">required</span>
+          </div>
+          <DropZone value={scenario} onChange={setScenario} onUseTinyDemo={useTinyDemo} />
+        </section>
+
+        {/* 03 Question */}
+        <section className="wf-section">
+          <div className="wf-section-head">
+            <span className="wf-section-num">03</span>
+            <span className="wf-section-title">Question to answer</span>
+            <span className="wf-section-hint">required for reports</span>
+          </div>
+          <div className="wf-question-grid">
+            <label className="wf-question-field">
+              <span className="wf-question-label">Primary question</span>
+              <span className="wf-question-help">The final report will answer this directly.</span>
+              <textarea
+                className="wf-textarea"
+                placeholder="e.g. Will the coalition pass the emergency housing bill before the final tick?"
+                value={primaryQuestion}
+                onChange={(e) => setPrimaryQuestion(e.target.value)}
+                required
+              />
+            </label>
+            <label className="wf-question-field">
+              <span className="wf-question-label">Resolution criteria</span>
+              <span className="wf-question-help">Define what counts as yes, no, or unresolved.</span>
+              <textarea
+                className="wf-textarea"
+                placeholder="e.g. Yes means the bill passes with implementation funding; no means it fails, is delayed beyond the horizon, or passes without enforcement authority."
+                value={resolutionCriteria}
+                onChange={(e) => setResolutionCriteria(e.target.value)}
+              />
+            </label>
+            <label className="wf-question-field">
+              <span className="wf-question-label">Supporting questions</span>
+              <span className="wf-question-help">Optional, one per line. These guide report sections and evidence review.</span>
+              <textarea
+                className="wf-textarea"
+                placeholder={"Which actors drive the decisive branch?\nWhich cohorts change position?\nWhat evidence would change the answer?"}
+                value={supportingQuestions}
+                onChange={(e) => setSupportingQuestions(e.target.value)}
+              />
+            </label>
+          </div>
+        </section>
+
+        {/* 04 Initializer prompt */}
+        <section className="wf-section">
+          <div className="wf-section-head">
+            <span className="wf-section-num">04</span>
             <span className="wf-section-title">Initializer prompt</span>
             <span className="wf-section-hint">optional &nbsp;·&nbsp; only used if initializer agent is on</span>
           </div>
@@ -548,10 +650,10 @@ export default function InputPage() {
           />
         </section>
 
-        {/* 03 Simulation config */}
+        {/* 05 Simulation config */}
         <section className="wf-section">
           <div className="wf-section-head">
-            <span className="wf-section-num">03</span>
+            <span className="wf-section-num">05</span>
             <span className="wf-section-title">Simulation config</span>
             <span className="wf-section-hint">cheap defaults</span>
           </div>
@@ -588,6 +690,7 @@ export default function InputPage() {
             <div className="wf-num-suffix">
               <button
                 onClick={() => setUseInitializer(!useInitializer)}
+                type="button"
                 style={{
                   padding: "5px 11px",
                   fontFamily: "var(--font-mono)",
@@ -628,7 +731,7 @@ export default function InputPage() {
 
           {/* branch policy accordion */}
           <div className="wf-accordion" data-open={policyOpen} style={{ marginTop: 12 }}>
-            <button className="wf-accordion-head" onClick={() => setPolicyOpen(!policyOpen)}>
+            <button className="wf-accordion-head" onClick={() => setPolicyOpen(!policyOpen)} type="button">
               <div className="wf-accordion-head-l">
                 <Icon.Chev className="wf-accordion-chev" />
                 <span className="wf-accordion-name">branch_policy</span>
@@ -652,7 +755,7 @@ export default function InputPage() {
         {/* state-specific surfaces */}
         {submit.isPending && (
           <LoadingState
-            scenarioName={scenario?.kind === "file" ? scenario.name : "scenario"}
+            scenarioName={trimmedRunName || (scenario?.kind === "file" ? scenario.name : "scenario")}
             useInitializer={useInitializer}
           />
         )}
@@ -671,7 +774,9 @@ export default function InputPage() {
         {/* CTA */}
         <div className="wf-actions">
           <div className="wf-actions-meta">
+            <span>name&nbsp;<b style={{ color: trimmedRunName ? "var(--fg-2)" : "var(--warn)" }}>{trimmedRunName ? "set" : "required"}</b></span>
             <span>scenario&nbsp;<b style={{ color: "var(--fg-2)" }}>{scenarioText ? `${scenarioText.length.toLocaleString()} chars` : "—"}</b></span>
+            <span>question&nbsp;<b style={{ color: trimmedPrimaryQuestion ? "var(--fg-2)" : "var(--warn)" }}>{trimmedPrimaryQuestion ? "set" : "required"}</b></span>
             <span>init LLM&nbsp;<b style={{ color: useInitializer ? "var(--warn)" : "var(--fg-2)" }}>{useInitializer ? "on" : "off"}</b></span>
             <span>max ticks&nbsp;<b style={{ color: "var(--fg-2)" }}>{maxTicks}</b></span>
           </div>
@@ -687,7 +792,7 @@ export default function InputPage() {
             >
               Save draft
             </button>
-            <button className="wf-cta" disabled={!canSubmit} onClick={() => submit.mutate()}>
+            <button className="wf-cta" disabled={!canSubmit} onClick={() => submit.mutate()} type="button">
               Run simulation
               <Icon.Arrow />
               <span className="kbd">⌘&nbsp;↵</span>

@@ -41,9 +41,30 @@ worldfork reports pack <big-bang-id> --mode summary
 worldfork reports adjudicate <big-bang-id>
 worldfork reports adjudication <big-bang-id>
 worldfork ledgers path-mass <big-bang-id>
+worldfork query GET /api/big-bangs/<big-bang-id>/report-status
 ```
 
 The Markdown view can include the outcome summary, outcome distribution, multiverse comparison, report inventory, and evidence appendix when those sections are present in the structured content.
+
+Use `report-status` while generation is running. It reports whether the run is
+still simulating, generating single-universe reports, resolving predicates, or
+generating the final multiverse report, plus the active job/LLM call when one is
+available.
+
+## Question Context
+
+Reports prefer dedicated question metadata over raw scenario text. The frontend
+and API can store:
+
+- `scenario_input.primary_question`
+- `scenario_input.resolution_criteria`
+- `scenario_input.supporting_questions`
+
+The primary question becomes the forecast contract the report answers directly.
+Resolution criteria define what should count as yes, no, or unresolved, and
+supporting questions guide the report sections and evidence review. If those
+fields are absent, reporting falls back to the original scenario text for
+legacy runs.
 
 ## Multiverse Reports
 

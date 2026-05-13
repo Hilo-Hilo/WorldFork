@@ -8,6 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 OPENROUTER_DEFAULT_MODEL = "deepseek/deepseek-v4-flash"
 OPENAI_CODEX_DEFAULT_MODEL = "gpt-5.4"
+FINAL_REPORT_AGENT_DEFAULT_MODEL = "deepseek/deepseek-v4-pro"
 
 
 def _backend_relative(path: str) -> Path:
@@ -49,6 +50,7 @@ class Settings(BaseSettings):
     hero_agent_model: str = OPENROUTER_DEFAULT_MODEL
     event_summary_model: str = OPENAI_CODEX_DEFAULT_MODEL
     report_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
+    final_report_agent_model: str = FINAL_REPORT_AGENT_DEFAULT_MODEL
     app_name: str = "WorldFork Backend"
     api_prefix: str = "/api"
     default_tick_duration: str = "1 day"

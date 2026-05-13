@@ -28,7 +28,12 @@ from app.llm.openai_codex_provider import OpenAICodexProvider
 from app.llm.openrouter_provider import OpenRouterProvider
 from app.llm.provider import DeterministicLLMProvider, LLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
-from app.llm.routing import AuditedLLMRoute, LLMRouteCandidate, resolve_audited_llm_route
+from app.llm.routing import (
+    ROUTE_METADATA_OVERRIDE_KEYS_FIELD,
+    AuditedLLMRoute,
+    LLMRouteCandidate,
+    resolve_audited_llm_route,
+)
 from app.llm.schemas import LLMRequest, LLMResponse
 from app.storage.artifact_store import ArtifactStore
 from backend.app.models.settings import ProviderSettingModel
@@ -321,6 +326,10 @@ def _timeout_seconds(metadata: dict[str, Any]) -> float:
     return max(1.0, min(value, 1800.0))
 
 
+def _public_caller_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in metadata.items() if key != ROUTE_METADATA_OVERRIDE_KEYS_FIELD}
+
+
 def complete_with_audit(
     db: Session,
     *,
@@ -334,6 +343,7 @@ def complete_with_audit(
     route: AuditedLLMRoute | str | None = None,
 ) -> tuple[LLMResponse, models.LLMCall]:
     metadata = metadata or {}
+    caller_metadata = _public_caller_metadata(metadata)
     settings = get_settings()
     resolved_route = resolve_audited_llm_route(
         db,
@@ -351,7 +361,7 @@ def complete_with_audit(
         "messages": messages,
         "json_schema": json_schema,
         "metadata": initial_request_metadata,
-        "caller_metadata": metadata,
+        "caller_metadata": caller_metadata,
     }
     sanitized_request = redact_payload(request_payload)
     audit_store = LLMCallAuditStore(db, big_bang_id=big_bang_id)
@@ -362,7 +372,7 @@ def complete_with_audit(
         request_payload=request_payload,
         sanitized_request=sanitized_request,
         metadata=initial_request_metadata,
-        caller_metadata=metadata,
+        caller_metadata=caller_metadata,
         route_meta=resolved_route.audit_meta(),
     )
     attempts: list[dict[str, Any]] = []
