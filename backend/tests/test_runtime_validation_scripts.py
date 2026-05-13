@@ -8,7 +8,7 @@ LLM_CONFIG = {
         {
             "route": "cohort_agent",
             "preferred_provider": "openrouter",
-            "preferred_model": "moonshotai/kimi-k2",
+            "preferred_model": "deepseek/deepseek-v4-pro",
             "fallback_provider": "openrouter-claude",
             "fallback_model": "anthropic/claude-sonnet-4.5",
         },
@@ -28,7 +28,7 @@ def test_demo_expected_pairs_default_to_effective_llm_routing(monkeypatch) -> No
     args = argparse.Namespace(expected_provider=None, expected_model=None)
 
     assert run_test_big_bang._expected_pairs(args, LLM_CONFIG) == {
-        ("openrouter", "moonshotai/kimi-k2"),
+        ("openrouter", "deepseek/deepseek-v4-pro"),
         ("openrouter-claude", "anthropic/claude-sonnet-4.5"),
         ("openrouter-openai", "openai/gpt-5.4"),
     }
@@ -47,7 +47,7 @@ def test_smoke_expected_pairs_default_to_effective_llm_routing(monkeypatch) -> N
     monkeypatch.delenv("WORLDFORK_SMOKE_EXPECTED_PROVIDER_MODELS", raising=False)
 
     assert full_runtime_smoke.expected_provider_models(LLM_CONFIG) == {
-        ("openrouter", "moonshotai/kimi-k2"),
+        ("openrouter", "deepseek/deepseek-v4-pro"),
         ("openrouter-claude", "anthropic/claude-sonnet-4.5"),
         ("openrouter-openai", "openai/gpt-5.4"),
     }

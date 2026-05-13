@@ -50,11 +50,12 @@ worldfork demo atlas
 - Use `worldfork watch big-bang <id>` or `worldfork watch multiverse <id>` to stream activity instead of repeated ad hoc polling.
 - Reports are structured database records first. Markdown/PDF outputs are generated on request from report versions.
 - Endpoint ledgers answer endpoint status and evidence questions. Path mass and adjudication answer probability/distribution questions.
+- Branch policy is authoritative: if a tick's `branch_score` crosses the configured threshold, the backend should create a branch even when the God-agent text/tool output says to continue.
 - Use `worldfork update` for normal code updates. It must preserve local `.env`, run data, artifacts, reports, Docker override files, and local preferences; do not use destructive Git commands for normal updates.
 - Do not clear Redis, delete run data, change model routes, start Atlas, or spend live API credits without user approval.
 - The frontend exists but is optional. Do not make backend/runtime behavior depend on the dashboard.
 - For first-time onboarding, use `worldfork setup` to show LLM provider options, ask which providers the user wants to configure, and explain each setup phase before and after running it.
-- Live API-credit runs must use the configured default routing unless the user explicitly authorizes another policy. The common split is cheap/fast OpenRouter `deepseek/deepseek-v4-flash` for high-volume cohort, hero, action, and timeline work, plus a stronger governance/report route such as OpenAI Codex `gpt-5.4` or an OpenRouter-hosted Kimi/Claude model for initializer, God-review, endpoint-ledger, event-summary, and report work.
+- Live API-credit runs must use the configured default routing unless the user explicitly authorizes another policy. The common split is cheap/fast OpenRouter `deepseek/deepseek-v4-flash` for high-volume cohort, hero, action, timeline, predicate, event-summary, and single-universe report work; and OpenRouter `deepseek/deepseek-v4-pro` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
 
 ## Runtime Surface
 

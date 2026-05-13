@@ -9,7 +9,7 @@ Next.js 15 app — three pages from the Claude Design handoff, **wired to the li
 | `/` | Polls `GET /api/agent/runs` every 3s, lists existing Big Bangs, click → dashboard |
 | `/input` | `POST /api/big-bangs` on submit, redirects to `/dashboard?run=<id>` on success. Real file upload reads markdown content. The form keeps scenario context separate from the required report question and optional resolution/supporting questions. Live `GET /readyz` indicator in the topbar. |
 | `/dashboard?run=<id>` | Polls `GET /api/big-bangs/<id>`, `GET /api/big-bangs/<id>/multiverses`, `GET /api/agent/logs` every 2–2.5s. Builds the multiverse tree from `parent_multiverse_id` + `fork_tick_index`. Pause/Resume/Run-to-completion buttons hit the corresponding POST endpoints. |
-| `/report?run=<id>` | Fetches reports + versions, renders markdown via `react-markdown`. Export .pdf / .md hit `POST /api/report-versions/<id>/render` and trigger a browser download. |
+| `/report?run=<id>` | Fetches report status, reports + versions, renders markdown via `react-markdown`, and shows single-report/predicate/final-report progress while generation is running. Export .pdf / .md hit `POST /api/report-versions/<id>/render` and trigger a browser download. |
 
 ## Live updates
 
