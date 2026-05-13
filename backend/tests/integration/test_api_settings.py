@@ -15,6 +15,12 @@ from backend.app.models.settings import (
 from backend.app.schemas.llm import ProviderHealth
 
 
+def _expected_provider_for_model(model: str) -> str:
+    if model == settings.openai_codex_default_model:
+        return "openai-codex"
+    return settings.default_llm_provider
+
+
 # ---------------------------------------------------------------------------
 # Helpers — idempotent seed (merge avoids UNIQUE violations on shared engine)
 # ---------------------------------------------------------------------------
@@ -400,10 +406,11 @@ async def test_get_model_routing_empty(client):
         "god_agent": settings.god_agent_model,
         "event_summary": settings.event_summary_model,
         "endpoint_ledger": settings.god_agent_model,
+        "final_report_agent": settings.final_report_agent_model,
         "report_agent": settings.report_agent_model,
     }
     for route, expected_model in expected_route_models.items():
-        assert effective[route]["preferred_provider"] == "openai-codex"
+        assert effective[route]["preferred_provider"] == _expected_provider_for_model(expected_model)
         assert effective[route]["preferred_model"] == expected_model
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",

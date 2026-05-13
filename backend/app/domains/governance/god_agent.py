@@ -292,7 +292,8 @@ def _prepare_tool_calls(
     has_structural = any(call["tool_name"] in structural_tools for call in tool_calls)
     has_branch = any(call["tool_name"] == "create_branch" for call in tool_calls)
     branch_threshold = _branch_score_threshold(db, multiverse)
-    if branch_score >= branch_threshold and not has_branch and (has_structural or not explicit_continue):
+    candidate_count = _branch_candidate_count(provisional_bundle)
+    if branch_score >= branch_threshold and not has_branch:
         tool_calls.append(
             {
                 "tool_name": "create_branch",
@@ -306,9 +307,12 @@ def _prepare_tool_calls(
                     ),
                     "probability_source": "heuristic_branch_score",
                     "probability_basis": (
-                        "Auto-created because branch_score crossed threshold and the God output did not include "
-                        "an explicit create_branch tool call."
+                        "Auto-created because branch_score crossed threshold and the God output did not include an "
+                        "explicit create_branch tool call."
                     ),
+                    "auto_branch_candidate_count": candidate_count,
+                    "auto_branch_overrode_continue": explicit_continue,
+                    "auto_branch_had_structural_tool": has_structural,
                 },
                 "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:create_branch:0",
             }
@@ -334,6 +338,15 @@ def _branch_score_threshold(db: Session, multiverse: models.Multiverse) -> float
     branch_policy = branch_policy_for_multiverse(db, multiverse)
     threshold = branch_policy.get("branch_score_threshold", settings.branch_score_threshold)
     return float(threshold if threshold is not None else settings.branch_score_threshold)
+
+
+def _branch_candidate_count(provisional_bundle: dict) -> int:
+    total = 0
+    for key in ("split_candidates", "merge_candidates", "emergence_candidates"):
+        candidates = provisional_bundle.get(key)
+        if isinstance(candidates, list):
+            total += len(candidates)
+    return total
 
 
 def _normalize_tool_calls(raw_tool_calls, multiverse_id, tick_index: int) -> list[dict]:

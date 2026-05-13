@@ -25,6 +25,7 @@ from app.llm.audit import LLMCallError
 from app.domains.big_bang.initializer import create_big_bang
 from app.domains.jobs.routes import JobResponse, create_job_record
 from app.domains.report.engine import generate_final_big_bang_report
+from app.domains.report.status import build_report_status
 from app.domains.big_bang.run_orchestrator import run_big_bang_until_complete
 from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
 
@@ -121,6 +122,12 @@ def reports(big_bang_id: UUID, db: Session = Depends(get_db)):
     return db.scalars(
         select(models.Report).where(models.Report.big_bang_id == big_bang_id).order_by(models.Report.created_at)
     ).all()
+
+
+@router.get("/{big_bang_id}/report-status")
+def report_status(big_bang_id: UUID, db: Session = Depends(get_db)):
+    big_bang = require(db, models.BigBang, big_bang_id)
+    return build_report_status(db, big_bang=big_bang)
 
 
 @router.post("/{big_bang_id}/reports/final", response_model=ReportVersionOut)

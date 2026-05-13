@@ -404,7 +404,18 @@ def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeyp
         ),
     )
 
-    def fake_report_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_report_agent(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         call = models.LLMCall(
             big_bang_id=big_bang_id,
             provider="test",
