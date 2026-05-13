@@ -15,9 +15,11 @@ import type {
   Multiverse,
   ReadyzResult,
   Report,
+  ReportStatus,
   ReportVersion,
   RunSummary,
   Tick,
+  UpdateBigBangPayload,
 } from "./types";
 import {
   DEMO_RUN_ID,
@@ -100,19 +102,20 @@ export const api = {
     return { ok: true, checks: {} } as ReadyzResult;
   },
 
-  listRuns: async (limit = 20) => {
+  listRuns: async (limit = 20, includeArchived = false) => {
     // The runs page shows the demo run alongside any real runs. We always merge,
     // so it's discoverable even after the user has created real scenarios.
     // Errors are no longer swallowed here — the runs page surfaces them as a
     // banner and renders demo-only as the fallback so backend outages don't
     // masquerade as "no runs yet".
     const real = await http<AgentEnvelope<RunSummary[]>>(
-      `/api/agent/runs?verbosity=summary&limit=${limit}`,
+      `/api/agent/runs?verbosity=summary&limit=${limit}&include_archived=${includeArchived ? "true" : "false"}`,
     );
     const demo = demoRunsListEnvelope(limit);
+    const realData = includeArchived ? real.data : real.data.filter((run) => run.status !== "archived");
     return {
       ...real,
-      data: [...demo.data, ...real.data],
+      data: [...demo.data, ...realData],
     };
   },
 
@@ -124,6 +127,19 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+
+  updateBigBang: (id: string, payload: UpdateBigBangPayload) =>
+    isDemoRun(id)
+      ? Promise.resolve({ ...demoBigBang(), ...payload } as BigBang)
+      : http<BigBang>(`/api/big-bangs/${id}`, {
+          method: "PATCH",
+          body: JSON.stringify(payload),
+        }),
+
+  deleteBigBang: (id: string) =>
+    isDemoRun(id)
+      ? Promise.resolve({ ...demoBigBang(), status: "archived" } as BigBang)
+      : http<BigBang>(`/api/big-bangs/${id}`, { method: "DELETE" }),
 
   pauseBigBang: (id: string) =>
     isDemoRun(id) ? Promise.resolve(demoBigBang()) : http<BigBang>(`/api/big-bangs/${id}/pause`, { method: "POST" }),
@@ -170,12 +186,42 @@ export const api = {
         ),
 
   // Demo runs are intentionally backend-less; return an empty list so
-  // ReportPage falls into the "No reports yet" branch rather than firing a
-  // live request that would 404 in offline / no-backend demo sessions.
+  // ReportPage can show the report-progress state rather than firing a live
+  // request that would 404 in offline / no-backend demo sessions.
   listReports: (bigBangId: string) =>
     isDemoRun(bigBangId)
       ? Promise.resolve([] as Report[])
       : http<Report[]>(`/api/big-bangs/${bigBangId}/reports`),
+
+  getReportStatus: (bigBangId: string) =>
+    isDemoRun(bigBangId)
+      ? Promise.resolve({
+          big_bang: {
+            id: bigBangId,
+            name: "Demo run",
+            status: "demo",
+            updated_at: null,
+          },
+          stage: "waiting",
+          message: "Demo runs are precomputed and do not generate live reports.",
+          multiverse_reports: { total: 0, completed: 0, items: [] },
+          final_report: {
+            id: null,
+            status: "missing",
+            current_version: 0,
+            has_version: false,
+            version_id: null,
+            title: null,
+            updated_at: null,
+          },
+          active_job: null,
+          latest_failed_job: null,
+          latest_llm_call: null,
+          active_llm_call: null,
+          latest_failed_llm_call: null,
+          jobs: [],
+        } as ReportStatus)
+      : http<ReportStatus>(`/api/big-bangs/${bigBangId}/report-status`),
 
   listReportVersions: (reportId: string) =>
     http<ReportVersion[]>(`/api/reports/${reportId}/versions`),

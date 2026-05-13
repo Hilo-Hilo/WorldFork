@@ -123,6 +123,12 @@ worldfork ledgers path-mass <big-bang-id>
 
 Use `reports view` before rendering a PDF. Rendering is ephemeral and does not change the canonical report version.
 
+Report generation is split across audited LLM routes. `predicate_extractor`,
+`predicate_resolver`, and `single_report_agent` can run on the fast default
+model, while `final_report_agent` uses `final_report_agent_model` and a higher
+budget for final cross-timeline synthesis. Inspect or override these through
+`worldfork models defaults` and `/api/settings/model-routing`.
+
 Endpoint ledgers answer endpoint status questions. Path mass answers how much
 retained branch probability sits behind those endpoint statuses. Do not treat an
 endpoint ledger entry as the same thing as branch probability.
@@ -138,13 +144,13 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Live Runs
 
-Use the configured model split for live validation. A common policy keeps
-high-volume calls on OpenRouter/DeepSeek and routes governance/report work to a
-strong model such as OpenAI Codex/GPT-5.4 or OpenRouter-hosted Kimi/Claude:
+Use the configured model split for live validation. The default policy keeps
+high-volume calls on OpenRouter/DeepSeek Flash and uses DeepSeek V4 Pro for
+initializer, God review, endpoint ledgers, report fallback, and final synthesis:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
+openrouter/deepseek/deepseek-v4-pro
 ```
 
 Full live smoke:

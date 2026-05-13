@@ -22,7 +22,7 @@ from app.llm import openrouter_provider
 from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
 from app.llm.provider import DeterministicLLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
-from app.llm.routing import resolve_audited_llm_route
+from app.llm.routing import ROUTE_METADATA_OVERRIDE_KEYS_FIELD, resolve_audited_llm_route
 from app.llm.schemas import LLMRequest, LLMResponse
 from app.domains.governance import god_agent
 from backend.app.models.settings import ProviderSettingModel
@@ -419,6 +419,67 @@ def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     assert call.meta["caller_request_metadata"]["raw_request_artifact_id"] == "spoofed"
 
 
+def test_complete_with_audit_allows_explicit_internal_route_metadata_overrides(monkeypatch):
+    captured = {}
+
+    class RoutedProvider:
+        async def complete(self, request):
+            captured["request"] = request
+            return LLMResponse(content='{"ok": true}', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=3,
+        llm_retry_backoff_seconds=0,
+    )
+    route_row = {
+        "preferred_provider": "route-provider",
+        "preferred_model": "route/model",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.7,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "timeout_seconds": 300,
+        "retry_policy": "exponential_backoff",
+        "payload": {},
+    }
+    db = FakeRoutingDB({"report_agent": route_row})
+    provider = RoutedProvider()
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "route-provider", lambda: provider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    _, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="report_agent_test",
+        model="legacy/model",
+        route="report_agent",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        metadata={
+            "max_tokens": 2400,
+            "temperature": 0.2,
+            "timeout_seconds": 120,
+            "retry_policy": "none",
+            ROUTE_METADATA_OVERRIDE_KEYS_FIELD: (
+                "max_tokens",
+                "temperature",
+                "timeout_seconds",
+                "retry_policy",
+            ),
+        },
+    )
+
+    assert captured["request"].metadata["max_tokens"] == 2400
+    assert captured["request"].metadata["temperature"] == 0.2
+    assert captured["request"].metadata["timeout_seconds"] == 120
+    assert captured["request"].metadata["retry_policy"] == "none"
+    assert ROUTE_METADATA_OVERRIDE_KEYS_FIELD not in captured["request"].metadata
+    assert call.meta["request_metadata"]["max_tokens"] == 2400
+    assert ROUTE_METADATA_OVERRIDE_KEYS_FIELD not in call.meta["caller_request_metadata"]
+
+
 def test_complete_with_audit_falls_back_across_route_providers(monkeypatch):
     class FailingProvider:
         async def complete(self, request):
@@ -590,6 +651,7 @@ def test_missing_audited_governance_routes_use_default_provider_with_route_model
         hero_agent_model="hero/slot",
         event_summary_model="summary/slot",
         report_agent_model="report/slot",
+        final_report_agent_model="final-report/slot",
     )
     monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
 
@@ -598,6 +660,10 @@ def test_missing_audited_governance_routes_use_default_provider_with_route_model
         "initializer_agent": "initializer/slot",
         "god_agent": "god/slot",
         "event_summary": "summary/slot",
+        "predicate_extractor": "default/model",
+        "predicate_resolver": "default/model",
+        "single_report_agent": "default/model",
+        "final_report_agent": "final-report/slot",
         "report_agent": "report/slot",
         "endpoint_ledger": "god/slot",
     }
@@ -611,7 +677,7 @@ def test_missing_audited_governance_routes_use_default_provider_with_route_model
         assert resolved.primary.source == "settings"
 
 
-def test_explicit_openrouter_kimi_route_overrides_default_provider(monkeypatch):
+def test_explicit_openrouter_route_overrides_default_provider(monkeypatch):
     from app.llm import routing as llm_routing
 
     settings = SimpleNamespace(
@@ -622,9 +688,9 @@ def test_explicit_openrouter_kimi_route_overrides_default_provider(monkeypatch):
     )
     explicit_row = {
         "preferred_provider": "openrouter",
-        "preferred_model": "moonshotai/kimi-k2",
+        "preferred_model": "deepseek/deepseek-v4-pro",
         "fallback_provider": "openrouter",
-        "fallback_model": "moonshotai/kimi-k2",
+        "fallback_model": "deepseek/deepseek-v4-pro",
         "temperature": 0.25,
         "top_p": 1.0,
         "max_tokens": 8192,
@@ -641,7 +707,7 @@ def test_explicit_openrouter_kimi_route_overrides_default_provider(monkeypatch):
 
     assert resolved.matched_route == "report_agent"
     assert resolved.primary.provider == "openrouter"
-    assert resolved.primary.model == "moonshotai/kimi-k2"
+    assert resolved.primary.model == "deepseek/deepseek-v4-pro"
 
 
 def test_actor_route_ignores_removed_legacy_batch_name(monkeypatch):
@@ -799,10 +865,10 @@ def test_ensure_response_json_object_rejects_repaired_payload_that_fails_schema(
 
 def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
     row = ProviderSettingModel(
-        provider="kimi",
-        base_url="https://kimi.example/v1",
-        api_key_env="KIMI_API_KEY",
-        default_model="kimi/k2",
+        provider="openrouter-alt",
+        base_url="https://openrouter-alt.example/v1",
+        api_key_env="OPENROUTER_ALT_API_KEY",
+        default_model="vendor/strong-model",
         fallback_model=None,
         json_mode_required=True,
         tool_calling_enabled=True,
@@ -811,12 +877,12 @@ def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
         payload={"api": "openai-compatible", "omit_auth_header": True},
     )
     db = FakeDB(row)
-    monkeypatch.setenv("KIMI_API_KEY", "test-token")
+    monkeypatch.setenv("OPENROUTER_ALT_API_KEY", "test-token")
 
-    provider = llm_audit.provider_for_name("kimi", db=db)
+    provider = llm_audit.provider_for_name("openrouter-alt", db=db)
 
-    assert provider.provider == "kimi"
-    assert provider.default_model == "kimi/k2"
+    assert provider.provider == "openrouter-alt"
+    assert provider.default_model == "vendor/strong-model"
     assert provider.extra_headers == {"X-Provider": "WorldFork"}
 
 
@@ -1185,7 +1251,7 @@ def test_openrouter_preserves_null_content_as_empty_response(monkeypatch):
         openrouter_provider.OpenRouterProvider().complete(
             LLMRequest(
                 purpose="test",
-                model="moonshotai/kimi-k2.6",
+                model="deepseek/deepseek-v4-pro",
                 messages=[{"role": "user", "content": "Return JSON."}],
             )
         )
@@ -1287,7 +1353,7 @@ def test_openrouter_sends_reasoning_controls_when_requested(monkeypatch):
         openrouter_provider.OpenRouterProvider().complete(
             LLMRequest(
                 purpose="test",
-                model="moonshotai/kimi-k2.6",
+                model="deepseek/deepseek-v4-pro",
                 messages=[{"role": "user", "content": "Return JSON."}],
                 metadata={
                     "max_tokens": 131072,
@@ -1793,6 +1859,90 @@ def test_forbidden_god_tool_aliases_are_rejected():
     )
 
     assert [call["tool_name"] for call in calls] == ["create_branch"]
+
+
+def test_god_auto_branches_when_branch_threshold_crosses_with_candidate_evidence(monkeypatch):
+    monkeypatch.setattr(god_agent, "_branch_score_threshold", lambda _db, _multiverse: 0.55)
+    multiverse = SimpleNamespace(id=uuid4())
+
+    calls = god_agent._prepare_tool_calls(
+        FakeDB(),
+        multiverse=multiverse,
+        provisional_bundle={
+            "branch_score": 0.86,
+            "split_candidates": [{"id": "split-1", "payload": {"score": 0.86}}],
+            "merge_candidates": [],
+            "emergence_candidates": [{"id": "emergence-1", "payload": {"score": 0.74}}],
+        },
+        parsed={
+            "decision": "continue",
+            "confidence": 0.87,
+            "tool_calls": [
+                {
+                    "tool_name": "continue_timeline",
+                    "arguments": {"reason": "watch one more tick"},
+                    "idempotency_key": "continue-1",
+                }
+            ],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline", "create_branch"]
+    branch = calls[1]
+    assert branch["arguments"]["fork_tick_index"] == 2
+    assert branch["arguments"]["branch_probability"] > 0
+    assert branch["arguments"]["auto_branch_candidate_count"] == 2
+
+
+def test_god_auto_branches_on_threshold_even_without_candidate_evidence(monkeypatch):
+    monkeypatch.setattr(god_agent, "_branch_score_threshold", lambda _db, _multiverse: 0.55)
+    multiverse = SimpleNamespace(id=uuid4())
+
+    calls = god_agent._prepare_tool_calls(
+        FakeDB(),
+        multiverse=multiverse,
+        provisional_bundle={
+            "branch_score": 0.86,
+            "split_candidates": [],
+            "merge_candidates": [],
+            "emergence_candidates": [],
+        },
+        parsed={
+            "decision": "continue",
+            "confidence": 0.87,
+            "tool_calls": [{"tool_name": "continue_timeline", "arguments": {}}],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline", "create_branch"]
+    assert calls[1]["arguments"]["auto_branch_candidate_count"] == 0
+    assert calls[1]["arguments"]["auto_branch_overrode_continue"] is True
+
+
+def test_god_explicit_continue_below_threshold_does_not_auto_branch(monkeypatch):
+    monkeypatch.setattr(god_agent, "_branch_score_threshold", lambda _db, _multiverse: 0.55)
+    multiverse = SimpleNamespace(id=uuid4())
+
+    calls = god_agent._prepare_tool_calls(
+        FakeDB(),
+        multiverse=multiverse,
+        provisional_bundle={
+            "branch_score": 0.42,
+            "split_candidates": [{"id": "split-1", "payload": {"score": 0.42}}],
+            "merge_candidates": [],
+            "emergence_candidates": [],
+        },
+        parsed={
+            "decision": "continue",
+            "confidence": 0.87,
+            "tool_calls": [{"tool_name": "continue_timeline", "arguments": {}}],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
 
 
 def test_deterministic_provider_marks_purpose_specific_fallback():
