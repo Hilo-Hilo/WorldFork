@@ -211,7 +211,9 @@ function buildTidyTree(bigBangName: string, multiverses: Multiverse[]): {
       value: typeof mv.path_probability === "number" ? mv.path_probability : null,
       forkTickIndex: mv.fork_tick_index,
       children: [],
-    } as TidyNode;
+      _x: 0,
+      _y: 0,
+    };
     if (childMvs.length > 0) {
       // Continuation leaf — represents the parent's own continued trajectory
       // alongside its diverged children. Anchored leftmost so the eye reads
@@ -226,7 +228,9 @@ function buildTidyTree(bigBangName: string, multiverses: Multiverse[]): {
         isContinuation: true,
         forkTickIndex: mv.fork_tick_index,
         children: [],
-      } as TidyNode);
+        _x: 0,
+        _y: 0,
+      });
       for (const c of childMvs) node.children.push(tidyFor(c));
     }
     return node;
@@ -242,7 +246,9 @@ function buildTidyTree(bigBangName: string, multiverses: Multiverse[]): {
     value: null,
     forkTickIndex: null,
     children: roots.map(tidyFor),
-  } as TidyNode;
+    _x: 0,
+    _y: 0,
+  };
 
   // Tidy layout: x by leaf-count walk, y by depth. Leaves get a leftmost
   // anchor for now; we re-center the whole layout horizontally below so the

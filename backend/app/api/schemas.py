@@ -29,7 +29,7 @@ class BigBangCreate(BaseModel):
 
 
 class BigBangPatch(BaseModel):
-    name: str | None = Field(default=None, max_length=240)
+    name: str | None = Field(default=None, min_length=1, max_length=240)
     description: str | None = None
     status: str | None = None
 

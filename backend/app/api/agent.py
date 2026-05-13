@@ -299,6 +299,7 @@ def runs(
     db: Session = Depends(get_db),
     status: str | None = None,
     q: str | None = None,
+    include_archived: bool = False,
     limit: int = Query(default=50, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
     verbosity: str = DEFAULT_VERBOSITY,
@@ -308,6 +309,8 @@ def runs(
     stmt = select(models.BigBang)
     if status:
         stmt = stmt.where(models.BigBang.status == status)
+    elif not include_archived:
+        stmt = stmt.where(models.BigBang.status != "archived")
     if q:
         stmt = stmt.where(models.BigBang.name.ilike(f"%{q}%"))
     total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
@@ -580,6 +583,10 @@ def models_route():
                 "cohort_agent": settings.cohort_agent_model,
                 "hero_agent": settings.hero_agent_model,
                 "event_summary": settings.event_summary_model,
+                "predicate_extractor": settings.default_model,
+                "predicate_resolver": settings.default_model,
+                "single_report_agent": settings.default_model,
+                "final_report_agent": settings.final_report_agent_model,
                 "report_agent": settings.report_agent_model,
             },
             "mutable": True,

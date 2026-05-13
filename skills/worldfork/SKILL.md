@@ -34,8 +34,8 @@ For onboarding, smoke, and Atlas, use the configured route policy unless the use
 | Route class | Supported provider/model examples | Rationale |
 | --- | --- | --- |
 | Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` | Cheap and fast for many actor calls |
-| Initializer, God review, endpoint ledger, report | Strong governance/report model route, such as OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude | Stronger reasoning for governance and summaries |
-| Event summary | Strong governance/report model route unless route config says otherwise | Aggregate tick-level reasoning over executed events |
+| Predicate extraction/resolution, event summary, single reports | OpenRouter `deepseek/deepseek-v4-flash` | Fast aggregate and report-adjacent work |
+| Initializer, God review, endpoint ledger, report fallback, final report | OpenRouter `deepseek/deepseek-v4-pro` | Stronger reasoning for governance and final synthesis |
 
 Before starting a substantial Big Bang or Atlas run:
 
@@ -54,6 +54,8 @@ worldfork ticks cost <tick-snapshot-id> --include-calls
 ```
 
 Explain to the user that estimates are model- and branch-policy-dependent. Runtime can grow with cohort count, max ticks, branch caps, report generation, and context growth. Cohort calls may run in parallel, but downstream God review, ledger, summary, and report stages still take serial time.
+
+Branch-score policy is authoritative. If a tick crosses the configured `branch_score_threshold`, the backend should create a branch even if the God-agent response only emits `continue_timeline`.
 
 ## Starting A Big Bang Well
 

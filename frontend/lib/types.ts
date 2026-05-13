@@ -131,6 +131,67 @@ export type ReportVersion = {
   updated_at: string;
 };
 
+export type ReportStatusStage =
+  | "simulation"
+  | "single_reports"
+  | "predicate_resolution"
+  | "final_report"
+  | "ready"
+  | "failed"
+  | "waiting"
+  | string;
+
+export type ReportStatus = {
+  big_bang: {
+    id: string;
+    name: string;
+    status: string;
+    updated_at: string | null;
+  };
+  stage: ReportStatusStage;
+  message: string;
+  multiverse_reports: {
+    total: number;
+    completed: number;
+    items: Array<{
+      multiverse: {
+        id: string;
+        ui_label: string;
+        status: string;
+        report_status: string;
+        path_probability: number | null;
+        branch_probability: number | null;
+        branch_reason: string | null;
+        updated_at: string | null;
+      };
+      report: {
+        id: string | null;
+        status: string;
+        current_version: number;
+        has_version: boolean;
+        version_id: string | null;
+        title: string | null;
+        updated_at: string | null;
+      };
+    }>;
+  };
+  final_report: {
+    id: string | null;
+    status: string;
+    current_version: number;
+    has_version: boolean;
+    version_id: string | null;
+    title: string | null;
+    updated_at: string | null;
+  };
+  active_job: Record<string, unknown> | null;
+  latest_failed_job: Record<string, unknown> | null;
+  latest_llm_call: Record<string, unknown> | null;
+  active_llm_call: Record<string, unknown> | null;
+  latest_failed_llm_call: Record<string, unknown> | null;
+  jobs: Array<Record<string, unknown> | null>;
+};
+
 export type Job = {
   id: string;
   job_type: string;
@@ -203,4 +264,10 @@ export type CreateBigBangPayload = {
   };
   use_initializer_agent?: boolean;
   initializer_prompt?: string;
+};
+
+export type UpdateBigBangPayload = {
+  name?: string;
+  description?: string | null;
+  status?: string;
 };

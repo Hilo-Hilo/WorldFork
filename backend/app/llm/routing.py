@@ -19,6 +19,10 @@ class AuditedLLMRoute(StrEnum):
     COHORT_AGENT = "cohort_agent"
     HERO_AGENT = "hero_agent"
     EVENT_SUMMARY = "event_summary"
+    PREDICATE_EXTRACTOR = "predicate_extractor"
+    PREDICATE_RESOLVER = "predicate_resolver"
+    SINGLE_REPORT_AGENT = "single_report_agent"
+    FINAL_REPORT_AGENT = "final_report_agent"
     REPORT_AGENT = "report_agent"
     ENDPOINT_LEDGER = "endpoint_ledger"
 
@@ -69,6 +73,30 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
         fallback_model_setting="event_summary_model",
     ),
     AuditedLLMRouteInfo(
+        route=AuditedLLMRoute.PREDICATE_EXTRACTOR,
+        label="Predicate extractor",
+        description="Extracts answerable predicates from the user's simulation question.",
+        fallback_model_setting="default_model",
+    ),
+    AuditedLLMRouteInfo(
+        route=AuditedLLMRoute.PREDICATE_RESOLVER,
+        label="Predicate resolver",
+        description="Resolves extracted predicates against a single universe timeline.",
+        fallback_model_setting="default_model",
+    ),
+    AuditedLLMRouteInfo(
+        route=AuditedLLMRoute.SINGLE_REPORT_AGENT,
+        label="Single-universe report agent",
+        description="Writes a structured report for one completed universe branch.",
+        fallback_model_setting="default_model",
+    ),
+    AuditedLLMRouteInfo(
+        route=AuditedLLMRoute.FINAL_REPORT_AGENT,
+        label="Final multiverse report agent",
+        description="Synthesizes completed single-universe reports into the final Big Bang report.",
+        fallback_model_setting="final_report_agent_model",
+    ),
+    AuditedLLMRouteInfo(
         route=AuditedLLMRoute.REPORT_AGENT,
         label="Report agent",
         description="Writes structured multiverse and final Big Bang report summaries.",
@@ -83,6 +111,7 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
 )
 
 _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
+ROUTE_METADATA_OVERRIDE_KEYS_FIELD = "_route_metadata_override_keys"
 
 
 @dataclass(frozen=True)
@@ -106,7 +135,15 @@ class ResolvedLLMRoute:
         return (self.primary, self.fallback)
 
     def metadata_for(self, candidate: LLMRouteCandidate, metadata: dict[str, Any]) -> dict[str, Any]:
-        return {**metadata, **candidate.metadata_defaults}
+        route_defaults = candidate.metadata_defaults
+        merged = {**metadata, **route_defaults}
+        override_keys = metadata.get(ROUTE_METADATA_OVERRIDE_KEYS_FIELD)
+        if isinstance(override_keys, (list, tuple, set)):
+            for key in override_keys:
+                if isinstance(key, str) and key in metadata:
+                    merged[key] = metadata[key]
+        merged.pop(ROUTE_METADATA_OVERRIDE_KEYS_FIELD, None)
+        return merged
 
     def audit_meta(self) -> dict[str, Any]:
         payload: dict[str, Any] = {

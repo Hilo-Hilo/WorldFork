@@ -13,11 +13,12 @@ from app.api.schemas import BigBangCreate
 from app.core.config import get_settings
 from app.core.labels import tick_label
 from app.db import models
+from app.llm.audit import LLMCallError
 from app.llm.prompt_builder import sanitize_sociology_prompt_influences
 from app.domains.endpoint_ledger.service import seed_endpoint_ledger
 from app.domains.event.event_engine import event_prompt_row
 from app.domains.big_bang.initialization_corpus import build_plain_text_corpus
-from app.domains.big_bang.initializer_agent import merge_initializer_lists, run_initializer_agent
+from app.domains.big_bang.initializer_agent import fallback_initializer_output, merge_initializer_lists, run_initializer_agent
 from app.domains.big_bang.source_truth_validation import normalize_initializer_against_source_of_truth
 from app.source_of_truth.snapshotter import snapshot_source_of_truth
 from app.storage.artifact_store import ArtifactStore
@@ -82,6 +83,7 @@ def default_model_config(overrides: dict) -> dict:
         "hero_agent_model": settings.hero_agent_model,
         "event_summary_model": settings.event_summary_model,
         "report_agent_model": settings.report_agent_model,
+        "final_report_agent_model": settings.final_report_agent_model,
     }
     base.update(overrides or {})
     return base
@@ -134,6 +136,15 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
                 plain_text_corpus=plain_text_corpus,
                 initializer_prompt=payload.initializer_prompt,
             )
+        except LLMCallError as exc:
+            initializer_output = {
+                **fallback_initializer_output(scenario_input),
+                "plain_text_corpus": plain_text_corpus,
+                "fallback": True,
+                "fallback_reason": "initializer_llm_failed",
+                "llm_error": str(exc),
+                "llm_call_id": str(exc.call_id) if exc.call_id else None,
+            }
         except Exception:
             cleanup_failed_big_bang_initialization(db, big_bang.id)
             raise

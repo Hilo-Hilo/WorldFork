@@ -45,8 +45,8 @@ def _default_entry(job_type: JobType) -> ModelRoutingEntry:
         job_type=job_type,
         preferred_provider=provider,
         preferred_model=model,
-        fallback_provider=provider if model else None,
-        fallback_model=model,
+        fallback_provider=_default_fallback_provider(provider),
+        fallback_model=_default_fallback_model(model),
         temperature=0.6,
         top_p=0.95,
         max_tokens=2048,
@@ -63,6 +63,14 @@ def _default_provider_for_model(model: str, model_setting: str | None) -> str:
     if model_setting is not None and model == settings.openai_codex_default_model:
         return "openai-codex"
     return str(settings.default_llm_provider)
+
+
+def _default_fallback_provider(provider: str) -> str:
+    return str(settings.default_llm_provider or provider)
+
+
+def _default_fallback_model(model: str) -> str:
+    return str(settings.fallback_model or model)
 
 
 _ALL_JOB_TYPES: tuple[JobType, ...] = (
