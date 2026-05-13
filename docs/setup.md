@@ -23,7 +23,7 @@ proactive: explain what each setup phase proves, use `worldfork setup` to show
 provider options, ask which providers I want to configure, recommend the
 fast-cheap cohort plus stronger governance/report split for Atlas, and narrate
 what Atlas is doing while it runs.
-Use a configured split for live API-credit runs: OpenRouter `deepseek/deepseek-v4-flash` is a supported fast/cheap high-volume route, and strong governance/report routes can use OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude models.
+Use the configured split for live API-credit runs: OpenRouter `deepseek/deepseek-v4-flash` for fast cohort/hero/action/event-summary/single-report work, and OpenRouter `deepseek/deepseek-v4-pro` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
 ```
 
 ## Complete Manual Setup
@@ -48,7 +48,7 @@ cp .env.example .env
 
 Set `OPENROUTER_API_KEY` in `.env`.
 
-WorldFork can route cohort, hero, action, and event-summary work to `deepseek/deepseek-v4-flash` through OpenRouter. Initializer, God-review, endpoint-ledger, and report routes should use a strong governance/report model route, such as `gpt-5.4` through `openai-codex` or OpenRouter-hosted Kimi/Claude models.
+WorldFork can route cohort, hero, action, event-summary, predicate, and single-report work to `deepseek/deepseek-v4-flash` through OpenRouter. Initializer, God-review, endpoint-ledger, report fallback, and final multiverse report routes use the stronger OpenRouter `deepseek/deepseek-v4-pro` default unless you intentionally choose another configured model.
 
 ### Install The CLI
 

@@ -281,7 +281,7 @@ def _execute_job(db: Session, job: models.Job) -> dict:
 def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> dict:
     from sqlalchemy import func
 
-    from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_report
+    from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_reports_parallel
     from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, UNFINISHED_TICK_STATUSES
 
     payload = job.payload or {}
@@ -385,9 +385,25 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     report_version_ids: list[str] = []
     final_report_version_id: str | None = None
     if not unfinished_ticks and not non_terminal and multiverses:
-        for multiverse in multiverses:
-            report_version = generate_multiverse_report(db, multiverse=multiverse)
-            report_version_ids.append(str(report_version.id))
+        report_targets = [mv for mv in multiverses if mv.report_status in {"ready", "not_ready"}]
+        job.result = {
+            **make_progress("generating_single_reports"),
+            "phase": "generating_single_reports",
+            "report_progress": {"completed": 0, "total": len(report_targets)},
+        }
+        db.add(job)
+        db.flush()
+        db.commit()
+        report_versions = generate_multiverse_reports_parallel(db, multiverses=list(multiverses))
+        report_version_ids = [str(report_version.id) for report_version in report_versions]
+        job.result = {
+            **make_progress("generating_final_report"),
+            "phase": "generating_final_report",
+            "report_progress": {"completed": len(report_version_ids), "total": len(report_targets)},
+        }
+        db.add(job)
+        db.flush()
+        db.commit()
         big_bang.status = "completed"
         final_report_version = generate_final_big_bang_report(db, big_bang=big_bang)
         final_report_version_id = str(final_report_version.id)

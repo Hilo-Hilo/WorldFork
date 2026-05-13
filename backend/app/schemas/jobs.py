@@ -34,6 +34,10 @@ AuditedLLMRouteType = Literal[
     "cohort_agent",
     "hero_agent",
     "event_summary",
+    "predicate_extractor",
+    "predicate_resolver",
+    "single_report_agent",
+    "final_report_agent",
     "report_agent",
     "endpoint_ledger",
 ]

@@ -25,7 +25,7 @@ CODEX_MODEL = "gpt-5.4"
 _REPO = Path(__file__).resolve().parents[1]
 _ENV = _REPO / ".env"
 if _ENV.exists():
-    for _line in _ENV.read_text().splitlines():
+    for _line in _ENV.read_text(encoding="utf-8").splitlines():
         _line = _line.strip()
         if not _line or _line.startswith("#") or "=" not in _line:
             continue
@@ -216,7 +216,7 @@ async def main() -> None:
     approx_cost = 0.0
     if raw_response_path.exists():
         import json
-        raw_data = json.loads(raw_response_path.read_text())
+        raw_data = json.loads(raw_response_path.read_text(encoding="utf-8"))
         total_tokens = raw_data.get("total_tokens", 0) or 0
         approx_cost = raw_data.get("cost_usd") or 0.0
     print(f"\n  Total LLM tokens  : {total_tokens}")

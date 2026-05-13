@@ -58,8 +58,13 @@ DEFAULT_AGENT_SPECS: dict[str, AgentEstimateSpec] = {
     "event_summary": AgentEstimateSpec(6_000, 800, 25, 250),
     "god_agent": AgentEstimateSpec(14_000, 1_400, 75, 700),
     "endpoint_ledger": AgentEstimateSpec(10_000, 1_600, 60, 450),
+    "predicate_extractor": AgentEstimateSpec(4_000, 500, 20),
+    "predicate_resolver": AgentEstimateSpec(6_000, 600, 20),
+    "single_report_agent": AgentEstimateSpec(22_000, 2_400, 90, 900),
+    "final_report_agent": AgentEstimateSpec(35_000, 8_192, 300, 1_200),
     "report_agent": AgentEstimateSpec(35_000, 8_192, 150, 1_200),
 }
+REPORT_SINGLE_REPORT_PARALLELISM = 3
 
 
 def openrouter_pricing_table() -> dict[str, Any]:
@@ -302,6 +307,8 @@ def agent_type_for_call(call: models.LLMCall) -> str:
             return "hero_agent"
         if hinted_text == "cohort":
             return "cohort_agent"
+        if hinted_text in DEFAULT_AGENT_SPECS:
+            return hinted_text
     if "initializer_chunk" in purpose:
         return "initializer_chunk_extractor"
     if "initializer" in purpose:
@@ -310,6 +317,10 @@ def agent_type_for_call(call: models.LLMCall) -> str:
         return "god_agent"
     if "endpoint_ledger" in purpose:
         return "endpoint_ledger"
+    if "predicate_extraction" in purpose:
+        return "predicate_extractor"
+    if "predicate_resolution" in purpose:
+        return "predicate_resolver"
     if "report_agent" in purpose or purpose.startswith("report_"):
         return "report_agent"
     if "event_summary" in purpose:
@@ -371,7 +382,10 @@ def _estimate_cost(db: Session, *, big_bang: models.BigBang | None, request: Cos
         "event_summary": timeline_ticks,
         "god_agent": timeline_ticks,
         "endpoint_ledger": 0,
-        "report_agent": (max(1, multiverse_count) + 1) if request.include_reports else 0,
+        "predicate_extractor": 1 if request.include_reports else 0,
+        "predicate_resolver": max(1, multiverse_count) if request.include_reports else 0,
+        "single_report_agent": max(1, multiverse_count) if request.include_reports else 0,
+        "final_report_agent": 1 if request.include_reports else 0,
     }
     include = {item for item in request.include_agent_types if item}
     exclude = {item for item in request.exclude_agent_types if item}
@@ -429,7 +443,11 @@ def _estimate_cost(db: Session, *, big_bang: models.BigBang | None, request: Cos
         wall_seconds += scenario_chunks * _agent_spec("initializer_chunk_extractor", observed).duration_seconds
         wall_seconds += _agent_spec("initializer_agent", observed).duration_seconds
     if request.include_reports:
-        wall_seconds += (max(1, multiverse_count) + 1) * _agent_spec("report_agent", observed).duration_seconds
+        single_report_batches = math.ceil(max(1, multiverse_count) / REPORT_SINGLE_REPORT_PARALLELISM)
+        wall_seconds += _agent_spec("predicate_extractor", observed).duration_seconds
+        wall_seconds += max(1, multiverse_count) * _agent_spec("predicate_resolver", observed).duration_seconds
+        wall_seconds += single_report_batches * _agent_spec("single_report_agent", observed).duration_seconds
+        wall_seconds += _agent_spec("final_report_agent", observed).duration_seconds
 
     return {
         "currency": "USD",
@@ -447,7 +465,11 @@ def _estimate_cost(db: Session, *, big_bang: models.BigBang | None, request: Cos
         "time_estimate": {
             "estimated_wall_seconds": round(wall_seconds, 4),
             "estimated_wall_minutes": round(wall_seconds / 60.0, 4),
-            "parallelism": {"cohort_agent": max_parallel, "hero_agent": 1},
+            "parallelism": {
+                "cohort_agent": max_parallel,
+                "hero_agent": 1,
+                "single_report_agent": REPORT_SINGLE_REPORT_PARALLELISM,
+            },
             "timeline_ticks_estimated": timeline_ticks,
         },
         "assumptions": {

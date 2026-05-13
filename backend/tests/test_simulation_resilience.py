@@ -420,7 +420,7 @@ def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_pa
     assert config.branch_policy["branch_score_threshold"] == 0.12
 
 
-def test_failed_initializer_agent_does_not_leave_draft_big_bang(db, monkeypatch, tmp_path):
+def test_failed_initializer_agent_uses_deterministic_fallback(db, monkeypatch, tmp_path):
     def fake_snapshot(db, big_bang_id):
         snapshot = models.SourceOfTruthSnapshot(
             big_bang_id=big_bang_id,
@@ -450,19 +450,23 @@ def test_failed_initializer_agent_does_not_leave_draft_big_bang(db, monkeypatch,
     monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
     monkeypatch.setattr(initializer, "run_initializer_agent", fail_after_audit_commit)
 
-    with pytest.raises(LLMCallError):
-        initializer.create_big_bang(
-            db,
-            BigBangCreate(
-                name="Failed init",
-                scenario_text="A river town faces a flood warning.",
-                use_initializer_agent=True,
-            ),
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Failed init",
+            scenario_text="A river town faces a flood warning.",
+            use_initializer_agent=True,
         )
+    )
 
-    assert db.query(models.BigBang).count() == 0
-    assert db.query(models.SourceOfTruthSnapshot).count() == 0
-    assert db.query(models.LLMCall).count() == 0
+    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id, ui_label="M1").one()
+    initializer_output = root.state["initializer_output"]
+    assert initializer_output["fallback"] is True
+    assert initializer_output["fallback_reason"] == "initializer_llm_failed"
+    assert "provider unavailable" in initializer_output["llm_error"]
+    assert db.query(models.BigBang).count() == 1
+    assert db.query(models.SourceOfTruthSnapshot).count() == 1
+    assert db.query(models.LLMCall).count() == 1
 
 
 def test_initializer_graph_and_emotion_casts_tolerate_bad_model_strings(db):
