@@ -15,6 +15,16 @@ from backend.app.schemas.llm import ModelConfig, PromptPacket
 OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
 
 
+def _expected_provider_for_model(model: str) -> str:
+    if model == settings.openai_codex_default_model:
+        return "openai-codex"
+    return settings.default_llm_provider
+
+
+def _expected_fallback() -> tuple[str, str]:
+    return settings.default_llm_provider, settings.fallback_model
+
+
 class _Completions:
     def __init__(self, responses):
         self.responses = list(responses)
@@ -156,7 +166,6 @@ def test_default_routes_use_provider_model_split() -> None:
         "evaluate_endpoint_ledger": settings.god_agent_model,
         "force_deviation": settings.god_agent_model,
     }
-    powerful_job_types = set(expected_model_by_job_type)
     for job_type in (
         "initialize_big_bang",
         "simulate_universe_tick",
@@ -174,14 +183,16 @@ def test_default_routes_use_provider_model_split() -> None:
         "force_deviation",
     ):
         expected_model = expected_model_by_job_type.get(job_type, OPENROUTER_MODEL)
-        expected_provider = "openai-codex" if job_type in powerful_job_types else "openrouter"
+        expected_provider = _expected_provider_for_model(expected_model)
+        expected_fallback_provider, expected_fallback_model = _expected_fallback()
         preferred, fallback = routing.route(job_type)
         assert preferred.provider == expected_provider
         assert preferred.model == expected_model
         assert fallback is not None
-        assert fallback.provider == expected_provider
-        assert fallback.model == expected_model
-        assert preferred.fallback_model == expected_model
+        assert fallback.provider == expected_fallback_provider
+        assert fallback.model == expected_fallback_model
+        expected_native = expected_fallback_model if expected_fallback_provider == expected_provider else None
+        assert preferred.fallback_model == expected_native
 
 
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
@@ -317,33 +328,49 @@ def test_seeded_routes_derive_from_settings_provider_defaults() -> None:
         "endpoint_ledger": settings.god_agent_model,
         "evaluate_endpoint_ledger": settings.god_agent_model,
         "aggregate_run_results": settings.report_agent_model,
+        "final_report_agent": settings.final_report_agent_model,
         "report_agent": settings.report_agent_model,
         "event_summary": settings.event_summary_model,
         "force_deviation": settings.god_agent_model,
     }
+    fallback_model_by_job_type = {
+        "predicate_extractor": settings.report_agent_model,
+        "predicate_resolver": settings.report_agent_model,
+        "single_report_agent": settings.report_agent_model,
+        "final_report_agent": "anthropic/claude-sonnet-4.6",
+    }
     for row in _ROUTING_DEFAULTS:
         routed = _routing_model_defaults(row)
         expected_model = expected_model_by_job_type.get(row["job_type"], OPENROUTER_MODEL)
-        expected_provider = "openai-codex" if row["job_type"] in expected_model_by_job_type else "openrouter"
+        expected_provider = _expected_provider_for_model(expected_model)
+        if row["job_type"] in fallback_model_by_job_type:
+            expected_fallback_model = fallback_model_by_job_type[row["job_type"]]
+            expected_fallback_provider = _expected_provider_for_model(expected_fallback_model)
+        else:
+            expected_fallback_provider, expected_fallback_model = _expected_fallback()
         assert routed["preferred_provider"] == expected_provider
         assert routed["preferred_model"] == expected_model
-        assert routed["fallback_provider"] == expected_provider
-        assert routed["fallback_model"] == expected_model
+        assert routed["fallback_provider"] == expected_fallback_provider
+        assert routed["fallback_model"] == expected_fallback_model
+        if row["job_type"] in {"initialize_big_bang", "initializer_chunk_extractor", "initializer_agent"}:
+            assert routed["retry_policy"] == "none"
+            assert routed["timeout_seconds"] == 300
+            assert routed["payload"]["reasoning"] == {"effort": "low", "exclude": True}
 
 
-def test_seed_routing_preserves_existing_rows(monkeypatch) -> None:
+def test_seed_routing_refreshes_seed_owned_rows(monkeypatch) -> None:
     from backend.app.scripts import seed
 
     calls = []
 
-    def insert_missing(session, model, pk_col, rows):
+    def upsert_seed_owned(session, model, pk_col, rows):
         calls.append((session, model, pk_col, rows))
         return len(rows)
 
     def fail_upsert(*_args, **_kwargs):
-        pytest.fail("_seed_routing should not overwrite existing model-routing rows")
+        pytest.fail("_seed_routing should not use unrestricted upserts")
 
-    monkeypatch.setattr(seed, "_insert_missing", insert_missing, raising=False)
+    monkeypatch.setattr(seed, "_upsert_seed_owned", upsert_seed_owned, raising=False)
     monkeypatch.setattr(seed, "_upsert", fail_upsert)
 
     session = object()
@@ -352,3 +379,4 @@ def test_seed_routing_preserves_existing_rows(monkeypatch) -> None:
     assert calls
     assert calls[0][0] is session
     assert calls[0][2] == "job_type"
+    assert all(row["payload"]["source"] == "seed_default" for row in calls[0][3])

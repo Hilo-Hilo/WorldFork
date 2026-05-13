@@ -37,7 +37,7 @@ def _load_env() -> None:
     env_path = ROOT / ".env"
     if not env_path.exists():
         return
-    for line in env_path.read_text().splitlines():
+    for line in env_path.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#") or "=" not in stripped:
             continue
@@ -627,7 +627,7 @@ def record_manual_transparency_branch(parent_multiverse_id: str, tick_snapshot_i
 
 def run_sample(args: argparse.Namespace) -> None:
     scenario_path = Path(args.scenario_file).resolve()
-    scenario_text = scenario_path.read_text()
+    scenario_text = scenario_path.read_text(encoding="utf-8")
     check(len(scenario_text) > 10_000, "test-big-bang.md is a long-form scenario dossier")
 
     base_url = str(args.base_url).rstrip("/")

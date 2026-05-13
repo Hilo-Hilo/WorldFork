@@ -48,7 +48,7 @@ Use this path when you want to run each command yourself.
 - `uv`
 - Node.js 20+ if you want to install agent skills with `npx skills`
 - An OpenRouter API key
-- A configured strong governance/report model route for initializer, God-review, endpoint-ledger, event-summary, and report work. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi or Claude models.
+- Configured strong-model routes. The example environment uses OpenRouter `deepseek/deepseek-v4-pro` for governance-style work and final multiverse report synthesis.
 
 #### 1. Clone and install the CLI
 
@@ -73,7 +73,7 @@ cd ..
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`. Then configure a strong governance/report route. For OpenAI Codex OAuth:
+Set `OPENROUTER_API_KEY` in `.env`. The default route split uses OpenRouter for both the fast and strong model lanes. If you intentionally route strong calls to OpenAI Codex instead, authenticate it first:
 
 ```bash
 worldfork settings openai-codex-login
@@ -84,7 +84,9 @@ The recommended live split is:
 | Work type | Recommended route |
 | --- | --- |
 | Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` |
-| Initializer, God review, endpoint ledger, event summary, reports | Strong governance/report model route, such as OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude |
+| Initializer, God review, endpoint ledger | OpenRouter `deepseek/deepseek-v4-pro` |
+| Final multiverse report synthesis | OpenRouter `deepseek/deepseek-v4-pro`, with Claude Sonnet fallback |
+| Event summaries | OpenRouter `deepseek/deepseek-v4-flash` |
 
 Inspect provider options and effective routing before spending live API credits:
 
@@ -176,6 +178,17 @@ WorldFork keeps asking that question across forks.
 
 ## Core Concepts
 
+### Scenario Questions And Reports
+
+WorldFork separates the scenario source from the question the report must
+answer. The scenario source can be a long Markdown dossier, while the dedicated
+report question is stored in `scenario_input.primary_question` with optional
+`resolution_criteria` and `supporting_questions`.
+
+Reports use that question context when extracting prediction predicates,
+resolving timeline evidence, and writing the final answer. This keeps a large
+scenario file from accidentally becoming the forecast contract.
+
 ### 1) From Big Bang to Multiverse Tree
 
 <p align="center">
@@ -191,6 +204,7 @@ Key ideas:
 - The root timeline can fork into multiple child multiverses.
 - Child multiverses inherit prior history up to the fork point.
 - Branching is constrained by policy: depth, active multiverse cap, branches per tick, and score thresholds.
+- When `branch_score` crosses the configured threshold, backend policy creates a branch even if the God-agent response only said to continue.
 - Terminal or paused multiverses can later be **reported on** or **continued**.
 
 ### 2) Inside One Tick
@@ -263,6 +277,8 @@ Storage boundaries:
 - **Postgres is canonical** for durable domain state.
 - **Regenerable report renders are ephemeral**, generated only on request.
 - **Reports are structured database records first**, then Markdown/PDF renderings when requested.
+- Report LLM work is split by route: predicate and single-universe reports can use the fast default model, while the final multiverse report uses `final_report_agent_model` and the higher final-report budget.
+- `/api/big-bangs/<id>/report-status` exposes report pipeline state so the frontend can show single-report, predicate-resolution, and final-report progress instead of an empty report page.
 - Jobs can be **paused, resumed, interrupted, requeued, or run synchronously**.
 
 ---
@@ -355,7 +371,7 @@ The current system is Dockerized, tested across unit/integration/e2e layers, and
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
+openrouter/deepseek/deepseek-v4-pro
 ```
 
 If you want to understand the project quickly, start with the diagrams above, then run:

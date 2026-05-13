@@ -32,6 +32,7 @@ test("input page renders required form sections", async ({ page }) => {
   await page.goto("/input");
   await expect(page.getByRole("heading", { name: /configure a scenario run/i })).toBeVisible();
   await expect(page.getByText("Scenario source")).toBeVisible();
+  await expect(page.getByText("Question to answer")).toBeVisible();
   await expect(page.getByText("Initializer prompt")).toBeVisible();
   await expect(page.getByText("Simulation config")).toBeVisible();
   await expect(page.getByText("use_initializer_agent")).toBeVisible();
@@ -42,6 +43,7 @@ test("input page can load the tiny demo scenario without submitting", async ({ p
   await page.goto("/input");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
   await expect(page.getByText("demo-scenario.md")).toBeVisible();
+  await expect(page.getByLabel(/Primary question/i)).toHaveValue(/regain public trust/i);
   await expect(page.getByRole("button", { name: /run simulation/i })).toBeEnabled();
 });
 
