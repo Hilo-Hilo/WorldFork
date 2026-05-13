@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { api, ApiError, CLIENT_BASE } from "@/lib/api";
-import type { Report, ReportVersion } from "@/lib/types";
+import type { Report, ReportStatus, ReportVersion } from "@/lib/types";
 
 function explainExportError(err: unknown, format: "md" | "pdf"): { title: string; detail: string } {
   if (err instanceof ApiError) {
@@ -107,11 +107,313 @@ function EmptyState({ runId, message }: { runId?: string; message: string }) {
   );
 }
 
+function ReportProgressState({ runId, status }: { runId: string; status?: ReportStatus }) {
+  const stage = status?.stage || "waiting";
+  const total = status?.multiverse_reports.total || 0;
+  const completed = status?.multiverse_reports.completed || 0;
+  const active = status?.active_llm_call || status?.active_job;
+  return (
+    <div className="rpt-progress-page">
+      <div className="rpt-progress-panel">
+        <div className="rpt-progress-kicker">report generation</div>
+        <h1>{stageTitle(stage)}</h1>
+        <p>{status?.message || "Waiting for report generation status..."}</p>
+        <ReportStageRail stage={stage} />
+        <div className="rpt-progress-grid">
+          <div>
+            <span className="k">single-universe reports</span>
+            <span className="v">{completed}/{total || "..."}</span>
+          </div>
+          <div>
+            <span className="k">final multiverse report</span>
+            <span className="v">{status?.final_report.has_version ? "ready" : status?.final_report.status || "pending"}</span>
+          </div>
+          <div>
+            <span className="k">run status</span>
+            <span className="v">{status?.big_bang.status || "..."}</span>
+          </div>
+        </div>
+        {active && (
+          <div className="rpt-active-work">
+            <span className="k">active work</span>
+            <span className="v">{String(active.purpose || active.job_type || "backend work")}</span>
+            <span className="s">{String(active.status || "")}</span>
+          </div>
+        )}
+        <div className="rpt-progress-actions">
+          <Link href={`/dashboard?run=${runId}`}>Back to dashboard</Link>
+          <Link href="/">Runs</Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ReportProgressBanner({ status }: { status?: ReportStatus }) {
+  if (!status || status.stage === "ready") return null;
+  return (
+    <div className="rpt-progress-banner">
+      <div>
+        <span className="k">{stageTitle(status.stage)}</span>
+        <span className="v">{status.message}</span>
+      </div>
+      <ReportStageRail stage={status.stage} compact />
+    </div>
+  );
+}
+
+function ReportStageRail({ stage, compact = false }: { stage: string; compact?: boolean }) {
+  const stages = [
+    ["simulation", "Simulation"],
+    ["single_reports", "Single reports"],
+    ["predicate_resolution", "Predicates"],
+    ["final_report", "Final report"],
+    ["ready", "Ready"],
+  ];
+  const activeIndex = stages.findIndex(([id]) => id === stage);
+  return (
+    <div className={`rpt-stage-rail ${compact ? "is-compact" : ""}`}>
+      {stages.map(([id, label], index) => (
+        <div
+          key={id}
+          className={`rpt-stage ${activeIndex >= 0 && index < activeIndex ? "is-done" : ""} ${index === activeIndex ? "is-active" : ""}`}
+        >
+          <span className="dot" />
+          <span>{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function stageTitle(stage: string): string {
+  if (stage === "simulation") return "Simulation still running";
+  if (stage === "single_reports") return "Generating single-universe reports";
+  if (stage === "predicate_resolution") return "Resolving final question";
+  if (stage === "final_report") return "Generating final multiverse report";
+  if (stage === "ready") return "Final report ready";
+  if (stage === "failed") return "Report generation failed";
+  return "Waiting for reports";
+}
+
+function ViewerSummaryCard({
+  summary,
+  onCopySummary,
+  onCopyLink,
+  copied,
+}: {
+  summary: ViewerSummary | null;
+  onCopySummary: () => void;
+  onCopyLink: () => void;
+  copied: string | null;
+}) {
+  if (!summary) return null;
+  const isFinal = summary.scope === "final_multiverse";
+  return (
+    <section className={`rpt-summary-card ${isFinal ? "is-final" : "is-single"}`}>
+      <div className="rpt-summary-head">
+        <div>
+          <span className="rpt-summary-scope">{isFinal ? "final multiverse" : "single universe"}</span>
+          <h1>{isFinal ? `Most likely: ${summary.most_likely_result || "Unresolved"}` : `${summary.timeline_label || "Timeline"} branch report`}</h1>
+          {summary.question && <p className="question">{summary.question}</p>}
+        </div>
+        <div className="rpt-summary-actions">
+          <button onClick={onCopySummary} type="button">{copied === "summary" ? "Copied" : "Copy X summary"}</button>
+          <button onClick={onCopyLink} type="button">{copied === "link" ? "Copied" : "Copy link"}</button>
+        </div>
+      </div>
+      {isFinal ? (
+        <>
+          <div className="rpt-summary-stats">
+            <div><span className="k">YES</span><span className="v">{percent(summary.p_yes)}</span></div>
+            <div><span className="k">NO</span><span className="v">{percent(summary.p_no)}</span></div>
+            <div><span className="k">confidence</span><span className="v">{confidenceLabel(summary.confidence)}</span></div>
+            <div><span className="k">retained timelines</span><span className="v">{summary.retained_timeline_count ?? "-"}/{summary.total_timeline_count ?? "-"}</span></div>
+          </div>
+          {summary.top_timelines && summary.top_timelines.length > 0 && (
+            <div className="rpt-summary-drivers">
+              {summary.top_timelines.slice(0, 3).map((item, index) => (
+                <div key={`${item.multiverse_id || index}`} className="driver">
+                  <span className="rank">{index + 1}</span>
+                  <span className="label">{String(item.ui_label || "timeline")}</span>
+                  <span className="mass">{percent(item.effective_path_probability)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="rpt-summary-stats">
+          <div><span className="k">outcome</span><span className="v">{summary.outcome || "unknown"}</span></div>
+          <div><span className="k">path probability</span><span className="v">{percent(summary.path_probability)}</span></div>
+          <div><span className="k">branch probability</span><span className="v">{percent(summary.branch_probability)}</span></div>
+          <div><span className="k">latest tick</span><span className="v">{summary.latest_tick_index ?? "-"}</span></div>
+        </div>
+      )}
+      {summary.scope_note && <p className="note">{summary.scope_note}</p>}
+      {summary.branch_reason && <p className="note">Branch reason: {summary.branch_reason}</p>}
+    </section>
+  );
+}
+
 type FlatVersion = {
   reportId: string;
   reportType: Report["report_type"];
   version: ReportVersion;
 };
+
+type ViewerSummary = {
+  scope: "single_universe" | "final_multiverse" | string;
+  title?: string | null;
+  question?: string | null;
+  timeline_label?: string | null;
+  outcome?: string | null;
+  most_likely_result?: string | null;
+  p_yes?: number | null;
+  p_no?: number | null;
+  confidence?: number | null;
+  resolution_state?: string | null;
+  path_probability?: number | null;
+  branch_probability?: number | null;
+  branch_reason?: string | null;
+  latest_tick_index?: number | null;
+  retained_timeline_count?: number | null;
+  total_timeline_count?: number | null;
+  top_timelines?: Array<Record<string, unknown>>;
+  rationale?: string | null;
+  scope_note?: string | null;
+  share_text?: string | null;
+};
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
+}
+
+function asNumber(value: unknown, fallback = 0): number {
+  const parsed = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function percent(value: unknown): string {
+  return `${Math.round(asNumber(value) * 100)}%`;
+}
+
+function confidenceLabel(value: unknown): string {
+  const n = asNumber(value);
+  if (n >= 0.75) return "high";
+  if (n >= 0.4) return "medium";
+  return "low";
+}
+
+function shortText(value: unknown, limit = 160): string {
+  const text = String(value || "").trim();
+  if (text.length <= limit) return text;
+  return text.slice(0, limit - 1).trimEnd() + "...";
+}
+
+function getViewerSummary(active: FlatVersion | null): ViewerSummary | null {
+  if (!active) return null;
+  const content = asRecord(active.version.content);
+  const existing = asRecord(content.viewer_summary);
+  if (existing.scope) return existing as ViewerSummary;
+  return active.reportType === "final_big_bang"
+    ? fallbackFinalSummary(content, active.version.title)
+    : fallbackSingleSummary(content, active.version.title);
+}
+
+function fallbackFinalSummary(content: Record<string, unknown>, title: string): ViewerSummary {
+  const forecast = asRecord(content.forecast_predictions);
+  const primary = asRecord(forecast.primary);
+  const pYes = asNumber(primary.p_yes, 0.5);
+  const pNo = asNumber(primary.p_no, 1 - pYes);
+  const confidence = asNumber(primary.confidence, 0);
+  const topTimelines = deriveTopTimelines(content);
+  const answer = confidence < 0.05 || Math.abs(pYes - pNo) < 0.02 ? "Unresolved" : pYes > pNo ? "Yes" : "No";
+  const summary: ViewerSummary = {
+    scope: "final_multiverse",
+    title,
+    question: typeof content.scenario_question === "string" ? content.scenario_question : null,
+    most_likely_result: answer,
+    p_yes: pYes,
+    p_no: pNo,
+    confidence,
+    resolution_state: String(primary.resolution_state || ""),
+    retained_timeline_count: topTimelines.filter((item) => item.include_in_final !== false).length,
+    total_timeline_count: Array.isArray(content.multiverse_comparison) ? content.multiverse_comparison.length : topTimelines.length,
+    top_timelines: topTimelines.slice(0, 4),
+    rationale: typeof primary.rationale === "string" ? primary.rationale : null,
+    scope_note: "This is the final multiverse report: probabilities come from retained timeline path mass.",
+  };
+  summary.share_text = finalShareText(summary);
+  return summary;
+}
+
+function fallbackSingleSummary(content: Record<string, unknown>, title: string): ViewerSummary {
+  const source = asRecord(content.source);
+  const outcome = asRecord(content.outcome_distribution);
+  const summary: ViewerSummary = {
+    scope: "single_universe",
+    title,
+    question: typeof content.scenario_question === "string" ? content.scenario_question : null,
+    timeline_label: String(source.ui_label || outcome.ui_label || "Timeline"),
+    outcome: String(outcome.status || source.status || "unknown"),
+    path_probability: asNumber(outcome.path_probability ?? source.path_probability),
+    branch_probability: asNumber(outcome.branch_probability ?? source.branch_probability),
+    branch_reason: typeof (outcome.branch_reason ?? source.branch_reason) === "string" ? String(outcome.branch_reason ?? source.branch_reason) : null,
+    latest_tick_index: typeof source.source_tick_index === "number" ? source.source_tick_index : asNumber(outcome.latest_tick_index, 0),
+    scope_note: "This is one branch report, not the global multiverse forecast.",
+  };
+  summary.share_text = singleShareText(summary);
+  return summary;
+}
+
+function deriveTopTimelines(content: Record<string, unknown>): Array<Record<string, unknown>> {
+  const comparison = Array.isArray(content.multiverse_comparison) ? content.multiverse_comparison.map(asRecord) : [];
+  const comparisonById = new Map(comparison.map((item) => [String(item.multiverse_id || ""), item]));
+  const adjudication = asRecord(content.timeline_adjudication);
+  const entries = Array.isArray(adjudication.entries) ? adjudication.entries.map(asRecord) : [];
+  const rows = entries.length
+    ? entries.map((entry) => {
+        const cmp = comparisonById.get(String(entry.multiverse_id || "")) || {};
+        return {
+          ...entry,
+          ui_label: entry.ui_label || cmp.ui_label,
+          branch_reason: cmp.branch_reason,
+          effective_path_probability: asNumber(entry.effective_path_probability, asNumber(cmp.path_probability)),
+        };
+      })
+    : comparison.map((item) => ({
+        multiverse_id: item.multiverse_id,
+        ui_label: item.ui_label,
+        include_in_final: true,
+        branch_reason: item.branch_reason,
+        effective_path_probability: asNumber(item.path_probability),
+      }));
+  return rows
+    .sort((a, b) => asNumber(b.effective_path_probability) - asNumber(a.effective_path_probability));
+}
+
+function finalShareText(summary: ViewerSummary): string {
+  const question = summary.question ? `"${shortText(summary.question, 180)}"` : "the primary question";
+  const top = summary.top_timelines?.[0];
+  const driver = top ? `\nTop path-mass driver: ${top.ui_label || "timeline"} (${percent(top.effective_path_probability)}).` : "";
+  return [
+    `WorldFork final multiverse report for: ${question}`,
+    "",
+    `Most likely result: ${summary.most_likely_result || "Unresolved"}`,
+    `YES ${percent(summary.p_yes)} / NO ${percent(summary.p_no)}, ${confidenceLabel(summary.confidence)} confidence.${driver}`,
+  ].join("\n");
+}
+
+function singleShareText(summary: ViewerSummary): string {
+  const reason = summary.branch_reason ? `\nKey branch: ${shortText(summary.branch_reason, 160)}` : "";
+  return [
+    `WorldFork single-universe report: ${summary.timeline_label || "timeline"}`,
+    "",
+    `Outcome in this branch: ${summary.outcome || "unknown"}`,
+    `Path probability: ${percent(summary.path_probability)}.${reason}`,
+  ].join("\n");
+}
 
 /** Walk a React children tree and concatenate the plain text. Needed so heading
  * IDs match the TOC slugs even when the heading contains inline markdown
@@ -177,6 +479,13 @@ function ReportPageWired({
     refetchInterval: 4000,
   });
 
+  const reportStatusQ = useQuery({
+    queryKey: ["reportStatus", runId],
+    queryFn: () => api.getReportStatus(runId),
+    refetchInterval: 3000,
+  });
+  const reportStatus = reportStatusQ.data;
+
   const reports = reportsQ.data || [];
 
   // Fetch versions for each report in parallel
@@ -211,6 +520,8 @@ function ReportPageWired({
       ? activeVersionId
       : flatVersions[0]?.version.id;
   const active = flatVersions.find((v) => v.version.id === activeId) || null;
+  const viewerSummary = getViewerSummary(active);
+  const [copied, setCopied] = useState<string | null>(null);
 
   const markdownQ = useQuery({
     queryKey: ["reportMarkdown", activeId],
@@ -241,6 +552,30 @@ function ReportPageWired({
     onSuccess: ({ blob, filename }) => triggerDownload(blob, filename),
   });
 
+  const copyText = async (kind: "summary" | "link", text: string) => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("clipboard API unavailable");
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "true");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+    setCopied(kind);
+    window.setTimeout(() => setCopied(null), 1800);
+  };
+
+  const reportLink =
+    typeof window === "undefined"
+      ? `/report?run=${runId}${activeId ? `&version=${activeId}` : ""}`
+      : `${window.location.origin}/report?run=${runId}${activeId ? `&version=${activeId}` : ""}`;
+
   // Build TOC by parsing markdown headings — must be called before any early returns
   const md = (markdownQ.data as string) || "";
   const tocItems = useMemo(() => {
@@ -261,7 +596,7 @@ function ReportPageWired({
 
   if (reportsQ.isLoading) {
     return (
-      <EmptyState runId={runId} message="Loading reports…" />
+      <ReportProgressState runId={runId} status={reportStatus} />
     );
   }
 
@@ -280,12 +615,11 @@ function ReportPageWired({
   }
 
   if (!reportsQ.isLoading && reports.length === 0) {
-    return (
-      <EmptyState
-        runId={runId}
-        message='No reports yet. Drive the run to completion from the dashboard ("Run to completion") and a final report will be generated automatically.'
-      />
-    );
+    return <ReportProgressState runId={runId} status={reportStatus} />;
+  }
+
+  if (!active && flatVersions.length === 0) {
+    return <ReportProgressState runId={runId} status={reportStatus} />;
   }
 
   const exportErr = exportPdf.error
@@ -337,48 +671,52 @@ function ReportPageWired({
         </div>
       </header>
 
-      {exportErr && (() => {
-        const { title, detail } = explainExportError(exportErr.e, exportErr.fmt);
-        return (
-          <div
-            data-testid="rpt-error-banner"
-            style={{
-              margin: "10px 14px 0",
-              padding: "10px 14px",
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderLeft: "2px solid var(--danger)",
-              borderRadius: 4,
-              display: "flex",
-              gap: 12,
-              alignItems: "flex-start",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "var(--danger)",
-            }}
-          >
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, marginBottom: 3 }}>{title}</div>
-              <div style={{ color: "var(--fg-2)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{detail}</div>
-            </div>
-            <button
-              onClick={exportErr.reset}
+      <div className="rpt-notices">
+        <ReportProgressBanner status={reportStatus} />
+
+        {exportErr && (() => {
+          const { title, detail } = explainExportError(exportErr.e, exportErr.fmt);
+          return (
+            <div
+              data-testid="rpt-error-banner"
               style={{
-                background: "transparent",
+                margin: "10px 14px",
+                padding: "10px 14px",
+                background: "var(--surface)",
                 border: "1px solid var(--border)",
-                color: "var(--muted)",
-                padding: "2px 8px",
-                borderRadius: 3,
-                cursor: "pointer",
-                fontSize: 11,
+                borderLeft: "2px solid var(--danger)",
+                borderRadius: 4,
+                display: "flex",
+                gap: 12,
+                alignItems: "flex-start",
                 fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--danger)",
               }}
             >
-              dismiss
-            </button>
-          </div>
-        );
-      })()}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 700, marginBottom: 3 }}>{title}</div>
+                <div style={{ color: "var(--fg-2)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{detail}</div>
+              </div>
+              <button
+                onClick={exportErr.reset}
+                style={{
+                  background: "transparent",
+                  border: "1px solid var(--border)",
+                  color: "var(--muted)",
+                  padding: "2px 8px",
+                  borderRadius: 3,
+                  cursor: "pointer",
+                  fontSize: 11,
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
+                dismiss
+              </button>
+            </div>
+          );
+        })()}
+      </div>
 
       {/* BODY */}
       <div className="rpt-body">
@@ -433,6 +771,12 @@ function ReportPageWired({
         {/* CENTER: read */}
         <article className="rpt-read">
           <div className="rpt-read-inner">
+            <ViewerSummaryCard
+              summary={viewerSummary}
+              copied={copied}
+              onCopySummary={() => copyText("summary", `${viewerSummary?.share_text || ""}\n\n${reportLink}`.trim())}
+              onCopyLink={() => copyText("link", reportLink)}
+            />
             {markdownQ.isLoading && (
               <div style={{ color: "var(--muted)", fontFamily: "var(--font-mono)", fontSize: 12 }}>loading…</div>
             )}
@@ -531,9 +875,16 @@ function ReportPageWired({
               </button>
               <button
                 className="rpt-action"
-                onClick={() => navigator.clipboard.writeText(`worldfork run ${runId}`)}
+                onClick={() => copyText("summary", `${viewerSummary?.share_text || ""}\n\n${reportLink}`.trim())}
+                disabled={!viewerSummary}
               >
-                Copy citation<span className="kbd">⌘C</span>
+                Copy X summary<span className="kbd">{copied === "summary" ? "done" : "⌘C"}</span>
+              </button>
+              <button
+                className="rpt-action"
+                onClick={() => copyText("link", reportLink)}
+              >
+                Copy report link<span className="kbd">{copied === "link" ? "done" : "link"}</span>
               </button>
             </div>
           </div>

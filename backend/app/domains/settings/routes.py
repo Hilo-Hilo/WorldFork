@@ -89,6 +89,10 @@ def _runtime_llm_defaults() -> dict[str, Any]:
             "cohort_agent": settings.cohort_agent_model,
             "hero_agent": settings.hero_agent_model,
             "event_summary": settings.event_summary_model,
+            "predicate_extractor": settings.default_model,
+            "predicate_resolver": settings.default_model,
+            "single_report_agent": settings.default_model,
+            "final_report_agent": settings.final_report_agent_model,
             "report_agent": settings.report_agent_model,
         },
         "provider_defaults": {
@@ -164,6 +168,10 @@ def _default_provider_for_route(route_info: dict[str, Any]) -> str:
     return settings.default_llm_provider
 
 
+def _default_fallback_for_route(_route_info: dict[str, Any]) -> tuple[str, str]:
+    return str(settings.default_llm_provider), str(settings.fallback_model or settings.default_model)
+
+
 def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows_by_job_type = {str(row["job_type"]): row for row in entries}
     effective: list[dict[str, Any]] = []
@@ -174,6 +182,7 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
         if row is None:
             preferred_provider = _default_provider_for_route(route_info)
             preferred_model = _default_model_for_route(route_info)
+            fallback_provider, fallback_model = _default_fallback_for_route(route_info)
             effective.append(
                 {
                     "route": route,
@@ -182,8 +191,8 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
                     "matched_route": None,
                     "preferred_provider": preferred_provider,
                     "preferred_model": preferred_model,
-                    "fallback_provider": preferred_provider,
-                    "fallback_model": preferred_model,
+                    "fallback_provider": fallback_provider,
+                    "fallback_model": fallback_model,
                     "source": "runtime_defaults",
                     "payload": {},
                 }
