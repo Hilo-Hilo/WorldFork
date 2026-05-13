@@ -11,6 +11,45 @@ import { test, expect } from "@playwright/test";
 const ANY_RUN_ID = "00000000-0000-0000-0000-000000000aaa";
 const ANY_VERSION_ID = "00000000-0000-0000-0000-000000000bbb";
 
+async function mockReportStatus(
+  page: import("@playwright/test").Page,
+  overrides: Record<string, unknown> = {},
+) {
+  await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}/report-status`, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        big_bang: {
+          id: ANY_RUN_ID,
+          name: "Mock run for report tests",
+          status: "completed",
+          updated_at: new Date().toISOString(),
+        },
+        stage: "ready",
+        message: "Final multiverse report is ready.",
+        multiverse_reports: { total: 1, completed: 1, items: [] },
+        final_report: {
+          id: "rrr-1",
+          status: "completed",
+          current_version: 1,
+          has_version: true,
+          version_id: ANY_VERSION_ID,
+          title: "Mock final report",
+          updated_at: new Date().toISOString(),
+        },
+        active_job: null,
+        latest_failed_job: null,
+        latest_llm_call: null,
+        active_llm_call: null,
+        latest_failed_llm_call: null,
+        jobs: [],
+        ...overrides,
+      }),
+    }),
+  );
+}
+
 /* ----- helpers to fake an existing run/multiverse/report ----- */
 
 async function mockSeededRun(page: import("@playwright/test").Page) {
@@ -34,7 +73,8 @@ async function mockSeededRun(page: import("@playwright/test").Page) {
     }),
   );
   await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}`, (route) =>
-    route.fulfill({
+    route.request().method() === "GET"
+      ? route.fulfill({
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
@@ -48,7 +88,8 @@ async function mockSeededRun(page: import("@playwright/test").Page) {
         source_snapshot_id: null,
         description: null,
       }),
-    }),
+        })
+      : route.fallback(),
   );
   await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}/multiverses`, (route) =>
     route.fulfill({
@@ -87,6 +128,89 @@ async function mockSeededRun(page: import("@playwright/test").Page) {
     return route.fallback();
   });
 }
+
+test("home: renames and deletes a simulation through row controls", async ({ page }) => {
+  let renamedTo: string | null = null;
+  let deleted = false;
+
+  await page.route("**/backend/api/agent/runs**", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        data: deleted
+          ? []
+          : [
+              {
+                id: ANY_RUN_ID,
+                name: renamedTo || "Mock run for row controls",
+                status: "draft",
+                created_at: new Date().toISOString(),
+                multiverse_count: 1,
+              },
+            ],
+        meta: { total: deleted ? 0 : 1 },
+      }),
+    }),
+  );
+  await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}`, async (route) => {
+    if (route.request().method() === "PATCH") {
+      const body = route.request().postDataJSON() as { name?: string };
+      renamedTo = body.name || null;
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          id: ANY_RUN_ID,
+          name: renamedTo,
+          status: "draft",
+          current_config_version: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          scenario_input: {},
+          source_snapshot_id: null,
+          description: null,
+        }),
+      });
+    }
+    if (route.request().method() === "DELETE") {
+      deleted = true;
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          id: ANY_RUN_ID,
+          name: renamedTo || "Mock run for row controls",
+          status: "archived",
+          current_config_version: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          scenario_input: {},
+          source_snapshot_id: null,
+          description: null,
+        }),
+      });
+    }
+    return route.fallback();
+  });
+
+  await page.goto("/");
+  const row = page.getByTestId(`run-row-${ANY_RUN_ID}`);
+  await expect(row).toBeVisible();
+
+  await row.getByRole("button", { name: "Rename" }).click();
+  await row.getByLabel(/Rename Mock run for row controls/i).fill("Renamed row-control run");
+  await row.getByRole("button", { name: "Save" }).click();
+  await expect.poll(() => renamedTo).toBe("Renamed row-control run");
+  await expect(row).toContainText("Renamed row-control run");
+
+  await row.getByRole("button", { name: "Delete" }).click();
+  await expect(row.getByRole("button", { name: "Confirm" })).toBeVisible();
+  await row.getByRole("button", { name: "Confirm" }).click();
+  await expect.poll(() => deleted).toBe(true);
+  await expect(page.getByTestId(`run-row-${ANY_RUN_ID}`)).toBeHidden();
+});
 
 /* ----- dashboard mutation errors ----- */
 
@@ -211,6 +335,7 @@ test("input: submits dedicated report-question metadata", async ({ page }) => {
   });
 
   await page.goto("/input");
+  await page.getByLabel(/Simulation name/i).fill("Named question metadata run");
   await page.getByRole("button", { name: /use tiny demo/i }).click();
   await expect(page.getByText("demo-scenario.md")).toBeVisible();
   await page.getByLabel(/Primary question/i).fill("Will the trust recovery plan succeed?");
@@ -225,6 +350,7 @@ test("input: submits dedicated report-question metadata", async ({ page }) => {
     "Will the trust recovery plan succeed?",
   );
   const scenarioInput = captured.payload?.scenario_input as Record<string, unknown>;
+  expect(captured.payload?.name).toBe("Named question metadata run");
   expect(scenarioInput.resolution_criteria).toBe("Yes requires recovered trust by final tick.");
   expect(scenarioInput.supporting_questions).toEqual(["Which cohort changes first?"]);
 });
@@ -298,7 +424,31 @@ test("input: initializer submit shows bounded wait and 503 guidance", async ({ p
 
 /* ----- report page export errors ----- */
 
+test("report: shows generation progress while reports are missing", async ({ page }) => {
+  await mockReportStatus(page, {
+    stage: "final_report",
+    message: "Generating the final multiverse report from retained timeline path mass.",
+    final_report: {
+      id: "rrr-final",
+      status: "running",
+      current_version: 0,
+      has_version: false,
+      version_id: null,
+      title: null,
+      updated_at: null,
+    },
+  });
+  await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}/reports`, (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify([]) }),
+  );
+
+  await page.goto(`/report?run=${ANY_RUN_ID}`);
+  await expect(page.getByRole("heading", { name: /generating final multiverse report/i })).toBeVisible();
+  await expect(page.getByText(/retained timeline path mass/i)).toBeVisible();
+});
+
 test("report: surfaces 402 on Export .md", async ({ page }) => {
+  await mockReportStatus(page);
   // Mock a run with one report+version so the export button is enabled
   await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}/reports`, (route) =>
     route.fulfill({
@@ -334,7 +484,21 @@ test("report: surfaces 402 on Export .md", async ({ page }) => {
           source_tick_snapshot_id: null,
           source_tick_index: 0,
           source_multiverse_ids: [],
-          content: null,
+          content: {
+            viewer_summary: {
+              scope: "final_multiverse",
+              question: "Will the launch succeed?",
+              most_likely_result: "Yes",
+              p_yes: 0.72,
+              p_no: 0.28,
+              confidence: 0.7,
+              retained_timeline_count: 2,
+              total_timeline_count: 3,
+              top_timelines: [{ multiverse_id: "m1", ui_label: "M1", effective_path_probability: 0.62 }],
+              scope_note: "This is the final multiverse report: probabilities come from retained timeline path mass.",
+              share_text: "WorldFork final multiverse report for: Will the launch succeed?",
+            },
+          },
           markdown_artifact_id: null,
           pdf_artifact_id: null,
           model: "mock",
@@ -357,6 +521,8 @@ test("report: surfaces 402 on Export .md", async ({ page }) => {
 
   await page.goto(`/report?run=${ANY_RUN_ID}`);
   await expect(page.locator(".rpt-version").first()).toBeVisible({ timeout: 10000 });
+  await expect(page.getByText(/final multiverse/i).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /Copy X summary/i }).first()).toBeVisible();
   await page.getByRole("button", { name: /Export \.md/ }).click();
 
   const banner = page.getByTestId("rpt-error-banner");
@@ -365,13 +531,14 @@ test("report: surfaces 402 on Export .md", async ({ page }) => {
 });
 
 test("report: empty state when bigBang reports endpoint returns 500", async ({ page }) => {
+  await mockReportStatus(page);
   await page.route(`**/backend/api/big-bangs/${ANY_RUN_ID}/reports`, (route) =>
     route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ detail: "db down" }) }),
   );
 
   await page.goto(`/report?run=${ANY_RUN_ID}`);
   // Page should NOT crash — should show some recoverable empty/error state.
-  // The report page falls back to "No reports yet." or "Loading reports…" depending on react-query timing.
+  // The report page falls back to a recoverable empty/error state depending on react-query timing.
   // The key assertion: page renders without an unhandled exception.
   await page.waitForLoadState("networkidle");
   // No JS error boundary fired — body is interactive and contains either the empty state or a banner.

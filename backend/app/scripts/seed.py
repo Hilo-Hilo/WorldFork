@@ -2,8 +2,8 @@
 Database seed script.
 
 Inserts default rows for all settings tables.
-Idempotent: uses upserts for managed singleton tables and insert-missing
-behavior for user-editable routing rows.
+Idempotent: uses upserts for managed singleton tables and refreshes
+seed-owned routing rows without overwriting user-edited routing rows.
 """
 from __future__ import annotations
 
@@ -54,6 +54,27 @@ def _insert_missing(session, model, pk_col: str, rows: list[dict]) -> int:
     table = model.__table__
     stmt = pg_insert(table).values(rows)
     stmt = stmt.on_conflict_do_nothing(index_elements=[pk_col])
+    session.execute(stmt)
+    return len(rows)
+
+
+def _upsert_seed_owned(session, model, pk_col: str, rows: list[dict]) -> int:
+    """Insert defaults, refreshing only rows that are still marked seed-owned."""
+    if not rows:
+        return 0
+    table = model.__table__
+    stmt = pg_insert(table).values(rows)
+    row_keys: set[str] = set().union(*(row.keys() for row in rows))
+    update_cols = {
+        key: stmt.excluded[key]
+        for key in row_keys
+        if key != pk_col and key in table.c
+    }
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[pk_col],
+        set_=update_cols,
+        where=table.c.payload.op("->>")("source") == "seed_default",
+    )
     session.execute(stmt)
     return len(rows)
 
@@ -158,6 +179,7 @@ def _seed_provider(session) -> None:
 
 # Runtime model routing defaults.
 _OPENROUTER_MODEL = settings.default_model
+_FINAL_REPORT_FALLBACK_MODEL = "anthropic/claude-sonnet-4.6"
 _MODEL_SETTING_BY_JOB_TYPE = {
     "initialize_big_bang": "initializer_agent_model",
     "initializer_chunk_extractor": "initializer_agent_model",
@@ -167,6 +189,10 @@ _MODEL_SETTING_BY_JOB_TYPE = {
     "endpoint_ledger": "god_agent_model",
     "evaluate_endpoint_ledger": "god_agent_model",
     "aggregate_run_results": "report_agent_model",
+    "predicate_extractor": "default_model",
+    "predicate_resolver": "default_model",
+    "single_report_agent": "default_model",
+    "final_report_agent": "final_report_agent_model",
     "report_agent": "report_agent_model",
     "event_summary": "event_summary_model",
     "force_deviation": "god_agent_model",
@@ -185,9 +211,10 @@ _ROUTING_DEFAULTS = [
         "max_concurrency": 4,
         "requests_per_minute": 60,
         "tokens_per_minute": 200000,
-        "timeout_seconds": 60,
-        "retry_policy": "exponential_backoff",
+        "timeout_seconds": 300,
+        "retry_policy": "none",
         "daily_budget_usd": None,
+        "payload": {"reasoning": {"effort": "low", "exclude": True}},
     },
     {
         "job_type": "simulate_universe_tick",
@@ -409,8 +436,8 @@ _ROUTING_DEFAULTS = [
         "max_concurrency": 2,
         "requests_per_minute": 20,
         "tokens_per_minute": 1000000,
-        "timeout_seconds": 1200,
-        "retry_policy": "exponential_backoff",
+        "timeout_seconds": 300,
+        "retry_policy": "none",
         "daily_budget_usd": None,
         "payload": {"reasoning": {"effort": "low", "exclude": True}},
     },
@@ -426,8 +453,8 @@ _ROUTING_DEFAULTS = [
         "max_concurrency": 4,
         "requests_per_minute": 60,
         "tokens_per_minute": 800000,
-        "timeout_seconds": 600,
-        "retry_policy": "exponential_backoff",
+        "timeout_seconds": 300,
+        "retry_policy": "none",
         "daily_budget_usd": None,
         "payload": {"reasoning": {"effort": "low", "exclude": True}},
     },
@@ -512,19 +539,90 @@ _ROUTING_DEFAULTS = [
         "daily_budget_usd": None,
     },
     {
+        "job_type": "predicate_extractor",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.1,
+        "top_p": 1.0,
+        "max_tokens": 900,
+        "max_concurrency": 4,
+        "requests_per_minute": 60,
+        "tokens_per_minute": 100000,
+        "timeout_seconds": 60,
+        "retry_policy": "none",
+        "daily_budget_usd": None,
+        "_fallback_model_setting": "report_agent_model",
+    },
+    {
+        "job_type": "predicate_resolver",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 1200,
+        "max_concurrency": 4,
+        "requests_per_minute": 60,
+        "tokens_per_minute": 120000,
+        "timeout_seconds": 60,
+        "retry_policy": "none",
+        "daily_budget_usd": None,
+        "_fallback_model_setting": "report_agent_model",
+    },
+    {
+        "job_type": "single_report_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 2400,
+        "max_concurrency": 3,
+        "requests_per_minute": 30,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 120,
+        "retry_policy": "none",
+        "daily_budget_usd": None,
+        "_fallback_model_setting": "report_agent_model",
+    },
+    {
+        "job_type": "final_report_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "max_concurrency": 1,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 500000,
+        "timeout_seconds": 300,
+        "retry_policy": "none",
+        "daily_budget_usd": None,
+        "_fallback_model": _FINAL_REPORT_FALLBACK_MODEL,
+        "payload": {
+            "model_selection": "DeepSeek V4 Pro primary for lower-cost final multiverse synthesis; Claude Sonnet 4.6 fallback for high-quality recovery.",
+        },
+    },
+    {
         "job_type": "report_agent",
         "preferred_provider": "openrouter",
         "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
         "fallback_model": _OPENROUTER_MODEL,
-        "temperature": 0.25,
+        "temperature": 0.2,
         "top_p": 1.0,
-        "max_tokens": 8192,
+        "max_tokens": 2400,
         "max_concurrency": 2,
         "requests_per_minute": 20,
         "tokens_per_minute": 200000,
-        "timeout_seconds": 300,
-        "retry_policy": "exponential_backoff",
+        "timeout_seconds": 120,
+        "retry_policy": "none",
         "daily_budget_usd": None,
     },
 ]
@@ -532,6 +630,9 @@ _ROUTING_DEFAULTS = [
 
 def _routing_model_defaults(row: dict) -> dict:
     row = dict(row)
+    fallback_model_setting = row.pop("_fallback_model_setting", None)
+    fallback_model_override = row.pop("_fallback_model", None)
+    fallback_provider_override = row.pop("_fallback_provider", None)
     model_setting = _MODEL_SETTING_BY_JOB_TYPE.get(row["job_type"])
     model = str(
         getattr(settings, model_setting, None) if model_setting is not None else settings.default_model
@@ -540,8 +641,18 @@ def _routing_model_defaults(row: dict) -> dict:
     provider = _routing_provider_default(model, model_setting)
     row["preferred_provider"] = provider
     row["preferred_model"] = model
-    row["fallback_provider"] = provider
-    row["fallback_model"] = model
+    if fallback_model_override:
+        fallback_model = str(fallback_model_override)
+        fallback_provider = str(fallback_provider_override or settings.default_llm_provider)
+        row["fallback_provider"] = fallback_provider
+        row["fallback_model"] = fallback_model
+    elif fallback_model_setting:
+        fallback_model = str(getattr(settings, fallback_model_setting, None) or settings.fallback_model or model)
+        fallback_provider = _routing_provider_default(fallback_model, str(fallback_model_setting))
+        row["fallback_provider"] = fallback_provider
+        row["fallback_model"] = fallback_model
+    else:
+        row["fallback_provider"], row["fallback_model"] = _routing_fallback_default(provider, model)
     return row
 
 
@@ -551,13 +662,21 @@ def _routing_provider_default(model: str, model_setting: str | None) -> str:
     return str(settings.default_llm_provider)
 
 
+def _routing_fallback_default(provider: str, model: str) -> tuple[str, str]:
+    fallback_model = str(settings.fallback_model or model)
+    fallback_provider = str(settings.default_llm_provider or provider)
+    if not fallback_model:
+        return provider, model
+    return fallback_provider, fallback_model
+
+
 def _seed_routing(session) -> None:
     rows = []
     for row in (_routing_model_defaults(r) for r in _ROUTING_DEFAULTS):
         payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
         rows.append(dict(row, payload={**payload, "source": "seed_default"}))
-    _insert_missing(session, ModelRoutingEntryModel, "job_type", rows)
-    print(f"  [model_routing] seeded {len(rows)} rows")
+    _upsert_seed_owned(session, ModelRoutingEntryModel, "job_type", rows)
+    print(f"  [model_routing] seeded/refreshed {len(rows)} rows")
 
 
 def _seed_rate_limit(session) -> None:

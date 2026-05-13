@@ -107,6 +107,7 @@ test("input: all sections render and submit is disabled with no scenario", async
   const errs = attachErrorCapture(page);
   await page.goto("/input");
   await expect(page.getByRole("heading", { name: /configure a scenario run/i })).toBeVisible();
+  await expect(page.getByLabel(/Simulation name/i)).toBeVisible();
   await expect(page.getByText("Scenario source")).toBeVisible();
   await expect(page.getByText("Question to answer")).toBeVisible();
   await expect(page.getByText("Initializer prompt")).toBeVisible();
@@ -313,7 +314,8 @@ test("report: empty state with a runId that has no reports", async ({ page, requ
   test.skip(!runWithoutReport, "all runs have reports");
 
   await page.goto(`/report?run=${runWithoutReport}`);
-  await expect(page.getByText(/No reports yet/i)).toBeVisible({ timeout: 10000 });
+  await expect(page.locator(".rpt-progress-panel")).toBeVisible({ timeout: 10000 });
+  await expect(page.locator(".rpt-progress-kicker", { hasText: "report generation" })).toBeVisible();
   assertNoErrors(errs);
 });
 

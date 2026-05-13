@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Any
 
@@ -10,8 +11,9 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import models
+from app.db.session import SessionLocal
 from app.llm.audit import LLMCallError, complete_with_audit
-from app.llm.routing import AuditedLLMRoute, resolve_audited_llm_route
+from app.llm.routing import ROUTE_METADATA_OVERRIDE_KEYS_FIELD, AuditedLLMRoute, resolve_audited_llm_route
 from app.domains.endpoint_ledger.service import (
     attach_report_version_to_ledger,
     endpoint_ledger_report_payload,
@@ -75,6 +77,15 @@ REPORT_AGENT_RESCUE_TIMELINE_LIMIT = 6
 REPORT_AGENT_STATE_SAMPLE_LIMIT = 5
 REPORT_AGENT_STANDARD_MAX_TOKENS = 2400
 REPORT_AGENT_RESCUE_MAX_TOKENS = 1600
+REPORT_AGENT_STANDARD_TIMEOUT_SECONDS = 120
+REPORT_AGENT_RESCUE_TIMEOUT_SECONDS = 90
+FINAL_REPORT_AGENT_STANDARD_MAX_TOKENS = 8192
+FINAL_REPORT_AGENT_RESCUE_MAX_TOKENS = 5000
+FINAL_REPORT_AGENT_STANDARD_TIMEOUT_SECONDS = 300
+FINAL_REPORT_AGENT_RESCUE_TIMEOUT_SECONDS = 240
+REPORT_AGENT_RETRY_POLICY = "none"
+REPORT_AGENT_ROUTE_OVERRIDE_KEYS = ("max_tokens", "temperature", "timeout_seconds", "retry_policy")
+REPORT_AGENT_PARALLEL_MULTIVERSE_WORKERS = 3
 
 
 @dataclass(frozen=True)
@@ -82,6 +93,67 @@ class RenderedReport:
     body: bytes
     content_type: str
     filename: str
+
+
+def generate_multiverse_reports_parallel(
+    db: Session,
+    *,
+    multiverses: list[models.Multiverse],
+    max_workers: int = REPORT_AGENT_PARALLEL_MULTIVERSE_WORKERS,
+) -> list[models.ReportVersion]:
+    """Generate ready single-universe reports concurrently with isolated DB sessions."""
+    targets = [item for item in multiverses if item.report_status in {"ready", "not_ready"}]
+    if not targets:
+        return []
+    if len(targets) == 1 or max_workers <= 1 or _uses_in_memory_sqlite(db):
+        return [generate_multiverse_report(db, multiverse=item) for item in targets]
+
+    # Make completed tick state visible to worker sessions before they read timelines.
+    db.flush()
+    db.commit()
+    target_ids = [item.id for item in targets]
+    version_ids: list[Any] = [None] * len(target_ids)
+
+    def _generate_one(index: int, multiverse_id: Any) -> tuple[int, Any]:
+        worker_db: Session = SessionLocal()
+        try:
+            multiverse = worker_db.get(models.Multiverse, multiverse_id)
+            if multiverse is None:
+                raise ValueError(f"multiverse {multiverse_id} not found")
+            report_version = generate_multiverse_report(worker_db, multiverse=multiverse)
+            worker_db.commit()
+            return index, report_version.id
+        except Exception:
+            worker_db.rollback()
+            raise
+        finally:
+            worker_db.close()
+
+    workers = max(1, min(max_workers, len(target_ids)))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {
+            executor.submit(_generate_one, index, multiverse_id): index
+            for index, multiverse_id in enumerate(target_ids)
+        }
+        for future in as_completed(futures):
+            index, version_id = future.result()
+            version_ids[index] = version_id
+
+    db.expire_all()
+    return [
+        report_version
+        for version_id in version_ids
+        if version_id is not None and (report_version := db.get(models.ReportVersion, version_id)) is not None
+    ]
+
+
+def _uses_in_memory_sqlite(db: Session) -> bool:
+    bind = db.get_bind()
+    url = getattr(bind, "url", None)
+    if url is None or url.get_backend_name() != "sqlite":
+        return False
+    database = getattr(url, "database", None)
+    return database in (None, "", ":memory:")
 
 
 def generate_multiverse_report(
@@ -124,14 +196,20 @@ def generate_multiverse_report(
     metadata = _base_generation_metadata(
         report_type="multiverse",
         big_bang_id=multiverse.big_bang_id,
-        model=get_settings().report_agent_model,
+        model=get_settings().default_model,
         source={"multiverse_id": str(multiverse.id), "multiverse_version": multiverse.version},
     )
     _commit_report_inputs_before_llm(db)
-    llm_report, llm_call = _run_report_agent(db, big_bang_id=multiverse.big_bang_id, content=content)
+    llm_report, llm_call = _run_report_agent(
+        db,
+        big_bang_id=multiverse.big_bang_id,
+        content=content,
+        route=AuditedLLMRoute.SINGLE_REPORT_AGENT,
+    )
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
+    _attach_viewer_summary_content(content)
     report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
     metadata["report_agent_status"] = "succeeded"
     metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
@@ -232,10 +310,16 @@ def generate_final_big_bang_report(
     _commit_report_inputs_before_llm(db)
     _resolve_predictions_into_content(db, big_bang_id=big_bang.id, content=content, multiverses=multiverses)
     _attach_forecast_predictions_content(content)
-    llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
+    llm_report, llm_call = _run_report_agent(
+        db,
+        big_bang_id=big_bang.id,
+        content=content,
+        route=AuditedLLMRoute.FINAL_REPORT_AGENT,
+    )
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
+    _attach_viewer_summary_content(content)
     report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
     metadata["report_agent_status"] = "succeeded"
     metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
@@ -379,6 +463,188 @@ def _attach_forecast_predictions_content(content: dict[str, Any]) -> None:
             "resolution_state": primary.get("resolution_state"),
             "method": primary.get("method"),
         }
+
+
+def _attach_viewer_summary_content(content: dict[str, Any]) -> None:
+    if content.get("report_type") == "final_big_bang":
+        content["viewer_summary"] = _final_viewer_summary(content)
+    else:
+        content["viewer_summary"] = _single_viewer_summary(content)
+
+
+def _single_viewer_summary(content: dict[str, Any]) -> dict[str, Any]:
+    source = content.get("source") if isinstance(content.get("source"), dict) else {}
+    metrics = content.get("outcome_distribution")
+    metrics = metrics if isinstance(metrics, dict) else {}
+    llm_report = content.get("llm_report") if isinstance(content.get("llm_report"), dict) else {}
+    prediction = llm_report.get("prediction_answer") if isinstance(llm_report.get("prediction_answer"), dict) else {}
+    label = source.get("ui_label") or metrics.get("ui_label") or "Timeline"
+    path_probability = _float_or_default(
+        metrics.get("path_probability", source.get("path_probability")),
+        0.0,
+    )
+    branch_probability = _float_or_default(
+        metrics.get("branch_probability", source.get("branch_probability")),
+        0.0,
+    )
+    branch_reason = source.get("branch_reason") or metrics.get("branch_reason")
+    outcome = (
+        prediction.get("verdict")
+        or metrics.get("status")
+        or source.get("status")
+        or "unknown"
+    )
+    summary = {
+        "schema_version": "worldfork.viewer_summary.v1",
+        "scope": "single_universe",
+        "title": content.get("title"),
+        "question": content.get("scenario_question"),
+        "timeline_label": label,
+        "outcome": str(outcome),
+        "path_probability": path_probability,
+        "branch_probability": branch_probability,
+        "branch_reason": branch_reason,
+        "latest_tick_index": source.get("source_tick_index") or metrics.get("latest_tick_index"),
+        "scope_note": "This is one branch report, not the global multiverse forecast.",
+    }
+    summary["share_text"] = _single_share_text(summary)
+    return summary
+
+
+def _final_viewer_summary(content: dict[str, Any]) -> dict[str, Any]:
+    forecast = content.get("forecast_predictions")
+    primary = forecast.get("primary") if isinstance(forecast, dict) else {}
+    primary = primary if isinstance(primary, dict) else {}
+    p_yes = _float_or_default(primary.get("p_yes"), 0.5)
+    p_no = _float_or_default(primary.get("p_no"), 1.0 - p_yes)
+    confidence = _float_or_default(primary.get("confidence"), 0.0)
+    answer = _binary_answer_label(p_yes=p_yes, p_no=p_no, confidence=confidence)
+    adjudication = content.get("timeline_adjudication")
+    entries = adjudication.get("entries") if isinstance(adjudication, dict) else []
+    comparison = content.get("multiverse_comparison")
+    comparison_items = comparison if isinstance(comparison, list) else []
+    top_timelines = _top_viewer_timelines(entries if isinstance(entries, list) else [], comparison_items)
+    summary = {
+        "schema_version": "worldfork.viewer_summary.v1",
+        "scope": "final_multiverse",
+        "title": content.get("title"),
+        "question": content.get("scenario_question"),
+        "most_likely_result": answer,
+        "p_yes": p_yes,
+        "p_no": p_no,
+        "confidence": confidence,
+        "resolution_state": primary.get("resolution_state"),
+        "method": primary.get("method"),
+        "retained_timeline_count": sum(1 for item in top_timelines if item.get("include_in_final")),
+        "total_timeline_count": len(comparison_items) or len(top_timelines),
+        "top_timelines": top_timelines[:4],
+        "rationale": primary.get("rationale"),
+        "scope_note": "This is the final multiverse report: probabilities come from retained timeline path mass.",
+    }
+    summary["share_text"] = _final_share_text(summary)
+    return summary
+
+
+def _binary_answer_label(*, p_yes: float, p_no: float, confidence: float) -> str:
+    if confidence < 0.05 or abs(p_yes - p_no) < 0.02:
+        return "Unresolved"
+    return "Yes" if p_yes > p_no else "No"
+
+
+def _top_viewer_timelines(entries: list[Any], comparison_items: list[Any]) -> list[dict[str, Any]]:
+    comparison_by_id = {
+        str(item.get("multiverse_id")): item
+        for item in comparison_items
+        if isinstance(item, dict) and item.get("multiverse_id")
+    }
+    rows: list[dict[str, Any]] = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        multiverse_id = str(entry.get("multiverse_id") or "")
+        comparison = comparison_by_id.get(multiverse_id) or {}
+        effective_path = _float_or_default(entry.get("effective_path_probability"), 0.0)
+        rows.append(
+            {
+                "multiverse_id": multiverse_id,
+                "ui_label": entry.get("ui_label") or comparison.get("ui_label"),
+                "include_in_final": bool(entry.get("include_in_final")),
+                "viability_status": entry.get("viability_status"),
+                "endpoint_status": entry.get("endpoint_status"),
+                "effective_path_probability": effective_path,
+                "original_path_probability": _float_or_default(
+                    entry.get("original_path_probability"),
+                    _float_or_default(comparison.get("path_probability"), 0.0),
+                ),
+                "branch_reason": comparison.get("branch_reason"),
+                "latest_tick_index": comparison.get("latest_tick_index"),
+            }
+        )
+    if not rows:
+        for item in comparison_items:
+            if not isinstance(item, dict):
+                continue
+            rows.append(
+                {
+                    "multiverse_id": str(item.get("multiverse_id") or ""),
+                    "ui_label": item.get("ui_label"),
+                    "include_in_final": True,
+                    "viability_status": item.get("status"),
+                    "endpoint_status": None,
+                    "effective_path_probability": _float_or_default(item.get("path_probability"), 0.0),
+                    "original_path_probability": _float_or_default(item.get("path_probability"), 0.0),
+                    "branch_reason": item.get("branch_reason"),
+                    "latest_tick_index": item.get("latest_tick_index"),
+                }
+            )
+    return sorted(rows, key=lambda item: _float_or_default(item.get("effective_path_probability"), 0.0), reverse=True)
+
+
+def _final_share_text(summary: dict[str, Any]) -> str:
+    question = summary.get("question") or "the primary question"
+    answer = summary.get("most_likely_result") or "Unresolved"
+    p_yes = _format_percent(summary.get("p_yes"))
+    p_no = _format_percent(summary.get("p_no"))
+    confidence = _confidence_label(_float_or_default(summary.get("confidence"), 0.0))
+    top = summary.get("top_timelines") if isinstance(summary.get("top_timelines"), list) else []
+    driver = ""
+    if top:
+        first = top[0] if isinstance(top[0], dict) else {}
+        label = first.get("ui_label") or "top timeline"
+        mass = _format_percent(first.get("effective_path_probability"))
+        driver = f"\nTop path-mass driver: {label} ({mass})."
+    return (
+        f'WorldFork final multiverse report for: "{_truncate_text(str(question), 180)}"\n\n'
+        f"Most likely result: {answer}\n"
+        f"YES {p_yes} / NO {p_no}, {confidence} confidence."
+        f"{driver}"
+    )
+
+
+def _single_share_text(summary: dict[str, Any]) -> str:
+    label = summary.get("timeline_label") or "timeline"
+    outcome = summary.get("outcome") or "unknown"
+    path = _format_percent(summary.get("path_probability"))
+    reason = summary.get("branch_reason")
+    reason_text = f"\nKey branch: {_truncate_text(str(reason), 160)}" if reason else ""
+    return (
+        f"WorldFork single-universe report: {label}\n\n"
+        f"Outcome in this branch: {outcome}\n"
+        f"Path probability: {path}."
+        f"{reason_text}"
+    )
+
+
+def _format_percent(value: Any) -> str:
+    return f"{round(_float_or_default(value, 0.0) * 100):.0f}%"
+
+
+def _confidence_label(value: float) -> str:
+    if value >= 0.75:
+        return "high"
+    if value >= 0.4:
+        return "medium"
+    return "low"
 
 
 def _attach_timeline_adjudication_content(
@@ -810,6 +1076,9 @@ def _build_multiverse_report_content(
             "ui_label": multiverse.ui_label,
             "multiverse_version": multiverse.version,
             "status": multiverse.status,
+            "branch_reason": multiverse.branch_reason,
+            "branch_probability": _float_or_default(getattr(multiverse, "branch_probability", None), 1.0),
+            "path_probability": _float_or_default(getattr(multiverse, "path_probability", None), 1.0),
             "report_version": report_version_number,
             "source_tick_snapshot_id": str(latest_tick.id) if latest_tick else None,
             "source_tick_index": latest_tick.tick_index if latest_tick else None,
@@ -1197,8 +1466,8 @@ def _extract_prediction_predicates(
             db,
             big_bang_id=big_bang_id,
             purpose=f"predicate_extraction_{big_bang_id}",
-            model=get_settings().report_agent_model,
-            route=AuditedLLMRoute.REPORT_AGENT,
+            model=get_settings().default_model,
+            route=AuditedLLMRoute.PREDICATE_EXTRACTOR,
             messages=[
                 {
                     "role": "system",
@@ -1231,9 +1500,10 @@ def _extract_prediction_predicates(
             metadata={
                 "max_tokens": 900,
                 "temperature": 0.1,
+                "timeout_seconds": 60,
+                "retry_policy": "none",
                 "agent_type": "predicate_extractor",
-                "request_timeout_seconds": 60,
-                "max_attempts": 1,
+                ROUTE_METADATA_OVERRIDE_KEYS_FIELD: REPORT_AGENT_ROUTE_OVERRIDE_KEYS,
             },
         )
         parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -1286,8 +1556,8 @@ def _resolve_predicates_for_timeline(
             db,
             big_bang_id=big_bang_id,
             purpose=f"predicate_resolution_{multiverse_id}",
-            model=get_settings().report_agent_model,
-            route=AuditedLLMRoute.REPORT_AGENT,
+            model=get_settings().default_model,
+            route=AuditedLLMRoute.PREDICATE_RESOLVER,
             messages=[
                 {
                     "role": "system",
@@ -1330,9 +1600,10 @@ def _resolve_predicates_for_timeline(
             metadata={
                 "max_tokens": 1200,
                 "temperature": 0.0,
+                "timeout_seconds": 60,
+                "retry_policy": "none",
                 "agent_type": "predicate_resolver",
-                "request_timeout_seconds": 60,
-                "max_attempts": 1,
+                ROUTE_METADATA_OVERRIDE_KEYS_FIELD: REPORT_AGENT_ROUTE_OVERRIDE_KEYS,
             },
         )
         parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -2050,6 +2321,7 @@ def _multiverse_metrics(
         "depth": multiverse.depth,
         "parent_multiverse_id": str(multiverse.parent_multiverse_id) if multiverse.parent_multiverse_id else None,
         "fork_tick_index": multiverse.fork_tick_index,
+        "branch_reason": multiverse.branch_reason,
         "branch_probability": _float_or_default(getattr(multiverse, "branch_probability", None), 1.0),
         "path_probability": _float_or_default(getattr(multiverse, "path_probability", None), 1.0),
         "config_version": multiverse_runtime_config_version(db, multiverse),
@@ -2764,21 +3036,40 @@ def _evidence_gaps_for_comparison(comparison: list[dict[str, Any]]) -> list[str]
     return gaps
 
 
+def _report_route_fallback_model(settings: Any, route: AuditedLLMRoute) -> str:
+    if route == AuditedLLMRoute.SINGLE_REPORT_AGENT:
+        return str(settings.default_model)
+    if route == AuditedLLMRoute.FINAL_REPORT_AGENT:
+        return str(getattr(settings, "final_report_agent_model", None) or settings.report_agent_model)
+    return str(settings.report_agent_model)
+
+
+def _report_agent_attempt_budget(route: AuditedLLMRoute, prompt_mode: str) -> tuple[int, int]:
+    if route == AuditedLLMRoute.FINAL_REPORT_AGENT:
+        if prompt_mode == "standard":
+            return FINAL_REPORT_AGENT_STANDARD_MAX_TOKENS, FINAL_REPORT_AGENT_STANDARD_TIMEOUT_SECONDS
+        return FINAL_REPORT_AGENT_RESCUE_MAX_TOKENS, FINAL_REPORT_AGENT_RESCUE_TIMEOUT_SECONDS
+    if prompt_mode == "standard":
+        return REPORT_AGENT_STANDARD_MAX_TOKENS, REPORT_AGENT_STANDARD_TIMEOUT_SECONDS
+    return REPORT_AGENT_RESCUE_MAX_TOKENS, REPORT_AGENT_RESCUE_TIMEOUT_SECONDS
+
+
 def _run_report_agent(
     db: Session,
     *,
     big_bang_id,
     content: dict[str, Any],
+    route: AuditedLLMRoute = AuditedLLMRoute.REPORT_AGENT,
 ) -> tuple[dict[str, Any], models.LLMCall]:
     settings = get_settings()
-    route = resolve_audited_llm_route(
+    resolved_route = resolve_audited_llm_route(
         db,
-        route=AuditedLLMRoute.REPORT_AGENT,
+        route=route,
         fallback_provider=settings.default_llm_provider,
-        fallback_model=settings.report_agent_model,
+        fallback_model=_report_route_fallback_model(settings, route),
     )
     deterministic_candidates = [
-        candidate.provider for candidate in route.candidates() if candidate.provider == "deterministic"
+        candidate.provider for candidate in resolved_route.candidates() if candidate.provider == "deterministic"
     ]
     if deterministic_candidates:
         raise LLMCallError(
@@ -2789,7 +3080,7 @@ def _run_report_agent(
     failures: list[str] = []
     for attempt, prompt_mode in enumerate(("standard", "rescue"), start=1):
         prompt_content = _report_agent_prompt_content(content, mode=prompt_mode)
-        max_tokens = REPORT_AGENT_STANDARD_MAX_TOKENS if prompt_mode == "standard" else REPORT_AGENT_RESCUE_MAX_TOKENS
+        max_tokens, timeout_seconds = _report_agent_attempt_budget(route, prompt_mode)
         try:
             response, call = complete_with_audit(
                 db,
@@ -2798,17 +3089,21 @@ def _run_report_agent(
                     f"report_agent_{content['report_type']}_{source_id}_"
                     f"{source.get('report_version')}_{prompt_mode}_attempt_{attempt}"
                 ),
-                model=route.primary.model,
-                route=AuditedLLMRoute.REPORT_AGENT,
+                model=resolved_route.primary.model,
+                route=route,
                 messages=_report_agent_messages(prompt_content, mode=prompt_mode),
                 json_schema=REPORT_AGENT_JSON_SCHEMA,
+                json_response_transform=_coerce_report_agent_output,
                 metadata={
                     "max_tokens": max_tokens,
                     "temperature": 0.2,
-                    "agent_type": "report_agent",
+                    "timeout_seconds": timeout_seconds,
+                    "retry_policy": REPORT_AGENT_RETRY_POLICY,
+                    "agent_type": str(route),
                     "prompt_mode": prompt_mode,
                     "report_agent_attempt": attempt,
                     "prompt_payload_char_count": len(json.dumps(prompt_content, default=str)),
+                    ROUTE_METADATA_OVERRIDE_KEYS_FIELD: REPORT_AGENT_ROUTE_OVERRIDE_KEYS,
                 },
             )
             parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -2944,17 +3239,37 @@ def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
     output["terminality_assessment"] = terminality if isinstance(terminality, dict) else {}
     contradiction = parsed.get("contradiction_check")
     output["contradiction_check"] = contradiction if isinstance(contradiction, dict) else {}
-    prediction = parsed.get("prediction_answer")
-    output["prediction_answer"] = prediction if isinstance(prediction, dict) else {
-        "verdict": "not_applicable",
-        "confidence_pct": 0,
-        "supporting_timeline_ids": [],
-        "counterevidence": "",
-        "rationale": "Report agent did not return a prediction_answer object.",
-    }
+    output["prediction_answer"] = _coerce_prediction_answer(parsed.get("prediction_answer"))
     if not output["executive_summary"]:
         output["executive_summary"] = _truncate_text(report_markdown.strip(), 1200)
     return output
+
+
+def _coerce_prediction_answer(value: Any) -> dict[str, Any]:
+    prediction = value if isinstance(value, dict) else {}
+    verdict = str(prediction.get("verdict") or "not_applicable").strip().lower()
+    if verdict not in {"yes", "no", "unresolved", "not_applicable"}:
+        verdict = "not_applicable"
+    try:
+        confidence_pct = float(prediction.get("confidence_pct", 0) or 0)
+    except (TypeError, ValueError):
+        confidence_pct = 0.0
+    supporting = prediction.get("supporting_timeline_ids")
+    if not isinstance(supporting, list):
+        supporting = []
+    counterevidence = prediction.get("counterevidence")
+    rationale = prediction.get("rationale")
+    return {
+        "verdict": verdict,
+        "confidence_pct": max(0.0, min(100.0, confidence_pct)),
+        "supporting_timeline_ids": [str(item) for item in supporting],
+        "counterevidence": counterevidence if isinstance(counterevidence, str) else "",
+        "rationale": (
+            rationale
+            if isinstance(rationale, str) and rationale.strip()
+            else "Report agent did not return a complete prediction_answer object."
+        ),
+    }
 
 
 def _complete_report_agent_structured_fields(llm_report: dict[str, Any], content: dict[str, Any]) -> None:

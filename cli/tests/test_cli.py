@@ -656,8 +656,8 @@ def test_setup_reads_llm_config_and_emits_provider_options(monkeypatch) -> None:
     assert "atlas-fast-governed" in result.output
     assert "OPENROUTER_API_KEY" in result.output
     assert "openai-codex" in result.output
-    assert "moonshotai/kimi-k2" in result.output
-    assert "OpenRouter-hosted Claude/OpenAI-compatible substitutes" in result.output
+    assert "deepseek/deepseek-v4-pro" in result.output
+    assert "OpenRouter-hosted DeepSeek Pro/Claude/OpenAI-compatible substitutes" in result.output
     assert "model_routing_patch" not in result.output
 
 

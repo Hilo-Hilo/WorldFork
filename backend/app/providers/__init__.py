@@ -158,6 +158,7 @@ _PRICE_PER_1K: dict[str, float] = {
     "openai/gpt-5.4": 0.0,
     "openai/gpt-4o-mini": 0.00015,
     "anthropic/claude-3-5-sonnet": 0.003,
+    "anthropic/claude-sonnet-4.6": 0.018,
     "anthropic/claude-3-5-haiku": 0.0008,
 }
 
