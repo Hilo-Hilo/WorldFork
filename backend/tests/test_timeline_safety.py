@@ -146,7 +146,9 @@ def _load_run_orchestrator_with_report_stub():
     from app.domains.big_bang import run_orchestrator
 
     run_orchestrator.generate_final_big_bang_report = lambda *args, **kwargs: types.SimpleNamespace(id="final")
-    run_orchestrator.generate_multiverse_report = lambda *args, **kwargs: types.SimpleNamespace(id="multiverse")
+    run_orchestrator.generate_multiverse_reports_parallel = lambda *args, **kwargs: [
+        types.SimpleNamespace(id="multiverse")
+    ]
     return run_orchestrator
 
 
@@ -410,7 +412,9 @@ def test_run_until_complete_does_not_finalize_with_active_unfinished_timelines(d
 
     run_orchestrator = _load_run_orchestrator_with_report_stub()
     run_orchestrator.generate_final_big_bang_report = lambda *args, **kwargs: pytest.fail("final report should not generate")
-    run_orchestrator.generate_multiverse_report = lambda *args, **kwargs: pytest.fail("timeline report should not generate")
+    run_orchestrator.generate_multiverse_reports_parallel = lambda *args, **kwargs: pytest.fail(
+        "timeline report should not generate"
+    )
 
     with pytest.raises(ValueError, match="active or unfinished timelines"):
         run_orchestrator.run_big_bang_until_complete(db, big_bang=big_bang, max_total_ticks=1)

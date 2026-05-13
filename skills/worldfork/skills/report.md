@@ -74,6 +74,13 @@ worldfork query GET /api/report-versions/<report-version-id>/cost
 worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
 ```
 
+Report routing is split. Predicate extraction/resolution and single-universe
+reports can use the fast lane, while final Big Bang synthesis uses
+`final_report_agent_model` and the higher final-report budget. The frontend and
+API expose `/api/big-bangs/<big-bang-id>/report-status` so operators can see
+single-report, predicate-resolution, and final-report progress while generation
+is running.
+
 ## Strong Report Shape
 
 A strong report includes: executive summary, scenario context, multiverse comparison table, lineage/divergence analysis, timeline adjudication, retained/pruned timeline summaries, endpoint/path-mass distribution, evidence gaps, and an appendix of report/tick/job/log/artifact IDs.

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import warnings
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
@@ -17,6 +18,7 @@ from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.domains.report.evidence_pack import build_report_evidence_pack
 from app.domains.report import engine as report_engine
+from app.domains.report.status import build_report_status
 from app.storage.artifact_store import ArtifactStore, hash_directory
 
 
@@ -40,6 +42,241 @@ def db() -> Session:
                 category=SAWarning,
             )
             models.Base.metadata.drop_all(engine)
+
+
+def test_report_question_context_prefers_dedicated_question_metadata(db: Session):
+    big_bang = models.BigBang(
+        name="Question metadata",
+        description=None,
+        scenario_input={
+            "scenario_text": "Long dossier context that should not become the report question.",
+            "primary_question": "Will the city regain trust before the final tick?",
+            "resolution_criteria": "Yes requires trust recovery to dominate retained path mass.",
+            "supporting_questions": [
+                "Which response path restores trust fastest?",
+                "Which cohorts remain mobilized?",
+            ],
+        },
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+
+    context = report_engine._scenario_question_context(db, big_bang_id=big_bang.id)
+
+    assert context["scenario_question"] == "Will the city regain trust before the final tick?"
+    assert context["scenario_resolution_criteria"] == (
+        "Yes requires trust recovery to dominate retained path mass."
+    )
+    assert context["scenario_supporting_questions"] == [
+        "Which response path restores trust fastest?",
+        "Which cohorts remain mobilized?",
+    ]
+
+
+def test_prediction_extractor_prompt_includes_resolution_context():
+    text = report_engine._prediction_question_text(
+        {
+            "scenario_question": "Will the city regain trust before the final tick?",
+            "scenario_resolution_criteria": "Yes requires trust recovery to dominate retained path mass.",
+            "scenario_supporting_questions": ["Which cohort changes first?"],
+        }
+    )
+
+    assert "Primary question: Will the city regain trust before the final tick?" in text
+    assert "Resolution criteria: Yes requires trust recovery" in text
+    assert "- Which cohort changes first?" in text
+
+
+def test_report_status_tracks_single_and_final_report_progress(db: Session):
+    big_bang = models.BigBang(
+        name="Progress",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    multiverses = [
+        models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=None if idx == 1 else 1,
+            ui_label=label,
+            depth=idx - 1,
+            status="completed",
+            branch_reason=f"{label} branch",
+            state={},
+            report_status="completed" if idx == 1 else "ready",
+            path_probability=0.6 if idx == 1 else 0.4,
+        )
+        for idx, label in enumerate(["M1", "M1.1"], start=1)
+    ]
+    db.add_all(multiverses)
+    db.flush()
+    m1_report = models.Report(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverses[0].id,
+        report_type="multiverse",
+        status="completed",
+        current_version=1,
+    )
+    m11_report = models.Report(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverses[1].id,
+        report_type="multiverse",
+        status="draft",
+        current_version=0,
+    )
+    final_report = models.Report(
+        big_bang_id=big_bang.id,
+        multiverse_id=None,
+        report_type="final_big_bang",
+        status="draft",
+        current_version=0,
+    )
+    db.add_all([m1_report, m11_report, final_report])
+    db.flush()
+    db.add(
+        models.ReportVersion(
+            report_id=m1_report.id,
+            version=1,
+            title="M1 report",
+            source_multiverse_ids=[str(multiverses[0].id)],
+            content={},
+            generation_metadata={},
+        )
+    )
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "single_reports"
+    assert status["multiverse_reports"]["completed"] == 1
+    assert status["final_report"]["status"] == "draft"
+
+    m11_report.status = "completed"
+    m11_report.current_version = 1
+    db.add(
+        models.ReportVersion(
+            report_id=m11_report.id,
+            version=1,
+            title="M1.1 report",
+            source_multiverse_ids=[str(multiverses[1].id)],
+            content={},
+            generation_metadata={},
+        )
+    )
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "final_report"
+    assert status["multiverse_reports"]["completed"] == 2
+
+    final_report.status = "completed"
+    final_report.current_version = 1
+    db.add(
+        models.ReportVersion(
+            report_id=final_report.id,
+            version=1,
+            title="Final report",
+            source_multiverse_ids=[str(item.id) for item in multiverses],
+            content={},
+            generation_metadata={},
+        )
+    )
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "ready"
+    assert status["final_report"]["has_version"] is True
+
+    rerun_started = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    rerun_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="deepseek/deepseek-v4-pro",
+        purpose=f"report_agent_final_big_bang_{big_bang.id}_2_standard_attempt_1",
+        status="running",
+        created_at=rerun_started,
+        updated_at=rerun_started,
+        meta={},
+    )
+    db.add(rerun_call)
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "final_report"
+    assert status["active_llm_call"]["id"] == str(rerun_call.id)
+
+    rerun_call.status = "failed"
+    rerun_call.updated_at = rerun_started + timedelta(seconds=30)
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "failed"
+    assert status["latest_failed_llm_call"]["id"] == str(rerun_call.id)
+
+
+def test_viewer_summary_distinguishes_final_from_single_reports():
+    final_content = {
+        "report_type": "final_big_bang",
+        "title": "Final",
+        "scenario_question": "Will trust recover?",
+        "forecast_predictions": {
+            "primary": {
+                "p_yes": 0.42,
+                "p_no": 0.58,
+                "confidence": 0.63,
+                "resolution_state": "inferred",
+                "method": "predicate_resolution_path_mass",
+                "rationale": "Path mass favors no.",
+            }
+        },
+        "multiverse_comparison": [
+            {
+                "multiverse_id": "m1",
+                "ui_label": "M1",
+                "path_probability": 0.42,
+                "branch_reason": "Trust response succeeds.",
+            },
+            {
+                "multiverse_id": "m2",
+                "ui_label": "M1.1",
+                "path_probability": 0.58,
+                "branch_reason": "Rumor persists.",
+            },
+        ],
+    }
+    report_engine._attach_viewer_summary_content(final_content)
+
+    assert final_content["viewer_summary"]["scope"] == "final_multiverse"
+    assert final_content["viewer_summary"]["most_likely_result"] == "No"
+    assert "final multiverse report" in final_content["viewer_summary"]["scope_note"]
+
+    single_content = {
+        "report_type": "multiverse",
+        "title": "M1.1",
+        "source": {
+            "ui_label": "M1.1",
+            "status": "completed",
+            "branch_reason": "Delayed response.",
+        },
+        "outcome_distribution": {
+            "path_probability": 0.45,
+            "branch_probability": 0.5,
+        },
+    }
+    report_engine._attach_viewer_summary_content(single_content)
+
+    assert single_content["viewer_summary"]["scope"] == "single_universe"
+    assert "not the global multiverse forecast" in single_content["viewer_summary"]["scope_note"]
 
 
 def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkeypatch):
@@ -697,7 +934,18 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         calls.append(
             {
                 "purpose": purpose,
@@ -788,6 +1036,11 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     assert llm_report["report_markdown"].startswith("# Rescued Report")
     assert llm_call.meta["prompt_mode"] == "rescue"
     assert [call["metadata"]["prompt_mode"] for call in calls] == ["standard", "rescue"]
+    assert calls[0]["metadata"]["max_tokens"] == report_engine.REPORT_AGENT_STANDARD_MAX_TOKENS
+    assert calls[0]["metadata"]["timeout_seconds"] == report_engine.REPORT_AGENT_STANDARD_TIMEOUT_SECONDS
+    assert calls[0]["metadata"]["retry_policy"] == report_engine.REPORT_AGENT_RETRY_POLICY
+    assert calls[1]["metadata"]["max_tokens"] == report_engine.REPORT_AGENT_RESCUE_MAX_TOKENS
+    assert calls[1]["metadata"]["timeout_seconds"] == report_engine.REPORT_AGENT_RESCUE_TIMEOUT_SECONDS
     standard_payload = _report_agent_prompt_payload(calls[0])
     rescue_payload = _report_agent_prompt_payload(calls[1])
     assert len(standard_payload["selected_timelines"]) == report_engine.REPORT_AGENT_STANDARD_TIMELINE_LIMIT
@@ -852,6 +1105,104 @@ def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability
     assert any("single_multiverse" in item for item in payload["quality_controls"])
 
 
+def test_report_agent_uses_split_routes_for_single_and_final_reports(db: Session, monkeypatch):
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.setattr(
+        report_engine,
+        "get_settings",
+        lambda: SimpleNamespace(
+            default_llm_provider="openrouter",
+            default_model="fast-report-model",
+            report_agent_model="smart-final-model",
+            final_report_agent_model="smart-final-model",
+        ),
+    )
+    calls = []
+
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
+        calls.append({"model": model, "route": route, "metadata": metadata})
+        return (
+            LLMResponse(
+                content="{}",
+                parsed={
+                    "report_markdown": "# Report\n\nGenerated by test LLM.",
+                    "executive_summary": "summary",
+                    "outcome_interpretation": "interpretation",
+                    "management_notes": "notes",
+                    "risk_notes": "risks",
+                },
+                raw={},
+            ),
+            SimpleNamespace(id=uuid4(), meta=metadata),
+        )
+
+    monkeypatch.setattr(report_engine, "complete_with_audit", fake_complete_with_audit)
+    base_content = {
+        "title": "Route report",
+        "summary": "summary",
+        "source": {"report_version": 1, "multiverse_id": str(uuid4())},
+    }
+
+    report_engine._run_report_agent(
+        db,
+        big_bang_id=uuid4(),
+        content={**base_content, "report_type": "multiverse"},
+        route=report_engine.AuditedLLMRoute.SINGLE_REPORT_AGENT,
+    )
+    report_engine._run_report_agent(
+        db,
+        big_bang_id=uuid4(),
+        content={**base_content, "report_type": "final_big_bang"},
+        route=report_engine.AuditedLLMRoute.FINAL_REPORT_AGENT,
+    )
+
+    assert calls[0]["route"] == report_engine.AuditedLLMRoute.SINGLE_REPORT_AGENT
+    assert calls[0]["model"] == "fast-report-model"
+    assert calls[0]["metadata"]["max_tokens"] == report_engine.REPORT_AGENT_STANDARD_MAX_TOKENS
+    assert calls[0]["metadata"]["timeout_seconds"] == report_engine.REPORT_AGENT_STANDARD_TIMEOUT_SECONDS
+    assert calls[1]["route"] == report_engine.AuditedLLMRoute.FINAL_REPORT_AGENT
+    assert calls[1]["model"] == "smart-final-model"
+    assert calls[1]["metadata"]["max_tokens"] == report_engine.FINAL_REPORT_AGENT_STANDARD_MAX_TOKENS
+    assert calls[1]["metadata"]["timeout_seconds"] == report_engine.FINAL_REPORT_AGENT_STANDARD_TIMEOUT_SECONDS
+
+
+def test_report_agent_output_coercion_fills_missing_schema_fields():
+    output = report_engine._coerce_report_agent_output(
+        {
+            "report_markdown": "# Report\n\nEvidence-grounded body.",
+            "prediction_answer": {
+                "verdict": "maybe",
+                "confidence_pct": "bad",
+                "supporting_timeline_ids": ["M1", 7],
+            },
+        }
+    )
+
+    assert output["executive_summary"].startswith("# Report")
+    assert output["management_notes"] == ""
+    assert output["endpoint_histogram"] == []
+    assert output["terminality_assessment"] == {}
+    assert output["contradiction_check"] == {}
+    assert output["prediction_answer"] == {
+        "verdict": "not_applicable",
+        "confidence_pct": 0.0,
+        "supporting_timeline_ids": ["M1", "7"],
+        "counterevidence": "",
+        "rationale": "Report agent did not return a complete prediction_answer object.",
+    }
+
+
 def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db: Session, monkeypatch):
     monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
     monkeypatch.setattr(
@@ -865,7 +1216,18 @@ def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db:
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         calls.append(metadata["prompt_mode"])
         raise LLMCallError("report model unavailable")
 
@@ -989,7 +1351,18 @@ def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
         ),
     )
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         return (
             LLMResponse(
                 content="{}",
@@ -1026,7 +1399,18 @@ def test_report_agent_rejects_fallback_payload_even_with_markdown(db: Session, m
         ),
     )
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        json_response_transform=None,
+        route=None,
+    ):
         return (
             LLMResponse(
                 content="{}",
@@ -1259,7 +1643,7 @@ def _add_endpoint_ledger(
 
 
 def _install_fake_report_agent(monkeypatch, *, outcome_interpretation: str = "Interprets structured metrics."):
-    def fake_report_agent(db, *, big_bang_id, content):
+    def fake_report_agent(db, *, big_bang_id, content, **kwargs):
         return (
             {
                 "report_markdown": (
