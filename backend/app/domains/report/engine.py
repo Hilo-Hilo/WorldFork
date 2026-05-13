@@ -196,7 +196,7 @@ def generate_multiverse_report(
     metadata = _base_generation_metadata(
         report_type="multiverse",
         big_bang_id=multiverse.big_bang_id,
-        model=get_settings().default_model,
+        model=_report_route_fallback_model(get_settings(), AuditedLLMRoute.SINGLE_REPORT_AGENT),
         source={"multiverse_id": str(multiverse.id), "multiverse_version": multiverse.version},
     )
     _commit_report_inputs_before_llm(db)
@@ -299,7 +299,7 @@ def generate_final_big_bang_report(
     metadata = _base_generation_metadata(
         report_type="final_big_bang",
         big_bang_id=big_bang.id,
-        model=get_settings().report_agent_model,
+        model=_report_route_fallback_model(get_settings(), AuditedLLMRoute.FINAL_REPORT_AGENT),
         source={
             "multiverse_versions": {
                 str(item.id): {"label": item.ui_label, "version": item.version}
@@ -3038,10 +3038,14 @@ def _evidence_gaps_for_comparison(comparison: list[dict[str, Any]]) -> list[str]
 
 def _report_route_fallback_model(settings: Any, route: AuditedLLMRoute) -> str:
     if route == AuditedLLMRoute.SINGLE_REPORT_AGENT:
-        return str(settings.default_model)
+        return str(getattr(settings, "default_model", None) or settings.report_agent_model)
     if route == AuditedLLMRoute.FINAL_REPORT_AGENT:
-        return str(getattr(settings, "final_report_agent_model", None) or settings.report_agent_model)
-    return str(settings.report_agent_model)
+        return str(
+            getattr(settings, "final_report_agent_model", None)
+            or getattr(settings, "report_agent_model", None)
+            or settings.default_model
+        )
+    return str(getattr(settings, "report_agent_model", None) or settings.default_model)
 
 
 def _report_agent_attempt_budget(route: AuditedLLMRoute, prompt_mode: str) -> tuple[int, int]:
