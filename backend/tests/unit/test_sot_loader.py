@@ -78,6 +78,32 @@ class TestLoadSot:
         b2 = load_sot()
         assert b1.snapshot_sha256 == b2.snapshot_sha256
 
+    @pytest.mark.parametrize(
+        "bad_relative_path",
+        [
+            "VERSION",
+            "emotions.json",
+            "behavior_axes.json",
+            "ideology_axes.json",
+            "expression_scale.json",
+            "issue_stance_axes.json",
+            "event_types.json",
+            "social_action_tools.json",
+            "channel_types.json",
+            "prompt_templates/test_template.md",
+        ],
+    )
+    def test_load_sot_rejects_symlinked_files(self, tmp_path: Path, bad_relative_path: str) -> None:
+        _create_minimal_sot(tmp_path)
+        outside = tmp_path.parent / f"outside-{bad_relative_path.replace('/', '-')}"
+        outside.write_text("{}", encoding="utf-8")
+        target = tmp_path / bad_relative_path
+        target.unlink()
+        target.symlink_to(outside)
+
+        with pytest.raises(ValueError, match="source_of_truth files must not be symlinks"):
+            load_sot(source_dir=tmp_path)
+
 
 # ---------------------------------------------------------------------------
 # validate_sot tests

@@ -77,6 +77,7 @@ def load_sot(source_dir: Path | None = None) -> SoTBundle:
         source_dir = _default_source_dir()
 
     source_dir = Path(source_dir).resolve()
+    _reject_sot_symlinks(source_dir)
 
     # VERSION
     version_path = source_dir / "VERSION"
@@ -126,10 +127,18 @@ def load_sot(source_dir: Path | None = None) -> SoTBundle:
 
 def _collect_sot_files(source_dir: Path, *, exclude_snapshot_marker: bool = False) -> list[Path]:
     """Return all files under *source_dir* in deterministic sorted order."""
+    _reject_sot_symlinks(source_dir)
     return sorted(
         p for p in source_dir.rglob("*")
         if p.is_file() and not (exclude_snapshot_marker and p.name == ".snapshot_sha256")
     )
+
+
+def _reject_sot_symlinks(source_dir: Path) -> None:
+    symlinks = sorted(p for p in source_dir.rglob("*") if p.is_symlink())
+    if symlinks:
+        relative = ", ".join(p.relative_to(source_dir).as_posix() for p in symlinks)
+        raise ValueError(f"source_of_truth files must not be symlinks: {relative}")
 
 
 def _compute_sot_merkle(source_dir: Path) -> str:
