@@ -1330,6 +1330,9 @@ def _compact_value(value: Any, *, max_items: int = 6) -> Any:
             key_text = str(key)
             if _is_compact_internal_reference_key(key_text):
                 continue
+            if _is_compact_secret_key(key_text):
+                compact[key_text] = "[REDACTED]"
+                continue
             if _is_compact_raw_text_key(key_text):
                 compact[key_text] = {"present": bool(item)}
             else:
@@ -1378,3 +1381,8 @@ def _is_compact_internal_reference_key(key: str) -> bool:
         or compact.endswith("artifactid")
         or compact in {"llmcallid", "endpointledgerid", "sourcesnapshotid"}
     )
+
+
+def _is_compact_secret_key(key: str) -> bool:
+    compact = key.lower().replace("_", "").replace("-", "")
+    return any(marker in compact for marker in ("apikey", "secret", "token", "password", "authorization", "bearer"))
