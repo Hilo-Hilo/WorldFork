@@ -35,9 +35,9 @@ def _validate_http_url(value: str | None) -> str | None:
 class CreateRunRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    display_name: str = Field(..., min_length=1, max_length=512)
-    scenario_text: str = Field(..., min_length=1)
-    time_horizon_label: str = Field(default="6 months")
+    display_name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=512)]
+    scenario_text: NonEmptyStr
+    time_horizon_label: NonEmptyStr = "6 months"
     tick_duration_minutes: int = Field(default=1440, gt=0)
     max_ticks: int = Field(default=180, gt=0)
     max_schedule_horizon_ticks: int = Field(default=10, gt=0)
@@ -498,10 +498,10 @@ class ProvidersResponse(BaseModel):
 class ProviderSettingIn(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    provider: str = Field(..., min_length=1)
-    base_url: str = Field(..., min_length=1)
-    api_key_env: str = Field(..., min_length=1)
-    default_model: str = Field(..., min_length=1)
+    provider: NonEmptyStr
+    base_url: NonEmptyStr
+    api_key_env: NonEmptyStr
+    default_model: NonEmptyStr
     fallback_model: NonEmptyStr | None = None
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
@@ -588,9 +588,9 @@ class RoutingResponse(BaseModel):
 class RoutingEntryIn(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    job_type: str
-    preferred_provider: str = Field(..., min_length=1)
-    preferred_model: str = Field(..., min_length=1)
+    job_type: NonEmptyStr
+    preferred_provider: NonEmptyStr
+    preferred_model: NonEmptyStr
     fallback_provider: NonEmptyStr | None = None
     fallback_model: NonEmptyStr | None = None
     temperature: float = Field(default=0.7, ge=0.0, le=2.0)
