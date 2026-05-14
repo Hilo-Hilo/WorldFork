@@ -1727,31 +1727,31 @@ def demo() -> None:
 @click.option("--timeout", type=click.FloatRange(min=0, min_open=True), default=240.0, show_default=True, help="HTTP timeout seconds.")
 @click.option(
     "--tick-duration-minutes",
-    type=int,
+    type=click.IntRange(min=1),
     default=720,
     show_default=True,
     help="Simulated minutes per Atlas tick.",
 )
 @click.option(
     "--horizon-days",
-    type=float,
+    type=click.FloatRange(min=0, min_open=True),
     default=30.0,
     show_default=True,
     help="Target simulated horizon used when --max-tick-index is omitted.",
 )
-@click.option("--max-tick-index", type=int, help="Terminal tick index for every Atlas timeline.")
-@click.option("--max-active-multiverses", type=int, default=64, show_default=True)
-@click.option("--max-branch-depth", type=int, default=8, show_default=True)
-@click.option("--max-branches-per-tick", type=int, default=8, show_default=True)
+@click.option("--max-tick-index", type=click.IntRange(min=0), help="Terminal tick index for every Atlas timeline.")
+@click.option("--max-active-multiverses", type=click.IntRange(min=1), default=64, show_default=True)
+@click.option("--max-branch-depth", type=click.IntRange(min=1), default=8, show_default=True)
+@click.option("--max-branches-per-tick", type=click.IntRange(min=1), default=8, show_default=True)
 @click.option(
     "--branch-score-threshold",
-    type=float,
+    type=click.FloatRange(min=0, max=1),
     default=0.4,
     show_default=True,
     help="Lower values admit more God-agent branches.",
 )
-@click.option("--idle-termination-ticks", type=int, default=6, show_default=True)
-@click.option("--completion-max-requests", type=int, default=1000, show_default=True)
+@click.option("--idle-termination-ticks", type=click.IntRange(min=0), default=6, show_default=True)
+@click.option("--completion-max-requests", type=click.IntRange(min=1), default=1000, show_default=True)
 @click.option("--expected-provider", default=None, help="Explicit provider expected in audited LLM-call checks.")
 @click.option("--expected-model", default=None, help="Explicit model expected in audited LLM-call checks.")
 @click.pass_obj
