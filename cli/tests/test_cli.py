@@ -1022,6 +1022,13 @@ def test_jobs_wait_treats_interrupted_as_non_error_terminal(monkeypatch) -> None
     assert result.exit_code == 0
 
 
+def test_jobs_wait_rejects_zero_poll_interval() -> None:
+    result = CliRunner().invoke(main, ["jobs", "wait", "job-123", "--poll-interval", "0"])
+
+    assert result.exit_code == 2
+    assert "Invalid value for '--poll-interval'" in result.output
+
+
 def test_jobs_wait_treats_completed_as_success_terminal(monkeypatch) -> None:
     class FakeClient:
         def __init__(self, *_args, **_kwargs) -> None:
@@ -1255,7 +1262,7 @@ def test_watch_big_bang_stops_on_archived_status(monkeypatch) -> None:
 
     monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
 
-    result = CliRunner().invoke(main, ["watch", "big-bang", "bb-123", "--poll-interval", "0"])
+    result = CliRunner().invoke(main, ["watch", "big-bang", "bb-123"])
 
     assert result.exit_code == 0
     assert "[big_bang] archived Run" in result.output
@@ -1292,6 +1299,16 @@ def test_watch_multiverse_once_streams_multiverse_ticks_and_logs(monkeypatch) ->
     assert "[tick] final tick=2 done" in result.output
 
 
+def test_watch_rejects_zero_poll_interval() -> None:
+    big_bang = CliRunner().invoke(main, ["watch", "big-bang", "bb-123", "--poll-interval", "0"])
+    multiverse = CliRunner().invoke(main, ["watch", "multiverse", "m-1", "--poll-interval", "0"])
+
+    assert big_bang.exit_code == 2
+    assert multiverse.exit_code == 2
+    assert "Invalid value for '--poll-interval'" in big_bang.output
+    assert "Invalid value for '--poll-interval'" in multiverse.output
+
+
 def test_watch_multiverse_stops_on_merged_status(monkeypatch) -> None:
     calls = []
 
@@ -1317,7 +1334,7 @@ def test_watch_multiverse_stops_on_merged_status(monkeypatch) -> None:
 
     monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
 
-    result = CliRunner().invoke(main, ["watch", "multiverse", "m-1", "--poll-interval", "0"])
+    result = CliRunner().invoke(main, ["watch", "multiverse", "m-1"])
 
     assert result.exit_code == 0
     assert "[multiverse] merged M1" in result.output
