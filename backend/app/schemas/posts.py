@@ -5,7 +5,11 @@ Import-free of backend.app.models.
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 _VALID_VISIBILITY_SCOPE = {"public", "followers", "private", "cohort"}
 
@@ -15,14 +19,14 @@ class SocialPost(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    post_id: str
-    universe_id: str
-    platform: str
+    post_id: NonEmptyStr
+    universe_id: NonEmptyStr
+    platform: NonEmptyStr
     tick_created: int = Field(..., ge=0)
 
-    author_actor_id: str
-    author_avatar_id: str | None = None
-    content: str
+    author_actor_id: NonEmptyStr
+    author_avatar_id: NonEmptyStr | None = None
+    content: NonEmptyStr
 
     stance_signal: dict[str, float] = Field(default_factory=dict)
     emotion_signal: dict[str, float] = Field(default_factory=dict)

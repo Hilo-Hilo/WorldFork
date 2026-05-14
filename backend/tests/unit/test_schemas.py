@@ -42,6 +42,7 @@ from backend.app.schemas import (
     RateLimitConfig,
     ChildSplitSpec,
     MergeProposal,
+    SocialPost,
     SplitProposal,
     Universe,
 )
@@ -200,6 +201,27 @@ def _make_hero_state(**overrides) -> dict:
         queued_events=[],
         recent_posts=[],
         memory_session_id=None,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_social_post(**overrides) -> dict:
+    base = dict(
+        post_id="post_001",
+        universe_id="u_001",
+        platform="worldfork-social",
+        tick_created=0,
+        author_actor_id="actor_001",
+        author_avatar_id=None,
+        content="Council hearing draws a large crowd.",
+        stance_signal={"labor_rights": 0.5},
+        emotion_signal={"anger": 0.2},
+        credibility_signal=0.8,
+        visibility_scope="public",
+        reach_score=0.4,
+        repost_count=0,
+        comment_count=0,
     )
     base.update(overrides)
     return base
@@ -792,6 +814,26 @@ def test_actor_schemas_reject_blank_identity_strings(model, payload):
     ],
 )
 def test_actor_schemas_reject_blank_reference_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (SocialPost, _make_social_post(post_id="   ")),
+        (SocialPost, _make_social_post(universe_id="   ")),
+        (SocialPost, _make_social_post(platform="   ")),
+        (SocialPost, _make_social_post(author_actor_id="   ")),
+        (SocialPost, _make_social_post(author_avatar_id="   ")),
+        (SocialPost, _make_social_post(content="   ")),
+        (HeroState, _make_hero_state(recent_posts=["   "])),
+        (HeroState, _make_hero_state(memory_session_id="   ")),
+        (HeroArchetype, _make_hero_archetype(scheduling_permissions=["   "])),
+        (HeroArchetype, _make_hero_archetype(allowed_channels=["   "])),
+    ],
+)
+def test_post_and_actor_schemas_reject_blank_reference_strings(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 
