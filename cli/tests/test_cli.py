@@ -241,6 +241,29 @@ def test_cli_rejects_invalid_init_simulation_overrides_before_requests(monkeypat
         assert "Invalid value for" in result.output
 
 
+def test_cli_rejects_negative_tick_selectors_before_requests(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, *_args, **_kwargs):
+            raise AssertionError("backend request should not run")
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    cases = [
+        ["multiverses", "trace", "mv-123", "--tick", "-1"],
+        ["cohorts", "transcript", "cohort-1", "--multiverse-id", "mv-123", "--from-tick", "-1"],
+        ["cohorts", "transcript", "cohort-1", "--multiverse-id", "mv-123", "--to-tick", "-1"],
+    ]
+
+    for args in cases:
+        result = CliRunner().invoke(main, args)
+
+        assert result.exit_code == 2, args
+        assert "Invalid value for" in result.output
+
+
 def test_cli_rejects_invalid_pagination_before_requests() -> None:
     cases = [
         ["runs", "list", "--limit", "0"],
