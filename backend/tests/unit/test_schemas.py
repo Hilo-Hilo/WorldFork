@@ -126,6 +126,27 @@ def test_public_payload_sanitizer_drops_internal_reference_ids(field_name):
     assert sanitized == {}
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "api_key",
+        "apikey",
+        "secret",
+        "password",
+        "token",
+        "authorization",
+        "bearer",
+        "client_secret",
+        "OPENROUTER_API_KEY",
+        "refresh_token",
+    ],
+)
+def test_public_payload_sanitizer_redacts_secret_like_fields(field_name):
+    sanitized = sanitize_public_payload({field_name: "super-secret-value"})
+
+    assert sanitized == {field_name: "[REDACTED]"}
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------

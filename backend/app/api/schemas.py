@@ -453,6 +453,7 @@ class WorkspaceState(BaseModel):
 
 
 RAW_TEXT_KEYS = {"scenario_text", "prompt", "premise", "raw_text", "source_text", "plain_text"}
+PRIVATE_KEY_NAMES = {"secret", "api_key", "apikey", "token", "password", "authorization", "bearer"}
 def sanitize_public_payload(value):
     if isinstance(value, dict):
         return _sanitize_public_dict(value)
@@ -467,6 +468,9 @@ def _sanitize_public_dict(value: dict) -> dict:
         key_text = str(key)
         normalized = key_text.lower()
         if _is_internal_reference_id_field(normalized):
+            continue
+        if _is_private_key_field(normalized):
+            sanitized[key_text] = "[REDACTED]"
             continue
         if normalized in RAW_TEXT_KEYS or _is_absolute_path_field(normalized, item):
             sanitized[f"{key_text}_present"] = bool(item)
@@ -516,3 +520,11 @@ def _is_absolute_path_field(key: str, value) -> bool:
 
 def _is_internal_reference_id_field(key: str) -> bool:
     return key in {"artifact_id", "llm_call_id"} or key.endswith("_artifact_id") or key.endswith("_llm_call_id")
+
+
+def _is_private_key_field(key: str) -> bool:
+    return (
+        key in PRIVATE_KEY_NAMES
+        or key.endswith(("_secret", "_api_key", "_apikey", "_token", "_password"))
+        or key.startswith("authorization")
+    )
