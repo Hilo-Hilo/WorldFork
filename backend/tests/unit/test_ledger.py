@@ -273,12 +273,15 @@ class TestVerify:
 
 
 class TestOpen:
-    def _write_tick_manifest_file_entry(self, ledger: Ledger, rel_path: str, outside: Path) -> None:
+    def _sealed_tick_manifest_path(self, ledger: Ledger) -> Path:
         ledger.begin_universe("U000", parent=None, branch_from_tick=None, branch_delta=None)
         ledger.begin_tick("U000", 0)
         ledger.write_artifact("universes/U000/ticks/tick_000/state.json", {"ok": True}, immutable=False)
         ledger.seal_tick("U000", 0)
-        manifest_path = ledger.run_folder / "universes" / "U000" / "ticks" / "tick_000" / "manifest.json"
+        return ledger.run_folder / "universes" / "U000" / "ticks" / "tick_000" / "manifest.json"
+
+    def _write_tick_manifest_file_entry(self, ledger: Ledger, rel_path: str, outside: Path) -> None:
+        manifest_path = self._sealed_tick_manifest_path(ledger)
         manifest = json.loads(manifest_path.read_bytes())
         manifest["files"][rel_path] = {
             "sha256": sha256_file(outside),
@@ -332,3 +335,56 @@ class TestOpen:
 
         with pytest.raises(LedgerError, match="Unsafe tick manifest file path"):
             Ledger.open(tmp_path, "BB_unsafe_manifest")
+
+    @pytest.mark.parametrize(
+        "corruption",
+        [
+            "invalid_json",
+            "root_list",
+            "missing_files",
+            "files_null",
+            "files_list",
+            "file_record_null",
+            "missing_sha256",
+            "sha256_not_string",
+            "sha256_short",
+            "missing_size",
+        ],
+    )
+    def test_open_rejects_corrupt_tick_manifest_file_records(self, tmp_path: Path, corruption: str) -> None:
+        ledger = Ledger.begin_run(
+            run_root=tmp_path,
+            big_bang_id="BB_corrupt_manifest",
+            scenario_text="corrupt manifest",
+            sot_snapshot_sha="0" * 64,
+            config_snapshot={},
+        )
+        manifest_path = self._sealed_tick_manifest_path(ledger)
+        manifest = json.loads(manifest_path.read_bytes())
+        rel_path = "universes/U000/ticks/tick_000/state.json"
+
+        if corruption == "invalid_json":
+            manifest_path.write_text("{", encoding="utf-8")
+        elif corruption == "root_list":
+            manifest_path.write_text(json.dumps([]), encoding="utf-8")
+        else:
+            if corruption == "missing_files":
+                manifest.pop("files")
+            elif corruption == "files_null":
+                manifest["files"] = None
+            elif corruption == "files_list":
+                manifest["files"] = []
+            elif corruption == "file_record_null":
+                manifest["files"][rel_path] = None
+            elif corruption == "missing_sha256":
+                manifest["files"][rel_path].pop("sha256")
+            elif corruption == "sha256_not_string":
+                manifest["files"][rel_path]["sha256"] = 123
+            elif corruption == "sha256_short":
+                manifest["files"][rel_path]["sha256"] = "abc"
+            elif corruption == "missing_size":
+                manifest["files"][rel_path].pop("size")
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        with pytest.raises(LedgerError, match="Invalid tick manifest"):
+            Ledger.open(tmp_path, "BB_corrupt_manifest")

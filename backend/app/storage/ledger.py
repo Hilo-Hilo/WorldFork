@@ -37,6 +37,7 @@ class ImmutabilityError(LedgerError):
 # ---------------------------------------------------------------------------
 
 _NON_ALPHANUM = re.compile(r"[^a-z0-9]+")
+_SHA256_HEX = re.compile(r"^[0-9a-f]{64}$")
 
 
 def _slugify(text: str) -> str:
@@ -400,19 +401,24 @@ class Ledger:
         for manifest_path in sorted(universes_root.glob("*/ticks/tick_*/manifest.json")):
             try:
                 manifest = json.loads(manifest_path.read_bytes())
-            except Exception:
-                continue
+            except Exception as exc:
+                raise LedgerError(f"Invalid tick manifest JSON: {manifest_path}") from exc
+            if not isinstance(manifest, dict):
+                raise LedgerError(f"Invalid tick manifest {manifest_path}: root must be an object")
             files = manifest.get("files")
             if not isinstance(files, dict):
-                continue
+                raise LedgerError(f"Invalid tick manifest {manifest_path}: files must be an object")
             sealed_at = manifest.get("sealed_at")
             for rel_path, record in files.items():
-                if not isinstance(rel_path, str) or not isinstance(record, dict):
-                    continue
+                if not isinstance(rel_path, str):
+                    raise LedgerError(f"Invalid tick manifest {manifest_path}: file path must be a string")
+                if not isinstance(record, dict):
+                    raise LedgerError(f"Invalid tick manifest {manifest_path}: file record must be an object")
                 safe_rel_path = _safe_cached_rel_path(self.run_folder, rel_path)
+                safe_record = _safe_cached_file_record(manifest_path, record)
                 self._file_cache[safe_rel_path] = {
-                    "size": record.get("size"),
-                    "sha256": record.get("sha256"),
+                    "size": safe_record["size"],
+                    "sha256": safe_record["sha256"],
                     "sealed_at": sealed_at,
                 }
 
@@ -476,3 +482,13 @@ def _safe_cached_rel_path(run_folder: Path, rel_path: str) -> str:
     if resolved_path == resolved_root or resolved_root not in resolved_path.parents:
         raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
     return path.as_posix()
+
+
+def _safe_cached_file_record(manifest_path: Path, record: dict[str, Any]) -> dict[str, int | str]:
+    sha256 = record.get("sha256")
+    if not isinstance(sha256, str) or not _SHA256_HEX.fullmatch(sha256):
+        raise LedgerError(f"Invalid tick manifest {manifest_path}: file record sha256 is invalid")
+    size = record.get("size")
+    if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+        raise LedgerError(f"Invalid tick manifest {manifest_path}: file record size is invalid")
+    return {"sha256": sha256, "size": size}
