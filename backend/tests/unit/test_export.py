@@ -137,6 +137,34 @@ class TestRoundtrip:
         data = json.loads(before_json.read_bytes())
         assert data["state"] == "before"
 
+    @pytest.mark.parametrize(
+        "relative_path",
+        [
+            "linked-root.json",
+            "config/linked-config.json",
+            "source_of_truth_snapshot/linked-sot.json",
+            "universes/U000/linked-universe.json",
+            "universes/U000/ticks/tick_000/linked-tick.json",
+            "universes/U000/ticks/tick_000/artifacts/linked-artifact.json",
+            "universes/U000/ticks/tick_000/logs/linked-log.json",
+            "reports/linked-report.md",
+            "metadata/linked-metadata.json",
+            "debug/linked-debug.json",
+        ],
+    )
+    def test_export_rejects_symlinked_run_files(self, tmp_path: Path, relative_path: str) -> None:
+        src_root = tmp_path / "src"
+        src_root.mkdir()
+        ledger = _make_ledger(src_root)
+        outside = tmp_path / "outside.json"
+        outside.write_text('{"outside": true}', encoding="utf-8")
+        link = ledger.run_folder / relative_path
+        link.parent.mkdir(parents=True, exist_ok=True)
+        link.symlink_to(outside)
+
+        with pytest.raises(ExportError, match="Run export cannot include symlinks"):
+            export_run_to_zip(run_folder=ledger.run_folder, dest=tmp_path / "run.zip")
+
     def test_roundtrip_merkle_root_matches(self, tmp_path: Path) -> None:
         """Tick Merkle roots match after roundtrip import."""
         src_root = tmp_path / "src"
