@@ -33,7 +33,7 @@ class BigBangCreate(BaseModel):
 class BigBangPatch(BaseModel):
     name: str | None = Field(default=None, min_length=1, max_length=240)
     description: str | None = None
-    status: str | None = None
+    status: NonEmptyStr | None = None
 
 
 class BigBangOut(ORMModel):
@@ -273,7 +273,7 @@ class EndpointLedgerDetailOut(BaseModel):
 
 
 class EndpointLedgerEvaluateRequest(BaseModel):
-    idempotency_key: str | None = None
+    idempotency_key: NonEmptyStr | None = None
     run_inline: bool = False
     candidate_endpoint: dict[str, Any] | None = None
 
@@ -344,8 +344,8 @@ class EndpointPathMassPlotOut(BaseModel):
 
 
 class TimelineAdjudicationRequest(BaseModel):
-    source_type: str = "posthoc_adjudication"
-    summary: str | None = None
+    source_type: NonEmptyStr = "posthoc_adjudication"
+    summary: NonEmptyStr | None = None
 
 
 class ReportRenderRequest(BaseModel):
@@ -409,7 +409,7 @@ class SimulateTickRequest(BaseModel):
 
 class MultiverseContinueRequest(BaseModel):
     max_ticks: int = Field(gt=0)
-    reason: str | None = None
+    reason: NonEmptyStr | None = None
     continued_from_report_version_id: UUID | None = None
 
 
@@ -428,15 +428,15 @@ class ToolCallRequest(BaseModel):
 
 
 class ReportRequest(BaseModel):
-    title: str | None = None
-    summary: str | None = None
+    title: NonEmptyStr | None = None
+    summary: NonEmptyStr | None = None
 
 
 class JobCreate(BaseModel):
-    job_type: str
+    job_type: NonEmptyStr
     big_bang_id: UUID | None = None
     payload: dict[str, Any] = Field(default_factory=dict)
-    idempotency_key: str | None = None
+    idempotency_key: NonEmptyStr | None = None
 
 
 class GenericOut(BaseModel):

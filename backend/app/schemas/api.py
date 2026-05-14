@@ -764,7 +764,7 @@ class JobsListResponse(BaseModel):
 
 
 class RetryRequest(BaseModel):
-    queue: str | None = None
+    queue: NonEmptyStr | None = None
 
 
 class RetryResponse(BaseModel):

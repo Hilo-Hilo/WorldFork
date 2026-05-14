@@ -12,7 +12,16 @@ import pytest
 from pydantic import ValidationError
 
 from app.llm.routing import AUDITED_LLM_ROUTES
-from app.api.schemas import SimulateTickRequest, ToolCallRequest
+from app.api.schemas import (
+    BigBangPatch,
+    EndpointLedgerEvaluateRequest,
+    JobCreate,
+    MultiverseContinueRequest,
+    ReportRequest,
+    SimulateTickRequest,
+    TimelineAdjudicationRequest,
+    ToolCallRequest,
+)
 from backend.app.schemas import (
     BigBangRun,
     BranchDelta,
@@ -34,6 +43,7 @@ from backend.app.schemas.api import (
     PatchRunRequest,
     PatchRoutingRequest,
     PatchSettingsRequest,
+    RetryRequest,
     TestProviderRequest as ProviderTestRequest,
     WebhookReplayRequest,
     WebhookTestRequest,
@@ -367,6 +377,16 @@ def test_patch_rate_limits_rejects_invalid_retry_policy():
         (WebhookReplayRequest, {"event_id": "event-1", "target_url": ""}),
         (SimulateTickRequest, {"idempotency_key": ""}),
         (ToolCallRequest, {"tool_name": "continue_timeline", "idempotency_key": ""}),
+        (BigBangPatch, {"status": ""}),
+        (EndpointLedgerEvaluateRequest, {"idempotency_key": ""}),
+        (TimelineAdjudicationRequest, {"source_type": ""}),
+        (TimelineAdjudicationRequest, {"summary": ""}),
+        (ReportRequest, {"title": ""}),
+        (ReportRequest, {"summary": ""}),
+        (JobCreate, {"job_type": ""}),
+        (JobCreate, {"job_type": "run_tick", "idempotency_key": ""}),
+        (MultiverseContinueRequest, {"max_ticks": 1, "reason": ""}),
+        (RetryRequest, {"queue": ""}),
     ],
 )
 def test_request_schemas_reject_empty_required_strings(model, payload):
