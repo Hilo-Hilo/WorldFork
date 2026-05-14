@@ -129,8 +129,7 @@ def sociology_baseline(big_bang_id: UUID, db: Session = Depends(get_db)):
 def audit_llm_call(call: models.LLMCall, *, include_debug: bool = False) -> dict:
     meta = dict(call.meta or {})
     if not include_debug:
-        meta.pop("raw_request_artifact_id", None)
-        meta.pop("raw_response_artifact_id", None)
+        meta = _strip_public_reference_fields(meta)
     return {
         "id": call.id,
         "big_bang_id": call.big_bang_id,
