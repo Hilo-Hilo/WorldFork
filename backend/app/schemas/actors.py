@@ -269,8 +269,8 @@ class HeroArchetype(BaseModel):
     controversy_tolerance: float = Field(0.5, ge=0.0, le=1.0)
     direct_event_power: float = Field(0.5, ge=0.0, le=1.0)
 
-    scheduling_permissions: list[str] = Field(default_factory=list)
-    allowed_channels: list[str] = Field(default_factory=list)
+    scheduling_permissions: list[NonEmptyStr] = Field(default_factory=list)
+    allowed_channels: list[NonEmptyStr] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _validate_axes_ranges(self) -> HeroArchetype:
@@ -307,8 +307,8 @@ class HeroState(BaseModel):
     perceived_pressure: float = Field(..., ge=0.0, le=1.0)
     current_strategy: str = ""
     queued_events: list[NonEmptyStr] = Field(default_factory=list)
-    recent_posts: list[str] = Field(default_factory=list)
-    memory_session_id: str | None = None
+    recent_posts: list[NonEmptyStr] = Field(default_factory=list)
+    memory_session_id: NonEmptyStr | None = None
 
     @model_validator(mode="after")
     def _clamp_emotions(self) -> HeroState:
