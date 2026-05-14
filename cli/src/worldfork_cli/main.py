@@ -660,8 +660,8 @@ def init_command(
 @runs.command("list")
 @click.option("--status")
 @click.option("--q")
-@click.option("--limit", type=int, default=50, show_default=True)
-@click.option("--offset", type=int, default=0, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1), default=50, show_default=True)
+@click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def runs_list(ctx: Context, status: str | None, q: str | None, limit: int, offset: int) -> None:
     emit(
@@ -925,8 +925,8 @@ def jobs() -> None:
 @jobs.command("list")
 @click.option("--run-id")
 @click.option("--status")
-@click.option("--limit", type=int, default=100, show_default=True)
-@click.option("--offset", type=int, default=0, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True)
+@click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def jobs_list(ctx: Context, run_id: str | None, status: str | None, limit: int, offset: int) -> None:
     emit(
@@ -1025,8 +1025,8 @@ def logs() -> None:
 @click.option("--run-id")
 @click.option("--status")
 @click.option("--source", type=click.Choice(["job", "llm"]))
-@click.option("--limit", type=int, default=100, show_default=True)
-@click.option("--offset", type=int, default=0, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True)
+@click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def logs_list(
     ctx: Context,
@@ -1055,7 +1055,7 @@ def watch() -> None:
 @click.argument("big_bang_id")
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=0, show_default=True, help="0 means no timeout.")
-@click.option("--limit", type=int, default=100, show_default=True, help="Recent log/activity rows to poll.")
+@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True, help="Recent log/activity rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
 @click.option("--json-lines", is_flag=True, help="Emit one JSON object per watched event.")
 @click.option("--stop/--no-stop", default=True, show_default=True, help="Stop when the run is terminal.")
@@ -1078,7 +1078,7 @@ def watch_big_bang(
 @click.argument("multiverse_id")
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=0, show_default=True, help="0 means no timeout.")
-@click.option("--limit", type=int, default=100, show_default=True, help="Recent log/tick rows to poll.")
+@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True, help="Recent log/tick rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
 @click.option("--json-lines", is_flag=True, help="Emit one JSON object per watched event.")
 @click.option("--stop/--no-stop", default=True, show_default=True, help="Stop when the multiverse is terminal.")
