@@ -168,6 +168,27 @@ def test_compact_value_drops_mixed_style_internal_reference_ids(field_name):
     assert compacted == {}
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "apiKey",
+        "openrouterApiKey",
+        "OPENAI_API_KEY",
+        "clientSecret",
+        "accessToken",
+        "refreshToken",
+        "authorization",
+        "bearerToken",
+        "password",
+        "webhookSecret",
+    ],
+)
+def test_compact_value_redacts_mixed_style_secret_fields(field_name):
+    compacted = _compact_value({field_name: "super-secret-value"})
+
+    assert compacted == {field_name: "[REDACTED]"}
+
+
 def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     big_bang, multiverse, _actor = _world(db)
 
