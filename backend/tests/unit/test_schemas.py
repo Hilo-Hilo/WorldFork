@@ -155,6 +155,27 @@ def test_public_payload_sanitizer_drops_internal_reference_ids(field_name):
 @pytest.mark.parametrize(
     "field_name",
     [
+        "artifactId",
+        "llmCallId",
+        "markdownArtifactId",
+        "pdfArtifactId",
+        "auditArtifactId",
+        "promptPacketArtifactId",
+        "responseArtifactId",
+        "parsedArtifactId",
+        "sourceSnapshotArtifactId",
+        "simulationBriefLlmCallId",
+    ],
+)
+def test_public_payload_sanitizer_drops_mixed_style_internal_reference_ids(field_name):
+    sanitized = sanitize_public_payload({field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"})
+
+    assert sanitized == {}
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
         "api_key",
         "apikey",
         "secret",
