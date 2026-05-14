@@ -304,11 +304,16 @@ def hash_directory(path: Path) -> str:
     for candidate in sorted(path.rglob("*")):
         if candidate.is_symlink():
             raise ValueError(f"cannot hash artifact tree with symlink: {candidate}")
+        relative_path = candidate.relative_to(path).as_posix().encode("utf-8")
+        if candidate.is_dir():
+            digest.update(b"D")
+            digest.update(len(relative_path).to_bytes(8, "big"))
+            digest.update(relative_path)
+            continue
         if not candidate.is_file():
             continue
-        file_path = candidate
-        relative_path = file_path.relative_to(path).as_posix().encode("utf-8")
-        content = file_path.read_bytes()
+        content = candidate.read_bytes()
+        digest.update(b"F")
         digest.update(len(relative_path).to_bytes(8, "big"))
         digest.update(relative_path)
         digest.update(len(content).to_bytes(8, "big"))
