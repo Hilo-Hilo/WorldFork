@@ -54,7 +54,6 @@ _PRIVATE_CONFIG_KEYS = {
     "openrouter_config",
 }
 _PRIVATE_KEY_NAMES = {"secret", "api_key", "apikey", "token", "password", "authorization", "bearer"}
-_RAW_ARTIFACT_KEYS = {"raw_text_artifact_id", "simulation_brief_artifact_id"}
 
 
 def _first_non_null(mapping: dict[str, Any], *keys: str) -> Any:
@@ -73,6 +72,14 @@ def _is_private_key(normalized: str) -> bool:
         normalized in _PRIVATE_KEY_NAMES
         or normalized.endswith(("_secret", "_api_key", "_apikey", "_token", "_password"))
         or normalized.startswith("authorization")
+    )
+
+
+def _is_internal_reference_id(normalized: str) -> bool:
+    return (
+        normalized in {"artifact_id", "llm_call_id"}
+        or normalized.endswith("_artifact_id")
+        or normalized.endswith("_llm_call_id")
     )
 
 
@@ -99,7 +106,7 @@ def sanitize_public_job_payload(value: Any) -> Any:
     for key, item in value.items():
         key_text = str(key)
         normalized = key_text.lower()
-        if normalized in _RAW_ARTIFACT_KEYS:
+        if _is_internal_reference_id(normalized):
             continue
         if normalized in _PRIVATE_CONFIG_KEYS or _is_private_key(normalized):
             sanitized[key_text] = "[REDACTED]"

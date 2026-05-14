@@ -1817,6 +1817,27 @@ def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutat
     assert payload["model_config"]["api_key"] == "secret-key"
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "artifact_id",
+        "llm_call_id",
+        "markdown_artifact_id",
+        "pdf_artifact_id",
+        "audit_artifact_id",
+        "prompt_packet_artifact_id",
+        "response_artifact_id",
+        "parsed_artifact_id",
+        "source_snapshot_artifact_id",
+        "simulation_brief_llm_call_id",
+    ],
+)
+def test_public_job_payload_sanitizer_drops_internal_reference_ids(field_name):
+    payload = {field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"}
+
+    assert sanitize_public_job_payload(payload) == {}
+
+
 def test_sociology_prompt_influences_drop_emotion_and_steering_content():
     influences = [
         {
