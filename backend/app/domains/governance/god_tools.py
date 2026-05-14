@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -108,6 +110,8 @@ def _execute(
         return {"status": "continued", "reason": arguments.get("reason")}
     if tool_name == "freeze_timeline":
         multiverse.status = "frozen"
+        multiverse.report_status = "ready"
+        multiverse.ended_at = multiverse.ended_at or datetime.now(timezone.utc)
         return {"status": "frozen"}
     if tool_name == "terminate_timeline":
         multiverse.status = "terminated"

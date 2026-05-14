@@ -7,8 +7,8 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
 
-TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated"}
 HARD_INVALID_MULTIVERSE_STATUSES = {"failed", "cancelled", "killed", "error"}
 LOW_PATH_PROBABILITY_THRESHOLD = 0.0001
 
