@@ -6,11 +6,13 @@ Import-free of backend.app.models.
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 from backend.app.schemas.jobs import ModelRoutingJobType
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # ---------------------------------------------------------------------------
 # ProviderConfig
@@ -21,11 +23,11 @@ class ProviderConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    provider: str
-    base_url: str
-    api_key_env: str
-    default_model: str
-    fallback_model: str | None = None
+    provider: NonEmptyStr
+    base_url: NonEmptyStr
+    api_key_env: NonEmptyStr
+    default_model: NonEmptyStr
+    fallback_model: NonEmptyStr | None = None
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
     enabled: bool = False
@@ -42,10 +44,10 @@ class ModelRoutingEntry(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     job_type: ModelRoutingJobType
-    preferred_provider: str
-    preferred_model: str
-    fallback_provider: str | None = None
-    fallback_model: str | None = None
+    preferred_provider: NonEmptyStr
+    preferred_model: NonEmptyStr
+    fallback_provider: NonEmptyStr | None = None
+    fallback_model: NonEmptyStr | None = None
     temperature: float = Field(..., ge=0.0, le=2.0)
     top_p: float = Field(..., ge=0.0, le=1.0)
     max_tokens: int = Field(..., gt=0)
@@ -66,7 +68,7 @@ class RateLimitConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    provider: str
+    provider: NonEmptyStr
     enabled: bool = True
     rpm_limit: int = Field(..., ge=1)
     tpm_limit: int = Field(..., ge=1)
