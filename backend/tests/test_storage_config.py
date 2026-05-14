@@ -5,7 +5,7 @@ import pytest
 
 from app.core.config import BACKEND_DIR, Settings
 from app.source_of_truth.loader import SourceOfTruthLoader
-from app.source_of_truth.validator import REQUIRED_FILES
+from app.source_of_truth.validator import REQUIRED_FILES, validate_source_of_truth_dir
 from app.storage.artifact_store import ArtifactStore
 
 
@@ -70,6 +70,35 @@ def test_source_of_truth_loader_rejects_path_traversal(tmp_path):
 
     with pytest.raises(ValueError):
         loader.load_template("../emotions.json")
+
+
+@pytest.mark.parametrize(
+    "bad_required_file",
+    [
+        "emotions.json",
+        "behavior_axes.json",
+        "ideology_axes.json",
+        "issue_stance_axes.json",
+        "expression_scale.json",
+        "event_types.json",
+        "social_action_types.json",
+        "graph_edge_types.json",
+        "sociology_models.json",
+        "report_templates/event_summary.md",
+    ],
+)
+def test_source_of_truth_validation_rejects_required_directories(tmp_path, bad_required_file):
+    source_root = tmp_path / "source_of_truth"
+    for relative_name in REQUIRED_FILES:
+        path = source_root / relative_name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative_name == bad_required_file:
+            path.mkdir()
+        else:
+            path.write_text("{}", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="required files must be regular files"):
+        validate_source_of_truth_dir(source_root)
 
 
 def test_artifact_write_preserves_existing_file_and_uses_collision_path(tmp_path):
