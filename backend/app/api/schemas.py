@@ -453,9 +453,6 @@ class WorkspaceState(BaseModel):
 
 
 RAW_TEXT_KEYS = {"scenario_text", "prompt", "premise", "raw_text", "source_text", "plain_text"}
-RAW_CORPUS_ID_KEYS = {"raw_text_artifact_id", "simulation_brief_artifact_id"}
-
-
 def sanitize_public_payload(value):
     if isinstance(value, dict):
         return _sanitize_public_dict(value)
@@ -469,7 +466,7 @@ def _sanitize_public_dict(value: dict) -> dict:
     for key, item in value.items():
         key_text = str(key)
         normalized = key_text.lower()
-        if normalized in RAW_CORPUS_ID_KEYS:
+        if _is_internal_reference_id_field(normalized):
             continue
         if normalized in RAW_TEXT_KEYS or _is_absolute_path_field(normalized, item):
             sanitized[f"{key_text}_present"] = bool(item)
@@ -515,3 +512,7 @@ def _is_absolute_path_field(key: str, value) -> bool:
         and isinstance(value, str)
         and value.startswith("/")
     )
+
+
+def _is_internal_reference_id_field(key: str) -> bool:
+    return key in {"artifact_id", "llm_call_id"} or key.endswith("_artifact_id") or key.endswith("_llm_call_id")
