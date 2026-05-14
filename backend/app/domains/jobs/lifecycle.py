@@ -16,6 +16,15 @@ DEFAULT_MAX_CONCURRENT_JOBS = 4
 PAUSABLE_STATUSES = {"queued", "running"}
 REQUEUEABLE_STATUSES = {"failed", "interrupted"}
 INTERRUPT_TERMINAL_STATUSES = {"interrupt_requested", "interrupted", "cancelled"}
+TERMINAL_JOB_STATUSES = {
+    "succeeded",
+    "completed",
+    "failed",
+    "cancelled",
+    "interrupted",
+    "dead",
+    "dead_lettered",
+}
 
 
 class JobNotRunnableError(RuntimeError):

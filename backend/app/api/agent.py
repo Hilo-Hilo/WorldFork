@@ -14,6 +14,7 @@ from app.core.config import get_settings
 from app.db import models
 from app.db.session import get_db
 from app.domains.costs.service import CostEstimateRequest, estimate_big_bang_cost, summarize_big_bang_cost
+from app.domains.jobs.lifecycle import TERMINAL_JOB_STATUSES
 from app.domains.jobs.queues import JOB_TYPES
 from app.domains.tick.timing import run_timing_payload
 from app.domains.big_bang.scenario_bank import COVERAGE_MATRIX, list_scenarios
@@ -503,12 +504,11 @@ def jobs(
 @router.post("/jobs/{job_id}/wait")
 def wait_for_job(job_id: UUID, body: AgentWaitRequest, db: Session = Depends(get_db)):
     deadline = time.monotonic() + body.timeout_seconds
-    terminal = {"succeeded", "completed", "failed", "cancelled", "dead_lettered", "interrupted"}
     while True:
         job = db.get(models.Job, job_id)
         if job is None:
             raise HTTPException(status_code=404, detail=f"job {job_id} not found")
-        if job.status in terminal:
+        if job.status in TERMINAL_JOB_STATUSES:
             return _ok(_row(job), terminal=True, timed_out=False)
         if time.monotonic() >= deadline:
             return _ok(_row(job), terminal=False, timed_out=True)
