@@ -441,7 +441,8 @@ def _verify_imported_run(run_folder: Path) -> None:
 
     Raises :class:`ExportError` on any mismatch.
     """
-    from backend.app.storage.checksums import merkle_root, sha256_file
+    from backend.app.storage.checksums import sha256_file
+    from backend.app.storage.ledger import LedgerError, _tick_files_for_merkle, _tick_merkle_root
 
     errors: list[str] = []
     run_manifest_path = run_folder / "manifest.json"
@@ -519,11 +520,14 @@ def _verify_imported_run(run_folder: Path) -> None:
                 continue  # Tick not sealed; skip
 
             # Recompute Merkle root from actual files
-            files_found = sorted(
-                p for p in tick_dir.rglob("*") if p.is_file() and p.name != "manifest.json"
-            )
-            file_hashes = [sha256_file(fp) for fp in files_found]
-            actual_root = merkle_root(file_hashes)
+            try:
+                files_found = _tick_files_for_merkle(tick_dir)
+                actual_root = _tick_merkle_root(tick_dir, files_found)
+            except LedgerError as exc:
+                errors.append(
+                    f"Cannot compute Merkle root for {tick_dir.relative_to(run_folder)}: {exc}"
+                )
+                continue
 
             if actual_root != expected_root:
                 errors.append(
