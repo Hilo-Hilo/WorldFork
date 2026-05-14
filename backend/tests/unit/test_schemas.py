@@ -11,6 +11,7 @@ from typing import get_args
 import pytest
 from pydantic import ValidationError
 
+from app.api.agent import AgentModelPatch
 from app.llm.routing import AUDITED_LLM_ROUTES
 from app.api.schemas import (
     BigBangCreate,
@@ -52,9 +53,12 @@ from backend.app.schemas import (
 )
 from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
 from backend.app.schemas.api import (
+    BranchPreviewRequest,
+    BranchRequest,
     CompareRequest,
     CreateRunRequest,
     FocusBranchRequest,
+    ForceDeviationRequest,
     PatchBranchPolicyRequest,
     PatchProvidersRequest,
     PatchRateLimitsRequest,
@@ -620,6 +624,26 @@ def test_request_schemas_reject_blank_required_strings(model, payload):
     ],
 )
 def test_request_schemas_reject_blank_operator_metadata_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (AgentModelPatch, {"default_model": "   "}),
+        (AgentModelPatch, {"agent_models": {"   ": "gpt-5.4"}}),
+        (AgentModelPatch, {"agent_models": {"initializer": "   "}}),
+        (CreateRunRequest, {"display_name": "Run", "scenario_text": "scenario", "uploaded_doc_ids": ["   "]}),
+        (CreateRunRequest, {"display_name": "Run", "scenario_text": "scenario", "provider_snapshot_id": "   "}),
+        (PatchRunRequest, {"description": "   "}),
+        (PatchRunRequest, {"tags": ["   "]}),
+        (BranchPreviewRequest, {"reason": "   "}),
+        (BranchRequest, {"reason": "   "}),
+        (ForceDeviationRequest, {"tick": 0, "mode": "god_prompt", "prompt": "   "}),
+    ],
+)
+def test_operator_request_schemas_reject_blank_reference_strings(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 
