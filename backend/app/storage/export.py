@@ -442,7 +442,11 @@ def _verify_imported_run(run_folder: Path) -> None:
     Raises :class:`ExportError` on any mismatch.
     """
     from backend.app.storage.checksums import sha256_file
-    from backend.app.storage.ledger import LedgerError, _tick_files_for_merkle, _tick_merkle_root
+    from backend.app.storage.ledger import (
+        LedgerError,
+        _tick_files_for_merkle,
+        _tick_merkle_root,
+    )
 
     errors: list[str] = []
     run_manifest_path = run_folder / "manifest.json"
@@ -522,6 +526,14 @@ def _verify_imported_run(run_folder: Path) -> None:
             # Recompute Merkle root from actual files
             try:
                 files_found = _tick_files_for_merkle(tick_dir)
+                errors.extend(
+                    _verify_imported_tick_manifest_files(
+                        run_folder,
+                        tick_manifest_path,
+                        tick_manifest,
+                        files_found,
+                    )
+                )
                 actual_root = _tick_merkle_root(tick_dir, files_found)
             except LedgerError as exc:
                 errors.append(
@@ -539,3 +551,75 @@ def _verify_imported_run(run_folder: Path) -> None:
         raise ExportError(
             f"Import verification failed ({len(errors)} error(s)): " + "; ".join(errors)
         )
+
+
+def _verify_imported_tick_manifest_files(
+    run_folder: Path,
+    tick_manifest_path: Path,
+    tick_manifest: dict[str, Any],
+    files_found: list[Path],
+) -> list[str]:
+    from backend.app.storage.checksums import sha256_file
+    from backend.app.storage.ledger import (
+        LedgerError,
+        _safe_cached_file_record,
+        _safe_cached_rel_path,
+    )
+
+    errors: list[str] = []
+    manifest_files = tick_manifest.get("files")
+    if not isinstance(manifest_files, dict):
+        return [f"Invalid tick manifest {tick_manifest_path}: files must be an object"]
+
+    actual_paths = {
+        path.relative_to(run_folder).as_posix()
+        for path in files_found
+        if path != tick_manifest_path
+    }
+    recorded_paths: set[str] = set()
+
+    for rel_path, record in manifest_files.items():
+        if not isinstance(rel_path, str):
+            errors.append(f"Invalid tick manifest {tick_manifest_path}: file path must be a string")
+            continue
+        try:
+            safe_rel_path = _safe_cached_rel_path(run_folder, rel_path)
+        except LedgerError as exc:
+            errors.append(f"Invalid tick manifest {tick_manifest_path}: {exc}")
+            continue
+        recorded_paths.add(safe_rel_path)
+
+        if not isinstance(record, dict):
+            errors.append(f"Invalid tick manifest {tick_manifest_path}: file record must be an object")
+            continue
+        try:
+            safe_record = _safe_cached_file_record(tick_manifest_path, record)
+        except LedgerError as exc:
+            errors.append(str(exc))
+            continue
+
+        target = run_folder / safe_rel_path
+        if not target.exists():
+            errors.append(f"Invalid tick manifest {tick_manifest_path}: missing recorded file {safe_rel_path}")
+            continue
+        if target.is_symlink() or not target.is_file():
+            errors.append(f"Invalid tick manifest {tick_manifest_path}: recorded file is not regular {safe_rel_path}")
+            continue
+
+        actual_sha = sha256_file(target)
+        if actual_sha != safe_record["sha256"]:
+            errors.append(
+                f"Invalid tick manifest {tick_manifest_path}: SHA mismatch for {safe_rel_path}"
+            )
+        actual_size = target.stat().st_size
+        if actual_size != safe_record["size"]:
+            errors.append(
+                f"Invalid tick manifest {tick_manifest_path}: size mismatch for {safe_rel_path}"
+            )
+
+    if recorded_paths != actual_paths:
+        errors.append(
+            f"Invalid tick manifest {tick_manifest_path}: file list mismatch "
+            f"expected={sorted(actual_paths)} actual={sorted(recorded_paths)}"
+        )
+    return errors
