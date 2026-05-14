@@ -1327,7 +1327,7 @@ def _compact_value(value: Any, *, max_items: int = 6) -> Any:
             if index >= max_items:
                 compact["_truncated"] = True
                 break
-            if str(key) in {"plain_text_corpus", "raw_text", "scenario_text"}:
+            if _is_compact_raw_text_key(str(key)):
                 compact[str(key)] = {"present": bool(item)}
             else:
                 compact[str(key)] = _compact_value(item, max_items=max_items)
@@ -1348,3 +1348,20 @@ def _truncate(value: str, limit: int) -> str:
     if len(value) <= limit:
         return value
     return value[: limit - 3].rstrip() + "..."
+
+
+def _is_compact_raw_text_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return normalized in {"plain_text_corpus", "raw_text", "scenario_text"} or compact in {
+        "scenariotext",
+        "rawtext",
+        "sourcetext",
+        "plaintext",
+        "initializerprompt",
+        "systemprompt",
+        "developerprompt",
+        "userprompt",
+        "fullprompt",
+        "rawprompt",
+    }
