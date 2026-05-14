@@ -91,8 +91,9 @@ def _is_internal_reference_id(normalized: str) -> bool:
 
 
 def _is_absolute_path_field(normalized: str, value: Any) -> bool:
+    compact = normalized.replace("_", "").replace("-", "")
     return (
-        (normalized == "path" or normalized.endswith("_path"))
+        (normalized == "path" or normalized.endswith("_path") or compact.endswith("path"))
         and isinstance(value, str)
         and _is_absolute_path_value(value)
     )
