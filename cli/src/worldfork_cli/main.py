@@ -767,21 +767,21 @@ def runs_delete(ctx: Context, run_id: str) -> None:
 
 
 @main.group()
-def universes() -> None:
-    """Inspect universes and per-tick traces."""
+def multiverses() -> None:
+    """Inspect multiverses and per-tick traces."""
 
 
-@universes.command()
-@click.argument("universe_id")
+@multiverses.command()
+@click.argument("multiverse_id")
 @click.option("--tick", type=int)
 @click.option("--actor-id")
 @click.option("--actor-kind", type=click.Choice(["cohort", "hero", "actor", "god"]))
 @click.pass_obj
-def trace(ctx: Context, universe_id: str, tick: int | None, actor_id: str | None, actor_kind: str | None) -> None:
+def trace(ctx: Context, multiverse_id: str, tick: int | None, actor_id: str | None, actor_kind: str | None) -> None:
     emit(
         ctx.client.request(
             "GET",
-            f"/agent/universes/{universe_id}/trace",
+            f"/agent/universes/{multiverse_id}/trace",
             params=ctx.params(tick=tick, actor_id=actor_id, actor_kind=actor_kind),
         ),
         as_json=ctx.as_json,
