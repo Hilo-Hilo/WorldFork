@@ -394,6 +394,26 @@ def test_request_schemas_reject_empty_required_strings(model, payload):
         model.model_validate(payload)
 
 
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (PatchSettingsRequest, {"log_level": "   "}),
+        (PatchSettingsRequest, {"display_timezone": "\t"}),
+        (PatchRunRequest, {"display_name": "   "}),
+        (FocusBranchRequest, {"universe_id": "   "}),
+        (CompareRequest, {"universe_ids": ["   ", "u-2"]}),
+        (CompareRequest, {"universe_ids": ["u-1", "u-2"], "aspect": "   "}),
+        (ProviderTestRequest, {"provider": "   "}),
+        (SimulateTickRequest, {"idempotency_key": "   "}),
+        (BigBangPatch, {"status": "   "}),
+        (RetryRequest, {"queue": "   "}),
+    ],
+)
+def test_request_schemas_reject_blank_required_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
 def _provider_patch(**overrides) -> dict:
     row = {
         "provider": "openrouter",
