@@ -304,7 +304,7 @@ class ProviderRateLimiter:
         self.provider = provider
         self.rpm_limit = rpm_limit
         self.tpm_limit = tpm_limit
-        self.max_concurrency = max_concurrency
+        self.max_concurrency = max(1, int(max_concurrency))
         self.branch_reserved_pct = max(0.0, min(100.0, branch_reserved_capacity_pct))
         self.daily_budget_usd = daily_budget_usd
         self.burst_multiplier = max(1.0, burst_multiplier)
@@ -426,7 +426,13 @@ class ProviderRateLimiter:
     # Concurrency gate via Redis INCR (cluster-safe distributed semaphore)
     # ------------------------------------------------------------------
 
-    async def _acquire_concurrency(self, *, is_branch_job: bool, is_p0: bool) -> None:
+    async def _acquire_concurrency(
+        self,
+        *,
+        is_branch_job: bool,
+        is_p0: bool,
+        timeout: float,
+    ) -> None:
         """Increment the per-provider in-flight counter, blocking if at cap.
 
         When ``is_branch_job`` and not ``is_p0``, the effective cap is reduced
@@ -439,6 +445,7 @@ class ProviderRateLimiter:
             cap = max(1, cap - reserved)
 
         key = self._conc_key()
+        deadline = time.monotonic() + max(0.0, timeout)
         # Loop with bounded backoff; we don't want to busy-spin Redis.
         attempts = 0
         while True:
@@ -453,11 +460,19 @@ class ProviderRateLimiter:
             sleep_for = min(2.0, 0.05 * (2 ** min(attempts, 5)))
             if self.jitter:
                 sleep_for += random.uniform(0.0, 0.05)
+            remaining = deadline - time.monotonic()
+            if sleep_for >= remaining:
+                raise RateLimitError(
+                    f"concurrency acquire timeout on {key} after {timeout:.1f}s",
+                    retry_after=max(0.001, sleep_for),
+                )
             await asyncio.sleep(sleep_for)
 
     async def _release_concurrency(self) -> None:
         try:
-            await self._redis.decr(self._conc_key())
+            value = await self._redis.decr(self._conc_key())
+            if int(value) <= 0:
+                await self._redis.delete(self._conc_key())
         except Exception:
             # Never let release errors mask the real exception.
             pass
@@ -526,7 +541,11 @@ class ProviderRateLimiter:
             raise
         # 3. Concurrency.
         try:
-            await self._acquire_concurrency(is_branch_job=is_branch_job, is_p0=is_p0)
+            await self._acquire_concurrency(
+                is_branch_job=is_branch_job,
+                is_p0=is_p0,
+                timeout=timeout,
+            )
         except Exception:
             await self._refund_fixed_window(self._rpm_key(rpm_minute), 1)
             await self._refund_fixed_window(self._tpm_key(minute), cost_tokens)
