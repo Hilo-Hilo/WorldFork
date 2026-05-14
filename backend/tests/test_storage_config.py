@@ -138,6 +138,45 @@ def test_source_of_truth_loader_rejects_ambiguous_paths(tmp_path, method, name):
 
 
 @pytest.mark.parametrize(
+    ("method", "name"),
+    [
+        ("json", "extra.json"),
+        ("json", "configs/extra.json"),
+        ("json", "data/a.json"),
+        ("json", "data/b.json"),
+        ("json", "nested/deep/extra.json"),
+        ("template", "extra.md"),
+        ("template", "drafts/extra.md"),
+        ("template", "partials/a.md"),
+        ("template", "partials/b.md"),
+        ("template", "nested/deep/extra.md"),
+    ],
+)
+def test_source_of_truth_loader_rejects_requested_symlinks(tmp_path, method, name):
+    source_root = tmp_path / "source_of_truth"
+    for relative_name in REQUIRED_FILES:
+        path = source_root / relative_name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}", encoding="utf-8")
+
+    target_root = source_root if method == "json" else source_root / "report_templates"
+    real = target_root / f"real-{name.replace('/', '-')}"
+    real.parent.mkdir(parents=True, exist_ok=True)
+    real.write_text("{}" if method == "json" else "template", encoding="utf-8")
+    link = target_root / name
+    link.parent.mkdir(parents=True, exist_ok=True)
+    link.symlink_to(real)
+
+    loader = SourceOfTruthLoader(root=source_root)
+
+    with pytest.raises(ValueError, match="source_of_truth path must not be a symlink"):
+        if method == "json":
+            loader.load_json(name)
+        else:
+            loader.load_template(name)
+
+
+@pytest.mark.parametrize(
     "bad_required_file",
     [
         "emotions.json",
