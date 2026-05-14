@@ -298,6 +298,39 @@ def test_copy_tree_snapshot_preserves_existing_directory_and_uses_collision_path
     assert second.meta["requested_relative_path"] == "snapshots/source"
 
 
+@pytest.mark.parametrize(
+    "source_name",
+    [
+        "source-link",
+        "configs-link",
+        "snapshot-link",
+        "sot-link",
+        "run-link",
+        "inputs-link",
+        "bundle-link",
+        "taxonomy-link",
+        "reports-link",
+        "nested-source-link",
+    ],
+)
+def test_copy_tree_snapshot_rejects_symlinked_source_roots(tmp_path, source_name):
+    store = ArtifactStore(root=tmp_path / "artifacts")
+    real_source = tmp_path / "real_source"
+    real_source.mkdir()
+    (real_source / "item.txt").write_text("source", encoding="utf-8")
+    source_link = tmp_path / source_name
+    source_link.symlink_to(real_source, target_is_directory=True)
+
+    with pytest.raises(ValueError, match="source snapshot path must not be a symlink"):
+        store.copy_tree_snapshot(
+            FakeSession(),
+            big_bang_id=uuid4(),
+            source_dir=source_link,
+            relative_dest=f"snapshots/{source_name}",
+            kind="snapshot",
+        )
+
+
 def test_pdf_render_rejects_path_traversal(tmp_path):
     pytest.importorskip("reportlab")
     from app.storage.pdf_store import render_markdown_pdf

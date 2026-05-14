@@ -172,6 +172,9 @@ class ArtifactStore:
         source_dir: Path,
         relative_dest: str,
     ) -> tuple[Path, str, str, bool]:
+        source_dir = Path(source_dir)
+        if source_dir.is_symlink():
+            raise ValueError(f"source snapshot path must not be a symlink: {source_dir}")
         source_dir = source_dir.resolve()
         if not source_dir.is_dir():
             raise ValueError(f"source snapshot path is not a directory: {source_dir}")
