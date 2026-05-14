@@ -134,6 +134,32 @@ def test_public_payload_sanitizer_redacts_windows_absolute_path_fields(field_nam
 @pytest.mark.parametrize(
     "field_name",
     [
+        "runFolderPath",
+        "sourceOfTruthSnapshotPath",
+        "promptPacketPath",
+        "responsePath",
+        "parsedPath",
+        "outputPath",
+        "reportPdfPath",
+        "workspacePath",
+        "configPath",
+        "databasePath",
+    ],
+)
+def test_public_payload_sanitizer_redacts_mixed_style_absolute_path_fields(field_name):
+    value = f"/Users/example/worldfork/{field_name}.json"
+
+    sanitized = sanitize_public_payload({field_name: value})
+
+    assert sanitized == {
+        f"{field_name}_present": True,
+        f"{field_name}_char_count": len(value),
+    }
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
         "artifact_id",
         "llm_call_id",
         "markdown_artifact_id",
