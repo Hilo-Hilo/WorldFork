@@ -185,6 +185,71 @@ def test_agent_job_wait_releases_read_transaction_between_polls(monkeypatch):
     assert db.expires == 1
 
 
+@pytest.mark.parametrize(
+    ("timeout_seconds", "poll_interval_seconds", "expected_sleep"),
+    [
+        (0.1, 1.0, 0.1),
+        (0.25, 1.0, 0.25),
+        (0.5, 2.0, 0.5),
+        (0.75, 2.0, 0.75),
+        (1.0, 5.0, 1.0),
+        (1.25, 5.0, 1.25),
+        (2.5, 30.0, 2.5),
+        (7.0, 30.0, 7.0),
+        (29.5, 30.0, 29.5),
+        (29.75, 30.0, 29.75),
+    ],
+)
+def test_agent_job_wait_caps_sleep_to_remaining_timeout(
+    monkeypatch,
+    timeout_seconds,
+    poll_interval_seconds,
+    expected_sleep,
+):
+    job_id = uuid4()
+    now = datetime.now(timezone.utc)
+    monotonic = {"value": 0.0}
+    sleeps: list[float] = []
+
+    class WaitDb:
+        def get(self, model, object_id):
+            return SimpleNamespace(
+                id=object_id,
+                job_type="run_multiverse_tick",
+                queue_name="multiverse_ticks",
+                status="queued",
+                big_bang_id=None,
+                payload={},
+                result={},
+                error=None,
+                idempotency_key="job-wait-timeout-test",
+                created_at=now,
+                updated_at=now,
+            )
+
+        def rollback(self):
+            pass
+
+        def expire_all(self):
+            pass
+
+    def fake_sleep(seconds: float) -> None:
+        sleeps.append(seconds)
+        monotonic["value"] += seconds
+
+    monkeypatch.setattr(agent_api.time, "monotonic", lambda: monotonic["value"])
+    monkeypatch.setattr(agent_api.time, "sleep", fake_sleep)
+
+    result = agent_api.wait_for_job(
+        job_id,
+        agent_api.AgentWaitRequest(timeout_seconds=timeout_seconds, poll_interval_seconds=poll_interval_seconds),
+        db=WaitDb(),
+    )
+
+    assert result["meta"]["timed_out"] is True
+    assert sleeps == [expected_sleep]
+
+
 @pytest.mark.parametrize("status", ["dead", "dead_lettered"])
 def test_agent_job_wait_treats_dead_statuses_as_terminal(status):
     job_id = uuid4()
