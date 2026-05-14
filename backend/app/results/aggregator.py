@@ -138,7 +138,8 @@ async def _collect_deterministic_payload(session: AsyncSession, run_id: str) -> 
 
     branch_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for outcome in universe_outcomes:
-        delta = outcome.get("branch_delta") if isinstance(outcome.get("branch_delta"), dict) else {}
+        delta_value = outcome.get("branch_delta")
+        delta = delta_value if isinstance(delta_value, dict) else {}
         key = str(delta.get("type") or "root")
         branch_groups[key].append(outcome)
 

@@ -15,7 +15,7 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import or_, select
+from sqlalchemy import false, or_, select
 from sqlalchemy.sql.elements import ColumnElement
 
 from app.db import models as current_models
@@ -351,7 +351,7 @@ async def get_error_logs(
 
                 current_job_stmt = current_job_stmt.where(current_models.Job.big_bang_id == UUID(run_id))
             except ValueError:
-                current_job_stmt = current_job_stmt.where(False)
+                current_job_stmt = current_job_stmt.where(false())
         current_job_stmt = current_job_stmt.order_by(current_models.Job.created_at.desc()).limit(per_source_limit)
         current_job_result = await session.execute(current_job_stmt)
         for r in current_job_result.scalars().all():
@@ -396,7 +396,7 @@ async def get_error_logs(
 
                 current_llm_stmt = current_llm_stmt.where(current_models.LLMCall.big_bang_id == UUID(run_id))
             except ValueError:
-                current_llm_stmt = current_llm_stmt.where(False)
+                current_llm_stmt = current_llm_stmt.where(false())
         current_llm_stmt = current_llm_stmt.order_by(current_models.LLMCall.created_at.desc()).limit(per_source_limit)
         current_llm_result = await session.execute(current_llm_stmt)
         for r in current_llm_result.scalars().all():
@@ -520,7 +520,7 @@ async def get_audit_logs(
 )
 async def get_trace(trace_id: str, session: _SESSION) -> TraceResponse:
     if await _uses_current_llm_table(session) or await _uses_current_jobs_table(session):
-        llm_rows = []
+        llm_rows: list[Any] = []
         if await _uses_current_llm_table(session):
             llm_stmt = select(current_models.LLMCall)
             clauses = []
@@ -543,9 +543,9 @@ async def get_trace(trace_id: str, session: _SESSION) -> TraceResponse:
                 )
             )
             llm_result = await session.execute(llm_stmt)
-            llm_rows = llm_result.scalars().all()
+            llm_rows = list(llm_result.scalars().all())
 
-        job_rows = []
+        job_rows: list[Any] = []
         if await _uses_current_jobs_table(session):
             job_stmt = select(current_models.Job)
             clauses = []
@@ -569,7 +569,7 @@ async def get_trace(trace_id: str, session: _SESSION) -> TraceResponse:
                 )
             )
             job_result = await session.execute(job_stmt)
-            job_rows = job_result.scalars().all()
+            job_rows = list(job_result.scalars().all())
 
         return TraceResponse(
             trace_id=trace_id,
@@ -588,7 +588,7 @@ async def get_trace(trace_id: str, session: _SESSION) -> TraceResponse:
         )
     )
     llm_result = await session.execute(llm_stmt)
-    llm_rows = llm_result.scalars().all()
+    llm_rows = list(llm_result.scalars().all())
 
     job_stmt = select(JobModel).where(
         or_(
@@ -598,7 +598,7 @@ async def get_trace(trace_id: str, session: _SESSION) -> TraceResponse:
         )
     )
     job_result = await session.execute(job_stmt)
-    job_rows = job_result.scalars().all()
+    job_rows = list(job_result.scalars().all())
 
     return TraceResponse(
         trace_id=trace_id,

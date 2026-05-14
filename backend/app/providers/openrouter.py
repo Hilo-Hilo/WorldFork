@@ -21,9 +21,9 @@ try:
     )
     from openai import RateLimitError as OpenAIRateLimitError  # type: ignore[import-untyped]
 except Exception:  # pragma: no cover — keeps tests importable
-    AsyncOpenAI = None  # type: ignore[assignment]
-    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment]
-    OpenAIRateLimitError = Exception  # type: ignore[assignment]
+    AsyncOpenAI = None  # type: ignore[assignment,misc]
+    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment,misc]
+    OpenAIRateLimitError = Exception  # type: ignore[assignment,misc]
 
 from backend.app.providers.base import BaseProvider
 from backend.app.providers.errors import (

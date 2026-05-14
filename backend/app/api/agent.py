@@ -188,6 +188,8 @@ def _state_at_tick(
         tick_row = tick
     if tick_row is None:
         return {}
+    if not isinstance(tick_row, models.TickSnapshot):
+        return {}
     if isinstance(db, Session):
         hydrated = hydrate_tick_snapshot_for_read(db, tick_row)
         bundle = hydrated.final_bundle or hydrated.provisional_bundle or {}

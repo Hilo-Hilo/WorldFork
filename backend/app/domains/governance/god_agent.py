@@ -86,20 +86,27 @@ def review_provisional_tick(
         }
 
     def execute_and_audit_tools(state: GodAgentLoopState) -> GodAgentLoopState:
-        parsed = state.get("parsed") or {}
-        tool_calls = state.get("current_tool_calls") or []
-        iteration_record = {
+        parsed_value = state.get("parsed")
+        parsed = parsed_value if isinstance(parsed_value, dict) else {}
+        tool_calls = [
+            item for item in state.get("current_tool_calls", []) if isinstance(item, dict)
+        ]
+        final_call = state.get("final_call")
+        tool_results: list[dict[str, Any]] = []
+        iteration_record: dict[str, Any] = {
             "iteration": state.get("iteration"),
-            "llm_call_id": str(state["final_call"].id) if state.get("final_call") else None,
+            "llm_call_id": str(final_call.id) if final_call is not None else None,
             "decision": parsed.get("decision"),
             "rationale": parsed.get("rationale"),
             "tool_calls": tool_calls,
-            "tool_results": [],
+            "tool_results": tool_results,
         }
-        executed_tool_keys = set(state.get("executed_tool_keys") or [])
+        executed_tool_keys = {str(key) for key in state.get("executed_tool_keys", []) if key}
         executed_tool_calls = list(state.get("executed_tool_calls") or [])
         for tool_call in tool_calls:
-            key = tool_call.get("idempotency_key")
+            key = str(tool_call.get("idempotency_key") or "")
+            if not key:
+                continue
             if key in executed_tool_keys:
                 continue
             executed_tool_keys.add(key)
@@ -111,7 +118,7 @@ def review_provisional_tick(
                 god_review_id=None,
                 tool_name=tool_call["tool_name"],
                 arguments=tool_call.get("arguments", {}),
-                idempotency_key=tool_call["idempotency_key"],
+                idempotency_key=key,
             )
             result = {
                 "tool_name": row.tool_name,
@@ -121,7 +128,7 @@ def review_provisional_tick(
                 "tool_call_id": str(row.id),
                 "idempotency_key": row.idempotency_key,
             }
-            iteration_record["tool_results"].append(result)
+            tool_results.append(result)
             executed_tool_calls.append(tool_call)
         iterations = [*(state.get("iterations") or []), iteration_record]
         messages = list(state["messages"])
@@ -142,14 +149,14 @@ def review_provisional_tick(
                 "role": "user",
                 "content": (
                     "Backend tool audit results for this same tick: "
-                    f"{_prompt_json(iteration_record['tool_results'])}\n"
+                    f"{_prompt_json(tool_results)}\n"
                     "If the tick state is now coherent, return final JSON with no additional "
                     "mutation tools or a continue_timeline tool. If a tool failed or population "
                     "conservation is still incoherent, emit only the repair tool calls needed."
                 ),
             }
         )
-        has_failed_tool = any(item.get("status") == "failed" for item in iteration_record["tool_results"])
+        has_failed_tool = any(item.get("status") == "failed" for item in tool_results)
         should_continue = bool(tool_calls) and has_failed_tool and int(state.get("iteration") or 0) < MAX_GOD_AGENT_ITERATIONS
         return {
             **state,

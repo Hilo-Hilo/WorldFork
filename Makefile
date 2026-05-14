@@ -48,7 +48,7 @@ test-e2e:
 test-all: test-unit test-cli test-integration test-e2e
 
 lint:
-	ruff check . && cd cli && uv run --extra dev ruff check src tests && mypy backend/app
+	uv run --extra dev ruff check . && (cd cli && uv run --extra dev ruff check src tests) && uv run --extra dev mypy backend/app
 
 clean:
 	docker compose down

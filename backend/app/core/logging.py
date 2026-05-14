@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import sys
+from typing import Any
 
 import structlog
 
@@ -28,7 +29,7 @@ def configure_logging() -> None:
     ]
 
     if is_production:
-        renderer = structlog.processors.JSONRenderer()
+        renderer: Any = structlog.processors.JSONRenderer()
     else:
         renderer = structlog.dev.ConsoleRenderer()
 

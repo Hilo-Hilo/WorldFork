@@ -673,7 +673,8 @@ def _routing_fallback_default(provider: str, model: str) -> tuple[str, str]:
 def _seed_routing(session) -> None:
     rows = []
     for row in (_routing_model_defaults(r) for r in _ROUTING_DEFAULTS):
-        payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+        payload_value = row.get("payload")
+        payload = payload_value if isinstance(payload_value, dict) else {}
         rows.append(dict(row, payload={**payload, "source": "seed_default"}))
     _upsert_seed_owned(session, ModelRoutingEntryModel, "job_type", rows)
     print(f"  [model_routing] seeded/refreshed {len(rows)} rows")

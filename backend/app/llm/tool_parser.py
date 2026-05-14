@@ -316,7 +316,8 @@ class ToolParser:
     ) -> Any:
         schema = self._resolve_schema(schema, root_schema)
         if isinstance(value, dict):
-            props = schema.get("properties") if isinstance(schema.get("properties"), dict) else {}
+            props_value = schema.get("properties")
+            props = props_value if isinstance(props_value, dict) else {}
             additional = schema.get("additionalProperties")
             for child_key, child_value in list(value.items()):
                 child_schema = props.get(child_key)

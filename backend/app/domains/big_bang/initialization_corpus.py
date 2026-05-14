@@ -127,7 +127,7 @@ def build_plain_text_corpus(
                 "artifact_id": str(summary_artifact.id),
             }
         )
-    brief = {
+    chunked_brief: dict[str, object] = {
         "mode": "chunked",
         "raw_text_artifact_id": str(raw_artifact.id),
         "raw_char_count": len(scenario_text),
@@ -138,7 +138,7 @@ def build_plain_text_corpus(
         db,
         big_bang_id=big_bang.id,
         relative_path=f"big_bang_{big_bang.id}/input/simulation_brief.json",
-        payload=brief,
+        payload=chunked_brief,
         kind="simulation_brief",
     )
     return {
@@ -146,7 +146,7 @@ def build_plain_text_corpus(
         "raw_char_count": len(scenario_text),
         "chunk_artifacts": chunk_records,
         "chunk_summaries": summaries,
-        "simulation_brief": brief,
+        "simulation_brief": chunked_brief,
         "simulation_brief_artifact_id": str(brief_artifact.id),
     }
 

@@ -8,7 +8,7 @@ DEFAULT_EVENT_QUEUE_MAX_CHARS = 16_000
 DEFAULT_GOD_BUNDLE_MAX_CHARS = 48_000
 MAX_OMITTED_TITLES = 6
 
-EVENT_QUEUE_SECTION_LIMITS = {
+EVENT_QUEUE_SECTION_LIMITS: dict[str, int] = {
     "due_events": 16,
     "own_queued_events": 12,
     "upcoming_events": 12,
@@ -16,7 +16,7 @@ EVENT_QUEUE_SECTION_LIMITS = {
     "visible_events": 12,
 }
 
-EVENT_QUEUE_SECTION_PRIORITY = [
+EVENT_QUEUE_SECTION_PRIORITY: list[str] = [
     "due_events",
     "own_queued_events",
     "upcoming_events",
@@ -24,7 +24,7 @@ EVENT_QUEUE_SECTION_PRIORITY = [
     "visible_events",
 ]
 
-GOD_BUNDLE_SECTION_LIMITS = {
+GOD_BUNDLE_SECTION_LIMITS: dict[str, int] = {
     "executed_events": 16,
     "event_summaries": 16,
     "queued_events": 16,
@@ -35,7 +35,7 @@ GOD_BUNDLE_SECTION_LIMITS = {
     "agent_outputs": 12,
 }
 
-GOD_BUNDLE_SECTION_PRIORITY = [
+GOD_BUNDLE_SECTION_PRIORITY: list[str] = [
     "executed_events",
     "event_summaries",
     "queued_events",
@@ -71,7 +71,7 @@ def budget_event_queue_context(
         for key, value in event_queue.items()
         if key not in EVENT_QUEUE_SECTION_LIMITS and key != "prompt_budget"
     }
-    budget_meta = {
+    budget_meta: dict[str, Any] = {
         "kind": "event_queue",
         "max_chars": max_chars,
         "ordering_policy": (
@@ -121,12 +121,12 @@ def budget_god_provisional_bundle(
     if not isinstance(provisional_bundle, dict):
         return {}
 
-    budgeted = {
+    budgeted: dict[str, Any] = {
         key: _compact_value(value)
         for key, value in provisional_bundle.items()
         if key not in GOD_BUNDLE_SECTION_LIMITS and key != "prompt_budget"
     }
-    budget_meta = {
+    budget_meta: dict[str, Any] = {
         "kind": "god_provisional_bundle",
         "max_chars": max_chars,
         "ordering_policy": (
@@ -181,10 +181,20 @@ def _fit_sections_to_budget(
             continue
         while rows and _json_chars(payload) > max_chars:
             removed = rows.pop()
-            section_meta = budget_meta["sections"].setdefault(section, {})
+            sections = budget_meta.setdefault("sections", {})
+            if not isinstance(sections, dict):
+                sections = {}
+                budget_meta["sections"] = sections
+            section_meta = sections.setdefault(section, {})
+            if not isinstance(section_meta, dict):
+                section_meta = {}
+                sections[section] = section_meta
             section_meta["included_count"] = len(rows)
             section_meta["omitted_count"] = int(section_meta.get("omitted_count") or 0) + 1
             titles = section_meta.setdefault("omitted_titles", [])
+            if not isinstance(titles, list):
+                titles = []
+                section_meta["omitted_titles"] = titles
             title = _title_for_row(removed)
             if title and len(titles) < MAX_OMITTED_TITLES:
                 titles.append(title)
@@ -233,7 +243,7 @@ def _compact_value(value: Any, *, depth: int = 0, string_limit: int = 900) -> An
 
 
 def _omission_summary(*, rows: list[Any], included_count: int, omitted: list[Any]) -> dict[str, Any]:
-    summary = {
+    summary: dict[str, Any] = {
         "total_count": len(rows),
         "included_count": included_count,
         "omitted_count": max(0, len(rows) - included_count),
@@ -250,8 +260,7 @@ def _omission_summary(*, rows: list[Any], included_count: int, omitted: list[Any
     status_counts = _count_field(omitted, "status")
     if status_counts:
         summary["omitted_status_counts"] = status_counts
-    tick_values = [_tick_for_row(row) for row in omitted]
-    tick_values = [tick for tick in tick_values if tick is not None]
+    tick_values = [tick for row in omitted if (tick := _tick_for_row(row)) is not None]
     if tick_values:
         summary["omitted_tick_range"] = [min(tick_values), max(tick_values)]
     return summary

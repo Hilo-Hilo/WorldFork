@@ -30,7 +30,7 @@ def run_sociology_update(
 ) -> dict:
     social_observations = social_observations or []
     graph_summary = build_graph_prompt_summary(db, multiverse_id=multiverse_id)
-    actors = db.scalars(select(models.Actor).where(models.Actor.big_bang_id == big_bang_id)).all()
+    actors = list(db.scalars(select(models.Actor).where(models.Actor.big_bang_id == big_bang_id)).all())
     cohort_rows = _latest_state_rows(db, models.CohortState, multiverse_id)
     hero_rows = _latest_state_rows(db, models.HeroState, multiverse_id)
     metrics = _derive_metrics(graph_summary, executed_events, social_observations, cohort_rows)
