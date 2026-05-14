@@ -1598,6 +1598,40 @@ def test_hash_directory_frames_paths_and_contents(tmp_path: Path):
     assert hash_directory(first) != hash_directory(second)
 
 
+@pytest.mark.parametrize(
+    ("left_dirs", "right_dirs"),
+    [
+        (["empty"], []),
+        (["empty"], ["other"]),
+        (["a/empty"], ["a/other"]),
+        (["a/empty"], ["b/empty"]),
+        (["a/b/c"], ["a/b/d"]),
+        (["one", "two"], ["one"]),
+        (["one/two"], ["one", "one/two/three"]),
+        (["reports/drafts"], ["reports/final"]),
+        (["configs/source_of_truth"], ["configs/generated"]),
+        (["nested/a", "nested/b"], ["nested/a", "nested/c"]),
+    ],
+)
+def test_hash_directory_includes_empty_directory_structure(
+    tmp_path: Path,
+    left_dirs: list[str],
+    right_dirs: list[str],
+):
+    left = tmp_path / "left"
+    right = tmp_path / "right"
+    left.mkdir()
+    right.mkdir()
+    (left / "payload.txt").write_text("same", encoding="utf-8")
+    (right / "payload.txt").write_text("same", encoding="utf-8")
+    for relative in left_dirs:
+        (left / relative).mkdir(parents=True, exist_ok=True)
+    for relative in right_dirs:
+        (right / relative).mkdir(parents=True, exist_ok=True)
+
+    assert hash_directory(left) != hash_directory(right)
+
+
 class _FailingFlushSession:
     def add(self, obj):
         return None
