@@ -525,6 +525,16 @@ def _parse_json_list(value: str | None, label: str) -> list[dict[str, Any]]:
     return parsed
 
 
+def _parse_json_value(value: str | None, label: str) -> Any:
+    if not value:
+        return None
+    text = _read_json_text(value)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise click.UsageError(f"{label} must be valid JSON: {exc}") from exc
+
+
 def _read_json_text(value: str) -> str:
     if value.startswith("@"):
         return Path(value[1:]).read_text(encoding="utf-8")
@@ -1505,6 +1515,8 @@ def ledgers() -> None:
 @click.pass_obj
 def ledgers_list(ctx: Context, big_bang_id: str, multiverse_id: str | None) -> None:
     """List endpoint ledger versions for a Big Bang or multiverse."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id") if multiverse_id else None
     path = (
         f"/multiverses/{multiverse_id}/endpoint-ledgers"
         if multiverse_id
@@ -1518,6 +1530,7 @@ def ledgers_list(ctx: Context, big_bang_id: str, multiverse_id: str | None) -> N
 @click.pass_obj
 def ledgers_view(ctx: Context, ledger_version_id: str) -> None:
     """View one endpoint ledger version with entries."""
+    ledger_version_id = _clean_identifier(ledger_version_id, "ledger_version_id")
     emit(ctx.client.request("GET", f"/endpoint-ledgers/{ledger_version_id}"), as_json=ctx.as_json)
 
 
@@ -1526,6 +1539,7 @@ def ledgers_view(ctx: Context, ledger_version_id: str) -> None:
 @click.pass_obj
 def ledgers_path_mass(ctx: Context, big_bang_id: str) -> None:
     """View deterministic endpoint path-mass plot data for a Big Bang."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(ctx.client.request("GET", f"/big-bangs/{big_bang_id}/endpoint-ledgers/path-mass"), as_json=ctx.as_json)
 
 
@@ -1547,6 +1561,8 @@ def ledgers_evaluate(
     endpoint: str | None,
 ) -> None:
     """Create a post-simulation endpoint ledger evaluation job."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id") if multiverse_id else None
     path = (
         f"/multiverses/{multiverse_id}/endpoint-ledgers/evaluate"
         if multiverse_id
@@ -1568,6 +1584,7 @@ def ledgers_evaluate(
     if not job_id:
         emit(payload, as_json=ctx.as_json)
         return
+    job_id = _clean_identifier(str(job_id), "job_id")
     waited = ctx.client.request(
         "POST",
         f"/agent/jobs/{job_id}/wait",
@@ -1585,6 +1602,7 @@ def ledgers_evaluate(
         emit(waited, as_json=ctx.as_json)
         raise click.exceptions.Exit(2)
     ledger_id = ((data or {}).get("result") or {}).get("ledger_version_id") if isinstance(data, dict) else None
+    ledger_id = _clean_identifier(str(ledger_id), "ledger_version_id") if ledger_id else None
     emit(
         ctx.client.request("GET", f"/endpoint-ledgers/{ledger_id}") if ledger_id else waited,
         as_json=ctx.as_json,
@@ -1686,6 +1704,7 @@ def settings_providers(ctx: Context, data: str | None) -> None:
 @click.pass_obj
 def settings_provider_test(ctx: Context, provider: str) -> None:
     """Run the configured provider healthcheck."""
+    provider = _clean_identifier(provider, "provider")
     emit(
         ctx.client.request("POST", "/settings/providers/test", json_body={"provider": provider}),
         as_json=ctx.as_json,
@@ -2150,9 +2169,7 @@ def _run_source_harness_subprocess(
 @click.pass_obj
 def query(ctx: Context, method: str, path: str, data: str | None, no_api_prefix: bool) -> None:
     """Escape hatch for direct backend API calls."""
-    import json
-
-    body = json.loads(data) if data else None
+    body = _parse_json_value(data, "--data")
     emit(ctx.client.request(method, path, json_body=body, use_api_prefix=not no_api_prefix), as_json=ctx.as_json)
 
 
