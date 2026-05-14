@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.artifacts.routes import get_artifact
-from app.domains.big_bang.initialization_routes import audit_llm_call
+from app.domains.big_bang.initialization_routes import _public_corpus, audit_llm_call
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
 from app.domains.artifacts import routes as artifact_routes
 from app.db import models
@@ -1779,6 +1779,30 @@ def test_public_response_models_sanitize_raw_scenario_and_corpus_content():
     assert "text" not in big_bang.scenario_input["plain_text_corpus"]["simulation_brief"]
     assert "raw_text_artifact_id" not in multiverse.state["plain_text_corpus"]
     assert "text" not in tick.final_bundle["simulation_brief"]
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "artifactId",
+        "rawTextArtifactId",
+        "simulationBriefArtifactId",
+        "sourceSnapshotArtifactId",
+        "promptPacketArtifactId",
+        "responseArtifactId",
+        "parsedArtifactId",
+        "markdownArtifactId",
+        "pdfArtifactId",
+        "auditArtifactId",
+    ],
+)
+def test_public_initializer_corpus_drops_mixed_style_artifact_references(field_name):
+    corpus = {field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"}
+
+    sanitized = _public_corpus(corpus, include_debug=False)
+
+    assert field_name not in sanitized
+    assert "4f0774fe-b2de-45dc-9918-1b837089a777" not in str(sanitized)
 
 
 def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutation():
