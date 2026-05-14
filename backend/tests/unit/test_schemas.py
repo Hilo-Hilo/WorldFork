@@ -36,7 +36,9 @@ from backend.app.schemas import (
     ModelConfig,
     ModelRoutingEntry,
     PopulationArchetype,
+    ProviderConfig,
     ProviderHealth,
+    RateLimitConfig,
     ChildSplitSpec,
     MergeProposal,
     SplitProposal,
@@ -1149,6 +1151,73 @@ class TestJobStatus:
         parsed = JobStatus.model_validate(payload)
 
         assert parsed.status == status
+
+
+def _make_provider_config(**overrides) -> dict:
+    base = dict(
+        provider="openrouter",
+        base_url="https://openrouter.ai/api/v1",
+        api_key_env="OPENROUTER_API_KEY",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model=None,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_model_routing_entry(**overrides) -> dict:
+    base = dict(
+        job_type="simulate_universe_tick",
+        preferred_provider="openrouter",
+        preferred_model="deepseek/deepseek-v4-flash",
+        fallback_provider=None,
+        fallback_model=None,
+        temperature=0.4,
+        top_p=1.0,
+        max_tokens=4096,
+        max_concurrency=4,
+        requests_per_minute=60,
+        tokens_per_minute=150000,
+        timeout_seconds=120,
+        retry_policy="exponential_backoff",
+        daily_budget_usd=None,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_rate_limit_config(**overrides) -> dict:
+    base = dict(
+        provider="openrouter",
+        rpm_limit=60,
+        tpm_limit=150000,
+        max_concurrency=4,
+        burst_multiplier=1.2,
+        retry_policy="exponential_backoff",
+        branch_reserved_capacity_pct=20.0,
+    )
+    base.update(overrides)
+    return base
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (ProviderConfig, _make_provider_config(provider="   ")),
+        (ProviderConfig, _make_provider_config(base_url="   ")),
+        (ProviderConfig, _make_provider_config(api_key_env="   ")),
+        (ProviderConfig, _make_provider_config(default_model="   ")),
+        (ProviderConfig, _make_provider_config(fallback_model="   ")),
+        (ModelRoutingEntry, _make_model_routing_entry(preferred_provider="   ")),
+        (ModelRoutingEntry, _make_model_routing_entry(preferred_model="   ")),
+        (ModelRoutingEntry, _make_model_routing_entry(fallback_provider="   ")),
+        (ModelRoutingEntry, _make_model_routing_entry(fallback_model="   ")),
+        (RateLimitConfig, _make_rate_limit_config(provider="   ")),
+    ],
+)
+def test_settings_schemas_reject_blank_provider_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
 
 
 # ---------------------------------------------------------------------------
