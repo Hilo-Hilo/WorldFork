@@ -8,9 +8,11 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from backend.app.schemas.common import UniverseStatus
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # ---------------------------------------------------------------------------
 # BranchNode
@@ -21,13 +23,13 @@ class BranchNode(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    universe_id: str
+    universe_id: NonEmptyStr
     parent_universe_id: str | None = None
     child_universe_ids: list[str] = Field(default_factory=list)
     depth: int = Field(..., ge=0)
     branch_tick: int = Field(..., ge=0)
-    branch_point_id: str
-    branch_trigger: str
+    branch_point_id: NonEmptyStr
+    branch_trigger: NonEmptyStr
     branch_delta: dict[str, Any] = Field(default_factory=dict)
     status: UniverseStatus
     metrics_summary: dict[str, Any] = Field(default_factory=dict)
@@ -63,9 +65,9 @@ class CounterfactualEventRewriteDelta(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     type: Literal["counterfactual_event_rewrite"]
-    target_event_id: str
-    parent_version: str
-    child_version: str
+    target_event_id: NonEmptyStr
+    parent_version: NonEmptyStr
+    child_version: NonEmptyStr
 
 
 class ParameterShiftDelta(BaseModel):
@@ -74,7 +76,7 @@ class ParameterShiftDelta(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     type: Literal["parameter_shift"]
-    target: str
+    target: NonEmptyStr
     delta: dict[str, float]
 
 
@@ -84,9 +86,9 @@ class ActorStateOverrideDelta(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     type: Literal["actor_state_override"]
-    actor_id: str
-    field: str
-    new_value: float | int | str | dict[str, Any]
+    actor_id: NonEmptyStr
+    field: NonEmptyStr
+    new_value: float | int | NonEmptyStr | dict[str, Any]
 
     @model_validator(mode="after")
     def _reject_conservation_critical_fields(self) -> ActorStateOverrideDelta:
@@ -114,7 +116,7 @@ class HeroDecisionOverrideDelta(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     type: Literal["hero_decision_override"]
-    hero_id: str
+    hero_id: NonEmptyStr
     tick: int = Field(..., ge=0)
     new_decision: dict[str, Any]
 
