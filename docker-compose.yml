@@ -33,7 +33,11 @@ services:
       context: .
       dockerfile: infra/docker/api.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
@@ -63,7 +67,11 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
@@ -91,7 +99,11 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
@@ -119,7 +131,11 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
@@ -147,7 +163,11 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
@@ -175,7 +195,11 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
       target: runtime
-    env_file: .env
+    env_file:
+      - path: .env.example
+        required: true
+      - path: .env
+        required: false
     environment:
       PYTHONPATH: /app/backend
       DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
