@@ -375,6 +375,78 @@ class TestTamperDetection:
             import_run_from_zip(zip_path=tampered_zip, dest_root=dst_root, verify=True)
         _assert_import_cleanup(dst_root)
 
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "files-null",
+            "files-list",
+            "files-empty",
+            "path-parent-traversal",
+            "path-absolute",
+            "path-dot-segment",
+            "record-null",
+            "record-wrong-sha",
+            "record-missing-size",
+            "record-wrong-size",
+        ],
+    )
+    def test_import_verify_rejects_invalid_tick_manifest_file_records(
+        self,
+        tmp_path: Path,
+        mutation: str,
+    ) -> None:
+        src_root = tmp_path / "src"
+        src_root.mkdir()
+        ledger = _make_ledger(src_root)
+
+        zip_dest = tmp_path / "tick_manifest.zip"
+        export_run_to_zip(run_folder=ledger.run_folder, dest=zip_dest, verify=False)
+
+        tick_manifest_member = "universes/U000/ticks/tick_000/manifest.json"
+        tick_manifest_path = ledger.run_folder / tick_manifest_member
+        tick_manifest = json.loads(tick_manifest_path.read_bytes())
+        files = tick_manifest["files"]
+        first_path = next(iter(files))
+        first_record = dict(files[first_path])
+
+        if mutation == "files-null":
+            tick_manifest["files"] = None
+        elif mutation == "files-list":
+            tick_manifest["files"] = []
+        elif mutation == "files-empty":
+            tick_manifest["files"] = {}
+        elif mutation == "path-parent-traversal":
+            tick_manifest["files"]["../outside.json"] = first_record
+        elif mutation == "path-absolute":
+            tick_manifest["files"][str(tmp_path / "outside.json")] = first_record
+        elif mutation == "path-dot-segment":
+            tick_manifest["files"]["universes/U000/ticks/tick_000/./clock.json"] = first_record
+        elif mutation == "record-null":
+            tick_manifest["files"][first_path] = None
+        elif mutation == "record-wrong-sha":
+            tick_manifest["files"][first_path]["sha256"] = "0" * 64
+        elif mutation == "record-missing-size":
+            tick_manifest["files"][first_path].pop("size")
+        elif mutation == "record-wrong-size":
+            tick_manifest["files"][first_path]["size"] += 1
+        else:  # pragma: no cover - exhaustive mutation list above
+            raise AssertionError(f"Unhandled mutation: {mutation}")
+
+        tampered_zip = tmp_path / f"{mutation}.zip"
+        _rewrite_zip_with_member(
+            zip_dest,
+            tampered_zip,
+            tick_manifest_member,
+            json.dumps(tick_manifest).encode("utf-8"),
+            refresh_export_manifest_hashes=True,
+        )
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+        with pytest.raises(ExportError, match="tick manifest"):
+            import_run_from_zip(zip_path=tampered_zip, dest_root=dst_root, verify=True)
+        _assert_import_cleanup(dst_root)
+
 
 class TestZipSafety:
     @pytest.mark.parametrize(
