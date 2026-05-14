@@ -78,7 +78,8 @@ def _compact_actor_states(value) -> list[dict]:
     for index, item in enumerate(value):
         if not isinstance(item, dict):
             continue
-        state = item.get("state") if isinstance(item.get("state"), dict) else {}
+        state_value = item.get("state")
+        state = state_value if isinstance(state_value, dict) else {}
         key = str(
             item.get("actor_id")
             or state.get("actor_id")

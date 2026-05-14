@@ -735,17 +735,19 @@ def _run_pending_cohort_decisions(
 
         _commit_progress(db, queue_job=queue_job)
         if failures:
-            node_key, exc = failures[0]
+            node_key, failure_exc = failures[0]
             _record_checkpoint_failure(
                 db,
                 execution_id=execution.id,
                 node_id=nodes[node_key].id,
                 checkpoint_id=checkpoints[node_key].id,
                 tick_index=tick_index,
-                error=str(exc),
-                event_validation_error=exc if isinstance(exc, EventValidationError) else None,
+                error=str(failure_exc),
+                event_validation_error=(
+                    failure_exc if isinstance(failure_exc, EventValidationError) else None
+                ),
             )
-            raise exc
+            raise failure_exc
 
 
 def _execute_actor_decision_payload_in_worker(

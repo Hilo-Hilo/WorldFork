@@ -14,13 +14,13 @@ from app.storage.artifact_store import ArtifactStore
 
 
 def load_due_events(db: Session, multiverse_id, tick_index: int) -> list[models.Event]:
-    return db.scalars(
+    return list(db.scalars(
         select(models.Event).where(
             models.Event.multiverse_id == multiverse_id,
             models.Event.scheduled_tick <= tick_index,
             models.Event.status == "queued",
         )
-    ).all()
+    ).all())
 
 
 def build_event_queue_prompt_context(
@@ -51,7 +51,7 @@ def build_event_queue_prompt_context(
     ).all()
     visible_rows = list(reversed(visible_rows))
 
-    upcoming_rows = db.scalars(
+    upcoming_rows = list(db.scalars(
         select(models.Event)
         .where(
             models.Event.multiverse_id == multiverse_id,
@@ -60,11 +60,11 @@ def build_event_queue_prompt_context(
         )
         .order_by(models.Event.scheduled_tick.asc(), models.Event.created_at.asc())
         .limit(future_limit)
-    ).all()
+    ).all())
 
     own_rows: list[models.Event] = []
     if actor_id is not None:
-        own_rows = db.scalars(
+        own_rows = list(db.scalars(
             select(models.Event)
             .where(
                 models.Event.multiverse_id == multiverse_id,
@@ -73,7 +73,7 @@ def build_event_queue_prompt_context(
             )
             .order_by(models.Event.scheduled_tick.asc(), models.Event.created_at.asc())
             .limit(future_limit)
-        ).all()
+        ).all())
 
     return budget_event_queue_context(
         {

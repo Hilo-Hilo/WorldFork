@@ -461,7 +461,7 @@ def sanitize_public_payload(value):
 
 
 def _sanitize_public_dict(value: dict) -> dict:
-    sanitized = {}
+    sanitized: dict[str, Any] = {}
     for key, item in value.items():
         key_text = str(key)
         normalized = key_text.lower()

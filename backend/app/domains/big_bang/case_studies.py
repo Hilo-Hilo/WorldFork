@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 from uuid import uuid4
 
 from sqlalchemy import select
@@ -160,7 +161,7 @@ def diff_case_study_actuals(actuals: dict, expectations: dict = TRANSIT_SHOCK_EX
     missing_layers = sorted(set(expectations["required_graph_layers"]) - set(actuals.get("graph_layers", [])))
     missing_models = sorted(set(expectations["required_sociology_models"]) - set(actuals.get("sociology_models", [])))
     minimums = expectations["minimums"]
-    failures = []
+    failures: list[dict[str, Any]] = []
     if missing_layers:
         failures.append({"check": "graph_layers", "missing": missing_layers})
     if missing_models:

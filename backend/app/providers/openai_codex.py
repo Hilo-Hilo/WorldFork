@@ -27,9 +27,9 @@ try:
     )
     from openai import RateLimitError as OpenAIRateLimitError  # type: ignore[import-untyped]
 except Exception:  # pragma: no cover - keeps tests importable without openai
-    AsyncOpenAI = None  # type: ignore[assignment]
-    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment]
-    OpenAIRateLimitError = Exception  # type: ignore[assignment]
+    AsyncOpenAI = None  # type: ignore[assignment,misc]
+    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment,misc]
+    OpenAIRateLimitError = Exception  # type: ignore[assignment,misc]
 
 from backend.app.providers.base import BaseProvider
 from backend.app.providers.errors import (
@@ -165,10 +165,10 @@ class OpenAICodexProvider(BaseProvider):
         if self._oauth_token:
             return self._oauth_token, "constructor"
         env_value = os.environ.get(self._oauth_token_env)
-        if _trimmed_string(env_value):
+        if isinstance(env_value, str) and env_value.strip():
             return env_value.strip(), self._oauth_token_env
         fallback_env_value = os.environ.get(OPENAI_CODEX_ACCESS_ENV)
-        if _trimmed_string(fallback_env_value):
+        if isinstance(fallback_env_value, str) and fallback_env_value.strip():
             return fallback_env_value.strip(), OPENAI_CODEX_ACCESS_ENV
         for auth_file in _candidate_auth_files(self._codex_auth_file):
             token = _read_oauth_token_from_file(auth_file)

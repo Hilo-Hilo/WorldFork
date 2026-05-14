@@ -6,7 +6,7 @@ which returns ``(preferred ModelConfig, fallback ModelConfig | None)``.
 """
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from backend.app.schemas.jobs import JobType
 from backend.app.schemas.llm import ModelConfig
@@ -210,7 +210,7 @@ async def build_provider_rate_limiter(
     """Build a provider limiter, preferring enabled settings_rate_limit rows."""
     from backend.app.providers.rate_limits import ProviderRateLimiter
 
-    defaults = {
+    defaults: dict[str, Any] = {
         "rpm_limit": 600,
         "tpm_limit": 1_000_000,
         "max_concurrency": 8,

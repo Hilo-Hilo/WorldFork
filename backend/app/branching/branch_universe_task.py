@@ -69,7 +69,7 @@ async def run_branch_universe(
 
     # Construct the discriminated BranchDelta via Pydantic ValidationAdapter.
     from pydantic import TypeAdapter
-    delta_obj = TypeAdapter(BranchDelta).validate_python(delta_payload)
+    delta_obj: BranchDelta = TypeAdapter(BranchDelta).validate_python(delta_payload)
 
     policy_result = BranchPolicyResult(
         decision=policy_decision,  # type: ignore[arg-type]

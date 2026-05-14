@@ -30,7 +30,7 @@ def update_graph_layers(
 ) -> list[dict]:
     social_observations = social_observations or []
     executed_events = executed_events or []
-    actors = db.scalars(select(models.Actor).where(models.Actor.big_bang_id == big_bang_id)).all()
+    actors = list(db.scalars(select(models.Actor).where(models.Actor.big_bang_id == big_bang_id)).all())
     actor_by_id = {actor.id: actor for actor in actors}
     latest_edges = _latest_edges_by_pair_and_layer(db, multiverse_id)
     metrics = _tick_pressure_metrics(social_observations, executed_events)
