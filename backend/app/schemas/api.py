@@ -15,9 +15,17 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 
 NonEmptyStr = Annotated[str, Field(min_length=1)]
+
+
+def _validate_http_url(value: str | None) -> str | None:
+    if value is None:
+        return None
+    if not value.startswith(("http://", "https://")):
+        raise ValueError("URL must start with http:// or https://")
+    return value
 
 # ---------------------------------------------------------------------------
 # ── Runs ──────────────────────────────────────────────────────────────
@@ -460,8 +468,8 @@ class PatchSettingsRequest(BaseModel):
     default_tick_duration_minutes: int | None = Field(default=None, gt=0)
     default_max_ticks: int | None = Field(default=None, gt=0)
     default_max_schedule_horizon_ticks: int | None = Field(default=None, gt=0)
-    log_level: str | None = None
-    display_timezone: str | None = None
+    log_level: NonEmptyStr | None = None
+    display_timezone: NonEmptyStr | None = None
     theme: Literal["light", "dark", "system"] | None = None
     enable_oasis_adapter: bool | None = None
     branching_defaults: dict[str, Any] | None = None
@@ -473,7 +481,7 @@ class ProviderSettingResponse(BaseModel):
     base_url: str
     api_key_env: str
     default_model: str
-    fallback_model: str | None = None
+    fallback_model: NonEmptyStr | None = None
     json_mode_required: bool
     tool_calling_enabled: bool
     enabled: bool
@@ -494,7 +502,7 @@ class ProviderSettingIn(BaseModel):
     base_url: str = Field(..., min_length=1)
     api_key_env: str = Field(..., min_length=1)
     default_model: str = Field(..., min_length=1)
-    fallback_model: str | None = None
+    fallback_model: NonEmptyStr | None = None
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
     enabled: bool = True
@@ -533,8 +541,8 @@ class RoutingEntryResponse(BaseModel):
     job_type: str
     preferred_provider: str
     preferred_model: str
-    fallback_provider: str | None = None
-    fallback_model: str | None = None
+    fallback_provider: NonEmptyStr | None = None
+    fallback_model: NonEmptyStr | None = None
     temperature: float
     top_p: float
     max_tokens: int
@@ -556,8 +564,8 @@ class EffectiveRoutingEntry(BaseModel):
     matched_route: str | None = None
     preferred_provider: str
     preferred_model: str
-    fallback_provider: str | None = None
-    fallback_model: str | None = None
+    fallback_provider: NonEmptyStr | None = None
+    fallback_model: NonEmptyStr | None = None
     temperature: float | None = None
     top_p: float | None = None
     max_tokens: int | None = None
@@ -583,8 +591,8 @@ class RoutingEntryIn(BaseModel):
     job_type: str
     preferred_provider: str = Field(..., min_length=1)
     preferred_model: str = Field(..., min_length=1)
-    fallback_provider: str | None = None
-    fallback_model: str | None = None
+    fallback_provider: NonEmptyStr | None = None
+    fallback_model: NonEmptyStr | None = None
     temperature: float = Field(default=0.7, ge=0.0, le=2.0)
     top_p: float = Field(default=1.0, ge=0.0, le=1.0)
     max_tokens: int = Field(default=4096, gt=0)
@@ -602,7 +610,7 @@ class PatchRoutingRequest(BaseModel):
 
 
 class RateLimitResponse(BaseModel):
-    provider: str
+    provider: NonEmptyStr
     enabled: bool
     rpm_limit: int
     tpm_limit: int
@@ -637,7 +645,7 @@ class LLMConfigResponse(BaseModel):
 class RateLimitIn(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    provider: str
+    provider: NonEmptyStr
     enabled: bool = True
     rpm_limit: int = Field(..., ge=1)
     tpm_limit: int = Field(..., ge=1)
@@ -684,7 +692,7 @@ class PatchBranchPolicyRequest(BaseModel):
 
 class TestProviderRequest(BaseModel):
     provider: NonEmptyStr
-    model: str | None = None
+    model: NonEmptyStr | None = None
 
 
 class TestProviderResponse(BaseModel):
@@ -848,6 +856,11 @@ class WebhookTestRequest(BaseModel):
     payload: dict[str, Any] = Field(default_factory=dict)
     event_type: NonEmptyStr = "worldfork.test"
 
+    @field_validator("url")
+    @classmethod
+    def validate_url(cls, value: str) -> str:
+        return _validate_http_url(value) or value
+
 
 class WebhookTestResponse(BaseModel):
     ok: bool
@@ -861,3 +874,8 @@ class WebhookTestResponse(BaseModel):
 class WebhookReplayRequest(BaseModel):
     event_id: NonEmptyStr
     target_url: NonEmptyStr | None = None
+
+    @field_validator("target_url")
+    @classmethod
+    def validate_target_url(cls, value: str | None) -> str | None:
+        return _validate_http_url(value)

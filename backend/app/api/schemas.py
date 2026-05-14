@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+NonEmptyStr = Annotated[str, Field(min_length=1)]
 
 
 class ORMModel(BaseModel):
@@ -401,7 +403,7 @@ class MultiverseLineageOut(BaseModel):
 
 
 class SimulateTickRequest(BaseModel):
-    idempotency_key: str | None = None
+    idempotency_key: NonEmptyStr | None = None
     force: bool = False
 
 
@@ -422,7 +424,7 @@ class RunUntilCompleteRequest(BaseModel):
 class ToolCallRequest(BaseModel):
     tool_name: str = Field(..., min_length=1)
     arguments: dict[str, Any] = Field(default_factory=dict)
-    idempotency_key: str | None = None
+    idempotency_key: NonEmptyStr | None = None
 
 
 class ReportRequest(BaseModel):
