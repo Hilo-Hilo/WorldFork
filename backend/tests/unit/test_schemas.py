@@ -28,11 +28,15 @@ from backend.app.schemas import (
     BranchDelta,
     BranchPolicy,
     CohortState,
+    EmbeddingConfig,
     Event,
     HeroArchetype,
     JobEnvelope,
+    LLMResult,
+    ModelConfig,
     ModelRoutingEntry,
     PopulationArchetype,
+    ProviderHealth,
     SplitProposal,
     Universe,
 )
@@ -196,6 +200,50 @@ def _make_job_envelope(**overrides) -> dict:
     return base
 
 
+def _make_model_config(**overrides) -> dict:
+    base = dict(
+        provider="openrouter",
+        model="deepseek/deepseek-v4-flash",
+        fallback_model=None,
+        temperature=0.4,
+        top_p=1.0,
+        max_tokens=4096,
+        timeout_seconds=120,
+        retry_policy="exponential_backoff",
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_llm_result(**overrides) -> dict:
+    base = dict(
+        call_id="call_001",
+        provider="openrouter",
+        model_used="deepseek/deepseek-v4-flash",
+        prompt_tokens=12,
+        completion_tokens=8,
+        total_tokens=20,
+        cost_usd=None,
+        latency_ms=100,
+        parsed_json=None,
+        tool_calls=[],
+        raw_response={},
+        created_at=_NOW,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_embedding_config(**overrides) -> dict:
+    base = dict(
+        provider="openai",
+        model="text-embedding-3-small",
+        dimensions=None,
+    )
+    base.update(overrides)
+    return base
+
+
 def _make_event(**overrides) -> dict:
     base = dict(
         event_id="evt_001",
@@ -265,6 +313,26 @@ class TestBigBangRun:
     ],
 )
 def test_runtime_schemas_reject_blank_identity_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (ModelConfig, _make_model_config(provider="   ")),
+        (ModelConfig, _make_model_config(model="   ")),
+        (ModelConfig, _make_model_config(fallback_model="   ")),
+        (ModelConfig, _make_model_config(retry_policy="   ")),
+        (LLMResult, _make_llm_result(call_id="   ")),
+        (LLMResult, _make_llm_result(provider="   ")),
+        (LLMResult, _make_llm_result(model_used="   ")),
+        (EmbeddingConfig, _make_embedding_config(provider="   ")),
+        (EmbeddingConfig, _make_embedding_config(model="   ")),
+        (ProviderHealth, {"provider": "   ", "ok": True}),
+    ],
+)
+def test_llm_schemas_reject_blank_provider_metadata(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 

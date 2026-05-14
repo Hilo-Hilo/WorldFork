@@ -8,12 +8,14 @@ Import-free of backend.app.models.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 from backend.app.schemas.branching import BranchDelta
 from backend.app.schemas.common import Clock
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # ---------------------------------------------------------------------------
 # PromptPacket
@@ -27,9 +29,9 @@ class PromptPacket(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    system: str
+    system: NonEmptyStr
     clock: Clock
-    actor_id: str
+    actor_id: NonEmptyStr
     actor_kind: Literal["cohort", "hero", "god"]
     archetype: dict[str, Any] | None = None
     state: dict[str, Any] = Field(default_factory=dict)
@@ -39,8 +41,8 @@ class PromptPacket(BaseModel):
     own_queued_events: list[dict[str, Any]] = Field(default_factory=list)
     own_recent_actions: list[dict[str, Any]] = Field(default_factory=list)
     retrieved_memory: dict[str, Any] | None = None
-    allowed_tools: list[str] = Field(default_factory=list)
-    output_schema_id: str  # e.g. "cohort_decision_schema"
+    allowed_tools: list[NonEmptyStr] = Field(default_factory=list)
+    output_schema_id: NonEmptyStr  # e.g. "cohort_decision_schema"
     temperature: float = Field(..., ge=0.0, le=2.0)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
@@ -54,16 +56,16 @@ class ModelConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    provider: str
-    model: str
-    fallback_model: str | None = None
+    provider: NonEmptyStr
+    model: NonEmptyStr
+    fallback_model: NonEmptyStr | None = None
     temperature: float = Field(..., ge=0.0, le=2.0)
     top_p: float = Field(..., ge=0.0, le=1.0)
     max_tokens: int = Field(..., gt=0)
     response_format: dict[str, Any] | None = None
     tools: list[dict[str, Any]] | None = None
     timeout_seconds: int = Field(..., gt=0)
-    retry_policy: str
+    retry_policy: NonEmptyStr
 
 
 # ---------------------------------------------------------------------------
@@ -78,9 +80,9 @@ class LLMResult(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    call_id: str
-    provider: str
-    model_used: str
+    call_id: NonEmptyStr
+    provider: NonEmptyStr
+    model_used: NonEmptyStr
     prompt_tokens: int = Field(..., ge=0)
     completion_tokens: int = Field(..., ge=0)
     total_tokens: int = Field(..., ge=0)
@@ -102,8 +104,8 @@ class EmbeddingConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    provider: str
-    model: str
+    provider: NonEmptyStr
+    model: NonEmptyStr
     dimensions: int | None = None
 
 
@@ -117,7 +119,7 @@ class EmbeddingResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     vectors: list[list[float]]
-    model_used: str
+    model_used: NonEmptyStr
     prompt_tokens: int = Field(..., ge=0)
     cost_usd: float | None = None
 
@@ -131,7 +133,7 @@ class ProviderHealth(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    provider: str
+    provider: NonEmptyStr
     ok: bool
     latency_ms: int | None = None
     details: dict[str, Any] = Field(default_factory=dict)
@@ -146,7 +148,7 @@ class _DecisionRationale(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    main_factors: list[str] = Field(default_factory=list)
+    main_factors: list[NonEmptyStr] = Field(default_factory=list)
     uncertainty: Literal["low", "medium", "high"]
 
 
@@ -206,6 +208,6 @@ class GodReviewOutput(BaseModel):
         "complete_universe",
     ]
     branch_delta: BranchDelta | None = None
-    marked_key_events: list[str] = Field(default_factory=list)
-    tick_summary: str
+    marked_key_events: list[NonEmptyStr] = Field(default_factory=list)
+    tick_summary: NonEmptyStr
     rationale: dict[str, Any] = Field(default_factory=dict)
