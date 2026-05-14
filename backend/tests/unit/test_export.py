@@ -8,7 +8,12 @@ from pathlib import Path
 
 import pytest
 
-from backend.app.storage.export import ExportError, export_run_to_zip, import_run_from_zip
+from backend.app.storage.export import (
+    ExportError,
+    _verify_imported_run,
+    export_run_to_zip,
+    import_run_from_zip,
+)
 from backend.app.storage.ledger import Ledger
 from backend.app.storage.sot_loader import _compute_snapshot_merkle
 
@@ -402,6 +407,75 @@ class TestZipSafety:
 
         assert not (dst_root / "escape").exists()
         assert not (tmp_path / "escape").exists()
+
+    @pytest.mark.parametrize(
+        "snapshot_path",
+        [
+            "../outside",
+            "/tmp/worldfork-outside",
+            "nested/../../outside",
+            "safe\\bad",
+            "",
+            ".",
+        ],
+    )
+    def test_import_verify_rejects_unsafe_source_of_truth_snapshot_path(
+        self,
+        tmp_path: Path,
+        snapshot_path: str,
+    ) -> None:
+        outside = tmp_path / "outside"
+        _write_minimal_sot_snapshot(outside)
+        run_folder = tmp_path / "run"
+        run_folder.mkdir()
+        (run_folder / "manifest.json").write_text(
+            json.dumps(
+                {
+                    "source_of_truth": {
+                        "snapshot_sha256": _compute_snapshot_merkle(outside),
+                        "snapshot_path": snapshot_path,
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        with pytest.raises(ExportError, match="Unsafe source-of-truth snapshot path"):
+            _verify_imported_run(run_folder)
+
+    @pytest.mark.parametrize(
+        "duplicate_member",
+        [
+            "EXPORT_MANIFEST.json",
+            "manifest.json",
+            "config/config_snapshot.json",
+            "source_of_truth_snapshot/VERSION",
+        ],
+    )
+    def test_import_rejects_duplicate_zip_members(self, tmp_path: Path, duplicate_member: str) -> None:
+        zip_path = tmp_path / "duplicate.zip"
+        manifest = {
+            "exported_at": "2026-04-29T00:00:00+00:00",
+            "file_count": 4,
+            "total_bytes": 6,
+            "run_manifest_sha256": "0" * 64,
+            "exporter_version": "1.0.0",
+        }
+        members = {
+            "EXPORT_MANIFEST.json": json.dumps(manifest),
+            "manifest.json": json.dumps({"big_bang_id": BIG_BANG_ID}),
+            "config/config_snapshot.json": "{}",
+            "source_of_truth_snapshot/VERSION": "1",
+        }
+        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            for name, body in members.items():
+                zf.writestr(name, body)
+            zf.writestr(duplicate_member, "duplicate")
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+        with pytest.raises(ExportError, match="Duplicate zip member"):
+            import_run_from_zip(zip_path=zip_path, dest_root=dst_root, verify=False)
 
 
 # ---------------------------------------------------------------------------
