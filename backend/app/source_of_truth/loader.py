@@ -16,6 +16,11 @@ class SourceOfTruthLoader:
         validate_source_of_truth_dir(self.root)
 
     def _resolve_child(self, *parts: str) -> Path:
+        for part in parts:
+            raw_part = str(part)
+            raw_segments = raw_part.split("/")
+            if "\\" in raw_part or any(segment in {"", ".", ".."} for segment in raw_segments):
+                raise ValueError(f"source_of_truth path must stay under root: {part}")
         relative = Path(*parts)
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError(f"source_of_truth path must stay under root: {relative}")
