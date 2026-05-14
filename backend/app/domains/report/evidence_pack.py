@@ -272,12 +272,16 @@ def _report_inventory(db: Session, *, big_bang_id) -> list[dict[str, Any]]:
 
 def _compact_value(value: Any, *, max_items: int) -> Any:
     if isinstance(value, dict):
-        compact = {}
+        compact: dict[str, Any] = {}
         for index, (key, item) in enumerate(value.items()):
             if index >= max_items:
                 compact["_truncated"] = True
                 break
-            compact[str(key)] = _compact_value(item, max_items=max_items)
+            key_text = str(key)
+            if _is_compact_raw_text_key(key_text):
+                compact[key_text] = {"present": bool(item)}
+            else:
+                compact[key_text] = _compact_value(item, max_items=max_items)
         return compact
     if isinstance(value, list):
         items = [_compact_value(item, max_items=max_items) for item in value[:max_items]]
@@ -287,6 +291,23 @@ def _compact_value(value: Any, *, max_items: int) -> Any:
     if isinstance(value, str) and len(value) > 300:
         return value[:297].rstrip() + "..."
     return value
+
+
+def _is_compact_raw_text_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return normalized in {"plain_text_corpus", "raw_text", "scenario_text"} or compact.endswith("corpus") or compact in {
+        "scenariotext",
+        "rawtext",
+        "sourcetext",
+        "plaintext",
+        "initializerprompt",
+        "systemprompt",
+        "developerprompt",
+        "userprompt",
+        "fullprompt",
+        "rawprompt",
+    }
 
 
 def _float_or_default(value: Any, default: float) -> float:
