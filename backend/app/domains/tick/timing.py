@@ -16,11 +16,11 @@ def duration_seconds(start: datetime | None, end: datetime | None) -> float | No
 
 
 def tick_timing_payload(db: Session, tick: models.TickSnapshot) -> dict[str, Any]:
-    executions = db.scalars(
+    executions = list(db.scalars(
         select(models.TickExecution)
         .where(models.TickExecution.tick_snapshot_id == tick.id)
         .order_by(models.TickExecution.created_at.asc())
-    ).all()
+    ).all())
     llm_calls = _llm_calls_for_tick(db, tick)
     return {
         "tick_snapshot_id": str(tick.id),
@@ -47,24 +47,24 @@ def tick_timing_payload(db: Session, tick: models.TickSnapshot) -> dict[str, Any
 
 
 def run_timing_payload(db: Session, big_bang: models.BigBang) -> dict[str, Any]:
-    ticks = db.scalars(
+    ticks = list(db.scalars(
         select(models.TickSnapshot)
         .where(models.TickSnapshot.big_bang_id == big_bang.id)
         .order_by(models.TickSnapshot.created_at.asc())
-    ).all()
-    initializer_calls = db.scalars(
+    ).all())
+    initializer_calls = list(db.scalars(
         select(models.LLMCall)
         .where(
             models.LLMCall.big_bang_id == big_bang.id,
             models.LLMCall.purpose.like("initializer%"),
         )
         .order_by(models.LLMCall.created_at.asc())
-    ).all()
-    jobs = db.scalars(
+    ).all())
+    jobs = list(db.scalars(
         select(models.Job)
         .where(models.Job.big_bang_id == big_bang.id)
         .order_by(models.Job.created_at.asc())
-    ).all()
+    ).all())
     return {
         "big_bang_id": str(big_bang.id),
         "name": big_bang.name,
@@ -86,7 +86,11 @@ def run_timing_payload(db: Session, big_bang: models.BigBang) -> dict[str, Any]:
         "jobs": [_job_timing_payload(job) for job in jobs],
         "ticks": [tick_timing_payload(db, tick) for tick in ticks],
         "cost_summary": summarize_calls(
-            db.scalars(select(models.LLMCall).where(models.LLMCall.big_bang_id == big_bang.id)).all()
+            list(
+                db.scalars(
+                    select(models.LLMCall).where(models.LLMCall.big_bang_id == big_bang.id)
+                ).all()
+            )
         ),
     }
 
@@ -175,7 +179,8 @@ def _attempt_timing_payload(attempt: models.NodeAttempt) -> dict[str, Any]:
 
 def _llm_call_timing_payload(call: models.LLMCall) -> dict[str, Any]:
     meta = call.meta if isinstance(call.meta, dict) else {}
-    usage = meta.get("usage") if isinstance(meta.get("usage"), dict) else {}
+    usage_value = meta.get("usage")
+    usage = usage_value if isinstance(usage_value, dict) else {}
     return {
         "id": str(call.id),
         "purpose": call.purpose,
@@ -189,8 +194,8 @@ def _llm_call_timing_payload(call: models.LLMCall) -> dict[str, Any]:
         "created_at": call.created_at,
         "updated_at": call.updated_at,
         "duration_seconds": duration_seconds(call.created_at, call.updated_at),
-        "attempts": call.meta.get("attempts") if isinstance(call.meta, dict) else None,
-        "last_error": call.meta.get("last_error") if isinstance(call.meta, dict) else None,
+        "attempts": meta.get("attempts"),
+        "last_error": meta.get("last_error"),
     }
 
 

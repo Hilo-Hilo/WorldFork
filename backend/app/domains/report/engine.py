@@ -473,11 +473,14 @@ def _attach_viewer_summary_content(content: dict[str, Any]) -> None:
 
 
 def _single_viewer_summary(content: dict[str, Any]) -> dict[str, Any]:
-    source = content.get("source") if isinstance(content.get("source"), dict) else {}
+    source_value = content.get("source")
+    source = source_value if isinstance(source_value, dict) else {}
     metrics = content.get("outcome_distribution")
     metrics = metrics if isinstance(metrics, dict) else {}
-    llm_report = content.get("llm_report") if isinstance(content.get("llm_report"), dict) else {}
-    prediction = llm_report.get("prediction_answer") if isinstance(llm_report.get("prediction_answer"), dict) else {}
+    llm_report_value = content.get("llm_report")
+    llm_report = llm_report_value if isinstance(llm_report_value, dict) else {}
+    prediction_value = llm_report.get("prediction_answer")
+    prediction = prediction_value if isinstance(prediction_value, dict) else {}
     label = source.get("ui_label") or metrics.get("ui_label") or "Timeline"
     path_probability = _float_or_default(
         metrics.get("path_probability", source.get("path_probability")),

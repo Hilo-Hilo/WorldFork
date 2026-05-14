@@ -186,7 +186,8 @@ def initializer_prompt_scenario_context(
 def initializer_prompt_corpus(corpus: dict[str, Any] | None) -> dict[str, Any]:
     if not isinstance(corpus, dict) or not corpus:
         return {}
-    brief = corpus.get("simulation_brief") if isinstance(corpus.get("simulation_brief"), dict) else {}
+    brief_value = corpus.get("simulation_brief")
+    brief = brief_value if isinstance(brief_value, dict) else {}
     mode = brief.get("mode") or corpus.get("mode")
     compact: dict[str, Any] = {
         "raw_char_count": corpus.get("raw_char_count") or brief.get("raw_char_count"),
@@ -346,7 +347,7 @@ def fallback_initializer_output(scenario_input: dict[str, Any]) -> dict[str, Any
 def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[str, Any]) -> dict[str, Any]:
     fallback = fallback_initializer_output(scenario_input)
     output = parsed if isinstance(parsed, dict) else {}
-    normalized = {
+    normalized: dict[str, Any] = {
         "actors": _list_or_default(output.get("actors"), fallback["actors"]),
         "simulation_brief": output.get("simulation_brief") or output.get("simulationBrief") or {"summary": scenario_input},
         "population_archetypes": _list_or_default(
@@ -456,7 +457,8 @@ def _normalize_initializer_endpoint_ledger(
         if status not in {"active", "weakened", "eliminated", "realized", "unresolved", "process_only"}:
             status = "active"
         probability = _optional_probability(item.get("probability"))
-        meta = dict(item.get("meta")) if isinstance(item.get("meta"), dict) else {}
+        meta_value = item.get("meta")
+        meta = dict(meta_value) if isinstance(meta_value, dict) else {}
         meta.setdefault("source", "initializer_endpoint_ledger")
         if question:
             meta.setdefault("important_question", question)
@@ -678,7 +680,8 @@ def _list_value(value: Any) -> list[Any]:
 
 
 def _has_prompt_source_material(corpus: dict[str, Any]) -> bool:
-    brief = corpus.get("simulation_brief") if isinstance(corpus.get("simulation_brief"), dict) else {}
+    brief_value = corpus.get("simulation_brief")
+    brief = brief_value if isinstance(brief_value, dict) else {}
     if isinstance(brief, dict):
         return bool(brief.get("text") or brief.get("chunk_summaries"))
     return bool(corpus)

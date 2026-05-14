@@ -70,7 +70,7 @@ def compute_universe_metrics(
 
     # Dominant emotion.
     if emotion_means:
-        dominant_key = max(emotion_means, key=emotion_means.get)
+        dominant_key = max(emotion_means, key=lambda key: emotion_means[key])
         dominant_emotion = (dominant_key, round(emotion_means[dominant_key], 4))
     else:
         dominant_emotion = ("none", 0.0)

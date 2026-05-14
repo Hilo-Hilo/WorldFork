@@ -156,16 +156,16 @@ class ValidationContext:
     ) -> list[str]:
         """Validate every tool call inside a decision; return error strings."""
         errors: list[str] = []
-        groups = (
+        groups: list[tuple[str, list[dict[str, Any]]]] = [
             ("public_actions", decision.public_actions),
             ("event_actions", decision.event_actions),
             ("social_actions", decision.social_actions),
-        )
+        ]
         # CohortDecisionOutput has split_merge_proposals; HeroDecisionOutput
         # does not.  Use getattr to stay compatible.
         smp = getattr(decision, "split_merge_proposals", None)
         if smp:
-            groups = groups + (("split_merge_proposals", smp),)
+            groups.append(("split_merge_proposals", smp))
 
         for label, items in groups:
             for idx, call in enumerate(items or []):
@@ -217,24 +217,27 @@ class ValidationContext:
     @staticmethod
     def _collect_keys(obj: Any, *candidates: str) -> set[str]:
         """Collect taxonomy keys from list, wrapped-list, or mapping-shaped SoT blobs."""
+        items: list[Any]
         if isinstance(obj, list):
             items = obj
         elif isinstance(obj, dict):
-            items = None
+            found_items: list[Any] | None = None
             for c in candidates:
                 v = obj.get(c)
                 if isinstance(v, list):
-                    items = v
+                    found_items = v
                     break
                 if isinstance(v, dict):
-                    items = list(v.values())
+                    found_items = list(v.values())
                     break
-            if items is None:
+            if found_items is None:
                 items = [
                     value
                     for key, value in obj.items()
                     if key not in {"version", "scale", "note", "notes", "metadata"}
                 ]
+            else:
+                items = found_items
         else:
             items = []
 

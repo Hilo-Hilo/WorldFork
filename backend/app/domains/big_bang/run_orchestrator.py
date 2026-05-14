@@ -59,7 +59,7 @@ def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_to
     if big_bang.status == "paused":
         raise ValueError("big bang is paused")
 
-    ticks_run = []
+    ticks_run: list[models.TickSnapshot] = []
     for _ in range(max_total_ticks):
         active = db.scalars(
             select(models.Multiverse)

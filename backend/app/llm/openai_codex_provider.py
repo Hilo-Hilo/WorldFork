@@ -20,8 +20,8 @@ from backend.app.providers.openai_codex import (
 try:
     from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncOpenAI
 except Exception:  # pragma: no cover - keeps imports usable in minimal test envs
-    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment]
-    AsyncOpenAI = None  # type: ignore[assignment]
+    APIConnectionError = APIStatusError = APITimeoutError = Exception  # type: ignore[assignment,misc]
+    AsyncOpenAI = None  # type: ignore[assignment,misc]
 
 
 class OpenAICodexProvider(LLMProvider):

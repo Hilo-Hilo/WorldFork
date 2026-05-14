@@ -162,6 +162,8 @@ def _source_rows(content: dict[str, Any]) -> list[dict[str, Any]]:
         rows = content.get("endpoint_histogram")
     if not isinstance(rows, list) or not rows:
         rows = ledger.get("entries") if isinstance(ledger, dict) else []
+    if not isinstance(rows, list):
+        return []
     return [row for row in rows if isinstance(row, dict)]
 
 

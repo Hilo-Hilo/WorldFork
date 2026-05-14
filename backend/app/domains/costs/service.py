@@ -83,7 +83,8 @@ def openrouter_pricing_table() -> dict[str, Any]:
         if not isinstance(item, dict):
             continue
         model_id = str(item.get("id") or "").strip()
-        pricing = item.get("pricing") if isinstance(item.get("pricing"), dict) else {}
+        pricing_value = item.get("pricing")
+        pricing = pricing_value if isinstance(pricing_value, dict) else {}
         if not model_id:
             continue
         models[model_id] = {
@@ -124,11 +125,11 @@ def summarize_big_bang_cost(
     include_calls: bool = False,
     include_non_openrouter: bool = True,
 ) -> dict[str, Any]:
-    calls = db.scalars(
+    calls = list(db.scalars(
         select(models.LLMCall)
         .where(models.LLMCall.big_bang_id == big_bang.id)
         .order_by(models.LLMCall.created_at.asc())
-    ).all()
+    ).all())
     return summarize_calls(calls, include_calls=include_calls, include_non_openrouter=include_non_openrouter)
 
 
@@ -139,7 +140,11 @@ def summarize_report_version_cost(
     include_calls: bool = False,
     include_non_openrouter: bool = True,
 ) -> dict[str, Any]:
-    metadata = report_version.generation_metadata or {}
+    metadata = (
+        report_version.generation_metadata
+        if isinstance(report_version.generation_metadata, dict)
+        else {}
+    )
     call_id = metadata.get("llm_call_id")
     calls: list[models.LLMCall] = []
     if call_id:
@@ -150,7 +155,7 @@ def summarize_report_version_cost(
         if call is not None:
             calls.append(call)
     if not calls:
-        calls = db.scalars(
+        calls = list(db.scalars(
             select(models.LLMCall)
             .where(
                 models.LLMCall.big_bang_id == _report_big_bang_id(db, report_version),
@@ -159,7 +164,7 @@ def summarize_report_version_cost(
             )
             .order_by(models.LLMCall.created_at.desc())
             .limit(1)
-        ).all()
+        ).all())
     return summarize_calls(calls, include_calls=include_calls, include_non_openrouter=include_non_openrouter)
 
 
@@ -184,10 +189,12 @@ def summarize_calls(
         prompt_tokens = _int(usage.get("prompt_tokens"))
         completion_tokens = _int(usage.get("completion_tokens"))
         total_tokens = _int(usage.get("total_tokens")) or prompt_tokens + completion_tokens
-        details = usage.get("prompt_tokens_details") if isinstance(usage.get("prompt_tokens_details"), dict) else {}
+        details_value = usage.get("prompt_tokens_details")
+        details = details_value if isinstance(details_value, dict) else {}
+        completion_details_value = usage.get("completion_tokens_details")
         completion_details = (
-            usage.get("completion_tokens_details")
-            if isinstance(usage.get("completion_tokens_details"), dict)
+            completion_details_value
+            if isinstance(completion_details_value, dict)
             else {}
         )
         cached_tokens = _int(details.get("cached_tokens"))
@@ -299,7 +306,8 @@ def estimate_big_bang_cost(
 def agent_type_for_call(call: models.LLMCall) -> str:
     purpose = str(call.purpose or "").lower()
     meta = call.meta if isinstance(call.meta, dict) else {}
-    request_meta = meta.get("request_metadata") if isinstance(meta.get("request_metadata"), dict) else {}
+    request_meta_value = meta.get("request_metadata")
+    request_meta = request_meta_value if isinstance(request_meta_value, dict) else {}
     hinted = request_meta.get("agent_type") or request_meta.get("route") or meta.get("agent_type")
     if hinted:
         hinted_text = str(hinted).lower()
@@ -548,7 +556,8 @@ def _estimate_usage_usd(
 
 
 def _pricing_for_model(pricing: dict[str, Any], model: str) -> dict[str, Any] | None:
-    models = pricing.get("models") if isinstance(pricing.get("models"), dict) else {}
+    models_value = pricing.get("models")
+    models = models_value if isinstance(models_value, dict) else {}
     candidates = [model]
     if "/" not in model:
         candidates.append(f"{OPENAI_CODEX_OPENROUTER_PREFIX}{model}")

@@ -527,7 +527,8 @@ def _entries_from_evidence(
         payload.setdefault("status_basis", "initializer_endpoint_ledger")
         payload.setdefault("contradiction_notes", "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.")
         payload.setdefault("rationale", "Preserved from initializer endpoint ledger.")
-        meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
+        meta_value = payload.get("meta")
+        meta = meta_value if isinstance(meta_value, dict) else {}
         payload["meta"] = {"source": "initializer_endpoint_ledger", **meta}
         entries.setdefault(endpoint_key, payload)
     for item in evidence.get("initializer", {}).get("branch_hypotheses") or []:
@@ -1076,7 +1077,8 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
             status = "active"
             blockers = [*blockers, "authority evidence missing for realized endpoint"]
             status_basis = status_basis or "downgraded_realized_without_authority_evidence"
-        meta = item.get("meta") if isinstance(item.get("meta"), dict) else {}
+        meta_value = item.get("meta")
+        meta = meta_value if isinstance(meta_value, dict) else {}
         if item.get("probability") is not None:
             meta = {**meta, "legacy_probability_ignored": item.get("probability")}
         normalized.append(
@@ -1118,23 +1120,42 @@ def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]
 def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
     if not evidence:
         return False
-    multiverse = evidence.get("multiverse") or {}
+    multiverse_value = evidence.get("multiverse")
+    multiverse = multiverse_value if isinstance(multiverse_value, dict) else {}
     if str(multiverse.get("status") or "").lower() not in {"completed", "terminated"}:
         return False
-    max_ticks = (((evidence.get("big_bang") or {}).get("simulation_config") or {}).get("max_ticks"))
+    big_bang_value = evidence.get("big_bang")
+    big_bang = big_bang_value if isinstance(big_bang_value, dict) else {}
+    simulation_config_value = big_bang.get("simulation_config")
+    simulation_config = (
+        simulation_config_value if isinstance(simulation_config_value, dict) else {}
+    )
+    max_ticks = simulation_config.get("max_ticks")
     if max_ticks is None:
         return False
-    latest_tick = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
+    ticks_value = evidence.get("ticks")
+    ticks = ticks_value if isinstance(ticks_value, list) else []
+    latest_tick = max(
+        (int(tick.get("tick_index") or 0) for tick in ticks if isinstance(tick, dict)),
+        default=None,
+    )
     return latest_tick is not None and latest_tick >= int(max_ticks)
 
 
 def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
     if entry.get("status") in {"realized", "eliminated", "insufficient_ticks"}:
         return entry
-    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    meta_value = entry.get("meta")
+    meta = meta_value if isinstance(meta_value, dict) else {}
     if meta.get("final_horizon_overlay") == "insufficient_ticks":
         return entry
-    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    evidence_value = evidence or {}
+    ticks_value = evidence_value.get("ticks")
+    ticks = ticks_value if isinstance(ticks_value, list) else []
+    latest_tick = max(
+        (int(tick.get("tick_index") or 0) for tick in ticks if isinstance(tick, dict)),
+        default=None,
+    )
     return {
         **entry,
         "status": "insufficient_ticks",
@@ -1151,7 +1172,8 @@ def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] 
 
 
 def _revert_final_horizon_overlay(entry: dict[str, Any]) -> dict[str, Any]:
-    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    meta_value = entry.get("meta")
+    meta = meta_value if isinstance(meta_value, dict) else {}
     if meta.get("final_horizon_overlay") != "insufficient_ticks" or not meta.get("reversible_on_resume"):
         return entry
     previous_status = meta.get("previous_status") or "active"
