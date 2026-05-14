@@ -377,6 +377,33 @@ class TestTamperDetection:
 
 
 class TestZipSafety:
+    @pytest.mark.parametrize(
+        "directory_member",
+        [
+            "../evil/",
+            "../../evil/",
+            "/absolute/",
+            "safe/../../evil/",
+            "C:\\temp\\evil/",
+            "./safe/",
+            "safe/./nested/",
+            "safe//nested/",
+            "safe/../evil/",
+            "safe\\nested/",
+        ],
+    )
+    def test_import_rejects_unsafe_zip_directory_entries(self, tmp_path: Path, directory_member: str) -> None:
+        zip_path = tmp_path / "unsafe_dir.zip"
+        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("EXPORT_MANIFEST.json", "{}")
+            zf.writestr("manifest.json", json.dumps({"big_bang_id": BIG_BANG_ID}))
+            zf.writestr(directory_member, "")
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+        with pytest.raises(ExportError, match="Unsafe zip member path"):
+            import_run_from_zip(zip_path=zip_path, dest_root=dst_root, verify=False)
+
     def test_import_rejects_zip_path_traversal(self, tmp_path: Path) -> None:
         """Archive members cannot write outside the extraction directory."""
         zip_path = tmp_path / "traversal.zip"
