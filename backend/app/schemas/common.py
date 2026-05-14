@@ -21,7 +21,7 @@ RunStatus = Literal[
 ]
 
 UniverseStatus = Literal[
-    "candidate", "active", "frozen", "killed", "completed", "merged"
+    "candidate", "active", "frozen", "killed", "completed", "terminated", "merged"
 ]
 
 EventStatus = Literal[

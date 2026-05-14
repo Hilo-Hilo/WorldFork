@@ -264,6 +264,10 @@ class TestUniverse:
         assert u.killed_at is None
         assert u.completed_at is None
 
+    def test_terminated_status_is_valid_runtime_state(self):
+        u = Universe.model_validate(_make_universe(status="terminated"))
+        assert u.status == "terminated"
+
 
 # ---------------------------------------------------------------------------
 # CohortState emotion clamping
