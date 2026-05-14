@@ -13,9 +13,11 @@ Import-free of backend.app.models (models import schemas; never the reverse).
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
+
+NonEmptyStr = Annotated[str, Field(min_length=1)]
 
 # ---------------------------------------------------------------------------
 # ── Runs ──────────────────────────────────────────────────────────────
@@ -104,7 +106,7 @@ class PatchRunRequest(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    display_name: str | None = None
+    display_name: NonEmptyStr | None = None
     description: str | None = None
     tags: list[str] | None = None
     favorite: bool | None = None
@@ -392,14 +394,14 @@ class PruneResponse(BaseModel):
 class FocusBranchRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    universe_id: str
+    universe_id: NonEmptyStr
 
 
 class CompareRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    universe_ids: list[str] = Field(..., min_length=2)
-    aspect: str = "metrics"
+    universe_ids: list[NonEmptyStr] = Field(..., min_length=2)
+    aspect: NonEmptyStr = "metrics"
 
 
 class CompareResponse(BaseModel):
@@ -681,7 +683,7 @@ class PatchBranchPolicyRequest(BaseModel):
 
 
 class TestProviderRequest(BaseModel):
-    provider: str
+    provider: NonEmptyStr
     model: str | None = None
 
 
@@ -841,10 +843,10 @@ class TraceResponse(BaseModel):
 
 
 class WebhookTestRequest(BaseModel):
-    url: str
-    secret: str
+    url: NonEmptyStr
+    secret: NonEmptyStr
     payload: dict[str, Any] = Field(default_factory=dict)
-    event_type: str = "worldfork.test"
+    event_type: NonEmptyStr = "worldfork.test"
 
 
 class WebhookTestResponse(BaseModel):
@@ -857,5 +859,5 @@ class WebhookTestResponse(BaseModel):
 
 
 class WebhookReplayRequest(BaseModel):
-    event_id: str
-    target_url: str | None = None
+    event_id: NonEmptyStr
+    target_url: NonEmptyStr | None = None

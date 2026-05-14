@@ -420,7 +420,7 @@ class RunUntilCompleteRequest(BaseModel):
 
 
 class ToolCallRequest(BaseModel):
-    tool_name: str
+    tool_name: str = Field(..., min_length=1)
     arguments: dict[str, Any] = Field(default_factory=dict)
     idempotency_key: str | None = None
 

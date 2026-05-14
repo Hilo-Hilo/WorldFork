@@ -12,6 +12,7 @@ import pytest
 from pydantic import ValidationError
 
 from app.llm.routing import AUDITED_LLM_ROUTES
+from app.api.schemas import ToolCallRequest
 from backend.app.schemas import (
     BigBangRun,
     BranchDelta,
@@ -25,11 +26,17 @@ from backend.app.schemas import (
 )
 from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
 from backend.app.schemas.api import (
+    CompareRequest,
+    FocusBranchRequest,
     PatchBranchPolicyRequest,
     PatchProvidersRequest,
     PatchRateLimitsRequest,
+    PatchRunRequest,
     PatchRoutingRequest,
     PatchSettingsRequest,
+    TestProviderRequest as ProviderTestRequest,
+    WebhookReplayRequest,
+    WebhookTestRequest,
 )
 from backend.app.schemas.branching import (
     ActorStateOverrideDelta,
@@ -340,6 +347,27 @@ def test_patch_rate_limits_rejects_invalid_retry_policy():
                 ]
             }
         )
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (PatchRunRequest, {"display_name": ""}),
+        (FocusBranchRequest, {"universe_id": ""}),
+        (CompareRequest, {"universe_ids": ["", "u-2"]}),
+        (CompareRequest, {"universe_ids": ["u-1", "u-2"], "aspect": ""}),
+        (ToolCallRequest, {"tool_name": ""}),
+        (ProviderTestRequest, {"provider": ""}),
+        (WebhookTestRequest, {"url": "", "secret": "secret"}),
+        (WebhookTestRequest, {"url": "https://example.test/hook", "secret": ""}),
+        (WebhookTestRequest, {"url": "https://example.test/hook", "secret": "secret", "event_type": ""}),
+        (WebhookReplayRequest, {"event_id": ""}),
+        (WebhookReplayRequest, {"event_id": "event-1", "target_url": ""}),
+    ],
+)
+def test_request_schemas_reject_empty_required_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
 
 
 # ---------------------------------------------------------------------------
