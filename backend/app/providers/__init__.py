@@ -399,6 +399,13 @@ async def call_with_policy(
 
             except RateLimitError as exc:
                 last_exc = exc
+                if attempts >= max_attempts:
+                    logger.warning(
+                        "provider %s rate-limited on final attempt for %s; trying fallback",
+                        cfg.provider,
+                        cfg.model,
+                    )
+                    break
                 wait = (exc.retry_after if exc.retry_after else backoff) + _jitter()
                 logger.info(
                     "rate-limited on %s; sleeping %.2fs (attempt %d/%d)",
@@ -444,7 +451,7 @@ async def call_with_policy(
 
             except ProviderError as exc:
                 last_exc = exc
-                if backoff > 30:
+                if attempts >= max_attempts or backoff > 30:
                     logger.warning(
                         "provider %s repeated errors on %s; trying fallback",
                         cfg.provider, cfg.model,

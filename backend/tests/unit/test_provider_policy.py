@@ -8,6 +8,7 @@ import fakeredis.aioredis
 import pytest
 import pytest_asyncio
 
+import backend.app.providers as providers_mod
 from backend.app.providers import (
     BudgetExceededError,
     FallbackExhaustedError,
@@ -460,6 +461,71 @@ async def test_5xx_triggers_fallback(routing, limiter, prompt) -> None:
     assert result.model_used == "fb-model"
     assert primary.calls >= 2
     assert fallback.calls == 1
+
+
+@pytest.mark.parametrize(
+    "primary_error",
+    [
+        RateLimitError("429", retry_after=None),
+        RateLimitError("429", retry_after=0.01),
+        RateLimitError("429", retry_after=1.0),
+        RateLimitError("429", retry_after=30.0),
+        RateLimitError("429", retry_after=60.0),
+        ProviderError("upstream 500"),
+        ProviderError("upstream 502"),
+        ProviderError("upstream 503"),
+        ProviderError("upstream 504"),
+        ProviderError("connection reset"),
+    ],
+)
+async def test_final_attempt_failure_falls_back_without_sleeping(
+    monkeypatch,
+    limiter,
+    prompt,
+    primary_error,
+) -> None:
+    from backend.app.schemas.settings import ModelRoutingEntry
+
+    sleeps: list[float] = []
+    monkeypatch.setattr(providers_mod.asyncio, "sleep", lambda seconds: sleeps.append(seconds))
+
+    entry = ModelRoutingEntry(
+        job_type="actor_deliberation_call",
+        preferred_provider="primary",
+        preferred_model="primary-model",
+        fallback_provider="fallback",
+        fallback_model="fallback-model",
+        temperature=0.5,
+        top_p=0.95,
+        max_tokens=512,
+        max_concurrency=4,
+        requests_per_minute=60,
+        tokens_per_minute=150_000,
+        timeout_seconds=120,
+        retry_policy="exponential_backoff",
+        daily_budget_usd=None,
+    )
+    routing_custom = RoutingTable({"actor_deliberation_call": entry})  # type: ignore[arg-type]
+
+    primary = MockProvider(name="primary")
+    primary.script = [primary_error]
+    fallback = MockProvider(name="fallback")
+    register_provider("primary", primary)
+    register_provider("fallback", fallback)
+
+    result = await call_with_policy(
+        job_type="actor_deliberation_call",
+        prompt=prompt,
+        routing=routing_custom,
+        limiter=limiter,
+        run_id="run_test",
+        max_attempts=1,
+    )
+
+    assert result.model_used == "fallback-model"
+    assert primary.calls == 1
+    assert fallback.calls == 1
+    assert sleeps == []
 
 
 async def test_invalid_json_returns_safe_noop(routing, limiter, prompt) -> None:
