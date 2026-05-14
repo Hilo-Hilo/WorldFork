@@ -213,8 +213,9 @@ def _public_simulation_brief(value) -> dict:
     if not isinstance(value, dict):
         return {}
     sanitized = _strip_public_reference_fields(value)
-    if "text" in sanitized:
-        sanitized["text"] = "[debug gated]"
+    for key in list(sanitized):
+        if _is_public_raw_text_key(str(key)):
+            sanitized[key] = "[debug gated]"
     sanitized["chunk_summaries"] = _strip_artifact_ids(sanitized.get("chunk_summaries", []))
     return sanitized
 
@@ -232,6 +233,23 @@ def _is_public_artifact_reference_key(key: str) -> bool:
         or compact in {"artifactid"}
         or compact.endswith("artifactid")
     )
+
+
+def _is_public_raw_text_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return normalized == "text" or compact in {
+        "scenariotext",
+        "rawtext",
+        "sourcetext",
+        "plaintext",
+        "initializerprompt",
+        "systemprompt",
+        "developerprompt",
+        "userprompt",
+        "fullprompt",
+        "rawprompt",
+    }
 
 
 def _strip_artifact_ids(value):
