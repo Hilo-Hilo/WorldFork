@@ -19,6 +19,7 @@ from app.domains.actor import agent_engine
 from app.domains.endpoint_ledger import service as endpoint_ledger
 from app.domains.report import engine as report_engine
 from app.domains.endpoint_ledger.service import (
+    _compact_value,
     endpoint_ledger_entries,
     endpoint_ledger_report_payload,
     evaluate_endpoint_ledger,
@@ -96,6 +97,30 @@ def _world(db: Session) -> tuple[models.BigBang, models.Multiverse, models.Actor
     db.add_all([multiverse, actor])
     db.flush()
     return big_bang, multiverse, actor
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_compact_value_gates_mixed_style_raw_text_fields(field_name):
+    raw_text = "raw endpoint ledger prompt and scenario text"
+
+    compacted = _compact_value({field_name: raw_text})
+
+    assert compacted == {field_name: {"present": True}}
+    assert raw_text not in str(compacted)
 
 
 def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
