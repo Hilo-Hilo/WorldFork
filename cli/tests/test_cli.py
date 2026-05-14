@@ -1022,6 +1022,27 @@ def test_jobs_wait_treats_interrupted_as_non_error_terminal(monkeypatch) -> None
     assert result.exit_code == 0
 
 
+def test_jobs_wait_treats_completed_as_success_terminal(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            return {
+                "ok": True,
+                "data": {"id": "job-123", "status": "completed"},
+                "meta": {"terminal": True, "timed_out": False},
+            }
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["jobs", "wait", "job-123", "--timeout", "0"])
+    json_result = CliRunner().invoke(main, ["--json", "jobs", "wait", "job-123", "--timeout", "0"])
+
+    assert result.exit_code == 0
+    assert json_result.exit_code == 0
+
+
 def test_jobs_wait_exits_124_when_api_times_out(monkeypatch) -> None:
     class FakeClient:
         def __init__(self, *_args, **_kwargs) -> None:
@@ -1066,6 +1087,39 @@ def test_jobs_wait_exits_nonzero_for_terminal_unsuccessful_status(monkeypatch) -
 
         assert result.exit_code == 2
         assert json_result.exit_code == 2
+
+
+def test_ledgers_evaluate_wait_accepts_completed_job_status(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            if path == "/big-bangs/bb-123/endpoint-ledgers/evaluate":
+                return {"job_id": "job-123", "status": "queued"}
+            if path == "/agent/jobs/job-123/wait":
+                return {
+                    "ok": True,
+                    "data": {
+                        "id": "job-123",
+                        "status": "completed",
+                        "result": {"ledger_version_id": "ledger-123"},
+                    },
+                    "meta": {"terminal": True, "timed_out": False},
+                }
+            if path == "/endpoint-ledgers/ledger-123":
+                return {"id": "ledger-123", "entries": []}
+            raise AssertionError(path)
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ledgers", "evaluate", "bb-123", "--wait", "--timeout", "0"])
+
+    assert result.exit_code == 0
+    assert calls[-1][1] == "/endpoint-ledgers/ledger-123"
 
 
 def test_init_blocks_and_returns_initialized_state(monkeypatch, tmp_path) -> None:
