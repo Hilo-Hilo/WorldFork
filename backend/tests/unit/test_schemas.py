@@ -24,6 +24,7 @@ from app.api.schemas import (
 )
 from backend.app.schemas import (
     BigBangRun,
+    BranchNode,
     BranchDelta,
     BranchPolicy,
     CohortState,
@@ -849,6 +850,59 @@ class TestBranchDelta:
         ta = TypeAdapter(BranchDelta)
         with pytest.raises(PydanticValidationError):
             ta.validate_python({"type": "unknown_delta_type", "foo": "bar"})
+
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            {
+                "type": "counterfactual_event_rewrite",
+                "target_event_id": "   ",
+                "parent_version": "defensive statement",
+                "child_version": "apology plus audit",
+            },
+            {
+                "type": "counterfactual_event_rewrite",
+                "target_event_id": "event_001",
+                "parent_version": "   ",
+                "child_version": "apology plus audit",
+            },
+            {
+                "type": "counterfactual_event_rewrite",
+                "target_event_id": "event_001",
+                "parent_version": "defensive statement",
+                "child_version": "   ",
+            },
+            {"type": "parameter_shift", "target": "   ", "delta": {"risk_salience": 0.2}},
+            {"type": "actor_state_override", "actor_id": "   ", "field": "expression_level", "new_value": 0.9},
+            {"type": "actor_state_override", "actor_id": "c_001", "field": "   ", "new_value": 0.9},
+            {"type": "actor_state_override", "actor_id": "c_001", "field": "expression_level", "new_value": "   "},
+            {"type": "hero_decision_override", "hero_id": "   ", "tick": 4, "new_decision": {"action": "press_release"}},
+        ],
+    )
+    def test_branch_delta_rejects_blank_strings(self, payload):
+        with pytest.raises(ValidationError):
+            self._parse(payload)
+
+    @pytest.mark.parametrize("field", ["universe_id", "branch_trigger"])
+    def test_branch_node_rejects_blank_identifiers(self, field):
+        payload = {
+            "universe_id": "u_001",
+            "parent_universe_id": None,
+            "child_universe_ids": [],
+            "depth": 0,
+            "branch_tick": 0,
+            "branch_point_id": "bp_001",
+            "branch_trigger": "god_review",
+            "branch_delta": {},
+            "status": "active",
+            "metrics_summary": {},
+            "cost_estimate": {},
+            "descendant_count": 0,
+        }
+        payload[field] = "   "
+
+        with pytest.raises(ValidationError):
+            BranchNode.model_validate(payload)
 
 
 # ---------------------------------------------------------------------------
