@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from backend.app.storage.ledger import ImmutabilityError, Ledger
+from backend.app.storage.ledger import ImmutabilityError, Ledger, LedgerError
 from backend.app.storage.checksums import merkle_root, sha256_file
 
 
@@ -176,6 +176,33 @@ class TestSealTick:
         ledger.seal_tick("U000", 0)
         mf = ledger.manifest()
         assert "0" in mf["universes"]["U000"]["ticks"]
+
+    @pytest.mark.parametrize(
+        "relative_path",
+        [
+            "linked-root.json",
+            "state/linked-state.json",
+            "events/linked-events.jsonl",
+            "logs/linked-log.jsonl",
+            "artifacts/linked-artifact.json",
+            "actors/linked-actor.json",
+            "cohorts/linked-cohort.json",
+            "tools/linked-tool.json",
+            "reports/linked-report.md",
+            "nested/deep/linked-deep.json",
+        ],
+    )
+    def test_seal_tick_rejects_symlinked_tick_files(self, ledger: Ledger, tmp_path: Path, relative_path: str) -> None:
+        self._setup_universe(ledger)
+        ledger.begin_tick("U000", 0)
+        outside = tmp_path / "outside.json"
+        outside.write_text('{"outside": true}', encoding="utf-8")
+        link = ledger.run_folder / "universes" / "U000" / "ticks" / "tick_000" / relative_path
+        link.parent.mkdir(parents=True, exist_ok=True)
+        link.symlink_to(outside)
+
+        with pytest.raises(LedgerError, match="Tick seal cannot include symlinks"):
+            ledger.seal_tick("U000", 0)
 
 
 # ---------------------------------------------------------------------------
