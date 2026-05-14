@@ -12,7 +12,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.artifacts.routes import get_artifact
-from app.domains.big_bang.initialization_routes import _public_corpus, _public_simulation_brief, audit_llm_call
+from app.domains.big_bang.initialization_routes import (
+    _public_corpus,
+    _public_initializer_output,
+    _public_simulation_brief,
+    audit_llm_call,
+)
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
 from app.domains.artifacts import routes as artifact_routes
 from app.db import models
@@ -1863,6 +1868,32 @@ def test_public_initializer_simulation_brief_gates_mixed_style_raw_text(field_na
 
     assert sanitized[field_name] == "[debug gated]"
     assert raw_text not in str(sanitized)
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_public_initializer_output_gates_mixed_style_raw_text(field_name):
+    raw_text = "raw initializer output prompt and scenario text"
+
+    sanitized = _public_initializer_output({field_name: raw_text}, include_debug=False)
+    debug = _public_initializer_output({field_name: raw_text}, include_debug=True)
+
+    assert sanitized[field_name] == "[debug gated]"
+    assert raw_text not in str(sanitized)
+    assert debug[field_name] == raw_text
 
 
 def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutation():

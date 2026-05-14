@@ -193,8 +193,11 @@ def audit(
 def _public_initializer_output(value: dict, *, include_debug: bool) -> dict:
     if include_debug or not isinstance(value, dict):
         return value
-    sanitized = dict(value)
+    sanitized = _strip_public_reference_fields(value)
     sanitized.pop("plain_text_corpus", None)
+    for key in list(sanitized):
+        if _is_public_raw_text_key(str(key)):
+            sanitized[key] = "[debug gated]"
     return sanitized
 
 
