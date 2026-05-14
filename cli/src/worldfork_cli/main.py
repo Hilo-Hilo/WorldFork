@@ -27,7 +27,7 @@ from worldfork_cli.openai_codex_auth import (
 )
 from worldfork_cli.output import emit, unwrap
 
-WAIT_SUCCESS_STATUSES = {"succeeded"}
+WAIT_SUCCESS_STATUSES = {"succeeded", "completed"}
 WAIT_ACCEPTABLE_TERMINAL_STATUSES = {"interrupted"}
 RUN_TERMINAL_STATUSES = {"completed", "failed", "cancelled", "terminated", "archived"}
 MULTIVERSE_TERMINAL_STATUSES = {"completed", "terminated", "frozen", "killed", "merged"}
@@ -1539,7 +1539,7 @@ def ledgers_evaluate(
     if status == "failed":
         emit(waited, as_json=ctx.as_json)
         raise click.exceptions.Exit(2)
-    if meta.get("terminal") and status != "succeeded":
+    if meta.get("terminal") and status not in WAIT_SUCCESS_STATUSES:
         emit(waited, as_json=ctx.as_json)
         raise click.exceptions.Exit(2)
     ledger_id = ((data or {}).get("result") or {}).get("ledger_version_id") if isinstance(data, dict) else None
