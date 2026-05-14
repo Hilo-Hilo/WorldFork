@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast
 
-from backend.app.schemas.jobs import JobType
+from backend.app.schemas.jobs import ModelRoutingJobType
 from backend.app.schemas.llm import ModelConfig
 from backend.app.schemas.settings import ModelRoutingEntry
 from backend.app.core.config import settings
@@ -26,14 +26,22 @@ if TYPE_CHECKING:
 
 _MODEL_SETTING_BY_JOB_TYPE = {
     "initialize_big_bang": "initializer_agent_model",
+    "initializer_chunk_extractor": "initializer_agent_model",
+    "initializer_agent": "initializer_agent_model",
     "god_agent_review": "god_agent_model",
+    "god_agent": "god_agent_model",
+    "cohort_agent": "cohort_agent_model",
+    "hero_agent": "hero_agent_model",
     "aggregate_run_results": "report_agent_model",
+    "report_agent": "report_agent_model",
     "evaluate_endpoint_ledger": "god_agent_model",
+    "endpoint_ledger": "god_agent_model",
+    "event_summary": "event_summary_model",
     "force_deviation": "god_agent_model",
 }
 
 
-def _default_entry(job_type: JobType) -> ModelRoutingEntry:
+def _default_entry(job_type: ModelRoutingJobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
     model_setting = _MODEL_SETTING_BY_JOB_TYPE.get(job_type)
     model = str(
@@ -65,7 +73,7 @@ def _default_provider_for_model(model: str, model_setting: str | None) -> str:
     return str(settings.default_llm_provider)
 
 
-_ALL_JOB_TYPES: tuple[JobType, ...] = (
+_ALL_JOB_TYPES: tuple[ModelRoutingJobType, ...] = (
     "initialize_big_bang",
     "simulate_universe_tick",
     "actor_deliberation_call",
@@ -79,6 +87,14 @@ _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "apply_tick_results",
     "aggregate_run_results",
     "evaluate_endpoint_ledger",
+    "initializer_chunk_extractor",
+    "initializer_agent",
+    "god_agent",
+    "cohort_agent",
+    "hero_agent",
+    "event_summary",
+    "report_agent",
+    "endpoint_ledger",
     "force_deviation",
 )
 
@@ -90,14 +106,14 @@ _ALL_JOB_TYPES: tuple[JobType, ...] = (
 class RoutingTable:
     """In-memory routing table keyed by job type."""
 
-    def __init__(self, entries: dict[JobType, ModelRoutingEntry]) -> None:
-        self._entries: dict[JobType, ModelRoutingEntry] = dict(entries)
+    def __init__(self, entries: dict[ModelRoutingJobType, ModelRoutingEntry]) -> None:
+        self._entries: dict[ModelRoutingJobType, ModelRoutingEntry] = dict(entries)
 
     # ------------------------------------------------------------------
     # Resolve
     # ------------------------------------------------------------------
 
-    def route(self, job_type: JobType) -> tuple[ModelConfig, ModelConfig | None]:
+    def route(self, job_type: ModelRoutingJobType) -> tuple[ModelConfig, ModelConfig | None]:
         """Return ``(preferred ModelConfig, fallback ModelConfig | None)``."""
         entry = self._entries.get(job_type)
         if entry is None:
@@ -176,7 +192,7 @@ class RoutingTable:
         if not rows:
             return cls.defaults()
 
-        entries: dict[JobType, ModelRoutingEntry] = {}
+        entries: dict[ModelRoutingJobType, ModelRoutingEntry] = {}
         for row in rows:
             row_dict = dict(row)
             row_dict.pop("payload", None)
@@ -186,7 +202,7 @@ class RoutingTable:
                 continue
             if entry.job_type not in _ALL_JOB_TYPES:
                 continue
-            entries[cast(JobType, entry.job_type)] = entry
+            entries[cast(ModelRoutingJobType, entry.job_type)] = entry
         # Backfill missing job types with defaults so route() never returns None for known jobs.
         for jt in _ALL_JOB_TYPES:
             entries.setdefault(jt, _default_entry(jt))

@@ -46,6 +46,13 @@ def test_god_prompt_requires_endpoint_specific_branch_reasons() -> None:
     assert "explicit yes/no endpoint direction" in GOD_AGENT_SYSTEM_PROMPT
 
 
+def test_god_prompt_forces_deadline_binary_settlement_for_forecast_cards() -> None:
+    assert "force a binary yes/no settlement" in GOD_AGENT_SYSTEM_PROMPT
+    assert "realize no" in GOD_AGENT_SYSTEM_PROMPT
+    assert "not primary yes/no candidates in deadline-aware cards" in GOD_AGENT_SYSTEM_PROMPT
+    assert "mark both binary candidates insufficient_ticks" not in GOD_AGENT_SYSTEM_PROMPT
+
+
 def test_actor_prompt_honors_child_branch_context_without_forcing_settlement() -> None:
     assert "current_state.branch_context" in ACTOR_SYSTEM_PROMPT
     assert "local premise for this child timeline" in ACTOR_SYSTEM_PROMPT
