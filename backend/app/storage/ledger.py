@@ -7,6 +7,7 @@ Tick manifests are Merkle-rooted; the run manifest is updated on every
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -318,12 +319,13 @@ class Ledger:
         file_hashes: list[str] = []
         for fp in files_found:
             rel = str(fp.relative_to(self.run_folder))
+            tick_rel = fp.relative_to(tick_dir).as_posix()
             sha = sha256_file(fp)
             file_records[rel] = {
                 "sha256": sha,
                 "size": fp.stat().st_size,
             }
-            file_hashes.append(sha)
+            file_hashes.append(_tick_merkle_leaf_hash(tick_rel, sha))
 
         root = merkle_root(file_hashes)
 
@@ -470,6 +472,24 @@ def _tick_files_for_merkle(tick_dir: Path) -> list[Path]:
         if path.is_file():
             files_found.append(path)
     return files_found
+
+
+def _tick_merkle_leaf_hash(relative_path: str, content_sha256: str) -> str:
+    path_bytes = relative_path.encode("utf-8")
+    digest = hashlib.sha256()
+    digest.update(len(path_bytes).to_bytes(8, "big"))
+    digest.update(path_bytes)
+    digest.update(bytes.fromhex(content_sha256))
+    return digest.hexdigest()
+
+
+def _tick_merkle_root(tick_dir: Path, files_found: list[Path]) -> str:
+    return merkle_root(
+        [
+            _tick_merkle_leaf_hash(path.relative_to(tick_dir).as_posix(), sha256_file(path))
+            for path in files_found
+        ]
+    )
 
 
 def _safe_cached_rel_path(run_folder: Path, rel_path: str) -> str:

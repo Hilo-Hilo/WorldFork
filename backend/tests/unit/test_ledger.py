@@ -7,8 +7,14 @@ from pathlib import Path
 
 import pytest
 
-from backend.app.storage.ledger import ImmutabilityError, Ledger, LedgerError
-from backend.app.storage.checksums import merkle_root, sha256_file
+from backend.app.storage.ledger import (
+    ImmutabilityError,
+    Ledger,
+    LedgerError,
+    _tick_files_for_merkle,
+    _tick_merkle_root,
+)
+from backend.app.storage.checksums import sha256_file
 
 
 # ---------------------------------------------------------------------------
@@ -185,10 +191,45 @@ class TestSealTick:
 
         # Recompute manually
         tick_dir = ledger.run_folder / "universes/U000/ticks/tick_000"
-        files = sorted(p for p in tick_dir.rglob("*") if p.is_file() and p.name != "manifest.json")
-        hashes = [sha256_file(f) for f in files]
-        root2 = merkle_root(hashes)
+        files = _tick_files_for_merkle(tick_dir)
+        root2 = _tick_merkle_root(tick_dir, files)
         assert root1 == root2
+
+    @pytest.mark.parametrize(
+        ("left_path", "right_path"),
+        [
+            ("a.json", "b.json"),
+            ("root-a.json", "root-b.json"),
+            ("nested/a.json", "nested/b.json"),
+            ("nested/a.json", "other/a.json"),
+            ("state/a.json", "state/b.json"),
+            ("events/a.jsonl", "events/b.jsonl"),
+            ("memory/a.json", "memory/b.json"),
+            ("god/a.json", "god/b.json"),
+            ("llm_calls/a.json", "llm_calls/b.json"),
+            ("visible_packets/a.json", "visible_packets/b.json"),
+        ],
+    )
+    def test_seal_tick_merkle_root_includes_relative_file_paths(
+        self,
+        ledger: Ledger,
+        left_path: str,
+        right_path: str,
+    ) -> None:
+        self._setup_universe(ledger, "U000")
+        self._setup_universe(ledger, "U001")
+        ledger.begin_tick("U000", 0)
+        ledger.begin_tick("U001", 0)
+        clock = {"tick": 0, "started_at": "fixed"}
+        ledger.write_artifact("universes/U000/ticks/tick_000/clock.json", clock, immutable=False)
+        ledger.write_artifact("universes/U001/ticks/tick_000/clock.json", clock, immutable=False)
+        ledger.write_artifact(f"universes/U000/ticks/tick_000/{left_path}", "same-content", immutable=False)
+        ledger.write_artifact(f"universes/U001/ticks/tick_000/{right_path}", "same-content", immutable=False)
+
+        left_root = ledger.seal_tick("U000", 0)
+        right_root = ledger.seal_tick("U001", 0)
+
+        assert left_root != right_root
 
     def test_seal_tick_updates_run_manifest(self, ledger: Ledger) -> None:
         self._setup_universe(ledger)
