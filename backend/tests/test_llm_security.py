@@ -1724,6 +1724,42 @@ def test_audit_hides_raw_artifact_ids_without_debug_gate():
     assert "raw_request_artifact_id" in debug["meta"]
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "rawRequestArtifactId",
+        "rawResponseArtifactId",
+        "requestArtifactId",
+        "responseArtifactId",
+        "promptPacketArtifactId",
+        "parsedArtifactId",
+        "sourceSnapshotArtifactId",
+        "simulationBriefArtifactId",
+        "markdownArtifactId",
+        "pdfArtifactId",
+    ],
+)
+def test_public_initializer_audit_drops_mixed_style_meta_artifact_refs(field_name):
+    call = models.LLMCall(
+        id=uuid4(),
+        big_bang_id=uuid4(),
+        provider="openrouter",
+        model="test-model",
+        purpose="initializer_agent",
+        status="succeeded",
+        request_artifact_id=uuid4(),
+        response_artifact_id=uuid4(),
+        meta={field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"},
+    )
+
+    public = audit_llm_call(call, include_debug=False)
+    debug = audit_llm_call(call, include_debug=True)
+
+    assert field_name not in public["meta"]
+    assert "4f0774fe-b2de-45dc-9918-1b837089a777" not in str(public["meta"])
+    assert field_name in debug["meta"]
+
+
 def test_public_response_models_sanitize_raw_scenario_and_corpus_content():
     now = datetime.now(UTC)
     common_times = {"created_at": now, "updated_at": now}
