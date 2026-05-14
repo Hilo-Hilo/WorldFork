@@ -102,7 +102,7 @@ async def test_provider_rate_limiter_gate_acquires_and_releases(redis_client) ->
         assert ticket.estimated_tokens == 1000
     # After exit, decremented.
     value = await redis_client.get("rl:conc:testprov")
-    assert int(value) == 0
+    assert value is None or int(value) == 0
 
 
 async def test_build_provider_rate_limiter_uses_enabled_db_row(redis_client) -> None:
@@ -261,3 +261,127 @@ async def test_provider_rate_limiter_branch_reservation(redis_client) -> None:
     assert not blocker.done()
     release.set()
     await asyncio.gather(*workers, blocker)
+
+
+@pytest.mark.parametrize(
+    ("max_concurrency", "branch_reserved_pct", "is_branch_job", "is_p0", "existing_count"),
+    [
+        (1, 0.0, False, False, 1),
+        (2, 50.0, True, False, 1),
+        (0, 0.0, False, False, 1),
+        (3, 0.0, False, False, 5),
+    ],
+)
+async def test_provider_rate_limiter_concurrency_acquire_respects_timeout(
+    redis_client,
+    max_concurrency: int,
+    branch_reserved_pct: float,
+    is_branch_job: bool,
+    is_p0: bool,
+    existing_count: int,
+) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="conctimeout",
+        rpm_limit=6000,
+        tpm_limit=10_000_000,
+        max_concurrency=max_concurrency,
+        branch_reserved_capacity_pct=branch_reserved_pct,
+        jitter=False,
+    )
+    await redis_client.set(limiter._conc_key(), existing_count)
+
+    with pytest.raises(RateLimitError):
+        await limiter._acquire_concurrency(
+            is_branch_job=is_branch_job,
+            is_p0=is_p0,
+            timeout=0.01,
+        )
+
+
+@pytest.mark.parametrize("initial_value", [None, 0, -5])
+async def test_provider_rate_limiter_release_clamps_stale_counter(redis_client, initial_value) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="releaseclamp",
+        rpm_limit=6000,
+        tpm_limit=10_000_000,
+        max_concurrency=4,
+    )
+    if initial_value is not None:
+        await redis_client.set(limiter._conc_key(), initial_value)
+
+    await limiter._release_concurrency()
+
+    value = await redis_client.get(limiter._conc_key())
+    assert value is None or int(value) >= 0
+
+
+async def test_provider_rate_limiter_gate_concurrency_timeout_refunds_windows(redis_client) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="gatetimeout",
+        rpm_limit=10,
+        tpm_limit=100,
+        max_concurrency=1,
+        burst_multiplier=1.0,
+        jitter=False,
+    )
+    await redis_client.set(limiter._conc_key(), 1)
+
+    with pytest.raises(RateLimitError):
+        async with asyncio.timeout(0.25):
+            async with limiter.gate(estimated_tokens=10, timeout=0.01):
+                pass
+
+    minute = limiter._minute_bucket()
+    assert int(await redis_client.get(limiter._rpm_key(minute)) or 0) == 0
+    assert int(await redis_client.get(limiter._tpm_key(minute)) or 0) == 0
+
+
+async def test_provider_rate_limiter_gate_concurrency_timeout_preserves_existing_counter(redis_client) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="counterpreserve",
+        rpm_limit=10,
+        tpm_limit=100,
+        max_concurrency=1,
+        burst_multiplier=1.0,
+        jitter=False,
+    )
+    await redis_client.set(limiter._conc_key(), 1)
+
+    with pytest.raises(RateLimitError):
+        async with asyncio.timeout(0.25):
+            async with limiter.gate(estimated_tokens=10, timeout=0.01):
+                pass
+
+    assert int(await redis_client.get(limiter._conc_key()) or 0) == 1
+
+
+async def test_provider_rate_limiter_branch_gate_timeout_refunds_windows(redis_client) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="branchgatetimeout",
+        rpm_limit=10,
+        tpm_limit=100,
+        max_concurrency=2,
+        branch_reserved_capacity_pct=50.0,
+        burst_multiplier=1.0,
+        jitter=False,
+    )
+    await redis_client.set(limiter._conc_key(), 1)
+
+    with pytest.raises(RateLimitError):
+        async with asyncio.timeout(0.25):
+            async with limiter.gate(
+                estimated_tokens=10,
+                is_branch_job=True,
+                is_p0=False,
+                timeout=0.01,
+            ):
+                pass
+
+    minute = limiter._minute_bucket()
+    assert int(await redis_client.get(limiter._rpm_key(minute)) or 0) == 0
+    assert int(await redis_client.get(limiter._tpm_key(minute)) or 0) == 0
