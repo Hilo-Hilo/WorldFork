@@ -24,7 +24,10 @@ class SourceOfTruthLoader:
         relative = Path(*parts)
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError(f"source_of_truth path must stay under root: {relative}")
-        path = (self.root / relative).resolve()
+        requested_path = self.root / relative
+        if requested_path.is_symlink():
+            raise ValueError(f"source_of_truth path must not be a symlink: {relative}")
+        path = requested_path.resolve()
         if not path.is_relative_to(self.root):
             raise ValueError(f"source_of_truth path escapes root: {relative}")
         return path
