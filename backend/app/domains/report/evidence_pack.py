@@ -278,6 +278,8 @@ def _compact_value(value: Any, *, max_items: int) -> Any:
                 compact["_truncated"] = True
                 break
             key_text = str(key)
+            if _is_compact_internal_reference_key(key_text):
+                continue
             if _is_compact_raw_text_key(key_text):
                 compact[key_text] = {"present": bool(item)}
             else:
@@ -308,6 +310,23 @@ def _is_compact_raw_text_key(key: str) -> bool:
         "fullprompt",
         "rawprompt",
     }
+
+
+def _is_compact_internal_reference_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return (
+        normalized
+        in {
+            "artifact_id",
+            "llm_call_id",
+            "endpoint_ledger_id",
+            "report_version_id",
+            "source_snapshot_id",
+        }
+        or compact.endswith("artifactid")
+        or compact in {"llmcallid", "endpointledgerid", "reportversionid", "sourcesnapshotid"}
+    )
 
 
 def _float_or_default(value: Any, default: float) -> float:
