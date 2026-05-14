@@ -624,6 +624,25 @@ class TestEvent:
         with pytest.raises(ValidationError):
             Event.model_validate(_make_event(status="unknown_status"))
 
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            _make_event(event_id="   "),
+            _make_event(universe_id="   "),
+            _make_event(event_type="   "),
+            _make_event(title="   "),
+            _make_event(description="   "),
+            _make_event(created_by_actor_id="   "),
+            _make_event(participants=["   "]),
+            _make_event(target_audience=["   "]),
+            _make_event(parent_event_id="   "),
+            _make_event(source_llm_call_id="   "),
+        ],
+    )
+    def test_rejects_blank_identity_strings(self, payload):
+        with pytest.raises(ValidationError):
+            Event.model_validate(payload)
+
 
 @pytest.mark.parametrize(
     "model,payload",
