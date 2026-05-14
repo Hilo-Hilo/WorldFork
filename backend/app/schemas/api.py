@@ -15,7 +15,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, StringConstraints, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
 
 NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
@@ -506,7 +506,7 @@ class ProviderSettingIn(BaseModel):
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
     enabled: bool = True
-    extra_headers: dict[str, StrictStr] = Field(default_factory=dict)
+    extra_headers: dict[NonEmptyStr, NonEmptyStr] = Field(default_factory=dict)
     payload: dict[str, Any] = Field(default_factory=dict)
 
 

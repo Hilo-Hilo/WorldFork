@@ -13,10 +13,12 @@ from pydantic import ValidationError
 
 from app.llm.routing import AUDITED_LLM_ROUTES
 from app.api.schemas import (
+    BigBangCreate,
     BigBangPatch,
     EndpointLedgerEvaluateRequest,
     JobCreate,
     MultiverseContinueRequest,
+    ReportVersionPatch,
     ReportRequest,
     SimulateTickRequest,
     TimelineAdjudicationRequest,
@@ -572,6 +574,52 @@ def test_request_schemas_reject_empty_required_strings(model, payload):
     ],
 )
 def test_request_schemas_reject_blank_required_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (BigBangCreate, {"name": "   "}),
+        (BigBangCreate, {"name": "Run", "description": "   "}),
+        (BigBangCreate, {"name": "Run", "scenario_text": "   "}),
+        (BigBangCreate, {"name": "Run", "initializer_prompt": "   "}),
+        (BigBangPatch, {"name": "   "}),
+        (BigBangPatch, {"description": "   "}),
+        (ToolCallRequest, {"tool_name": "   "}),
+        (ReportVersionPatch, {"title": "   "}),
+        (
+            PatchProvidersRequest,
+            {
+                "providers": [
+                    {
+                        "provider": "openrouter",
+                        "base_url": "https://openrouter.ai/api/v1",
+                        "api_key_env": "OPENROUTER_API_KEY",
+                        "default_model": "deepseek/deepseek-v4-flash",
+                        "extra_headers": {"   ": "value"},
+                    }
+                ]
+            },
+        ),
+        (
+            PatchProvidersRequest,
+            {
+                "providers": [
+                    {
+                        "provider": "openrouter",
+                        "base_url": "https://openrouter.ai/api/v1",
+                        "api_key_env": "OPENROUTER_API_KEY",
+                        "default_model": "deepseek/deepseek-v4-flash",
+                        "extra_headers": {"X-Test": "   "},
+                    }
+                ]
+            },
+        ),
+    ],
+)
+def test_request_schemas_reject_blank_operator_metadata_strings(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 
