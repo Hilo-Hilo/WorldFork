@@ -795,16 +795,16 @@ def cohorts() -> None:
 
 @cohorts.command()
 @click.argument("cohort_id")
-@click.option("--universe-id", required=True)
+@click.option("--multiverse-id", "--universe-id", "multiverse_id", required=True)
 @click.option("--from-tick", type=int, default=0, show_default=True)
 @click.option("--to-tick", type=int, default=10, show_default=True)
 @click.pass_obj
-def transcript(ctx: Context, cohort_id: str, universe_id: str, from_tick: int, to_tick: int) -> None:
+def transcript(ctx: Context, cohort_id: str, multiverse_id: str, from_tick: int, to_tick: int) -> None:
     emit(
         ctx.client.request(
             "GET",
             f"/agent/cohorts/{cohort_id}/transcript",
-            params=ctx.params(multiverse_id=universe_id, from_tick=from_tick, to_tick=to_tick),
+            params=ctx.params(multiverse_id=multiverse_id, from_tick=from_tick, to_tick=to_tick),
         ),
         as_json=ctx.as_json,
     )
