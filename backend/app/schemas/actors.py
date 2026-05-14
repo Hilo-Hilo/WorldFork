@@ -7,9 +7,9 @@ Import-free of backend.app.models.
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator, model_validator
 
 from backend.app.schemas.common import (
     RepresentationMode,
@@ -18,6 +18,8 @@ from backend.app.schemas.common import (
 )
 
 _log = logging.getLogger(__name__)
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # Valid mobilization modes
 _MOBILIZATION_MODES = {"dormant", "murmur", "organize", "mobilize", "escalate"}
@@ -43,9 +45,9 @@ class PopulationArchetype(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    archetype_id: str
-    label: str
-    description: str
+    archetype_id: NonEmptyStr
+    label: NonEmptyStr
+    description: NonEmptyStr
 
     population_total: int = Field(..., gt=0)
     geography: dict[str, Any] = Field(default_factory=dict)
@@ -105,10 +107,10 @@ class CohortState(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    cohort_id: str
-    universe_id: str
+    cohort_id: NonEmptyStr
+    universe_id: NonEmptyStr
     tick: int = Field(..., ge=0)
-    archetype_id: str
+    archetype_id: NonEmptyStr
     parent_cohort_id: str | None = None
     child_cohort_ids: list[str] = Field(default_factory=list)
 
@@ -242,10 +244,10 @@ class HeroArchetype(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    hero_id: str
-    label: str
-    description: str
-    role: str
+    hero_id: NonEmptyStr
+    label: NonEmptyStr
+    description: NonEmptyStr
+    role: NonEmptyStr
     institution: str | None = None
     location_scope: str = "city"
 

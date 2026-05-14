@@ -29,8 +29,10 @@ from backend.app.schemas import (
     BranchPolicy,
     CohortState,
     Event,
+    HeroArchetype,
     JobEnvelope,
     ModelRoutingEntry,
+    PopulationArchetype,
     SplitProposal,
     Universe,
 )
@@ -113,6 +115,17 @@ def _make_universe(**overrides) -> dict:
     return base
 
 
+def _make_population_archetype(**overrides) -> dict:
+    base = dict(
+        archetype_id="arch_001",
+        label="Gig workers",
+        description="Drivers and delivery workers in the metro region.",
+        population_total=1000,
+    )
+    base.update(overrides)
+    return base
+
+
 def _make_cohort(**overrides) -> dict:
     base = dict(
         cohort_id="c_001",
@@ -148,6 +161,17 @@ def _make_cohort(**overrides) -> dict:
         representation_mode="population",
         allowed_tools=[],
         is_active=True,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_hero_archetype(**overrides) -> dict:
+    base = dict(
+        hero_id="hero_001",
+        label="Mayor",
+        description="City mayor with agenda-setting power.",
+        role="elected_official",
     )
     base.update(overrides)
     return base
@@ -599,6 +623,26 @@ class TestEvent:
     def test_invalid_status_rejected(self):
         with pytest.raises(ValidationError):
             Event.model_validate(_make_event(status="unknown_status"))
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (PopulationArchetype, _make_population_archetype(archetype_id="   ")),
+        (PopulationArchetype, _make_population_archetype(label="   ")),
+        (PopulationArchetype, _make_population_archetype(description="   ")),
+        (CohortState, _make_cohort(cohort_id="   ")),
+        (CohortState, _make_cohort(universe_id="   ")),
+        (CohortState, _make_cohort(archetype_id="   ")),
+        (HeroArchetype, _make_hero_archetype(hero_id="   ")),
+        (HeroArchetype, _make_hero_archetype(label="   ")),
+        (HeroArchetype, _make_hero_archetype(description="   ")),
+        (HeroArchetype, _make_hero_archetype(role="   ")),
+    ],
+)
+def test_actor_schemas_reject_blank_identity_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
 
 
 # ---------------------------------------------------------------------------
