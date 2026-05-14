@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from types import SimpleNamespace
+from typing import get_args
 
 import pytest
 
 from backend.app.providers.errors import InvalidJSONError
 from backend.app.providers.openrouter import OpenRouterProvider
-from backend.app.providers.routing import RoutingTable
+from backend.app.providers.routing import RoutingTable, _ALL_JOB_TYPES
 from backend.app.core.config import settings
+from backend.app.schemas.jobs import ModelRoutingJobType
 from backend.app.schemas.settings import ModelRoutingEntry
 from backend.app.schemas.llm import ModelConfig, PromptPacket
 
@@ -161,9 +163,17 @@ def test_default_routes_use_provider_model_split() -> None:
 
     expected_model_by_job_type = {
         "initialize_big_bang": settings.initializer_agent_model,
+        "initializer_chunk_extractor": settings.initializer_agent_model,
+        "initializer_agent": settings.initializer_agent_model,
         "god_agent_review": settings.god_agent_model,
+        "god_agent": settings.god_agent_model,
+        "cohort_agent": settings.cohort_agent_model,
+        "hero_agent": settings.hero_agent_model,
         "aggregate_run_results": settings.report_agent_model,
+        "report_agent": settings.report_agent_model,
         "evaluate_endpoint_ledger": settings.god_agent_model,
+        "endpoint_ledger": settings.god_agent_model,
+        "event_summary": settings.event_summary_model,
         "force_deviation": settings.god_agent_model,
     }
     for job_type in (
@@ -180,6 +190,14 @@ def test_default_routes_use_provider_model_split() -> None:
         "apply_tick_results",
         "aggregate_run_results",
         "evaluate_endpoint_ledger",
+        "initializer_chunk_extractor",
+        "initializer_agent",
+        "god_agent",
+        "cohort_agent",
+        "hero_agent",
+        "event_summary",
+        "report_agent",
+        "endpoint_ledger",
         "force_deviation",
     ):
         expected_model = expected_model_by_job_type.get(job_type, OPENROUTER_MODEL)
@@ -193,6 +211,11 @@ def test_default_routes_use_provider_model_split() -> None:
         assert fallback.model == expected_fallback_model
         expected_native = expected_fallback_model if expected_fallback_provider == expected_provider else None
         assert preferred.fallback_model == expected_native
+
+
+def test_default_routing_table_covers_every_job_type() -> None:
+    expected = {item for group in get_args(ModelRoutingJobType) for item in get_args(group)}
+    assert set(_ALL_JOB_TYPES) == expected
 
 
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:

@@ -40,6 +40,18 @@ def test_god_prompt_requires_branch_probability() -> None:
     assert "This is not your confidence score" in GOD_AGENT_SYSTEM_PROMPT
 
 
+def test_god_prompt_requires_endpoint_specific_branch_reasons() -> None:
+    assert "A create_branch reason must name the alternate path" in GOD_AGENT_SYSTEM_PROMPT
+    assert "explicit yes/no endpoint direction" in GOD_AGENT_SYSTEM_PROMPT
+
+
+def test_god_prompt_forces_deadline_binary_settlement_for_forecast_cards() -> None:
+    assert "force a binary yes/no settlement" in GOD_AGENT_SYSTEM_PROMPT
+    assert "realize no" in GOD_AGENT_SYSTEM_PROMPT
+    assert "not primary yes/no candidates in deadline-aware cards" in GOD_AGENT_SYSTEM_PROMPT
+    assert "mark both binary candidates insufficient_ticks" not in GOD_AGENT_SYSTEM_PROMPT
+
+
 def test_report_agent_prompt_distinguishes_terminal_endpoints_from_process_states() -> None:
     assert "Report endpoint requirements" in REPORT_AGENT_SYSTEM_PROMPT
     assert "terminal endpoint or only a process state" in REPORT_AGENT_SYSTEM_PROMPT
