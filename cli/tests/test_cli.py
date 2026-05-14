@@ -237,6 +237,31 @@ def test_cli_rejects_invalid_pagination_before_requests() -> None:
         assert "Invalid value for" in result.output
 
 
+def test_cli_rejects_invalid_cost_estimate_options_before_requests() -> None:
+    cases = [
+        ["runs", "estimate", "bb-123", "--remaining-ticks", "-1"],
+        ["runs", "estimate", "bb-123", "--max-ticks", "-1"],
+        ["runs", "estimate", "bb-123", "--branch-threshold", "-0.1"],
+        ["runs", "estimate", "bb-123", "--branch-threshold", "1.1"],
+        ["runs", "estimate", "bb-123", "--max-parallel-cohort-decisions", "0"],
+        ["costs", "estimate", "--remaining-ticks", "-1"],
+        ["costs", "estimate", "--max-ticks", "-1"],
+        ["costs", "estimate", "--branch-threshold", "-0.1"],
+        ["costs", "estimate", "--branch-threshold", "1.1"],
+        ["costs", "estimate", "--max-parallel-cohort-decisions", "0"],
+        ["costs", "estimate", "--assumed-cohorts", "-1"],
+        ["costs", "estimate", "--assumed-heroes", "-1"],
+        ["costs", "estimate", "--assumed-multiverses", "0"],
+        ["costs", "estimate", "--scenario-tokens", "-1"],
+    ]
+
+    for args in cases:
+        result = CliRunner().invoke(main, args)
+
+        assert result.exit_code == 2, args
+        assert "Invalid value for" in result.output
+
+
 def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     calls = []
 
