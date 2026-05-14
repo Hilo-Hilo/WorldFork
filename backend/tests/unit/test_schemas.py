@@ -24,6 +24,12 @@ from backend.app.schemas import (
     Universe,
 )
 from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
+from backend.app.schemas.api import (
+    PatchBranchPolicyRequest,
+    PatchRateLimitsRequest,
+    PatchRoutingRequest,
+    PatchSettingsRequest,
+)
 from backend.app.schemas.branching import (
     ActorStateOverrideDelta,
     CounterfactualEventRewriteDelta,
@@ -197,6 +203,77 @@ class TestBigBangRun:
     def test_zero_tick_duration_rejected(self):
         with pytest.raises(ValidationError):
             BigBangRun.model_validate(_make_big_bang(tick_duration_minutes=0))
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"default_tick_duration_minutes": 0},
+        {"default_max_ticks": 0},
+        {"default_max_schedule_horizon_ticks": 0},
+    ],
+)
+def test_patch_settings_rejects_invalid_runtime_defaults(payload):
+    with pytest.raises(ValidationError):
+        PatchSettingsRequest.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"max_active_universes": 0},
+        {"max_total_branches": 0},
+        {"max_depth": 0},
+        {"max_branches_per_tick": 0},
+        {"branch_cooldown_ticks": -1},
+        {"min_divergence_score": -0.1},
+        {"min_divergence_score": 1.1},
+    ],
+)
+def test_patch_branch_policy_rejects_invalid_bounds(payload):
+    with pytest.raises(ValidationError):
+        PatchBranchPolicyRequest.model_validate(payload)
+
+
+def test_patch_routing_rejects_invalid_entry_bounds():
+    payload = {
+        "entries": [
+            {
+                "job_type": "initializer_agent",
+                "preferred_provider": "openrouter",
+                "preferred_model": "model",
+                "temperature": 2.1,
+            }
+        ]
+    }
+
+    with pytest.raises(ValidationError):
+        PatchRoutingRequest.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("rpm_limit", 0),
+        ("tpm_limit", 0),
+        ("max_concurrency", 0),
+        ("burst_multiplier", 0.9),
+        ("daily_budget_usd", -1),
+        ("branch_reserved_capacity_pct", -1),
+        ("branch_reserved_capacity_pct", 101),
+    ],
+)
+def test_patch_rate_limits_rejects_invalid_bounds(field, value):
+    row = {
+        "provider": "openrouter",
+        "rpm_limit": 60,
+        "tpm_limit": 100000,
+        "max_concurrency": 4,
+    }
+    row[field] = value
+
+    with pytest.raises(ValidationError):
+        PatchRateLimitsRequest.model_validate({"rate_limits": [row]})
 
 
 # ---------------------------------------------------------------------------
