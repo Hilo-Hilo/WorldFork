@@ -61,11 +61,16 @@ def _iter_export_files(run_folder: Path, dest: Path) -> list[Path]:
     exports_dir = run_folder / "exports"
 
     files: list[Path] = []
-    for path in sorted(p for p in run_folder.rglob("*") if p.is_file()):
+    for path in sorted(run_folder.rglob("*")):
+        if path == exports_dir or exports_dir in path.parents:
+            continue
+        if path.is_symlink():
+            relative = path.relative_to(run_folder).as_posix()
+            raise ExportError(f"Run export cannot include symlinks: {relative}")
+        if not path.is_file():
+            continue
         resolved = path.resolve()
         if resolved == dest:
-            continue
-        if resolved == exports_dir or exports_dir in resolved.parents:
             continue
         files.append(path)
     return files
