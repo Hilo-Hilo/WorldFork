@@ -12,7 +12,7 @@ import pytest
 from pydantic import ValidationError
 
 from app.llm.routing import AUDITED_LLM_ROUTES
-from app.api.schemas import ToolCallRequest
+from app.api.schemas import SimulateTickRequest, ToolCallRequest
 from backend.app.schemas import (
     BigBangRun,
     BranchDelta,
@@ -352,6 +352,8 @@ def test_patch_rate_limits_rejects_invalid_retry_policy():
 @pytest.mark.parametrize(
     "model,payload",
     [
+        (PatchSettingsRequest, {"log_level": ""}),
+        (PatchSettingsRequest, {"display_timezone": ""}),
         (PatchRunRequest, {"display_name": ""}),
         (FocusBranchRequest, {"universe_id": ""}),
         (CompareRequest, {"universe_ids": ["", "u-2"]}),
@@ -363,9 +365,60 @@ def test_patch_rate_limits_rejects_invalid_retry_policy():
         (WebhookTestRequest, {"url": "https://example.test/hook", "secret": "secret", "event_type": ""}),
         (WebhookReplayRequest, {"event_id": ""}),
         (WebhookReplayRequest, {"event_id": "event-1", "target_url": ""}),
+        (SimulateTickRequest, {"idempotency_key": ""}),
+        (ToolCallRequest, {"tool_name": "continue_timeline", "idempotency_key": ""}),
     ],
 )
 def test_request_schemas_reject_empty_required_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+def _provider_patch(**overrides) -> dict:
+    row = {
+        "provider": "openrouter",
+        "base_url": "https://openrouter.ai/api/v1",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "default_model": "deepseek/deepseek-v4-flash",
+    }
+    row.update(overrides)
+    return row
+
+
+def _routing_patch(**overrides) -> dict:
+    row = {
+        "job_type": "initializer_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": "deepseek/deepseek-v4-flash",
+    }
+    row.update(overrides)
+    return row
+
+
+def _rate_limit_patch(**overrides) -> dict:
+    row = {
+        "provider": "openrouter",
+        "rpm_limit": 60,
+        "tpm_limit": 100000,
+        "max_concurrency": 4,
+    }
+    row.update(overrides)
+    return row
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (PatchProvidersRequest, {"providers": [_provider_patch(fallback_model="")]}),
+        (PatchRoutingRequest, {"entries": [_routing_patch(fallback_provider="openrouter", fallback_model="")]}),
+        (PatchRoutingRequest, {"entries": [_routing_patch(fallback_provider="")]}),
+        (PatchRateLimitsRequest, {"rate_limits": [_rate_limit_patch(provider="")]}),
+        (ProviderTestRequest, {"provider": "openrouter", "model": ""}),
+        (WebhookTestRequest, {"url": "not-a-url", "secret": "secret"}),
+        (WebhookReplayRequest, {"event_id": "event-1", "target_url": "not-a-url"}),
+    ],
+)
+def test_request_schemas_reject_invalid_optional_string_metadata(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 
