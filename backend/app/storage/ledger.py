@@ -310,9 +310,7 @@ class Ledger:
         tick_dir = self.run_folder / "universes" / universe_id / "ticks" / f"tick_{tick:03d}"
 
         # Gather all files under tick_dir in sorted path order
-        files_found = sorted(
-            p for p in tick_dir.rglob("*") if p.is_file() and p.name != "manifest.json"
-        )
+        files_found = _tick_files_for_merkle(tick_dir)
         file_records: dict[str, Any] = {}
         file_hashes: list[str] = []
         for fp in files_found:
@@ -447,3 +445,16 @@ class Ledger:
         mf_bytes = orjson.dumps(self._manifest, option=orjson.OPT_INDENT_2 | orjson.OPT_SORT_KEYS)
         # Manifest is always mutable (not immutable)
         self._atomic_write(mf_path, mf_bytes, immutable=False)
+
+
+def _tick_files_for_merkle(tick_dir: Path) -> list[Path]:
+    files_found: list[Path] = []
+    for path in sorted(tick_dir.rglob("*")):
+        if path.name == "manifest.json":
+            continue
+        if path.is_symlink():
+            relative = path.relative_to(tick_dir).as_posix()
+            raise LedgerError(f"Tick seal cannot include symlinks: {relative}")
+        if path.is_file():
+            files_found.append(path)
+    return files_found
