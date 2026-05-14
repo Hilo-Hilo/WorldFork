@@ -364,6 +364,135 @@ def test_agent_logs_paginates_after_global_merge():
     assert [row["id"] for row in response["data"]] == ["llm-second", "llm-third"]
 
 
+@pytest.mark.parametrize(
+    "value,expected",
+    [
+        (" summary ", "summary"),
+        ("\tnormal\n", "normal"),
+        (" full ", "full"),
+    ],
+)
+def test_agent_verbosity_allows_surrounding_whitespace(value, expected):
+    assert agent_api._require_verbosity(value) == expected
+
+
+@pytest.mark.parametrize(
+    "source,expected_ids",
+    [
+        (" job ", ["job-1"]),
+        ("\tllm\n", ["llm-1"]),
+        ("   ", ["job-1", "llm-1"]),
+    ],
+)
+def test_agent_logs_normalizes_source_filter_whitespace(source, expected_ids):
+    class Rows:
+        def __init__(self, rows):
+            self.rows = rows
+
+        def all(self):
+            return self.rows
+
+    class LogDb:
+        def __init__(self):
+            self.calls = 0
+
+        def scalars(self, statement):
+            statement_text = str(statement)
+            if "llm_calls" not in statement_text:
+                return Rows([
+                    SimpleNamespace(
+                        id="job-1",
+                        status="failed",
+                        error="job failed",
+                        job_type="initialize_big_bang",
+                        big_bang_id=None,
+                        created_at=datetime(2026, 1, 2, tzinfo=timezone.utc),
+                    )
+                ])
+            return Rows([
+                SimpleNamespace(
+                    id="llm-1",
+                    status="failed",
+                    purpose="llm failed",
+                    big_bang_id=None,
+                    provider="openrouter",
+                    model="model-a",
+                    created_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+                )
+            ])
+
+    response = agent_api.logs(db=LogDb(), source=source, limit=100, offset=0)
+
+    assert [row["id"] for row in response["data"]] == expected_ids
+
+
+def test_agent_logs_rejects_unknown_source_filter():
+    with pytest.raises(HTTPException) as exc:
+        agent_api.logs(db=SimpleNamespace(), source="metrics", limit=100, offset=0)
+
+    assert exc.value.status_code == 422
+
+
+def test_agent_jobs_ignores_blank_status_filter():
+    class Rows:
+        def all(self):
+            return []
+
+    class JobsDb:
+        def __init__(self):
+            self.whereclause = None
+
+        def scalar(self, statement):
+            return 0
+
+        def scalars(self, statement):
+            self.whereclause = statement.whereclause
+            return Rows()
+
+    db = JobsDb()
+
+    agent_api.jobs(db=db, status="   ", limit=100, offset=0)
+
+    assert db.whereclause is None
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"actor_id": "   "},
+        {"actor_kind": "\t"},
+    ],
+)
+def test_agent_trace_ignores_blank_actor_filters(monkeypatch, kwargs):
+    tick_row = SimpleNamespace(tick_index=1)
+
+    class Rows:
+        def all(self):
+            return [tick_row]
+
+    class TraceDb:
+        def get(self, model, object_id):
+            return SimpleNamespace(id=object_id)
+
+        def scalar(self, statement):
+            return tick_row
+
+    monkeypatch.setattr(agent_api, "_state_at_tick", lambda _db, _tick_row: {})
+    monkeypatch.setattr(
+        agent_api,
+        "_actor_rows_from_state",
+        lambda _state: [
+            {"actor_id": "cohort-1", "actor_kind": "cohort", "name": "Workers"},
+            {"actor_id": "hero-1", "actor_kind": "hero", "name": "Mayor"},
+        ],
+    )
+
+    response = agent_api.trace(MISSING_ID, db=TraceDb(), **kwargs)
+
+    assert response["meta"]["verbosity"] == "summary"
+    assert response["data"]["actor_count"] == 2
+
+
 def test_create_job_publishes_status_change(monkeypatch):
     published = []
 
