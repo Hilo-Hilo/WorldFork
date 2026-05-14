@@ -514,7 +514,17 @@ def _is_absolute_path_field(key: str, value) -> bool:
     return (
         (key == "path" or key.endswith("_path"))
         and isinstance(value, str)
-        and value.startswith("/")
+        and _is_absolute_path_value(value)
+    )
+
+
+def _is_absolute_path_value(value: str) -> bool:
+    return (
+        value.startswith(("/", "\\\\"))
+        or len(value) >= 3
+        and value[0].isalpha()
+        and value[1] == ":"
+        and value[2] in {"\\", "/"}
     )
 
 
