@@ -511,8 +511,9 @@ def _sanitize_simulation_brief(value: dict) -> dict:
 
 
 def _is_absolute_path_field(key: str, value) -> bool:
+    compact = key.replace("_", "").replace("-", "")
     return (
-        (key == "path" or key.endswith("_path"))
+        (key == "path" or key.endswith("_path") or compact.endswith("path"))
         and isinstance(value, str)
         and _is_absolute_path_value(value)
     )
