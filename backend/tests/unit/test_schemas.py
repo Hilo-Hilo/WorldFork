@@ -22,7 +22,7 @@ from backend.app.schemas import (
     SplitProposal,
     Universe,
 )
-from backend.app.schemas.jobs import AuditedLLMRouteType
+from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
 from backend.app.schemas.branching import (
     ActorStateOverrideDelta,
     CounterfactualEventRewriteDelta,
@@ -543,6 +543,30 @@ class TestJobEnvelope:
         j1 = JobEnvelope.model_validate(_make_job_envelope(idempotency_key="sim:a"))
         j2 = JobEnvelope.model_validate(_make_job_envelope(idempotency_key="sim:b"))
         assert j1.redis_key() != j2.redis_key()
+
+
+class TestJobStatus:
+    @pytest.mark.parametrize(
+        "status",
+        [
+            "paused",
+            "interrupt_requested",
+            "interrupted",
+            "cancelled",
+            "completed",
+            "dead_lettered",
+        ],
+    )
+    def test_accepts_runtime_lifecycle_statuses(self, status):
+        payload = {
+            "job_id": "job-001",
+            "status": status,
+            "attempt_number": 0,
+        }
+
+        parsed = JobStatus.model_validate(payload)
+
+        assert parsed.status == status
 
 
 # ---------------------------------------------------------------------------

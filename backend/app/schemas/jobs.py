@@ -84,7 +84,20 @@ class JobStatus(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     job_id: str
-    status: Literal["queued", "running", "succeeded", "failed", "retried", "dead"]
+    status: Literal[
+        "queued",
+        "running",
+        "paused",
+        "interrupt_requested",
+        "interrupted",
+        "cancelled",
+        "succeeded",
+        "completed",
+        "failed",
+        "retried",
+        "dead",
+        "dead_lettered",
+    ]
     attempt_number: int = Field(..., ge=0)
     started_at: datetime | None = None
     finished_at: datetime | None = None
