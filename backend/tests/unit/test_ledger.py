@@ -233,6 +233,39 @@ class TestVerify:
         errors = ledger.verify()
         assert any("gone.json" in e for e in errors)
 
+    @pytest.mark.parametrize(
+        "rel_path",
+        [
+            "universes/U000/root.json",
+            "universes/U000/state/state.json",
+            "universes/U000/events/events.jsonl",
+            "universes/U000/logs/log.jsonl",
+            "universes/U000/artifacts/artifact.json",
+            "universes/U000/actors/actor.json",
+            "universes/U000/cohorts/cohort.json",
+            "universes/U000/tools/tool.json",
+            "universes/U000/reports/report.md",
+            "universes/U000/nested/deep/item.json",
+        ],
+    )
+    def test_verify_reports_recorded_file_replaced_by_symlink(
+        self,
+        ledger: Ledger,
+        tmp_path: Path,
+        rel_path: str,
+    ) -> None:
+        body = '{"same": true}'
+        ledger.write_artifact(rel_path, body, immutable=False)
+        target = ledger.run_folder / rel_path
+        outside = tmp_path / "outside.json"
+        outside.write_text(body, encoding="utf-8")
+        target.unlink()
+        target.symlink_to(outside)
+
+        errors = ledger.verify()
+
+        assert any(rel_path in error and "symlink" in error for error in errors)
+
 
 # ---------------------------------------------------------------------------
 # open() tests
