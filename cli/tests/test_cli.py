@@ -262,6 +262,32 @@ def test_cli_rejects_invalid_cost_estimate_options_before_requests() -> None:
         assert "Invalid value for" in result.output
 
 
+def test_cli_rejects_invalid_atlas_demo_options_before_harness(monkeypatch) -> None:
+    def fail_harness(*_args, **_kwargs) -> None:
+        raise AssertionError("harness should not run")
+
+    monkeypatch.setattr(cli_main, "_run_source_harness", fail_harness)
+
+    cases = [
+        ["demo", "atlas", "--tick-duration-minutes", "0"],
+        ["demo", "atlas", "--horizon-days", "0"],
+        ["demo", "atlas", "--max-tick-index", "-1"],
+        ["demo", "atlas", "--max-active-multiverses", "0"],
+        ["demo", "atlas", "--max-branch-depth", "0"],
+        ["demo", "atlas", "--max-branches-per-tick", "0"],
+        ["demo", "atlas", "--branch-score-threshold", "-0.1"],
+        ["demo", "atlas", "--branch-score-threshold", "1.1"],
+        ["demo", "atlas", "--idle-termination-ticks", "-1"],
+        ["demo", "atlas", "--completion-max-requests", "0"],
+    ]
+
+    for args in cases:
+        result = CliRunner().invoke(main, args)
+
+        assert result.exit_code == 2, args
+        assert "Invalid value for" in result.output
+
+
 def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     calls = []
 
