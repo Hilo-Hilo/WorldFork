@@ -455,9 +455,9 @@ class SettingsResponse(BaseModel):
 class PatchSettingsRequest(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    default_tick_duration_minutes: int | None = None
-    default_max_ticks: int | None = None
-    default_max_schedule_horizon_ticks: int | None = None
+    default_tick_duration_minutes: int | None = Field(default=None, gt=0)
+    default_max_ticks: int | None = Field(default=None, gt=0)
+    default_max_schedule_horizon_ticks: int | None = Field(default=None, gt=0)
     log_level: str | None = None
     display_timezone: str | None = None
     theme: str | None = None
@@ -583,15 +583,15 @@ class RoutingEntryIn(BaseModel):
     preferred_model: str
     fallback_provider: str | None = None
     fallback_model: str | None = None
-    temperature: float = 0.7
-    top_p: float = 1.0
-    max_tokens: int = 4096
-    max_concurrency: int = 4
-    requests_per_minute: int = 60
-    tokens_per_minute: int = 100000
-    timeout_seconds: int = 120
+    temperature: float = Field(default=0.7, ge=0.0, le=2.0)
+    top_p: float = Field(default=1.0, ge=0.0, le=1.0)
+    max_tokens: int = Field(default=4096, gt=0)
+    max_concurrency: int = Field(default=4, ge=1)
+    requests_per_minute: int = Field(default=60, ge=1)
+    tokens_per_minute: int = Field(default=100000, ge=1)
+    timeout_seconds: int = Field(default=120, gt=0)
     retry_policy: str = "exponential_backoff"
-    daily_budget_usd: float | None = None
+    daily_budget_usd: float | None = Field(default=None, ge=0.0)
     payload: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -637,14 +637,14 @@ class RateLimitIn(BaseModel):
 
     provider: str
     enabled: bool = True
-    rpm_limit: int
-    tpm_limit: int
-    max_concurrency: int
-    burst_multiplier: float = 1.2
+    rpm_limit: int = Field(..., ge=1)
+    tpm_limit: int = Field(..., ge=1)
+    max_concurrency: int = Field(..., ge=1)
+    burst_multiplier: float = Field(default=1.2, ge=1.0)
     retry_policy: str = "exponential_backoff"
     jitter: bool = True
-    daily_budget_usd: float | None = None
-    branch_reserved_capacity_pct: float = 20.0
+    daily_budget_usd: float | None = Field(default=None, ge=0.0)
+    branch_reserved_capacity_pct: float = Field(default=20.0, ge=0.0, le=100.0)
     healthcheck_enabled: bool = True
     payload: dict[str, Any] = Field(default_factory=dict)
 
@@ -670,12 +670,12 @@ class BranchPolicyResponse(BaseModel):
 class PatchBranchPolicyRequest(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    max_active_universes: int | None = None
-    max_total_branches: int | None = None
-    max_depth: int | None = None
-    max_branches_per_tick: int | None = None
-    branch_cooldown_ticks: int | None = None
-    min_divergence_score: float | None = None
+    max_active_universes: int | None = Field(default=None, ge=1, le=10_000)
+    max_total_branches: int | None = Field(default=None, ge=1, le=100_000)
+    max_depth: int | None = Field(default=None, ge=1, le=50)
+    max_branches_per_tick: int | None = Field(default=None, ge=1, le=100)
+    branch_cooldown_ticks: int | None = Field(default=None, ge=0)
+    min_divergence_score: float | None = Field(default=None, ge=0.0, le=1.0)
     auto_prune_low_value: bool | None = None
     payload: dict[str, Any] | None = None
 
