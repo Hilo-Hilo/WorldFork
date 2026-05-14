@@ -236,6 +236,38 @@ def test_source_of_truth_validation_rejects_required_symlinks(tmp_path, bad_requ
         validate_source_of_truth_dir(source_root)
 
 
+@pytest.mark.parametrize(
+    "extra_symlink",
+    [
+        "extra.json",
+        "extras/emotions.json",
+        "extras/nested/behavior.json",
+        "report_templates/draft.md",
+        "report_templates/partials/header.md",
+        "prompt_contracts/draft.json",
+        "prompt_templates/draft.md",
+        "taxonomy/actors.json",
+        "schemas/experimental.json",
+        "debug/source.json",
+    ],
+)
+def test_source_of_truth_validation_rejects_extra_symlinks(tmp_path, extra_symlink):
+    source_root = tmp_path / "source_of_truth"
+    for relative_name in REQUIRED_FILES:
+        path = source_root / relative_name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}" if path.suffix == ".json" else "template", encoding="utf-8")
+
+    outside = tmp_path / f"outside-{extra_symlink.replace('/', '-')}"
+    outside.write_text("{}", encoding="utf-8")
+    symlink = source_root / extra_symlink
+    symlink.parent.mkdir(parents=True, exist_ok=True)
+    symlink.symlink_to(outside)
+
+    with pytest.raises(ValueError, match="source_of_truth files must not be symlinks"):
+        validate_source_of_truth_dir(source_root)
+
+
 def test_artifact_write_preserves_existing_file_and_uses_collision_path(tmp_path):
     store = ArtifactStore(root=tmp_path / "artifacts")
     db = FakeSession()
