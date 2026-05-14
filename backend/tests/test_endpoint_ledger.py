@@ -147,6 +147,27 @@ def test_compact_value_gates_mixed_style_corpus_fields(field_name):
     assert "raw endpoint ledger corpus text" not in str(compacted)
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "artifactId",
+        "llmCallId",
+        "markdownArtifactId",
+        "pdfArtifactId",
+        "auditArtifactId",
+        "promptPacketArtifactId",
+        "responseArtifactId",
+        "parsedArtifactId",
+        "sourceSnapshotArtifactId",
+        "endpointLedgerId",
+    ],
+)
+def test_compact_value_drops_mixed_style_internal_reference_ids(field_name):
+    compacted = _compact_value({field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"})
+
+    assert compacted == {}
+
+
 def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     big_bang, multiverse, _actor = _world(db)
 

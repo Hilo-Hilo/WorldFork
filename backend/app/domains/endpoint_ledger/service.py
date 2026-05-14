@@ -1327,10 +1327,13 @@ def _compact_value(value: Any, *, max_items: int = 6) -> Any:
             if index >= max_items:
                 compact["_truncated"] = True
                 break
-            if _is_compact_raw_text_key(str(key)):
-                compact[str(key)] = {"present": bool(item)}
+            key_text = str(key)
+            if _is_compact_internal_reference_key(key_text):
+                continue
+            if _is_compact_raw_text_key(key_text):
+                compact[key_text] = {"present": bool(item)}
             else:
-                compact[str(key)] = _compact_value(item, max_items=max_items)
+                compact[key_text] = _compact_value(item, max_items=max_items)
         return compact
     if isinstance(value, list):
         items = [_compact_value(item, max_items=max_items) for item in value[:max_items]]
@@ -1365,3 +1368,13 @@ def _is_compact_raw_text_key(key: str) -> bool:
         "fullprompt",
         "rawprompt",
     }
+
+
+def _is_compact_internal_reference_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return (
+        normalized in {"artifact_id", "llm_call_id", "endpoint_ledger_id", "source_snapshot_id"}
+        or compact.endswith("artifactid")
+        or compact in {"llmcallid", "endpointledgerid", "sourcesnapshotid"}
+    )
