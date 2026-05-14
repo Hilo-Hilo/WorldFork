@@ -1333,7 +1333,7 @@ def _compact_value(value: Any, *, max_items: int = 6) -> Any:
             if _is_compact_secret_key(key_text):
                 compact[key_text] = "[REDACTED]"
                 continue
-            if _is_compact_raw_text_key(key_text):
+            if _is_compact_raw_text_key(key_text) or _is_compact_absolute_path_field(key_text, item):
                 compact[key_text] = {"present": bool(item)}
             else:
                 compact[key_text] = _compact_value(item, max_items=max_items)
@@ -1386,3 +1386,12 @@ def _is_compact_internal_reference_key(key: str) -> bool:
 def _is_compact_secret_key(key: str) -> bool:
     compact = key.lower().replace("_", "").replace("-", "")
     return any(marker in compact for marker in ("apikey", "secret", "token", "password", "authorization", "bearer"))
+
+
+def _is_compact_absolute_path_field(key: str, value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    normalized = key.lower().replace("_", "").replace("-", "")
+    return normalized.endswith("path") and (
+        value.startswith("/") or value.startswith("\\\\") or (len(value) >= 3 and value[1:3] == ":\\")
+    )

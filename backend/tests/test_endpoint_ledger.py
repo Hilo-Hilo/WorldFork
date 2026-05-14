@@ -189,6 +189,52 @@ def test_compact_value_redacts_mixed_style_secret_fields(field_name):
     assert compacted == {field_name: "[REDACTED]"}
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "artifactPath",
+        "rawRequestPath",
+        "rawResponsePath",
+        "parsedPath",
+        "outputPath",
+        "reportPdfPath",
+        "workspacePath",
+        "configPath",
+        "databasePath",
+        "auditPath",
+    ],
+)
+def test_compact_value_gates_mixed_style_absolute_path_fields(field_name):
+    path = f"/Users/example/worldfork/{field_name}.json"
+
+    compacted = _compact_value({field_name: path})
+
+    assert compacted == {field_name: {"present": True}}
+    assert path not in str(compacted)
+
+
+@pytest.mark.parametrize(
+    ("field_name", "path"),
+    [
+        ("artifactPath", r"C:\Users\example\worldfork\artifact.json"),
+        ("rawRequestPath", r"D:\WorldFork\raw_request.json"),
+        ("rawResponsePath", r"E:\WorldFork\raw_response.json"),
+        ("parsedPath", r"Z:\runs\parsed.json"),
+        ("outputPath", r"\\server\share\worldfork\output.json"),
+        ("reportPdfPath", r"\\server\share\worldfork\report.pdf"),
+        ("workspacePath", r"C:\Users\example\WorldFork\workspace"),
+        ("configPath", r"C:\Users\example\.worldfork\config.json"),
+        ("databasePath", r"C:\ProgramData\WorldFork\worldfork.db"),
+        ("auditPath", r"\\server\audit\worldfork\audit.json"),
+    ],
+)
+def test_compact_value_gates_windows_absolute_path_fields(field_name, path):
+    compacted = _compact_value({field_name: path})
+
+    assert compacted == {field_name: {"present": True}}
+    assert path not in str(compacted)
+
+
 def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     big_bang, multiverse, _actor = _world(db)
 
