@@ -29,8 +29,8 @@ from worldfork_cli.output import emit, unwrap
 
 WAIT_SUCCESS_STATUSES = {"succeeded"}
 WAIT_ACCEPTABLE_TERMINAL_STATUSES = {"interrupted"}
-RUN_TERMINAL_STATUSES = {"completed", "failed", "cancelled", "terminated"}
-MULTIVERSE_TERMINAL_STATUSES = {"completed", "terminated", "frozen", "killed"}
+RUN_TERMINAL_STATUSES = {"completed", "failed", "cancelled", "terminated", "archived"}
+MULTIVERSE_TERMINAL_STATUSES = {"completed", "terminated", "frozen", "killed", "merged"}
 UPDATE_PROTECTED_PATHS = (
     ".env",
     ".env.local",

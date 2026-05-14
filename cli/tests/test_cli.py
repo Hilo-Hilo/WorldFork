@@ -1178,6 +1178,36 @@ def test_watch_big_bang_once_streams_activity_and_logs(monkeypatch) -> None:
     assert calls[-1][2]["run_id"] == "bb-123"
 
 
+def test_watch_big_bang_stops_on_archived_status(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params))
+            if path == "/workspace/bb-123/state":
+                return {
+                    "big_bang": {"id": "bb-123", "name": "Run", "status": "archived", "updated_at": "t0"},
+                    "multiverses": [],
+                    "latest_ticks": [],
+                }
+            if path == "/workspace/bb-123/activity":
+                return {"ticks": [], "tool_calls": []}
+            if path == "/agent/logs":
+                return {"ok": True, "data": [], "meta": {}}
+            raise AssertionError(path)
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["watch", "big-bang", "bb-123", "--poll-interval", "0"])
+
+    assert result.exit_code == 0
+    assert "[big_bang] archived Run" in result.output
+    assert [path for _method, path, _params in calls].count("/workspace/bb-123/state") == 1
+
+
 def test_watch_multiverse_once_streams_multiverse_ticks_and_logs(monkeypatch) -> None:
     class FakeClient:
         def __init__(self, *_args, **_kwargs) -> None:
@@ -1206,6 +1236,38 @@ def test_watch_multiverse_once_streams_multiverse_ticks_and_logs(monkeypatch) ->
     assert result.exit_code == 0
     assert "[multiverse] completed M1" in result.output
     assert "[tick] final tick=2 done" in result.output
+
+
+def test_watch_multiverse_stops_on_merged_status(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params))
+            if path == "/multiverses/m-1":
+                return {
+                    "id": "m-1",
+                    "big_bang_id": "bb-123",
+                    "ui_label": "M1",
+                    "status": "merged",
+                    "updated_at": "t1",
+                }
+            if path == "/multiverses/m-1/ticks":
+                return []
+            if path == "/agent/logs":
+                return {"ok": True, "data": [], "meta": {}}
+            raise AssertionError(path)
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["watch", "multiverse", "m-1", "--poll-interval", "0"])
+
+    assert result.exit_code == 0
+    assert "[multiverse] merged M1" in result.output
+    assert [path for _method, path, _params in calls].count("/multiverses/m-1") == 2
 
 
 def test_cohort_transcript_accepts_multiverse_id(monkeypatch) -> None:
