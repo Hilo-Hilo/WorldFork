@@ -83,11 +83,14 @@ def _safe_zip_member_path(extract_dir: Path, member_name: str) -> Path:
     parent traversal, and platform path separators before joining with the
     extraction root.
     """
+    raw_member_name = member_name[:-1] if member_name.endswith("/") else member_name
+    raw_parts = raw_member_name.split("/")
     normalized = posixpath.normpath(member_name)
     if (
         not member_name
         or member_name.startswith("/")
         or os.path.isabs(member_name)
+        or any(part in ("", ".", "..") for part in raw_parts)
         or normalized in ("", ".")
         or normalized.startswith("../")
         or normalized == ".."
@@ -370,11 +373,13 @@ def import_run_from_zip(
         export_manifest = _read_export_manifest(zf)
 
         for member in zf.infolist():
-            if member.filename == "EXPORT_MANIFEST.json" or member.is_dir():
+            if member.filename == "EXPORT_MANIFEST.json":
                 continue
             if S_ISLNK(member.external_attr >> 16):
                 raise ExportError(f"Unsafe zip member type: {member.filename}")
             _safe_zip_member_path(Path("/tmp/worldfork-import-check"), member.filename)
+            if member.is_dir():
+                continue
 
         if verify:
             _verify_export_manifest(zf, export_manifest)
