@@ -493,6 +493,35 @@ def test_ledgers_evaluate_calls_endpoint_ledger_job(monkeypatch) -> None:
     ]
 
 
+def test_multiverses_trace_calls_agent_trace_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"trace": []}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(
+        main,
+        ["multiverses", "trace", "mv-123", "--tick", "3", "--actor-kind", "cohort"],
+    )
+
+    assert result.exit_code == 0
+    assert calls == [
+        (
+            "GET",
+            "/agent/universes/mv-123/trace",
+            {"verbosity": "summary", "tick": 3, "actor_kind": "cohort"},
+            None,
+        )
+    ]
+
+
 def test_ledgers_path_mass_calls_plot_data_endpoint(monkeypatch) -> None:
     calls = []
 
