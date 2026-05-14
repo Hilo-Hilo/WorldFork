@@ -55,6 +55,34 @@ def test_artifact_write_rejects_path_traversal(tmp_path):
     assert not (tmp_path / "escape.txt").exists()
 
 
+@pytest.mark.parametrize(
+    "relative_path",
+    [
+        "reports\\out.txt",
+        "\\windows\\out.txt",
+        "reports\\nested\\out.txt",
+        "reports/out\\mixed.txt",
+        "reports\\out/child.txt",
+        "C:\\temp\\out.txt",
+        "reports/./out.txt",
+        "./reports/out.txt",
+        "reports//out.txt",
+        "reports/out/./child.txt",
+    ],
+)
+def test_artifact_write_rejects_ambiguous_relative_paths(tmp_path, relative_path):
+    store = ArtifactStore(root=tmp_path / "artifacts")
+
+    with pytest.raises(ValueError, match="artifact path"):
+        store.write_text(
+            FakeSession(),
+            big_bang_id=None,
+            relative_path=relative_path,
+            body="nope",
+            kind="test",
+        )
+
+
 def test_source_of_truth_loader_rejects_path_traversal(tmp_path):
     source_root = tmp_path / "source_of_truth"
     for relative_name in REQUIRED_FILES:

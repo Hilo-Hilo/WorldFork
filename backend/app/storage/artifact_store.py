@@ -194,11 +194,13 @@ class ArtifactStore:
         raise RuntimeError(f"could not allocate artifact directory for {relative_dest}")
 
     def _safe_relative_path(self, relative_path: str | Path) -> Path:
-        relative = Path(relative_path)
-        if relative.is_absolute() or not relative.parts or ".." in relative.parts:
+        raw_path = relative_path.as_posix() if isinstance(relative_path, Path) else str(relative_path)
+        raw_parts = raw_path.split("/")
+        if "\\" in raw_path or any(part in {"", ".", ".."} for part in raw_parts):
             raise ValueError(f"artifact path must stay under root: {relative_path}")
-        if any(part == "" for part in relative.parts):
-            raise ValueError(f"artifact path contains an empty segment: {relative_path}")
+        relative = Path(raw_path)
+        if relative.is_absolute() or not relative.parts:
+            raise ValueError(f"artifact path must stay under root: {relative_path}")
         return relative
 
     def _ensure_safe_parent(self, relative_parent: Path) -> Path:
