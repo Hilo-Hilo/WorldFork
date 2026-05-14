@@ -531,10 +531,11 @@ def wait_for_job(job_id: UUID, body: AgentWaitRequest, db: Session = Depends(get
             raise HTTPException(status_code=404, detail=f"job {job_id} not found")
         if job.status in TERMINAL_JOB_STATUSES:
             return _ok(_row(job), terminal=True, timed_out=False)
-        if time.monotonic() >= deadline:
+        remaining_seconds = deadline - time.monotonic()
+        if remaining_seconds <= 0:
             return _ok(_row(job), terminal=False, timed_out=True)
         db.rollback()
-        time.sleep(body.poll_interval_seconds)
+        time.sleep(min(body.poll_interval_seconds, remaining_seconds))
         db.expire_all()
 
 
