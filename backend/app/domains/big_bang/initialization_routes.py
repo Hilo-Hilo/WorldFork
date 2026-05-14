@@ -194,9 +194,11 @@ def _public_initializer_output(value: dict, *, include_debug: bool) -> dict:
     if include_debug or not isinstance(value, dict):
         return value
     sanitized = _strip_public_reference_fields(value)
-    sanitized.pop("plain_text_corpus", None)
     for key in list(sanitized):
-        if _is_public_raw_text_key(str(key)):
+        key_text = str(key)
+        if _is_public_corpus_key(key_text):
+            sanitized.pop(key, None)
+        elif _is_public_raw_text_key(key_text):
             sanitized[key] = "[debug gated]"
     return sanitized
 
@@ -252,6 +254,12 @@ def _is_public_raw_text_key(key: str) -> bool:
         "fullprompt",
         "rawprompt",
     }
+
+
+def _is_public_corpus_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return normalized == "plain_text_corpus" or compact.endswith("corpus")
 
 
 def _strip_artifact_ids(value):
