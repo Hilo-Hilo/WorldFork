@@ -77,8 +77,11 @@ class WorldForkClient:
         timeout: float | None = None,
     ) -> httpx.Response:
         url = self.normalize_path(path, use_api_prefix=use_api_prefix)
+        request_kwargs = {"params": params, "json": json_body}
+        if timeout is not None:
+            request_kwargs["timeout"] = timeout
         try:
-            response = self._http.request(method, url, params=params, json=json_body, timeout=timeout)
+            response = self._http.request(method, url, **request_kwargs)
         except httpx.TimeoutException as exc:
             raise CliError(f"request timed out for {url}", exit_code=124) from exc
         except httpx.RequestError as exc:
