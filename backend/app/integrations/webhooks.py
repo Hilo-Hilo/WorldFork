@@ -68,8 +68,8 @@ class WebhookSigner:
     def verify(
         self,
         payload: bytes,
-        signature: str,
-        timestamp: int,
+        signature: Any,
+        timestamp: Any,
         *,
         max_age_seconds: int = 300,
     ) -> bool:
@@ -84,10 +84,16 @@ class WebhookSigner:
         Returns:
             True if the signature is valid and not stale; False otherwise.
         """
-        now = int(time.time())
-        if abs(now - timestamp) > max_age_seconds:
+        if not isinstance(signature, str):
             return False
-        expected = self._compute_signature(payload, timestamp)
+        try:
+            timestamp_int = int(timestamp)
+        except (TypeError, ValueError):
+            return False
+        now = int(time.time())
+        if abs(now - timestamp_int) > max_age_seconds:
+            return False
+        expected = self._compute_signature(payload, timestamp_int)
         return hmac.compare_digest(expected, signature)
 
 
