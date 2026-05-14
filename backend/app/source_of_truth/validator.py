@@ -28,11 +28,15 @@ def validate_source_of_truth_dir(path: Path) -> None:
     if missing:
         joined = ", ".join(missing)
         raise ValueError(f"source_of_truth is missing required files: {joined}")
-    non_files = [name for name in REQUIRED_FILES if not (path / name).is_file()]
-    if non_files:
-        joined = ", ".join(non_files)
-        raise ValueError(f"source_of_truth required files must be regular files: {joined}")
     symlinks = [name for name in REQUIRED_FILES if (path / name).is_symlink()]
     if symlinks:
         joined = ", ".join(symlinks)
         raise ValueError(f"source_of_truth required files must not be symlinks: {joined}")
+    all_symlinks = sorted(entry.relative_to(path).as_posix() for entry in path.rglob("*") if entry.is_symlink())
+    if all_symlinks:
+        joined = ", ".join(all_symlinks)
+        raise ValueError(f"source_of_truth path must not be a symlink; source_of_truth files must not be symlinks: {joined}")
+    non_files = [name for name in REQUIRED_FILES if not (path / name).is_file()]
+    if non_files:
+        joined = ", ".join(non_files)
+        raise ValueError(f"source_of_truth required files must be regular files: {joined}")
