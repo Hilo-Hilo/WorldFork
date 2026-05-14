@@ -13,9 +13,9 @@ Import-free of backend.app.models (models import schemas; never the reverse).
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 
 # ---------------------------------------------------------------------------
 # ── Runs ──────────────────────────────────────────────────────────────
@@ -460,7 +460,7 @@ class PatchSettingsRequest(BaseModel):
     default_max_schedule_horizon_ticks: int | None = Field(default=None, gt=0)
     log_level: str | None = None
     display_timezone: str | None = None
-    theme: str | None = None
+    theme: Literal["light", "dark", "system"] | None = None
     enable_oasis_adapter: bool | None = None
     branching_defaults: dict[str, Any] | None = None
     payload: dict[str, Any] | None = None
@@ -488,15 +488,15 @@ class ProvidersResponse(BaseModel):
 class ProviderSettingIn(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    provider: str
-    base_url: str
-    api_key_env: str
-    default_model: str
+    provider: str = Field(..., min_length=1)
+    base_url: str = Field(..., min_length=1)
+    api_key_env: str = Field(..., min_length=1)
+    default_model: str = Field(..., min_length=1)
     fallback_model: str | None = None
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
     enabled: bool = True
-    extra_headers: dict[str, Any] = Field(default_factory=dict)
+    extra_headers: dict[str, StrictStr] = Field(default_factory=dict)
     payload: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -579,8 +579,8 @@ class RoutingEntryIn(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     job_type: str
-    preferred_provider: str
-    preferred_model: str
+    preferred_provider: str = Field(..., min_length=1)
+    preferred_model: str = Field(..., min_length=1)
     fallback_provider: str | None = None
     fallback_model: str | None = None
     temperature: float = Field(default=0.7, ge=0.0, le=2.0)
@@ -590,7 +590,7 @@ class RoutingEntryIn(BaseModel):
     requests_per_minute: int = Field(default=60, ge=1)
     tokens_per_minute: int = Field(default=100000, ge=1)
     timeout_seconds: int = Field(default=120, gt=0)
-    retry_policy: str = "exponential_backoff"
+    retry_policy: Literal["exponential_backoff", "linear", "none"] = "exponential_backoff"
     daily_budget_usd: float | None = Field(default=None, ge=0.0)
     payload: dict[str, Any] = Field(default_factory=dict)
 
@@ -641,7 +641,7 @@ class RateLimitIn(BaseModel):
     tpm_limit: int = Field(..., ge=1)
     max_concurrency: int = Field(..., ge=1)
     burst_multiplier: float = Field(default=1.2, ge=1.0)
-    retry_policy: str = "exponential_backoff"
+    retry_policy: Literal["exponential_backoff", "linear", "none"] = "exponential_backoff"
     jitter: bool = True
     daily_budget_usd: float | None = Field(default=None, ge=0.0)
     branch_reserved_capacity_pct: float = Field(default=20.0, ge=0.0, le=100.0)
