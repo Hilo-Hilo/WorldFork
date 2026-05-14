@@ -101,6 +101,43 @@ def test_source_of_truth_loader_rejects_path_traversal(tmp_path):
 
 
 @pytest.mark.parametrize(
+    ("method", "name"),
+    [
+        ("json", "emotions\\.json"),
+        ("json", "\\windows\\emotions.json"),
+        ("json", "C:\\temp\\emotions.json"),
+        ("json", "extra/./emotions.json"),
+        ("json", "./emotions.json"),
+        ("json", "extra//emotions.json"),
+        ("template", "event_summary\\.md"),
+        ("template", "\\windows\\event_summary.md"),
+        ("template", "./event_summary.md"),
+        ("template", "extra//event_summary.md"),
+    ],
+)
+def test_source_of_truth_loader_rejects_ambiguous_paths(tmp_path, method, name):
+    source_root = tmp_path / "source_of_truth"
+    for relative_name in REQUIRED_FILES:
+        path = source_root / relative_name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}", encoding="utf-8")
+
+    extra_root = source_root if method == "json" else source_root / "report_templates"
+    payload = "{}" if method == "json" else "template"
+    extra_path = extra_root / name
+    extra_path.parent.mkdir(parents=True, exist_ok=True)
+    extra_path.write_text(payload, encoding="utf-8")
+
+    loader = SourceOfTruthLoader(root=source_root)
+
+    with pytest.raises(ValueError, match="source_of_truth path"):
+        if method == "json":
+            loader.load_json(name)
+        else:
+            loader.load_template(name)
+
+
+@pytest.mark.parametrize(
     "bad_required_file",
     [
         "emotions.json",
