@@ -68,10 +68,14 @@ def _json_text_equals(column: Any, key: str, value: str) -> ColumnElement[bool]:
 
 
 def _is_private_key(normalized: str) -> bool:
+    compact = normalized.replace("_", "").replace("-", "")
     return (
         normalized in _PRIVATE_KEY_NAMES
         or normalized.endswith(("_secret", "_api_key", "_apikey", "_token", "_password"))
         or normalized.startswith("authorization")
+        or compact in _PRIVATE_KEY_NAMES
+        or compact.endswith(("secret", "apikey", "token", "password", "secretkey", "privatekey"))
+        or compact.startswith("authorization")
     )
 
 
