@@ -55,7 +55,7 @@ worldfork demo atlas
 - Do not clear Redis, delete run data, change model routes, start Atlas, or spend live API credits without user approval.
 - The frontend exists but is optional. Do not make backend/runtime behavior depend on the dashboard.
 - For first-time onboarding, use `worldfork setup` to show LLM provider options, ask which providers the user wants to configure, and explain each setup phase before and after running it.
-- Live API-credit runs must use the configured default routing unless the user explicitly authorizes another policy. The common split is cheap/fast OpenRouter `deepseek/deepseek-v4-flash` for high-volume cohort, hero, action, timeline, predicate, event-summary, and single-universe report work; and OpenRouter `deepseek/deepseek-v4-pro` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
+- Live API-credit runs must use the configured default routing unless the user explicitly authorizes another policy. The common split is cheap/fast OpenRouter `deepseek/deepseek-v4-flash` for high-volume cohort, hero, action, timeline, predicate, event-summary, and single-universe report work; and OpenAI Codex `gpt-5.4` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
 
 ## Runtime Surface
 

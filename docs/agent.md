@@ -145,12 +145,13 @@ worldfork query GET /readyz --no-api-prefix
 ## Live Runs
 
 Use the configured model split for live validation. The default policy keeps
-high-volume calls on OpenRouter/DeepSeek Flash and uses DeepSeek V4 Pro for
-initializer, God review, endpoint ledgers, report fallback, and final synthesis:
+high-volume calls on OpenRouter DeepSeek Flash and uses OpenAI Codex `gpt-5.4`
+for initializer, God review, endpoint ledgers, report fallback, and final
+synthesis:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openrouter/deepseek/deepseek-v4-pro
+openai-codex/gpt-5.4
 ```
 
 Full live smoke:
