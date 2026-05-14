@@ -115,8 +115,8 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": ATLAS_GOVERNANCE_MODEL,
         "supported": True,
         "best_for": list(ATLAS_GOVERNANCE_ROUTES),
-        "setup": "Run worldfork settings openai-codex-login if the user chooses Codex; use it as one strong-provider option for initialization, God review, endpoint-ledger evaluation, and reports.",
-        "atlas_recommendation": "Valid high-leverage governance/report option during Atlas; OpenRouter-hosted DeepSeek Pro/Claude and OpenAI-compatible providers can substitute.",
+        "setup": "Run worldfork settings openai-codex-login for the default strong-provider lane used by initialization, God review, endpoint-ledger evaluation, and reports.",
+        "atlas_recommendation": "Default high-leverage governance/report option during Atlas; OpenRouter-hosted DeepSeek Pro/Claude and OpenAI-compatible providers can substitute when explicitly routed.",
     },
     {
         "provider": "openai",
@@ -1906,7 +1906,7 @@ def _setup_payload(
             "provider": "openai-codex",
             "model": ATLAS_GOVERNANCE_MODEL,
             "routes": list(ATLAS_GOVERNANCE_ROUTES),
-            "status": "one strong-provider option, not a requirement",
+            "status": "default strong-provider lane; substitutes require explicit routing",
         },
         "governance_substitutes": list(ATLAS_GOVERNANCE_SUBSTITUTES),
         "validation": (

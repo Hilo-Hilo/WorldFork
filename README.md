@@ -48,7 +48,7 @@ Use this path when you want to run each command yourself.
 - `uv`
 - Node.js 20+ if you want to install agent skills with `npx skills`
 - An OpenRouter API key
-- Configured strong-model routes. The example environment uses OpenRouter `deepseek/deepseek-v4-pro` for governance-style work and final multiverse report synthesis.
+- OpenAI Codex authentication for the default strong-model routes. The example environment uses OpenAI Codex `gpt-5.4` for governance-style work and final multiverse report synthesis.
 
 #### 1. Clone and install the CLI
 
@@ -73,7 +73,7 @@ cd ..
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`. The default route split uses OpenRouter for both the fast and strong model lanes. If you intentionally route strong calls to OpenAI Codex instead, authenticate it first:
+Set `OPENROUTER_API_KEY` in `.env` for the fast model lane. The default route split uses OpenAI Codex for the strong model lane, so authenticate it before live runs:
 
 ```bash
 worldfork settings openai-codex-login
@@ -84,8 +84,8 @@ The recommended live split is:
 | Work type | Recommended route |
 | --- | --- |
 | Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` |
-| Initializer, God review, endpoint ledger | OpenRouter `deepseek/deepseek-v4-pro` |
-| Final multiverse report synthesis | OpenRouter `deepseek/deepseek-v4-pro`, with Claude Sonnet fallback |
+| Initializer, God review, endpoint ledger | OpenAI Codex `gpt-5.4` |
+| Final multiverse report synthesis | OpenAI Codex `gpt-5.4`, with configured strong-model fallback |
 | Event summaries | OpenRouter `deepseek/deepseek-v4-flash` |
 
 Inspect provider options and effective routing before spending live API credits:
@@ -371,7 +371,7 @@ The current system is Dockerized, tested across unit/integration/e2e layers, and
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openrouter/deepseek/deepseek-v4-pro
+openai-codex/gpt-5.4
 ```
 
 If you want to understand the project quickly, start with the diagrams above, then run:

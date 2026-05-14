@@ -37,7 +37,7 @@ docker compose config --quiet
 worldfork smoke live
 ```
 
-This command uses real API credits. It should use the configured audited model split: OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero, action, event-summary, predicate, and single-report work, and OpenRouter `deepseek/deepseek-v4-pro` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
+This command uses real API credits. It should use the configured audited model split: OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero, action, event-summary, predicate, and single-report work, and OpenAI Codex `gpt-5.4` for initializer, God-review, endpoint-ledger, report fallback, and final multiverse report synthesis.
 
 ## Redis Cleanup
 
