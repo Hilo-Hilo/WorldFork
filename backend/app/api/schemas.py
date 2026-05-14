@@ -510,4 +510,8 @@ def _sanitize_simulation_brief(value: dict) -> dict:
 
 
 def _is_absolute_path_field(key: str, value) -> bool:
-    return key in {"path", "artifact_path"} and isinstance(value, str) and value.startswith("/")
+    return (
+        (key == "path" or key.endswith("_path"))
+        and isinstance(value, str)
+        and value.startswith("/")
+    )
