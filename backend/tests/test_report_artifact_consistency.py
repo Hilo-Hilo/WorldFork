@@ -224,6 +224,37 @@ def test_report_status_tracks_single_and_final_report_progress(db: Session):
     assert status["latest_failed_llm_call"]["id"] == str(rerun_call.id)
 
 
+def test_report_status_treats_frozen_multiverse_as_terminal(db: Session):
+    big_bang = models.BigBang(
+        name="Frozen report",
+        description=None,
+        scenario_input={},
+        status="running",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    db.add(
+        models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=None,
+            ui_label="M1",
+            depth=0,
+            status="frozen",
+            branch_reason="Frozen by God review",
+            state={},
+            report_status="ready",
+            ended_at=datetime.now(timezone.utc),
+        )
+    )
+    db.flush()
+
+    status = build_report_status(db, big_bang=big_bang)
+
+    assert status["stage"] == "single_reports"
+
+
 def test_viewer_summary_distinguishes_final_from_single_reports():
     final_content = {
         "report_type": "final_big_bang",

@@ -54,7 +54,7 @@ from app.storage.artifact_store import ArtifactStore
 
 UNFINISHED_TICK_STATUSES = {"running", "provisional"}
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
-TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated"}
+TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated", "frozen"}
 TICK_EXECUTION_STALE_AFTER_SECONDS = 15 * 60
 
 
