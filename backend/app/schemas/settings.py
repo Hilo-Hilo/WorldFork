@@ -31,7 +31,7 @@ class ProviderConfig(BaseModel):
     json_mode_required: bool = True
     tool_calling_enabled: bool = True
     enabled: bool = False
-    extra_headers: dict[str, str] = Field(default_factory=dict)
+    extra_headers: dict[NonEmptyStr, NonEmptyStr] = Field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class GlobalSettings(BaseModel):
     default_tick_duration_minutes: int = Field(default=120, gt=0)
     default_max_ticks: int = Field(default=48, gt=0)
     default_max_schedule_horizon_ticks: int = Field(default=5, gt=0)
-    default_representation_mode_thresholds: dict[str, Any] = Field(
+    default_representation_mode_thresholds: dict[NonEmptyStr, Any] = Field(
         default_factory=lambda: {
             "micro": [2, 25],
             "small": [25, 250],
@@ -105,8 +105,8 @@ class GlobalSettings(BaseModel):
         }
     )
     enable_oasis_adapter: bool = False
-    log_level: str = "INFO"
-    display_timezone: str = "UTC"
+    log_level: NonEmptyStr = "INFO"
+    display_timezone: NonEmptyStr = "UTC"
     theme: Literal["light", "dark", "system"] = "system"
     ui_autoplay_interval_ms: int = Field(default=3000, ge=500)
-    run_folder_root: str = "runs"
+    run_folder_root: NonEmptyStr = "runs"

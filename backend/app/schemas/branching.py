@@ -24,8 +24,8 @@ class BranchNode(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     universe_id: NonEmptyStr
-    parent_universe_id: str | None = None
-    child_universe_ids: list[str] = Field(default_factory=list)
+    parent_universe_id: NonEmptyStr | None = None
+    child_universe_ids: list[NonEmptyStr] = Field(default_factory=list)
     depth: int = Field(..., ge=0)
     branch_tick: int = Field(..., ge=0)
     branch_point_id: NonEmptyStr
@@ -138,6 +138,6 @@ class BranchPolicyResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     decision: Literal["approve", "downgrade_to_candidate", "reject"]
-    reason: str
+    reason: NonEmptyStr
     cost_estimate: dict[str, Any] | None = None
     divergence_score: float | None = Field(default=None, ge=0.0, le=1.0)
