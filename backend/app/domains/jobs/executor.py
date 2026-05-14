@@ -118,7 +118,7 @@ def reject_archived_big_bang(big_bang: models.BigBang) -> None:
 
 
 def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> None:
-    from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
+    from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 
     non_terminal = db.scalars(
         select(models.Multiverse)
@@ -283,8 +283,9 @@ def _execute_job(db: Session, job: models.Job) -> dict:
 def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> dict:
     from sqlalchemy import func
 
+    from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
     from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_reports_parallel
-    from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, UNFINISHED_TICK_STATUSES
+    from app.domains.tick.tick_runner import UNFINISHED_TICK_STATUSES
 
     payload = job.payload or {}
     max_total_ticks = int(payload.get("max_total_ticks", 24))

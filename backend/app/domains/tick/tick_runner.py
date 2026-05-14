@@ -49,12 +49,12 @@ from app.domains.sociology.graph_engine import build_graph_prompt_summary, updat
 from app.domains.multiverse.runtime_config import branch_policy_for_multiverse, simulation_config_for_multiverse
 from app.domains.sociology.sociology_engine import run_sociology_update
 from app.domains.tick.tick_bundles import inherited_tick_bundle_ref
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES  # noqa: F401
 from app.storage.artifact_store import ArtifactStore
 
 
 UNFINISHED_TICK_STATUSES = {"running", "provisional"}
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
-TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated", "frozen"}
 TICK_EXECUTION_STALE_AFTER_SECONDS = 15 * 60
 
 
