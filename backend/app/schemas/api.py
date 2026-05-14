@@ -41,8 +41,8 @@ class CreateRunRequest(BaseModel):
     tick_duration_minutes: int = Field(default=1440, gt=0)
     max_ticks: int = Field(default=180, gt=0)
     max_schedule_horizon_ticks: int = Field(default=10, gt=0)
-    uploaded_doc_ids: list[str] = Field(default_factory=list)
-    provider_snapshot_id: str | None = None
+    uploaded_doc_ids: list[NonEmptyStr] = Field(default_factory=list)
+    provider_snapshot_id: NonEmptyStr | None = None
 
 
 class CreateRunResponse(BaseModel):
@@ -115,8 +115,8 @@ class PatchRunRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     display_name: NonEmptyStr | None = None
-    description: str | None = None
-    tags: list[str] | None = None
+    description: NonEmptyStr | None = None
+    tags: list[NonEmptyStr] | None = None
     favorite: bool | None = None
     archived: bool | None = None
 
@@ -185,7 +185,7 @@ class BranchPreviewRequest(BaseModel):
     # BranchDelta discriminated union payload; API handlers validate it through
     # backend.app.schemas.branching before previewing or committing a branch.
     delta: dict[str, Any] = Field(default_factory=dict)
-    reason: str = ""
+    reason: NonEmptyStr = ""
 
 
 class BranchPreviewResponse(BaseModel):
@@ -203,7 +203,7 @@ class BranchRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     delta: dict[str, Any] = Field(default_factory=dict)
-    reason: str = ""
+    reason: NonEmptyStr = ""
 
 
 class BranchResponse(BaseModel):
@@ -301,7 +301,7 @@ class ForceDeviationRequest(BaseModel):
 
     tick: int = Field(..., ge=0)
     mode: str = Field(pattern="^(god_prompt|structured_delta)$")
-    prompt: str | None = None
+    prompt: NonEmptyStr | None = None
     delta: dict[str, Any] | None = None
     reason: str = ""
     auto_start: bool = True

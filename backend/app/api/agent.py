@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import time
-from typing import Any
+from typing import Annotated, Any
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -28,6 +28,7 @@ router = APIRouter(prefix="/agent", tags=["agent"])
 VERBOSITY_TIERS = ("summary", "normal", "full")
 DEFAULT_VERBOSITY = "summary"
 _TICK_ARG_MISSING = object()
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 PROJECTION_SCHEMAS: dict[str, dict[str, list[str] | None]] = {
     "run": {
@@ -89,8 +90,8 @@ class AgentWaitRequest(BaseModel):
 
 
 class AgentModelPatch(BaseModel):
-    default_model: str | None = None
-    agent_models: dict[str, str] = Field(default_factory=dict)
+    default_model: NonEmptyStr | None = None
+    agent_models: dict[NonEmptyStr, NonEmptyStr] = Field(default_factory=dict)
 
 
 def _ok(data: Any, **meta: Any) -> dict[str, Any]:
