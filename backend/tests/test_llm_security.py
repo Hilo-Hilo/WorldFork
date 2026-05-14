@@ -1838,6 +1838,31 @@ def test_public_job_payload_sanitizer_drops_internal_reference_ids(field_name):
     assert sanitize_public_job_payload(payload) == {}
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "path",
+        "run_folder_path",
+        "source_of_truth_snapshot_path",
+        "prompt_packet_path",
+        "response_path",
+        "parsed_path",
+        "output_path",
+        "report_pdf_path",
+        "workspace_path",
+        "database_path",
+    ],
+)
+def test_public_job_payload_sanitizer_redacts_absolute_path_fields(field_name):
+    raw_path = "/Users/hansonwen/WorldFork/runs/private/output.json"
+
+    sanitized = sanitize_public_job_payload({field_name: raw_path})
+
+    assert field_name not in sanitized
+    assert sanitized[f"{field_name}_present"] is True
+    assert sanitized[f"{field_name}_char_count"] == len(raw_path)
+
+
 def test_sociology_prompt_influences_drop_emotion_and_steering_content():
     influences = [
         {
