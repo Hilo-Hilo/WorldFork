@@ -838,6 +838,26 @@ def test_post_and_actor_schemas_reject_blank_reference_strings(model, payload):
         model.model_validate(payload)
 
 
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (PopulationArchetype, _make_population_archetype(age_band="   ")),
+        (PopulationArchetype, _make_population_archetype(education_profile="   ")),
+        (PopulationArchetype, _make_population_archetype(occupation_or_role="   ")),
+        (PopulationArchetype, _make_population_archetype(socioeconomic_band="   ")),
+        (PopulationArchetype, _make_population_archetype(institution_membership=["   "])),
+        (PopulationArchetype, _make_population_archetype(demographic_tags=["   "])),
+        (PopulationArchetype, _make_population_archetype(preferred_channels=["   "])),
+        (PopulationArchetype, _make_population_archetype(identity_tags=["   "])),
+        (PopulationArchetype, _make_population_archetype(allowed_action_classes=["   "])),
+        (HeroArchetype, _make_hero_archetype(institution="   ")),
+    ],
+)
+def test_actor_profile_schemas_reject_blank_metadata_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
 # ---------------------------------------------------------------------------
 # CohortState emotion clamping
 # ---------------------------------------------------------------------------
