@@ -533,8 +533,12 @@ def _is_internal_reference_id_field(key: str) -> bool:
 
 
 def _is_private_key_field(key: str) -> bool:
+    compact = key.replace("_", "").replace("-", "")
     return (
         key in PRIVATE_KEY_NAMES
         or key.endswith(("_secret", "_api_key", "_apikey", "_token", "_password"))
         or key.startswith("authorization")
+        or compact in PRIVATE_KEY_NAMES
+        or compact.endswith(("secret", "apikey", "token", "password", "secretkey", "privatekey"))
+        or compact.startswith("authorization")
     )
