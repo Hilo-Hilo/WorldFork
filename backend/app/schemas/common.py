@@ -25,7 +25,15 @@ UniverseStatus = Literal[
 ]
 
 EventStatus = Literal[
-    "proposed", "scheduled", "active", "completed", "cancelled", "failed", "invalidated"
+    "proposed",
+    "queued",
+    "scheduled",
+    "active",
+    "executed",
+    "completed",
+    "cancelled",
+    "failed",
+    "invalidated",
 ]
 
 

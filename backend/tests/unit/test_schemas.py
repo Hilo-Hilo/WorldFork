@@ -17,6 +17,7 @@ from backend.app.schemas import (
     BranchDelta,
     BranchPolicy,
     CohortState,
+    Event,
     JobEnvelope,
     ModelRoutingEntry,
     SplitProposal,
@@ -140,6 +141,32 @@ def _make_job_envelope(**overrides) -> dict:
         payload={},
         created_at=_NOW,
         enqueued_at=None,
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_event(**overrides) -> dict:
+    base = dict(
+        event_id="evt_001",
+        universe_id="u_001",
+        created_tick=0,
+        scheduled_tick=1,
+        duration_ticks=None,
+        event_type="policy",
+        title="Council schedules hearing",
+        description="A council hearing is scheduled.",
+        created_by_actor_id="actor_001",
+        participants=[],
+        target_audience=[],
+        visibility="public",
+        preconditions=[],
+        expected_effects={},
+        actual_effects=None,
+        risk_level=0.2,
+        status="queued",
+        parent_event_id=None,
+        source_llm_call_id=None,
     )
     base.update(overrides)
     return base
@@ -271,6 +298,21 @@ class TestUniverse:
     def test_terminated_status_is_valid_runtime_state(self):
         u = Universe.model_validate(_make_universe(status="terminated"))
         assert u.status == "terminated"
+
+
+# ---------------------------------------------------------------------------
+# Event runtime statuses
+# ---------------------------------------------------------------------------
+
+class TestEvent:
+    @pytest.mark.parametrize("status", ["queued", "executed"])
+    def test_accepts_runtime_event_statuses(self, status):
+        event = Event.model_validate(_make_event(status=status))
+        assert event.status == status
+
+    def test_invalid_status_rejected(self):
+        with pytest.raises(ValidationError):
+            Event.model_validate(_make_event(status="unknown_status"))
 
 
 # ---------------------------------------------------------------------------
