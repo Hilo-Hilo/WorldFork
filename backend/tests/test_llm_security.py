@@ -1937,6 +1937,31 @@ def test_public_job_payload_sanitizer_redacts_mixed_style_absolute_path_fields(f
 @pytest.mark.parametrize(
     "field_name",
     [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_public_job_payload_sanitizer_redacts_mixed_style_raw_text_fields(field_name):
+    raw_text = "raw private prompt and scenario text"
+
+    sanitized = sanitize_public_job_payload({field_name: raw_text})
+
+    assert field_name not in sanitized
+    assert sanitized[f"{field_name}_present"] is True
+    assert sanitized[f"{field_name}_char_count"] == len(raw_text)
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
         "clientSecret",
         "accessToken",
         "refreshToken",

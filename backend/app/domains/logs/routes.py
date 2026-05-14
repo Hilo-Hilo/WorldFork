@@ -47,6 +47,18 @@ _RAW_TEXT_KEYS = {
     "source_text",
     "text",
 }
+_RAW_TEXT_COMPACT_KEYS = {
+    "scenariotext",
+    "rawtext",
+    "sourcetext",
+    "plaintext",
+    "initializerprompt",
+    "systemprompt",
+    "developerprompt",
+    "userprompt",
+    "fullprompt",
+    "rawprompt",
+}
 _PRIVATE_CONFIG_KEYS = {
     "model_config",
     "llm_model_config",
@@ -99,6 +111,11 @@ def _is_absolute_path_field(normalized: str, value: Any) -> bool:
     )
 
 
+def _is_raw_text_field(normalized: str) -> bool:
+    compact = normalized.replace("_", "").replace("-", "")
+    return normalized in _RAW_TEXT_KEYS or compact in _RAW_TEXT_COMPACT_KEYS
+
+
 def _is_absolute_path_value(value: str) -> bool:
     return (
         value.startswith(("/", "\\\\"))
@@ -140,7 +157,7 @@ def sanitize_public_job_payload(value: Any) -> Any:
         if normalized == "plain_text_corpus" and isinstance(item, dict):
             sanitized[key_text] = _sanitize_plain_text_corpus(item)
             continue
-        if normalized in _RAW_TEXT_KEYS or _is_absolute_path_field(normalized, item):
+        if _is_raw_text_field(normalized) or _is_absolute_path_field(normalized, item):
             sanitized[f"{key_text}_present"] = bool(item)
             if isinstance(item, str):
                 sanitized[f"{key_text}_char_count"] = len(item)
