@@ -17,7 +17,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 RepresentationMode = Literal["micro", "small", "population", "mass"]
 
 RunStatus = Literal[
-    "draft", "initializing", "running", "paused", "completed", "failed", "archived"
+    "draft", "initializing", "active", "running", "paused", "completed", "failed", "archived"
 ]
 
 UniverseStatus = Literal[

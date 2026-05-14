@@ -159,6 +159,10 @@ class TestBigBangRun:
         assert restored.status == obj.status
         assert restored.tick_duration_minutes == obj.tick_duration_minutes
 
+    def test_active_status_is_valid_runtime_state(self):
+        obj = BigBangRun.model_validate(_make_big_bang(status="active"))
+        assert obj.status == "active"
+
     def test_invalid_status_rejected(self):
         with pytest.raises(ValidationError):
             BigBangRun.model_validate(_make_big_bang(status="unknown_status"))
