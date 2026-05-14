@@ -276,7 +276,13 @@ class _GlobalFlagFloatingGroup(click.Group):
 @click.version_option(__version__)
 @click.option("--base-url", default=DEFAULT_BASE_URL, show_default=True, help="Backend root URL.")
 @click.option("--api-prefix", default=DEFAULT_API_PREFIX, show_default=True, help="Backend API prefix.")
-@click.option("--timeout", type=float, default=30, show_default=True, help="HTTP timeout seconds.")
+@click.option(
+    "--timeout",
+    type=click.FloatRange(min=0, min_open=True),
+    default=30,
+    show_default=True,
+    help="HTTP timeout seconds.",
+)
 @click.option("--json", "as_json", is_flag=True, help="Emit machine-readable JSON.")
 @click.option(
     "--verbosity",
@@ -588,7 +594,7 @@ def _collect_initialized_state(ctx: Context, big_bang_id: str) -> dict[str, Any]
 )
 @click.option(
     "--wait-timeout",
-    type=float,
+    type=click.FloatRange(min=0, min_open=True),
     default=600,
     show_default=True,
     help="HTTP timeout seconds for the blocking initialization request.",
@@ -935,7 +941,7 @@ def jobs_list(ctx: Context, run_id: str | None, status: str | None, limit: int, 
 
 @jobs.command()
 @click.argument("job_id")
-@click.option("--timeout", "timeout_seconds", type=float, default=30, show_default=True)
+@click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=30, show_default=True)
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.pass_obj
 def wait(ctx: Context, job_id: str, timeout_seconds: float, poll_interval: float) -> None:
@@ -1048,7 +1054,7 @@ def watch() -> None:
 @watch.command("big-bang")
 @click.argument("big_bang_id")
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
-@click.option("--timeout", "timeout_seconds", type=float, default=0, show_default=True, help="0 means no timeout.")
+@click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=0, show_default=True, help="0 means no timeout.")
 @click.option("--limit", type=int, default=100, show_default=True, help="Recent log/activity rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
 @click.option("--json-lines", is_flag=True, help="Emit one JSON object per watched event.")
@@ -1071,7 +1077,7 @@ def watch_big_bang(
 @watch.command("multiverse")
 @click.argument("multiverse_id")
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
-@click.option("--timeout", "timeout_seconds", type=float, default=0, show_default=True, help="0 means no timeout.")
+@click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=0, show_default=True, help="0 means no timeout.")
 @click.option("--limit", type=int, default=100, show_default=True, help="Recent log/tick rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
 @click.option("--json-lines", is_flag=True, help="Emit one JSON object per watched event.")
@@ -1491,7 +1497,7 @@ def ledgers_path_mass(ctx: Context, big_bang_id: str) -> None:
 @click.argument("big_bang_id")
 @click.option("--multiverse-id")
 @click.option("--wait", "wait_for_job", is_flag=True, help="Wait for the evaluation job and emit the ledger.")
-@click.option("--timeout", "timeout_seconds", type=float, default=120, show_default=True)
+@click.option("--timeout", "timeout_seconds", type=click.FloatRange(min=0), default=120, show_default=True)
 @click.option("--idempotency-key")
 @click.option("--endpoint", help="JSON object or @file describing a candidate endpoint to add/evaluate.")
 @click.pass_obj
@@ -1657,7 +1663,7 @@ def settings_provider_test(ctx: Context, provider: str) -> None:
     default=None,
     help="Where to write OAuth tokens. Defaults to ~/.worldfork/openai-codex-auth.json.",
 )
-@click.option("--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS, show_default=True)
+@click.option("--timeout", type=click.IntRange(min=1), default=DEFAULT_TIMEOUT_SECONDS, show_default=True)
 @click.pass_obj
 def settings_openai_codex_login(ctx: Context, auth_file: Path | None, timeout: int) -> None:
     """Log in to OpenAI Codex with a headless device-code flow."""
@@ -1718,7 +1724,7 @@ def demo() -> None:
     default=None,
     help="Markdown scenario dossier. Defaults to examples/test-big-bang.md in a source checkout.",
 )
-@click.option("--timeout", type=float, default=240.0, show_default=True, help="HTTP timeout seconds.")
+@click.option("--timeout", type=click.FloatRange(min=0, min_open=True), default=240.0, show_default=True, help="HTTP timeout seconds.")
 @click.option(
     "--tick-duration-minutes",
     type=int,
