@@ -67,6 +67,35 @@ class TestWebhookSigner:
         # Verify with a large max_age to avoid time-travel rejection
         assert signer.verify(PAYLOAD, sig, ts_fixed, max_age_seconds=10**9) is True
 
+    @pytest.mark.parametrize(
+        ("signature_value", "timestamp_value", "expected"),
+        [
+            ("valid", "1700000000", True),
+            ("valid", None, False),
+            ("valid", "", False),
+            ("valid", "not-a-timestamp", False),
+            ("valid", [], False),
+            ("valid", {}, False),
+            (None, 1700000000, False),
+            (b"bytes-signature", 1700000000, False),
+            (12345, 1700000000, False),
+            (["signature"], 1700000000, False),
+        ],
+    )
+    def test_verify_handles_header_derived_values_without_raising(
+        self,
+        monkeypatch,
+        signature_value,
+        timestamp_value,
+        expected,
+    ) -> None:
+        signer = WebhookSigner(SECRET)
+        valid_signature, _ = signer.sign(PAYLOAD, timestamp=1700000000)
+        signature = valid_signature if signature_value == "valid" else signature_value
+        monkeypatch.setattr(time, "time", lambda: 1700000000)
+
+        assert signer.verify(PAYLOAD, signature, timestamp_value) is expected
+
 
 # ---------------------------------------------------------------------------
 # WebhookDeliverer tests
