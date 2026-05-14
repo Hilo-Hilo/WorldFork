@@ -80,10 +80,13 @@ def _is_private_key(normalized: str) -> bool:
 
 
 def _is_internal_reference_id(normalized: str) -> bool:
+    compact = normalized.replace("_", "").replace("-", "")
     return (
         normalized in {"artifact_id", "llm_call_id"}
         or normalized.endswith("_artifact_id")
         or normalized.endswith("_llm_call_id")
+        or compact in {"artifactid", "llmcallid"}
+        or compact.endswith(("artifactid", "llmcallid"))
     )
 
 
