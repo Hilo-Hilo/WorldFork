@@ -83,6 +83,14 @@ def _is_internal_reference_id(normalized: str) -> bool:
     )
 
 
+def _is_absolute_path_field(normalized: str, value: Any) -> bool:
+    return (
+        (normalized == "path" or normalized.endswith("_path"))
+        and isinstance(value, str)
+        and value.startswith("/")
+    )
+
+
 def _sanitize_plain_text_corpus(value: dict[str, Any]) -> dict[str, Any]:
     sanitized = sanitize_public_job_payload(value)
     for collection_key in ("chunk_artifacts", "chunk_summaries"):
@@ -114,7 +122,7 @@ def sanitize_public_job_payload(value: Any) -> Any:
         if normalized == "plain_text_corpus" and isinstance(item, dict):
             sanitized[key_text] = _sanitize_plain_text_corpus(item)
             continue
-        if normalized in _RAW_TEXT_KEYS:
+        if normalized in _RAW_TEXT_KEYS or _is_absolute_path_field(normalized, item):
             sanitized[f"{key_text}_present"] = bool(item)
             if isinstance(item, str):
                 sanitized[f"{key_text}_char_count"] = len(item)
