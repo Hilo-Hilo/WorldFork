@@ -16,7 +16,7 @@ from app.db import models
 from app.domains.jobs.executor import execute_job
 from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
-from app.domains.report.evidence_pack import build_report_evidence_pack
+from app.domains.report.evidence_pack import _compact_value, build_report_evidence_pack
 from app.domains.report import engine as report_engine
 from app.domains.report.status import build_report_status
 from app.storage.artifact_store import ArtifactStore, hash_directory
@@ -73,6 +73,30 @@ def test_report_question_context_prefers_dedicated_question_metadata(db: Session
         "Which response path restores trust fastest?",
         "Which cohorts remain mobilized?",
     ]
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_report_evidence_pack_compact_value_gates_mixed_style_raw_text_fields(field_name):
+    raw_text = "raw report evidence prompt and scenario text"
+
+    compacted = _compact_value({field_name: raw_text}, max_items=10)
+
+    assert compacted == {field_name: {"present": True}}
+    assert raw_text not in str(compacted)
 
 
 def test_prediction_extractor_prompt_includes_resolution_context():
