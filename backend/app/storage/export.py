@@ -161,6 +161,19 @@ def _read_export_manifest(zf: zipfile.ZipFile) -> dict[str, Any]:
     return manifest
 
 
+def _read_top_level_run_manifest(zf: zipfile.ZipFile) -> dict[str, Any]:
+    try:
+        manifest = json.loads(zf.read("manifest.json"))
+    except KeyError as exc:
+        raise ExportError("Archive is missing top-level manifest.json.") from exc
+    except Exception as exc:
+        raise ExportError(f"Cannot read top-level manifest.json: {exc}") from exc
+
+    if not isinstance(manifest, dict):
+        raise ExportError("Top-level manifest.json must contain a JSON object.")
+    return manifest
+
+
 def _verify_export_manifest(zf: zipfile.ZipFile, manifest: dict[str, Any]) -> None:
     """Verify archive contents against the top-level export manifest."""
     files = [
@@ -188,20 +201,10 @@ def _verify_export_manifest(zf: zipfile.ZipFile, manifest: dict[str, Any]) -> No
     if not isinstance(expected_run_manifest_sha, str) or len(expected_run_manifest_sha) != 64:
         raise ExportError("EXPORT_MANIFEST.json has invalid run_manifest_sha256.")
 
-    run_manifest_members = [
-        item for item in files if Path(item.filename).parts[-1:] == ("manifest.json",)
-    ]
-    top_level_run_manifest = [
-        item for item in run_manifest_members if len(Path(item.filename).parts) == 1
-    ]
-    if top_level_run_manifest:
-        run_manifest_member = top_level_run_manifest[0]
-    elif len(run_manifest_members) == 1:
-        run_manifest_member = run_manifest_members[0]
-    else:
-        raise ExportError("Archive does not contain an unambiguous run manifest.json.")
+    if "manifest.json" not in {item.filename for item in files}:
+        raise ExportError("Archive is missing top-level manifest.json.")
 
-    actual_run_manifest_sha = hashlib.sha256(zf.read(run_manifest_member.filename)).hexdigest()
+    actual_run_manifest_sha = hashlib.sha256(zf.read("manifest.json")).hexdigest()
     if actual_run_manifest_sha != expected_run_manifest_sha:
         raise ExportError(
             f"EXPORT_MANIFEST.json run_manifest_sha256 mismatch: "
@@ -384,27 +387,9 @@ def import_run_from_zip(
         if verify:
             _verify_export_manifest(zf, export_manifest)
 
-        # Find the run folder name by locating manifest.json at the top level
-        run_folder_name: str | None = None
-        for name in names:
-            parts = Path(name).parts
-            if len(parts) >= 1 and parts[-1] == "manifest.json":
-                # Try reading the manifest to get a meaningful folder name
-                try:
-                    data = json.loads(zf.read(name))
-                    bb_id = data.get("big_bang_id", "")
-                    if bb_id:
-                        run_folder_name = bb_id
-                    elif len(parts) > 1:
-                        run_folder_name = parts[0]
-                    else:
-                        run_folder_name = zip_path.stem
-                except Exception:
-                    run_folder_name = parts[0] if len(parts) > 1 else zip_path.stem
-                break
-
-        if run_folder_name is None:
-            run_folder_name = zip_path.stem
+        # Find the run folder name from the top-level run manifest only.
+        run_manifest = _read_top_level_run_manifest(zf)
+        run_folder_name = run_manifest.get("big_bang_id") or zip_path.stem
         run_folder_name = _safe_run_folder_name(run_folder_name, dest_runs=dest_runs)
 
         # Extract into a sibling temp directory first. Verification happens before
