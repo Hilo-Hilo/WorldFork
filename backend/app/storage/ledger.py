@@ -264,7 +264,8 @@ class Ledger:
 
         Returns the hex SHA-256 of the bytes written.
         """
-        target = self.run_folder / rel_path
+        safe_rel_path = _safe_artifact_rel_path(self.run_folder, rel_path)
+        target = self.run_folder / safe_rel_path
 
         # Serialise
         if isinstance(payload, dict):
@@ -284,7 +285,7 @@ class Ledger:
 
         # Record in in-memory cache
         now_str = now_utc().isoformat()
-        self._file_cache[rel_path] = {
+        self._file_cache[safe_rel_path] = {
             "size": len(raw),
             "sha256": sha,
             "sealed_at": now_str,
@@ -293,7 +294,8 @@ class Ledger:
 
     def append_jsonl(self, rel_path: str, item: dict) -> None:
         """Append one JSON line to a JSONL file (mutable, never chmod 0o444)."""
-        target = self.run_folder / rel_path
+        safe_rel_path = _safe_artifact_rel_path(self.run_folder, rel_path)
+        target = self.run_folder / safe_rel_path
         target.parent.mkdir(parents=True, exist_ok=True)
         line = orjson.dumps(item).decode("utf-8") + "\n"
         with open(target, "a", encoding="utf-8") as fh:
@@ -471,16 +473,24 @@ def _tick_files_for_merkle(tick_dir: Path) -> list[Path]:
 
 
 def _safe_cached_rel_path(run_folder: Path, rel_path: str) -> str:
+    return _safe_run_rel_path(run_folder, rel_path, "tick manifest file path")
+
+
+def _safe_artifact_rel_path(run_folder: Path, rel_path: str) -> str:
+    return _safe_run_rel_path(run_folder, rel_path, "ledger artifact path")
+
+
+def _safe_run_rel_path(run_folder: Path, rel_path: str, label: str) -> str:
     if rel_path == "" or "\\" in rel_path:
-        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+        raise LedgerError(f"Unsafe {label}: {rel_path!r}")
     path = Path(rel_path)
     raw_parts = rel_path.split("/")
     if path.is_absolute() or any(part in {"", ".", ".."} for part in raw_parts):
-        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+        raise LedgerError(f"Unsafe {label}: {rel_path!r}")
     resolved_root = run_folder.resolve()
     resolved_path = (run_folder / path).resolve()
     if resolved_path == resolved_root or resolved_root not in resolved_path.parents:
-        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+        raise LedgerError(f"Unsafe {label}: {rel_path!r}")
     return path.as_posix()
 
 
