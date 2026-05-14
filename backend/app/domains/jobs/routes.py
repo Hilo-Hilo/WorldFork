@@ -19,6 +19,7 @@ from app.db.session import SessionLocal, get_db
 from app.domains.jobs.queues import JOB_TYPES, default_idempotency_key, enqueue_job, queue_name_for_job
 from app.domains.jobs.executor import (
     JobNotRunnableError,
+    TERMINAL_JOB_STATUSES,
     claim_job_for_execution,
     execute_job,
     interrupt_job,
@@ -280,7 +281,7 @@ def retry_job_route(
 @router.post("/{job_id}/cancel", response_model=JobResponse)
 def cancel_job_route(job_id: UUID, db: Session = Depends(get_db)):
     job = require(db, models.Job, job_id)
-    if job.status in {"succeeded", "failed", "cancelled", "interrupted"}:
+    if job.status in TERMINAL_JOB_STATUSES:
         raise HTTPException(status_code=409, detail=f"job {job.id} is already terminal")
     job.status = "cancelled"
     job.finished_at = datetime.now(timezone.utc)

@@ -185,6 +185,37 @@ def test_agent_job_wait_releases_read_transaction_between_polls(monkeypatch):
     assert db.expires == 1
 
 
+@pytest.mark.parametrize("status", ["dead", "dead_lettered"])
+def test_agent_job_wait_treats_dead_statuses_as_terminal(status):
+    job_id = uuid4()
+    now = datetime.now(timezone.utc)
+
+    class WaitDb:
+        def get(self, model, object_id):
+            return SimpleNamespace(
+                id=object_id,
+                job_type="run_multiverse_tick",
+                queue_name="multiverse_ticks",
+                status=status,
+                big_bang_id=None,
+                payload={},
+                result={},
+                error=None,
+                idempotency_key="job-wait-dead-test",
+                created_at=now,
+                updated_at=now,
+            )
+
+    result = agent_api.wait_for_job(
+        job_id,
+        agent_api.AgentWaitRequest(timeout_seconds=30, poll_interval_seconds=1),
+        db=WaitDb(),
+    )
+
+    assert result["meta"]["terminal"] is True
+    assert result["data"]["status"] == status
+
+
 def test_big_bang_delete_soft_archives_and_terminates_active_multiverses():
     big_bang_id = uuid4()
     big_bang = SimpleNamespace(id=big_bang_id, status="running")

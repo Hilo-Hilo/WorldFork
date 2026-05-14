@@ -227,6 +227,28 @@ def test_cancel_refuses_to_rewrite_terminal_job():
     assert persisted.status == "succeeded"
 
 
+def test_cancel_refuses_to_rewrite_completed_job():
+    with override_db() as db:
+        job = _seed_job(db, status="completed")
+        response = client.post(f"/api/jobs/{job.id}/cancel")
+        db.expire_all()
+        persisted = db.get(models.Job, job.id)
+
+    assert response.status_code == 409, response.text
+    assert persisted.status == "completed"
+
+
+def test_cancel_refuses_to_rewrite_dead_lettered_job():
+    with override_db() as db:
+        job = _seed_job(db, status="dead_lettered")
+        response = client.post(f"/api/jobs/{job.id}/cancel")
+        db.expire_all()
+        persisted = db.get(models.Job, job.id)
+
+    assert response.status_code == 409, response.text
+    assert persisted.status == "dead_lettered"
+
+
 def test_pause_resume_queue_sets_redis_control_key():
     mock_redis = AsyncMock()
     mock_redis.set = AsyncMock()
