@@ -40,6 +40,7 @@ UPDATE_PROTECTED_PATHS = (
     "docker-compose.override.yaml",
     "runs",
     "artifacts",
+    "reports",
     "backend/artifacts",
     "data",
     ".worldfork",
@@ -398,7 +399,7 @@ def update(
 
     This command updates the Git checkout only. It refuses dirty tracked files,
     refuses non-fast-forward history, and refuses remote changes to operator-owned
-    config/data paths such as `.env`, `runs/`, and `artifacts/`.
+    config/data paths such as `.env`, `runs/`, `artifacts/`, and `reports/`.
     """
     repo_root = _resolve_update_repo(repo)
     current_branch = _git_stdout(repo_root, ["rev-parse", "--abbrev-ref", "HEAD"]).strip()
