@@ -454,7 +454,6 @@ class WorkspaceState(BaseModel):
 
 RAW_TEXT_KEYS = {"scenario_text", "prompt", "premise", "raw_text", "source_text", "plain_text"}
 RAW_TEXT_COMPACT_KEYS = {
-    "scenarioinput",
     "scenariotext",
     "rawtext",
     "sourcetext",

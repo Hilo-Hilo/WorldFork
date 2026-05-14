@@ -183,6 +183,14 @@ def test_public_payload_sanitizer_redacts_mixed_style_raw_text_fields(field_name
     }
 
 
+def test_public_payload_sanitizer_preserves_structured_scenario_input():
+    payload = {"scenarioInput": {"plainTextCorpus": {"summary": "safe structured metadata"}}}
+
+    sanitized = sanitize_public_payload(payload)
+
+    assert sanitized == payload
+
+
 @pytest.mark.parametrize(
     "field_name",
     [
