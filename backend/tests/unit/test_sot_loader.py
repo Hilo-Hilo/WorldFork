@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from backend.app.storage.sot_loader import load_sot, snapshot_sot_to, validate_sot
+from backend.app.storage.sot_loader import _compute_snapshot_merkle, load_sot, snapshot_sot_to, validate_sot
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -230,6 +230,38 @@ class TestSnapshotSotTo:
         reloaded = load_sot(source_dir=dest)
 
         assert reloaded.snapshot_sha256 == bundle.snapshot_sha256
+
+    @pytest.mark.parametrize(
+        ("left_path", "right_path"),
+        [
+            ("a.json", "b.json"),
+            ("a.json", "nested/a.json"),
+            ("nested/a.json", "nested/b.json"),
+            ("nested/a.json", "other/a.json"),
+            ("prompt_contracts/a.json", "prompt_contracts/b.json"),
+            ("prompt_templates/a.md", "prompt_templates/b.md"),
+            ("configs/source.json", "configs/generated.json"),
+            ("one/two/value.json", "one/three/value.json"),
+            ("taxonomy/emotions.json", "taxonomy/actors.json"),
+            ("reports/final.md", "reports/draft.md"),
+        ],
+    )
+    def test_snapshot_merkle_includes_relative_file_paths(
+        self,
+        tmp_path: Path,
+        left_path: str,
+        right_path: str,
+    ) -> None:
+        left = tmp_path / "left"
+        right = tmp_path / "right"
+        left_file = left / left_path
+        right_file = right / right_path
+        left_file.parent.mkdir(parents=True, exist_ok=True)
+        right_file.parent.mkdir(parents=True, exist_ok=True)
+        left_file.write_text("same-content", encoding="utf-8")
+        right_file.write_text("same-content", encoding="utf-8")
+
+        assert _compute_snapshot_merkle(left) != _compute_snapshot_merkle(right)
 
 
 # ---------------------------------------------------------------------------

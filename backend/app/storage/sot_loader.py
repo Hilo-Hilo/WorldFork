@@ -9,11 +9,12 @@ from __future__ import annotations
 
 import json
 import shutil
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from backend.app.storage.checksums import merkle_root, sha256_file
+from backend.app.storage.checksums import merkle_root
 
 # ---------------------------------------------------------------------------
 # Data class
@@ -143,14 +144,25 @@ def _reject_sot_symlinks(source_dir: Path) -> None:
 
 def _compute_sot_merkle(source_dir: Path) -> str:
     files = _collect_sot_files(source_dir, exclude_snapshot_marker=True)
-    hashes = [sha256_file(f) for f in files]
+    hashes = [_hash_sot_file(source_dir, f) for f in files]
     return merkle_root(hashes)
 
 
 def _compute_snapshot_merkle(snapshot_dir: Path) -> str:
     files = _collect_sot_files(snapshot_dir, exclude_snapshot_marker=True)
-    hashes = [sha256_file(f) for f in files]
+    hashes = [_hash_sot_file(snapshot_dir, f) for f in files]
     return merkle_root(hashes)
+
+
+def _hash_sot_file(root: Path, path: Path) -> str:
+    relative = path.relative_to(root).as_posix().encode("utf-8")
+    content = path.read_bytes()
+    digest = hashlib.sha256()
+    digest.update(len(relative).to_bytes(8, "big"))
+    digest.update(relative)
+    digest.update(len(content).to_bytes(8, "big"))
+    digest.update(content)
+    return digest.hexdigest()
 
 
 # ---------------------------------------------------------------------------
