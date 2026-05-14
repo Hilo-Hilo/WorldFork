@@ -145,6 +145,32 @@ def test_update_refuses_remote_changes_to_protected_paths(monkeypatch, tmp_path)
     assert ".env" in result.output
 
 
+def test_update_refuses_remote_changes_to_reports(monkeypatch, tmp_path) -> None:
+    _make_source_checkout(tmp_path)
+
+    def fake_run_git(repo, args):
+        if args == ["rev-parse", "--abbrev-ref", "HEAD"]:
+            return types.SimpleNamespace(stdout="main\n")
+        if args == ["status", "--porcelain", "--untracked-files=no"]:
+            return types.SimpleNamespace(stdout="")
+        if args == ["rev-parse", "HEAD"]:
+            return types.SimpleNamespace(stdout="abc123\n")
+        if args == ["fetch", "--prune", "origin", "+refs/heads/main:refs/remotes/origin/main"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:2] == ["diff", "--name-only"]:
+            assert "reports" in args
+            return types.SimpleNamespace(stdout="reports/final.pdf\n")
+        raise AssertionError(args)
+
+    monkeypatch.setattr(cli_main, "_run_git", fake_run_git)
+
+    result = CliRunner().invoke(main, ["update", "--repo", str(tmp_path)])
+
+    assert result.exit_code == 1
+    assert "protected local config/data paths" in result.output
+    assert "reports/final.pdf" in result.output
+
+
 def test_global_verbosity_parses_before_command() -> None:
     result = CliRunner().invoke(main, ["--verbosity", "normal", "agent", "--help"])
 
