@@ -6,9 +6,11 @@ Import-free of backend.app.models.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 JobType = Literal[
     "initialize_big_bang",
@@ -55,15 +57,15 @@ class JobEnvelope(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    job_id: str
+    job_id: NonEmptyStr
     job_type: JobType
     priority: JobPriority
-    run_id: str
-    universe_id: str | None = None
+    run_id: NonEmptyStr
+    universe_id: NonEmptyStr | None = None
     tick: int | None = Field(default=None, ge=0)
     attempt_number: int = Field(..., ge=0)
-    idempotency_key: str
-    artifact_path: str | None = None
+    idempotency_key: NonEmptyStr
+    artifact_path: NonEmptyStr | None = None
     payload: dict[str, Any] = Field(default_factory=dict)
     created_at: datetime
     enqueued_at: datetime | None = None
@@ -83,7 +85,7 @@ class JobStatus(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    job_id: str
+    job_id: NonEmptyStr
     status: Literal[
         "queued",
         "running",
