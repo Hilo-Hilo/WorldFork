@@ -199,6 +199,25 @@ def test_subcommand_timeout_is_not_stolen_by_global_parser(monkeypatch) -> None:
     assert watch_args == [(1, 7)]
 
 
+def test_cli_rejects_invalid_timeouts_before_requests() -> None:
+    cases = [
+        ["--timeout", "0", "status"],
+        ["init", "--name", "Run", "--wait-timeout", "0"],
+        ["jobs", "wait", "job-123", "--timeout", "-1"],
+        ["watch", "big-bang", "bb-123", "--timeout", "-1"],
+        ["watch", "multiverse", "m-1", "--timeout", "-1"],
+        ["ledgers", "evaluate", "bb-123", "--wait", "--timeout", "-1"],
+        ["settings", "openai-codex-login", "--timeout", "0"],
+        ["demo", "atlas", "--timeout", "0"],
+    ]
+
+    for args in cases:
+        result = CliRunner().invoke(main, args)
+
+        assert result.exit_code == 2, args
+        assert "Invalid value for" in result.output
+
+
 def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     calls = []
 
