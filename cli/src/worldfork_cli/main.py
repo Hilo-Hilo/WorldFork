@@ -784,7 +784,7 @@ def multiverses() -> None:
 
 @multiverses.command()
 @click.argument("multiverse_id")
-@click.option("--tick", type=int)
+@click.option("--tick", type=click.IntRange(min=0))
 @click.option("--actor-id")
 @click.option("--actor-kind", type=click.Choice(["cohort", "hero", "actor", "god"]))
 @click.pass_obj
@@ -807,8 +807,8 @@ def cohorts() -> None:
 @cohorts.command()
 @click.argument("cohort_id")
 @click.option("--multiverse-id", "--universe-id", "multiverse_id", required=True)
-@click.option("--from-tick", type=int, default=0, show_default=True)
-@click.option("--to-tick", type=int, default=10, show_default=True)
+@click.option("--from-tick", type=click.IntRange(min=0), default=0, show_default=True)
+@click.option("--to-tick", type=click.IntRange(min=0), default=10, show_default=True)
 @click.pass_obj
 def transcript(ctx: Context, cohort_id: str, multiverse_id: str, from_tick: int, to_tick: int) -> None:
     emit(
