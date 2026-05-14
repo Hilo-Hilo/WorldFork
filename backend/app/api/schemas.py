@@ -453,6 +453,19 @@ class WorkspaceState(BaseModel):
 
 
 RAW_TEXT_KEYS = {"scenario_text", "prompt", "premise", "raw_text", "source_text", "plain_text"}
+RAW_TEXT_COMPACT_KEYS = {
+    "scenarioinput",
+    "scenariotext",
+    "rawtext",
+    "sourcetext",
+    "plaintext",
+    "initializerprompt",
+    "systemprompt",
+    "developerprompt",
+    "userprompt",
+    "fullprompt",
+    "rawprompt",
+}
 PRIVATE_KEY_NAMES = {"secret", "api_key", "apikey", "token", "password", "authorization", "bearer"}
 def sanitize_public_payload(value):
     if isinstance(value, dict):
@@ -472,7 +485,7 @@ def _sanitize_public_dict(value: dict) -> dict:
         if _is_private_key_field(normalized):
             sanitized[key_text] = "[REDACTED]"
             continue
-        if normalized in RAW_TEXT_KEYS or _is_absolute_path_field(normalized, item):
+        if _is_raw_text_field(normalized) or _is_absolute_path_field(normalized, item):
             sanitized[f"{key_text}_present"] = bool(item)
             if isinstance(item, str):
                 sanitized[f"{key_text}_char_count"] = len(item)
@@ -517,6 +530,11 @@ def _is_absolute_path_field(key: str, value) -> bool:
         and isinstance(value, str)
         and _is_absolute_path_value(value)
     )
+
+
+def _is_raw_text_field(key: str) -> bool:
+    compact = key.replace("_", "").replace("-", "")
+    return key in RAW_TEXT_KEYS or compact in RAW_TEXT_COMPACT_KEYS
 
 
 def _is_absolute_path_value(value: str) -> bool:

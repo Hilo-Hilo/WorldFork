@@ -160,6 +160,32 @@ def test_public_payload_sanitizer_redacts_mixed_style_absolute_path_fields(field
 @pytest.mark.parametrize(
     "field_name",
     [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_public_payload_sanitizer_redacts_mixed_style_raw_text_fields(field_name):
+    value = "raw private prompt and scenario text"
+
+    sanitized = sanitize_public_payload({field_name: value})
+
+    assert sanitized == {
+        f"{field_name}_present": True,
+        f"{field_name}_char_count": len(value),
+    }
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
         "artifact_id",
         "llm_call_id",
         "markdown_artifact_id",
