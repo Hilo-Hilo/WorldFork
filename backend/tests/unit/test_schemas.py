@@ -36,6 +36,7 @@ from backend.app.schemas import (
 from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
 from backend.app.schemas.api import (
     CompareRequest,
+    CreateRunRequest,
     FocusBranchRequest,
     PatchBranchPolicyRequest,
     PatchProvidersRequest,
@@ -444,6 +445,26 @@ def _rate_limit_patch(**overrides) -> dict:
     }
     row.update(overrides)
     return row
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (CreateRunRequest, {"display_name": "   ", "scenario_text": "scenario"}),
+        (CreateRunRequest, {"display_name": "Run", "scenario_text": "   "}),
+        (CreateRunRequest, {"display_name": "Run", "scenario_text": "scenario", "time_horizon_label": "   "}),
+        (PatchProvidersRequest, {"providers": [_provider_patch(provider="   ")]}),
+        (PatchProvidersRequest, {"providers": [_provider_patch(base_url="   ")]}),
+        (PatchProvidersRequest, {"providers": [_provider_patch(api_key_env="   ")]}),
+        (PatchProvidersRequest, {"providers": [_provider_patch(default_model="   ")]}),
+        (PatchRoutingRequest, {"entries": [_routing_patch(job_type="   ")]}),
+        (PatchRoutingRequest, {"entries": [_routing_patch(preferred_provider="   ")]}),
+        (PatchRoutingRequest, {"entries": [_routing_patch(preferred_model="   ")]}),
+    ],
+)
+def test_request_schemas_reject_blank_legacy_min_length_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
 
 
 @pytest.mark.parametrize(
