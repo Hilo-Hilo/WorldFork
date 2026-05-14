@@ -135,6 +135,15 @@ def _collect_sot_files(source_dir: Path, *, exclude_snapshot_marker: bool = Fals
     )
 
 
+def _collect_sot_entries(source_dir: Path, *, exclude_snapshot_marker: bool = False) -> list[Path]:
+    """Return files and directories under *source_dir* in deterministic sorted order."""
+    _reject_sot_symlinks(source_dir)
+    return sorted(
+        p for p in source_dir.rglob("*")
+        if (p.is_file() or p.is_dir()) and not (exclude_snapshot_marker and p.name == ".snapshot_sha256")
+    )
+
+
 def _reject_sot_symlinks(source_dir: Path) -> None:
     symlinks = sorted(p for p in source_dir.rglob("*") if p.is_symlink())
     if symlinks:
@@ -143,21 +152,27 @@ def _reject_sot_symlinks(source_dir: Path) -> None:
 
 
 def _compute_sot_merkle(source_dir: Path) -> str:
-    files = _collect_sot_files(source_dir, exclude_snapshot_marker=True)
-    hashes = [_hash_sot_file(source_dir, f) for f in files]
+    entries = _collect_sot_entries(source_dir, exclude_snapshot_marker=True)
+    hashes = [_hash_sot_entry(source_dir, entry) for entry in entries]
     return merkle_root(hashes)
 
 
 def _compute_snapshot_merkle(snapshot_dir: Path) -> str:
-    files = _collect_sot_files(snapshot_dir, exclude_snapshot_marker=True)
-    hashes = [_hash_sot_file(snapshot_dir, f) for f in files]
+    entries = _collect_sot_entries(snapshot_dir, exclude_snapshot_marker=True)
+    hashes = [_hash_sot_entry(snapshot_dir, entry) for entry in entries]
     return merkle_root(hashes)
 
 
-def _hash_sot_file(root: Path, path: Path) -> str:
+def _hash_sot_entry(root: Path, path: Path) -> str:
     relative = path.relative_to(root).as_posix().encode("utf-8")
-    content = path.read_bytes()
     digest = hashlib.sha256()
+    if path.is_dir():
+        digest.update(b"D")
+        digest.update(len(relative).to_bytes(8, "big"))
+        digest.update(relative)
+        return digest.hexdigest()
+    content = path.read_bytes()
+    digest.update(b"F")
     digest.update(len(relative).to_bytes(8, "big"))
     digest.update(relative)
     digest.update(len(content).to_bytes(8, "big"))
