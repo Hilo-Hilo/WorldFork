@@ -250,6 +250,26 @@ class TestBigBangRun:
 
 
 @pytest.mark.parametrize(
+    "model,payload",
+    [
+        (BigBangRun, _make_big_bang(big_bang_id="   ")),
+        (BigBangRun, _make_big_bang(display_name="   ")),
+        (BigBangRun, _make_big_bang(scenario_text="   ")),
+        (BigBangRun, _make_big_bang(root_universe_id="   ")),
+        (Universe, _make_universe(universe_id="   ", lineage_path=["u_000", "   "])),
+        (Universe, _make_universe(big_bang_id="   ")),
+        (Universe, _make_universe(parent_universe_id="   ")),
+        (JobEnvelope, _make_job_envelope(run_id="   ")),
+        (JobEnvelope, _make_job_envelope(job_id="   ")),
+        (JobEnvelope, _make_job_envelope(idempotency_key="   ")),
+    ],
+)
+def test_runtime_schemas_reject_blank_identity_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
     "payload",
     [
         {"default_tick_duration_minutes": 0},

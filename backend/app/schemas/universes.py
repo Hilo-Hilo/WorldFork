@@ -6,11 +6,13 @@ Import-free of backend.app.models.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from backend.app.schemas.common import RunStatus, UniverseStatus
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # ---------------------------------------------------------------------------
 # BigBangRun
@@ -21,23 +23,23 @@ class BigBangRun(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    big_bang_id: str
-    display_name: str
+    big_bang_id: NonEmptyStr
+    display_name: NonEmptyStr
     created_at: datetime
     updated_at: datetime
-    created_by_user_id: str | None = None
-    scenario_text: str
-    input_file_ids: list[str] = Field(default_factory=list)
+    created_by_user_id: NonEmptyStr | None = None
+    scenario_text: NonEmptyStr
+    input_file_ids: list[NonEmptyStr] = Field(default_factory=list)
     status: RunStatus
-    time_horizon_label: str
+    time_horizon_label: NonEmptyStr
     tick_duration_minutes: int = Field(..., gt=0)
     max_ticks: int = Field(..., gt=0)
     max_schedule_horizon_ticks: int = Field(..., gt=0)
-    source_of_truth_version: str
-    source_of_truth_snapshot_path: str
-    provider_snapshot_id: str
-    root_universe_id: str
-    run_folder_path: str
+    source_of_truth_version: NonEmptyStr
+    source_of_truth_snapshot_path: NonEmptyStr
+    provider_snapshot_id: NonEmptyStr
+    root_universe_id: NonEmptyStr
+    run_folder_path: NonEmptyStr
     safe_edit_metadata: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -50,13 +52,13 @@ class Universe(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    universe_id: str
-    big_bang_id: str
-    parent_universe_id: str | None = None
-    child_universe_ids: list[str] = Field(default_factory=list)
+    universe_id: NonEmptyStr
+    big_bang_id: NonEmptyStr
+    parent_universe_id: NonEmptyStr | None = None
+    child_universe_ids: list[NonEmptyStr] = Field(default_factory=list)
     branch_from_tick: int = Field(..., ge=0)
     branch_depth: int = Field(..., ge=0)
-    lineage_path: list[str] = Field(..., min_length=1)
+    lineage_path: list[NonEmptyStr] = Field(..., min_length=1)
     status: UniverseStatus
     branch_reason: str = ""
     branch_delta: dict[str, Any] | None = None
