@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.artifacts.routes import get_artifact
-from app.domains.big_bang.initialization_routes import _public_corpus, audit_llm_call
+from app.domains.big_bang.initialization_routes import _public_corpus, _public_simulation_brief, audit_llm_call
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
 from app.domains.artifacts import routes as artifact_routes
 from app.db import models
@@ -1803,6 +1803,30 @@ def test_public_initializer_corpus_drops_mixed_style_artifact_references(field_n
 
     assert field_name not in sanitized
     assert "4f0774fe-b2de-45dc-9918-1b837089a777" not in str(sanitized)
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "scenarioText",
+        "rawText",
+        "sourceText",
+        "plainText",
+        "initializerPrompt",
+        "systemPrompt",
+        "developerPrompt",
+        "userPrompt",
+        "fullPrompt",
+        "rawPrompt",
+    ],
+)
+def test_public_initializer_simulation_brief_gates_mixed_style_raw_text(field_name):
+    raw_text = "raw simulation brief text"
+
+    sanitized = _public_simulation_brief({field_name: raw_text})
+
+    assert sanitized[field_name] == "[debug gated]"
+    assert raw_text not in str(sanitized)
 
 
 def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutation():
