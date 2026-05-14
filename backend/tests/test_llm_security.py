@@ -1896,6 +1896,32 @@ def test_public_initializer_output_gates_mixed_style_raw_text(field_name):
     assert debug[field_name] == raw_text
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "plainTextCorpus",
+        "rawTextCorpus",
+        "sourceTextCorpus",
+        "scenarioCorpus",
+        "initializerCorpus",
+        "promptCorpus",
+        "textCorpus",
+        "documentCorpus",
+        "inputCorpus",
+        "llmCorpus",
+    ],
+)
+def test_public_initializer_output_drops_mixed_style_corpus_fields(field_name):
+    corpus = {"rawText": "raw initializer corpus text"}
+
+    sanitized = _public_initializer_output({field_name: corpus}, include_debug=False)
+    debug = _public_initializer_output({field_name: corpus}, include_debug=True)
+
+    assert field_name not in sanitized
+    assert "raw initializer corpus text" not in str(sanitized)
+    assert debug[field_name] == corpus
+
+
 def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutation():
     payload = {
         "run_id": "run-1",
