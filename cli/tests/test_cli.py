@@ -790,6 +790,106 @@ def test_ledgers_evaluate_calls_endpoint_ledger_job(monkeypatch) -> None:
     ]
 
 
+@pytest.mark.parametrize(
+    ("args", "expected_calls"),
+    [
+        (
+            ["ledgers", "list", " bb-123 "],
+            [("GET", "/big-bangs/bb-123/endpoint-ledgers", {"verbosity": "summary"}, None)],
+        ),
+        (
+            ["ledgers", "list", " unused-bb ", "--multiverse-id", " mv-123 "],
+            [("GET", "/multiverses/mv-123/endpoint-ledgers", {"verbosity": "summary"}, None)],
+        ),
+        (
+            ["ledgers", "view", " ledger-123 "],
+            [("GET", "/endpoint-ledgers/ledger-123", None, None)],
+        ),
+        (
+            ["ledgers", "path-mass", " bb-123 "],
+            [("GET", "/big-bangs/bb-123/endpoint-ledgers/path-mass", None, None)],
+        ),
+        (
+            ["ledgers", "evaluate", " bb-123 "],
+            [
+                (
+                    "POST",
+                    "/big-bangs/bb-123/endpoint-ledgers/evaluate",
+                    None,
+                    {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
+                )
+            ],
+        ),
+        (
+            ["ledgers", "evaluate", " ignored-bb ", "--multiverse-id", " mv-123 "],
+            [
+                (
+                    "POST",
+                    "/multiverses/mv-123/endpoint-ledgers/evaluate",
+                    None,
+                    {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
+                )
+            ],
+        ),
+        (
+            ["ledgers", "evaluate", " bb-123 ", "--wait", "--timeout", "0"],
+            [
+                (
+                    "POST",
+                    "/big-bangs/bb-123/endpoint-ledgers/evaluate",
+                    None,
+                    {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
+                ),
+                (
+                    "POST",
+                    "/agent/jobs/job-123/wait",
+                    None,
+                    {"timeout_seconds": 0.0, "poll_interval_seconds": 1},
+                ),
+                ("GET", "/endpoint-ledgers/ledger-123", None, None),
+            ],
+        ),
+        (
+            ["settings", "provider-test", " openrouter "],
+            [("POST", "/settings/providers/test", None, {"provider": "openrouter"})],
+        ),
+    ],
+)
+def test_cli_ledger_and_provider_inputs_trim_surrounding_whitespace(
+    monkeypatch,
+    args,
+    expected_calls,
+) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            if path.endswith("/evaluate"):
+                return {"job_id": " job-123 ", "status": "queued"}
+            if path.endswith("/wait"):
+                return {
+                    "ok": True,
+                    "data": {
+                        "id": "job-123",
+                        "status": "completed",
+                        "result": {"ledger_version_id": " ledger-123 "},
+                    },
+                    "meta": {"terminal": True, "timed_out": False},
+                }
+            return {"ok": True}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, args)
+
+    assert result.exit_code == 0
+    assert calls == expected_calls
+
+
 def test_multiverses_trace_calls_agent_trace_endpoint(monkeypatch) -> None:
     calls = []
 
@@ -1272,6 +1372,43 @@ def test_query_can_skip_api_prefix(monkeypatch) -> None:
 
     assert result.exit_code == 0
     assert calls == [("GET", "/readyz", None, None, False)]
+
+
+def test_query_reads_json_body_from_file(monkeypatch, tmp_path) -> None:
+    calls = []
+    body_file = tmp_path / "body.json"
+    body_file.write_text('{"healthy": true}', encoding="utf-8")
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True):
+            calls.append((method, path, params, json_body, use_api_prefix))
+            return {"ok": True}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["query", "POST", "/readyz", "--data", f"@{body_file}"])
+
+    assert result.exit_code == 0
+    assert calls == [("POST", "/readyz", None, {"healthy": True}, True)]
+
+
+def test_query_rejects_invalid_json_body_before_request(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, *_args, **_kwargs):
+            raise AssertionError("request should not be sent")
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["query", "POST", "/readyz", "--data", "{not-json"])
+
+    assert result.exit_code == 2
+    assert "--data must be valid JSON" in result.output
 
 
 def test_jobs_wait_treats_interrupted_as_non_error_terminal(monkeypatch) -> None:
