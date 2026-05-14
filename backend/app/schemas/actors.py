@@ -111,8 +111,8 @@ class CohortState(BaseModel):
     universe_id: NonEmptyStr
     tick: int = Field(..., ge=0)
     archetype_id: NonEmptyStr
-    parent_cohort_id: str | None = None
-    child_cohort_ids: list[str] = Field(default_factory=list)
+    parent_cohort_id: NonEmptyStr | None = None
+    child_cohort_ids: list[NonEmptyStr] = Field(default_factory=list)
 
     represented_population: int = Field(..., ge=0)
     population_share_of_archetype: float = Field(..., ge=0.0, le=1.0)
@@ -137,14 +137,14 @@ class CohortState(BaseModel):
     exposure_summary: dict[str, Any] = Field(default_factory=dict)
     dependency_summary: dict[str, Any] = Field(default_factory=dict)
 
-    memory_session_id: str | None = None
-    recent_post_ids: list[str] = Field(default_factory=list)
-    queued_event_ids: list[str] = Field(default_factory=list)
-    previous_action_ids: list[str] = Field(default_factory=list)
+    memory_session_id: NonEmptyStr | None = None
+    recent_post_ids: list[NonEmptyStr] = Field(default_factory=list)
+    queued_event_ids: list[NonEmptyStr] = Field(default_factory=list)
+    previous_action_ids: list[NonEmptyStr] = Field(default_factory=list)
 
     prompt_temperature: float = Field(..., ge=0.0, le=2.0)
     representation_mode: RepresentationMode
-    allowed_tools: list[str] = Field(default_factory=list)
+    allowed_tools: list[NonEmptyStr] = Field(default_factory=list)
     is_active: bool = True
 
     @field_validator("mobilization_mode")
@@ -297,8 +297,8 @@ class HeroState(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    hero_id: str
-    universe_id: str
+    hero_id: NonEmptyStr
+    universe_id: NonEmptyStr
     tick: int = Field(..., ge=0)
     current_emotions: dict[str, float] = Field(default_factory=dict)
     current_issue_stances: dict[str, float] = Field(default_factory=dict)
@@ -306,7 +306,7 @@ class HeroState(BaseModel):
     fatigue: float = Field(..., ge=0.0, le=1.0)
     perceived_pressure: float = Field(..., ge=0.0, le=1.0)
     current_strategy: str = ""
-    queued_events: list[str] = Field(default_factory=list)
+    queued_events: list[NonEmptyStr] = Field(default_factory=list)
     recent_posts: list[str] = Field(default_factory=list)
     memory_session_id: str | None = None
 

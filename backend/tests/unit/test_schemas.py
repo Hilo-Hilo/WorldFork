@@ -31,6 +31,7 @@ from backend.app.schemas import (
     EmbeddingConfig,
     Event,
     HeroArchetype,
+    HeroState,
     JobEnvelope,
     LLMResult,
     ModelConfig,
@@ -180,6 +181,25 @@ def _make_hero_archetype(**overrides) -> dict:
         label="Mayor",
         description="City mayor with agenda-setting power.",
         role="elected_official",
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_hero_state(**overrides) -> dict:
+    base = dict(
+        hero_id="hero_001",
+        universe_id="u_001",
+        tick=0,
+        current_emotions={"resolve": 5.0},
+        current_issue_stances={"labor_rights": 0.2},
+        attention=0.7,
+        fatigue=0.2,
+        perceived_pressure=0.5,
+        current_strategy="listen_and_respond",
+        queued_events=[],
+        recent_posts=[],
+        memory_session_id=None,
     )
     base.update(overrides)
     return base
@@ -752,6 +772,26 @@ class TestEvent:
     ],
 )
 def test_actor_schemas_reject_blank_identity_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (CohortState, _make_cohort(parent_cohort_id="   ")),
+        (CohortState, _make_cohort(child_cohort_ids=["   "])),
+        (CohortState, _make_cohort(memory_session_id="   ")),
+        (CohortState, _make_cohort(recent_post_ids=["   "])),
+        (CohortState, _make_cohort(queued_event_ids=["   "])),
+        (CohortState, _make_cohort(previous_action_ids=["   "])),
+        (CohortState, _make_cohort(allowed_tools=["   "])),
+        (HeroState, _make_hero_state(hero_id="   ")),
+        (HeroState, _make_hero_state(universe_id="   ")),
+        (HeroState, _make_hero_state(queued_events=["   "])),
+    ],
+)
+def test_actor_schemas_reject_blank_reference_strings(model, payload):
     with pytest.raises(ValidationError):
         model.model_validate(payload)
 
