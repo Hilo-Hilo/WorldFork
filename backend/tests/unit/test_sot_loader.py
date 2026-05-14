@@ -263,6 +263,40 @@ class TestSnapshotSotTo:
 
         assert _compute_snapshot_merkle(left) != _compute_snapshot_merkle(right)
 
+    @pytest.mark.parametrize(
+        ("left_dirs", "right_dirs"),
+        [
+            (["empty"], []),
+            (["empty"], ["other"]),
+            (["a/empty"], ["a/other"]),
+            (["a/empty"], ["b/empty"]),
+            (["a/b/c"], ["a/b/d"]),
+            (["one", "two"], ["one"]),
+            (["one/two"], ["one", "one/two/three"]),
+            (["prompt_contracts/drafts"], ["prompt_contracts/final"]),
+            (["prompt_templates/drafts"], ["prompt_templates/final"]),
+            (["nested/a", "nested/b"], ["nested/a", "nested/c"]),
+        ],
+    )
+    def test_snapshot_merkle_includes_empty_directory_structure(
+        self,
+        tmp_path: Path,
+        left_dirs: list[str],
+        right_dirs: list[str],
+    ) -> None:
+        left = tmp_path / "left"
+        right = tmp_path / "right"
+        left.mkdir()
+        right.mkdir()
+        (left / "payload.json").write_text("same-content", encoding="utf-8")
+        (right / "payload.json").write_text("same-content", encoding="utf-8")
+        for relative in left_dirs:
+            (left / relative).mkdir(parents=True, exist_ok=True)
+        for relative in right_dirs:
+            (right / relative).mkdir(parents=True, exist_ok=True)
+
+        assert _compute_snapshot_merkle(left) != _compute_snapshot_merkle(right)
+
 
 # ---------------------------------------------------------------------------
 # Minimal SoT builder (used when real SoT is absent)
