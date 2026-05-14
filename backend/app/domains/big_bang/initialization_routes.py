@@ -202,24 +202,36 @@ def _public_initializer_output(value: dict, *, include_debug: bool) -> dict:
 def _public_corpus(value: dict, *, include_debug: bool) -> dict:
     if include_debug or not isinstance(value, dict):
         return value
-    sanitized = dict(value)
-    sanitized.pop("raw_text_artifact_id", None)
+    sanitized = _strip_public_reference_fields(value)
     sanitized["chunk_artifacts"] = _strip_artifact_ids(sanitized.get("chunk_artifacts", []))
     sanitized["chunk_summaries"] = _strip_artifact_ids(sanitized.get("chunk_summaries", []))
     sanitized["simulation_brief"] = _public_simulation_brief(sanitized.get("simulation_brief", {}))
-    sanitized.pop("simulation_brief_artifact_id", None)
     return sanitized
 
 
 def _public_simulation_brief(value) -> dict:
     if not isinstance(value, dict):
         return {}
-    sanitized = dict(value)
+    sanitized = _strip_public_reference_fields(value)
     if "text" in sanitized:
         sanitized["text"] = "[debug gated]"
-    sanitized.pop("raw_text_artifact_id", None)
     sanitized["chunk_summaries"] = _strip_artifact_ids(sanitized.get("chunk_summaries", []))
     return sanitized
+
+
+def _strip_public_reference_fields(value: dict) -> dict:
+    return {key: item for key, item in value.items() if not _is_public_artifact_reference_key(str(key))}
+
+
+def _is_public_artifact_reference_key(key: str) -> bool:
+    normalized = key.lower()
+    compact = normalized.replace("_", "").replace("-", "")
+    return (
+        normalized in {"artifact_id"}
+        or normalized.endswith("_artifact_id")
+        or compact in {"artifactid"}
+        or compact.endswith("artifactid")
+    )
 
 
 def _strip_artifact_ids(value):
@@ -228,7 +240,6 @@ def _strip_artifact_ids(value):
     stripped = []
     for item in value:
         if isinstance(item, dict):
-            clean = dict(item)
-            clean.pop("artifact_id", None)
+            clean = _strip_public_reference_fields(item)
             stripped.append(clean)
     return stripped
