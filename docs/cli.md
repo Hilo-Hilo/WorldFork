@@ -60,7 +60,7 @@ worldfork watch big-bang <id> --no-stop
 worldfork runs list
 worldfork runs workspace <big-bang-id>
 worldfork universes trace <multiverse-id>
-worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
+worldfork cohorts transcript <cohort-id> --multiverse-id <multiverse-id>
 worldfork ticks timing <tick-snapshot-id>
 worldfork ticks cost <tick-snapshot-id> --include-calls
 worldfork runs cost <big-bang-id> --include-calls
