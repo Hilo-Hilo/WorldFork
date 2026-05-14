@@ -1149,3 +1149,41 @@ def test_watch_multiverse_once_streams_multiverse_ticks_and_logs(monkeypatch) ->
     assert result.exit_code == 0
     assert "[multiverse] completed M1" in result.output
     assert "[tick] final tick=2 done" in result.output
+
+
+def test_cohort_transcript_accepts_multiverse_id(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params))
+            return {"entries": []}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "cohorts",
+            "transcript",
+            "cohort-1",
+            "--multiverse-id",
+            "m-1",
+            "--from-tick",
+            "2",
+            "--to-tick",
+            "4",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert calls == [
+        (
+            "GET",
+            "/agent/cohorts/cohort-1/transcript",
+            {"verbosity": "summary", "multiverse_id": "m-1", "from_tick": 2, "to_tick": 4},
+        )
+    ]
