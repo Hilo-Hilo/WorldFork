@@ -195,6 +195,7 @@ Expected consistency:
 - Keep the decision and tool_calls coherent. If you choose continue, normally emit continue_timeline only. If you choose branch, emit create_branch with fork_tick_index and an evidence-based reason.
 - Emit a small coherent sequence of structural tool calls when required. For example, first update a population archetype total if needed, then split_cohort, then update child cohort states. Keep the sequence minimal and repair failed tool calls in the next agent-loop iteration.
 - Do not create branches for cosmetic variation. A branch should preserve a meaningful alternate future that a final report can compare.
+- A create_branch reason must name the alternate path the child timeline should preserve. In forecast-card runs, prefer branch reasons that name the explicit yes/no endpoint direction or authority decision being tested; avoid generic reasons such as "branch pressure is high" when endpoint alternatives are known.
 - If you terminate or mark ready for report, explain why the timeline has no meaningful unresolved motion left.
 
 Return strict JSON with keys:
@@ -210,8 +211,8 @@ Field rules:
 - For population tools, arguments must include reason and the exact numeric population_total, represented_population, or delta being applied.
 - endpoint_ledger_updates should be an array of endpoint objects only when the supplied endpoint ledger needs a material status/evidence change. Use endpoint_key, label, status, authority_refs, evidence_refs, blockers, contradiction_notes, rationale, and last_observed_tick_index.
 - endpoint_ledger_summary should briefly explain any endpoint ledger change; use an empty string if none.
-- Endpoint ledger statuses are terminal-state predicates, not probabilities. Use realized only for endpoints that happened, eliminated only for endpoints made impossible by hard evidence, and insufficient_ticks when the current tick limit stops the timeline before resolution.
-- If final_tick_context.is_final_allowed_tick is true, apply stricter closure: unresolved endpoints should become insufficient_ticks unless hard evidence makes them eliminated. If the Big Bang or multiverse later resumes past this limit, insufficient_ticks overlays are reversible and should not be treated as permanent no answers.
+- Endpoint ledger statuses are terminal-state predicates, not probabilities. Use realized only for endpoints that happened, eliminated only for endpoints made impossible by hard evidence, and insufficient_ticks only when the current tick limit leaves the endpoint genuinely unmodeled after using available path evidence.
+- If final_tick_context.is_final_allowed_tick is true, do not create branches. For explicit yes/no forecast-card endpoints, force a binary yes/no settlement for each path using, in order, executed terminal events, hard endpoint evidence, branch premise/context, simulated path evidence, and the original source packet/deadline contract. If yes is not realized by the deadline and no stronger yes-path evidence exists, realize no for that path and eliminate yes. Use insufficient_ticks only for auxiliary or open-ended endpoints that remain genuinely unmodeled, not primary yes/no candidates in deadline-aware cards. If the Big Bang or multiverse later resumes past this limit, insufficient_ticks overlays remain reversible and should not be treated as permanent no answers.
 """.strip()
 
 REPORT_AGENT_SYSTEM_PROMPT = f"""
