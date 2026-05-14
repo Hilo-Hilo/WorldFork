@@ -249,7 +249,7 @@ class HeroArchetype(BaseModel):
     description: NonEmptyStr
     role: NonEmptyStr
     institution: NonEmptyStr | None = None
-    location_scope: str = "city"
+    location_scope: NonEmptyStr = "city"
 
     # All hero numeric weights default to 0.5 so the LLM may omit them.
     public_reach: float = Field(0.5, ge=0.0, le=1.0)

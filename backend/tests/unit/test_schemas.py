@@ -27,9 +27,11 @@ from backend.app.schemas import (
     BranchNode,
     BranchDelta,
     BranchPolicy,
+    BranchPolicyResult,
     CohortState,
     EmbeddingConfig,
     Event,
+    GlobalSettings,
     HeroArchetype,
     HeroState,
     JobEnvelope,
@@ -1300,6 +1302,45 @@ def _make_rate_limit_config(**overrides) -> dict:
     )
     base.update(overrides)
     return base
+
+
+def _make_branch_node(**overrides) -> dict:
+    base = dict(
+        universe_id="u_001",
+        parent_universe_id=None,
+        child_universe_ids=[],
+        depth=0,
+        branch_tick=0,
+        branch_point_id="bp_001",
+        branch_trigger="god_review",
+        branch_delta={},
+        status="active",
+        metrics_summary={},
+        cost_estimate={},
+        descendant_count=0,
+    )
+    base.update(overrides)
+    return base
+
+
+@pytest.mark.parametrize(
+    "model,payload",
+    [
+        (ProviderConfig, _make_provider_config(extra_headers={"   ": "value"})),
+        (ProviderConfig, _make_provider_config(extra_headers={"X-Test": "   "})),
+        (GlobalSettings, {"log_level": "   "}),
+        (GlobalSettings, {"display_timezone": "   "}),
+        (GlobalSettings, {"run_folder_root": "   "}),
+        (GlobalSettings, {"default_representation_mode_thresholds": {"   ": [2, 25]}}),
+        (BranchNode, _make_branch_node(parent_universe_id="   ")),
+        (BranchNode, _make_branch_node(child_universe_ids=["   "])),
+        (BranchPolicyResult, {"decision": "approve", "reason": "   "}),
+        (HeroArchetype, _make_hero_archetype(location_scope="   ")),
+    ],
+)
+def test_remaining_persistence_schemas_reject_blank_strings(model, payload):
+    with pytest.raises(ValidationError):
+        model.model_validate(payload)
 
 
 @pytest.mark.parametrize(
