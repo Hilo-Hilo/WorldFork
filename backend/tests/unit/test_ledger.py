@@ -273,6 +273,19 @@ class TestVerify:
 
 
 class TestOpen:
+    def _write_tick_manifest_file_entry(self, ledger: Ledger, rel_path: str, outside: Path) -> None:
+        ledger.begin_universe("U000", parent=None, branch_from_tick=None, branch_delta=None)
+        ledger.begin_tick("U000", 0)
+        ledger.write_artifact("universes/U000/ticks/tick_000/state.json", {"ok": True}, immutable=False)
+        ledger.seal_tick("U000", 0)
+        manifest_path = ledger.run_folder / "universes" / "U000" / "ticks" / "tick_000" / "manifest.json"
+        manifest = json.loads(manifest_path.read_bytes())
+        manifest["files"][rel_path] = {
+            "sha256": sha256_file(outside),
+            "size": outside.stat().st_size,
+        }
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
     def test_open_finds_existing_run(self, tmp_path: Path) -> None:
         ld1 = Ledger.begin_run(
             run_root=tmp_path,
@@ -288,3 +301,34 @@ class TestOpen:
         from backend.app.storage.ledger import LedgerError
         with pytest.raises(LedgerError):
             Ledger.open(tmp_path, "BB_nonexistent")
+
+    @pytest.mark.parametrize(
+        "unsafe_rel_path",
+        [
+            "../outside.json",
+            "../../outside.json",
+            "universes/U000/../outside.json",
+            "universes/U000/ticks/tick_000/../../outside.json",
+            "/absolute/outside.json",
+            "\\windows\\outside.json",
+            "",
+            ".",
+            "..",
+            "universes/U000/ticks/tick_000/./state.json",
+        ],
+    )
+    def test_open_rejects_unsafe_tick_manifest_file_paths(self, tmp_path: Path, unsafe_rel_path: str) -> None:
+        outside = tmp_path / "outside.json"
+        outside.write_text('{"outside": true}', encoding="utf-8")
+        ledger = Ledger.begin_run(
+            run_root=tmp_path,
+            big_bang_id="BB_unsafe_manifest",
+            scenario_text="unsafe manifest",
+            sot_snapshot_sha="0" * 64,
+            config_snapshot={},
+        )
+        rel_path = outside.as_posix() if unsafe_rel_path.startswith("/absolute/") else unsafe_rel_path
+        self._write_tick_manifest_file_entry(ledger, rel_path, outside)
+
+        with pytest.raises(LedgerError, match="Unsafe tick manifest file path"):
+            Ledger.open(tmp_path, "BB_unsafe_manifest")
