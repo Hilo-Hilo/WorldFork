@@ -7,6 +7,8 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
 
 NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+RunNameStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=240)]
+ReportTitleStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=300)]
 
 
 class ORMModel(BaseModel):
@@ -16,9 +18,9 @@ class ORMModel(BaseModel):
 class BigBangCreate(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    name: str = Field(min_length=1, max_length=240)
-    description: str | None = None
-    scenario_text: str | None = None
+    name: RunNameStr
+    description: NonEmptyStr | None = None
+    scenario_text: NonEmptyStr | None = None
     scenario_input: dict[str, Any] = Field(default_factory=dict)
     simulation_config: dict[str, Any] = Field(default_factory=dict)
     llm_model_config: dict[str, Any] = Field(default_factory=dict, alias="model_config")
@@ -27,12 +29,12 @@ class BigBangCreate(BaseModel):
     cohorts: list[dict[str, Any]] = Field(default_factory=list)
     heroes: list[dict[str, Any]] = Field(default_factory=list)
     use_initializer_agent: bool = True
-    initializer_prompt: str | None = None
+    initializer_prompt: NonEmptyStr | None = None
 
 
 class BigBangPatch(BaseModel):
-    name: str | None = Field(default=None, min_length=1, max_length=240)
-    description: str | None = None
+    name: RunNameStr | None = None
+    description: NonEmptyStr | None = None
     status: NonEmptyStr | None = None
 
 
@@ -219,7 +221,7 @@ class ReportVersionOut(ORMModel):
 
 
 class ReportVersionPatch(BaseModel):
-    title: str | None = Field(default=None, max_length=300)
+    title: ReportTitleStr | None = None
     summary: str | None = None
     content: dict[str, Any] | None = None
     generation_metadata: dict[str, Any] | None = None
@@ -422,7 +424,7 @@ class RunUntilCompleteRequest(BaseModel):
 
 
 class ToolCallRequest(BaseModel):
-    tool_name: str = Field(..., min_length=1)
+    tool_name: NonEmptyStr
     arguments: dict[str, Any] = Field(default_factory=dict)
     idempotency_key: NonEmptyStr | None = None
 
