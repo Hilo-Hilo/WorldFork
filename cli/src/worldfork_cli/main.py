@@ -574,15 +574,19 @@ def _collect_initialized_state(ctx: Context, big_bang_id: str) -> dict[str, Any]
 @click.option("--actors", help="JSON array or @file for manual actors.")
 @click.option("--cohorts", help="JSON array or @file for manual cohorts.")
 @click.option("--heroes", help="JSON array or @file for manual heroes.")
-@click.option("--max-ticks", type=int, help="Convenience override for simulation_config.max_ticks.")
+@click.option(
+    "--max-ticks",
+    type=click.IntRange(min=1),
+    help="Convenience override for simulation_config.max_ticks.",
+)
 @click.option(
     "--tick-duration-minutes",
-    type=int,
+    type=click.IntRange(min=1),
     help="Convenience override for simulation_config.tick_duration_minutes.",
 )
 @click.option(
     "--max-schedule-horizon-ticks",
-    type=int,
+    type=click.IntRange(min=1),
     help="Convenience override for simulation_config.max_schedule_horizon_ticks.",
 )
 @click.option("--initializer-prompt", help="Optional extra prompt text for the initializer agent.")
