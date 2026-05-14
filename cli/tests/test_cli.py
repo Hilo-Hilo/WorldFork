@@ -1,6 +1,7 @@
 import sys
 import types
 
+import pytest
 from click.testing import CliRunner
 
 import worldfork_cli.main as cli_main
@@ -197,6 +198,65 @@ def test_subcommand_timeout_is_not_stolen_by_global_parser(monkeypatch) -> None:
     assert result.exit_code == 0
     assert client_timeouts == [30]
     assert watch_args == [(1, 7)]
+
+
+@pytest.mark.parametrize(
+    ("args", "expected_method", "expected_path", "expected_params"),
+    [
+        (["runs", "workspace", " bb-123 "], "GET", "/agent/runs/bb-123/workspace", {"verbosity": "summary"}),
+        (["runs", "timing", " bb-123 "], "GET", "/agent/runs/bb-123/timing", {"verbosity": "summary"}),
+        (["runs", "cost", " bb-123 "], "GET", "/agent/runs/bb-123/cost", {"verbosity": "summary"}),
+        (["runs", "estimate", " bb-123 "], "POST", "/agent/runs/bb-123/cost-estimate", None),
+        (["runs", "delete", " bb-123 "], "DELETE", "/big-bangs/bb-123", None),
+        (
+            ["multiverses", "trace", " mv-123 ", "--tick", "3"],
+            "GET",
+            "/agent/universes/mv-123/trace",
+            {"verbosity": "summary", "tick": 3},
+        ),
+        (
+            ["cohorts", "transcript", " cohort-123 ", "--multiverse-id", " mv-123 "],
+            "GET",
+            "/agent/cohorts/cohort-123/transcript",
+            {"verbosity": "summary", "multiverse_id": "mv-123", "from_tick": 0, "to_tick": 10},
+        ),
+        (["ticks", "timing", " tick-123 "], "GET", "/ticks/tick-123/timing", {"verbosity": "summary"}),
+        (["ticks", "cost", " tick-123 "], "GET", "/ticks/tick-123/cost", {"verbosity": "summary"}),
+        (["jobs", "wait", " job-123 ", "--timeout", "0"], "POST", "/agent/jobs/job-123/wait", None),
+    ],
+)
+def test_cli_path_ids_trim_surrounding_whitespace(
+    monkeypatch,
+    args,
+    expected_method,
+    expected_path,
+    expected_params,
+) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            if path.endswith("/wait"):
+                return {
+                    "ok": True,
+                    "data": {"id": "job-123", "status": "completed"},
+                    "meta": {"terminal": True, "timed_out": False},
+                }
+            return {"ok": True, "data": {}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, args)
+
+    assert result.exit_code == 0
+    method, path, params, _json_body = calls[0]
+    assert (method, path) == (expected_method, expected_path)
+    if expected_params is not None:
+        assert params == expected_params
 
 
 def test_cli_rejects_invalid_timeouts_before_requests() -> None:

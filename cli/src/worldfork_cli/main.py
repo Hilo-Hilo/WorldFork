@@ -492,6 +492,13 @@ def _payload_data(payload: Any) -> Any:
     return data
 
 
+def _clean_identifier(value: str, label: str) -> str:
+    cleaned = value.strip()
+    if not cleaned:
+        raise click.UsageError(f"{label} must not be blank")
+    return cleaned
+
+
 def _parse_json_object(value: str | None, label: str) -> dict[str, Any]:
     if not value:
         return {}
@@ -683,6 +690,7 @@ def runs_list(ctx: Context, status: str | None, q: str | None, limit: int, offse
 @click.pass_obj
 def workspace(ctx: Context, run_id: str) -> None:
     """Show a compact run workspace snapshot."""
+    run_id = _clean_identifier(run_id, "run_id")
     emit(
         ctx.client.request("GET", f"/agent/runs/{run_id}/workspace", params=ctx.params()),
         as_json=ctx.as_json,
@@ -694,6 +702,7 @@ def workspace(ctx: Context, run_id: str) -> None:
 @click.pass_obj
 def runs_timing(ctx: Context, run_id: str) -> None:
     """Show initialization, tick, stage, job, and LLM timing for a run."""
+    run_id = _clean_identifier(run_id, "run_id")
     emit(
         ctx.client.request("GET", f"/agent/runs/{run_id}/timing", params=ctx.params()),
         as_json=ctx.as_json,
@@ -707,6 +716,7 @@ def runs_timing(ctx: Context, run_id: str) -> None:
 @click.pass_obj
 def runs_cost(ctx: Context, run_id: str, include_calls: bool, include_non_openrouter: bool) -> None:
     """Show observed token cost and token totals for a run."""
+    run_id = _clean_identifier(run_id, "run_id")
     emit(
         ctx.client.request(
             "GET",
@@ -748,6 +758,7 @@ def runs_estimate(
     include_reports: bool,
 ) -> None:
     """Estimate future token cost and wall-clock time for a run."""
+    run_id = _clean_identifier(run_id, "run_id")
     emit(
         ctx.client.request(
             "POST",
@@ -774,6 +785,7 @@ def runs_estimate(
 @click.pass_obj
 def runs_delete(ctx: Context, run_id: str) -> None:
     """Soft-delete a run by archiving the canonical Big Bang."""
+    run_id = _clean_identifier(run_id, "run_id")
     emit(ctx.client.request("DELETE", f"/big-bangs/{run_id}"), as_json=ctx.as_json)
 
 
@@ -789,6 +801,8 @@ def multiverses() -> None:
 @click.option("--actor-kind", type=click.Choice(["cohort", "hero", "actor", "god"]))
 @click.pass_obj
 def trace(ctx: Context, multiverse_id: str, tick: int | None, actor_id: str | None, actor_kind: str | None) -> None:
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id")
+    actor_id = _clean_identifier(actor_id, "actor_id") if actor_id is not None else None
     emit(
         ctx.client.request(
             "GET",
@@ -811,6 +825,8 @@ def cohorts() -> None:
 @click.option("--to-tick", type=click.IntRange(min=0), default=10, show_default=True)
 @click.pass_obj
 def transcript(ctx: Context, cohort_id: str, multiverse_id: str, from_tick: int, to_tick: int) -> None:
+    cohort_id = _clean_identifier(cohort_id, "cohort_id")
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id")
     emit(
         ctx.client.request(
             "GET",
@@ -831,6 +847,7 @@ def ticks() -> None:
 @click.pass_obj
 def ticks_timing(ctx: Context, tick_snapshot_id: str) -> None:
     """Show stage, checkpoint, attempt, and LLM timing for one tick."""
+    tick_snapshot_id = _clean_identifier(tick_snapshot_id, "tick_snapshot_id")
     emit(
         ctx.client.request("GET", f"/ticks/{tick_snapshot_id}/timing", params=ctx.params()),
         as_json=ctx.as_json,
@@ -844,6 +861,7 @@ def ticks_timing(ctx: Context, tick_snapshot_id: str) -> None:
 @click.pass_obj
 def ticks_cost(ctx: Context, tick_snapshot_id: str, include_calls: bool, include_non_openrouter: bool) -> None:
     """Show observed token cost and token totals for one tick."""
+    tick_snapshot_id = _clean_identifier(tick_snapshot_id, "tick_snapshot_id")
     emit(
         ctx.client.request(
             "GET",
@@ -949,6 +967,7 @@ def jobs_list(ctx: Context, run_id: str | None, status: str | None, limit: int, 
 @click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.pass_obj
 def wait(ctx: Context, job_id: str, timeout_seconds: float, poll_interval: float) -> None:
+    job_id = _clean_identifier(job_id, "job_id")
     payload = ctx.client.request(
         "POST",
         f"/agent/jobs/{job_id}/wait",
@@ -966,6 +985,7 @@ def wait(ctx: Context, job_id: str, timeout_seconds: float, poll_interval: float
 
 
 def _job_mutation(ctx: Context, job_id: str, action: str) -> None:
+    job_id = _clean_identifier(job_id, "job_id")
     emit(
         ctx.client.request("POST", f"/jobs/{job_id}/{action}"),
         as_json=ctx.as_json,
@@ -1017,6 +1037,7 @@ def claim(ctx: Context, job_id: str) -> None:
 @click.pass_obj
 def run_job_command(ctx: Context, job_id: str) -> None:
     """Run a job synchronously through the backend debug endpoint."""
+    job_id = _clean_identifier(job_id, "job_id")
     emit(ctx.client.request("POST", f"/jobs/{job_id}/run", params={"inline": True}), as_json=ctx.as_json)
 
 
