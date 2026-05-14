@@ -101,6 +101,37 @@ def test_source_of_truth_validation_rejects_required_directories(tmp_path, bad_r
         validate_source_of_truth_dir(source_root)
 
 
+@pytest.mark.parametrize(
+    "bad_required_file",
+    [
+        "emotions.json",
+        "behavior_axes.json",
+        "ideology_axes.json",
+        "issue_stance_axes.json",
+        "expression_scale.json",
+        "event_types.json",
+        "social_action_types.json",
+        "graph_edge_types.json",
+        "sociology_models.json",
+        "report_templates/event_summary.md",
+    ],
+)
+def test_source_of_truth_validation_rejects_required_symlinks(tmp_path, bad_required_file):
+    source_root = tmp_path / "source_of_truth"
+    outside = tmp_path / "outside.json"
+    outside.write_text("{}", encoding="utf-8")
+    for relative_name in REQUIRED_FILES:
+        path = source_root / relative_name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative_name == bad_required_file:
+            path.symlink_to(outside)
+        else:
+            path.write_text("{}", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="required files must not be symlinks"):
+        validate_source_of_truth_dir(source_root)
+
+
 def test_artifact_write_preserves_existing_file_and_uses_collision_path(tmp_path):
     store = ArtifactStore(root=tmp_path / "artifacts")
     db = FakeSession()
