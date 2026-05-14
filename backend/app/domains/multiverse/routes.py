@@ -25,10 +25,11 @@ from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.domains.jobs.routes import JobResponse, create_job_record
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 from app.domains.report.engine import generate_multiverse_report
 from app.domains.big_bang.run_orchestrator import simulate_ticks
 from app.domains.tick.tick_bundles import hydrate_tick_snapshot_for_read, hydrate_tick_snapshots_for_read
-from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, run_next_tick
+from app.domains.tick.tick_runner import run_next_tick
 from app.storage.artifact_store import ArtifactStore
 
 router = APIRouter(tags=["multiverses"])

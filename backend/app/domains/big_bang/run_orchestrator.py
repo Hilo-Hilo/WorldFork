@@ -4,8 +4,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 from app.domains.report.engine import generate_final_big_bang_report, generate_multiverse_reports_parallel
-from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, UNFINISHED_TICK_STATUSES, run_next_tick
+from app.domains.tick.tick_runner import UNFINISHED_TICK_STATUSES, run_next_tick
 
 
 def simulate_ticks(

@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import models
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.llm.audit import LLMCallError, complete_with_audit
 from app.llm.routing import AuditedLLMRoute, ResolvedLLMRoute, resolve_audited_llm_route
@@ -893,10 +894,10 @@ def _representative_status_for_weighting(endpoint_status: str, multiverse_status
         return "realized"
     if endpoint_status == "insufficient_ticks":
         return "insufficient_ticks"
-    if endpoint_status in {"active", "weakened", "unresolved", "process_only"} and str(multiverse_status or "").lower() in {
-        "completed",
-        "terminated",
-    }:
+    if (
+        endpoint_status in {"active", "weakened", "unresolved", "process_only"}
+        and str(multiverse_status or "").lower() in TERMINAL_MULTIVERSE_STATUSES
+    ):
         return "insufficient_ticks"
     if endpoint_status in {"active", "weakened", "unresolved", "process_only"}:
         return "unresolved"
@@ -1122,7 +1123,7 @@ def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
         return False
     multiverse_value = evidence.get("multiverse")
     multiverse = multiverse_value if isinstance(multiverse_value, dict) else {}
-    if str(multiverse.get("status") or "").lower() not in {"completed", "terminated"}:
+    if str(multiverse.get("status") or "").lower() not in TERMINAL_MULTIVERSE_STATUSES:
         return False
     big_bang_value = evidence.get("big_bang")
     big_bang = big_bang_value if isinstance(big_bang_value, dict) else {}
