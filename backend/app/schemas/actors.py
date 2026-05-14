@@ -51,12 +51,12 @@ class PopulationArchetype(BaseModel):
 
     population_total: int = Field(..., gt=0)
     geography: dict[str, Any] = Field(default_factory=dict)
-    age_band: str | None = None
-    education_profile: str | None = None
-    occupation_or_role: str | None = None
-    socioeconomic_band: str | None = None
-    institution_membership: list[str] = Field(default_factory=list)
-    demographic_tags: list[str] = Field(default_factory=list)
+    age_band: NonEmptyStr | None = None
+    education_profile: NonEmptyStr | None = None
+    occupation_or_role: NonEmptyStr | None = None
+    socioeconomic_band: NonEmptyStr | None = None
+    institution_membership: list[NonEmptyStr] = Field(default_factory=list)
+    demographic_tags: list[NonEmptyStr] = Field(default_factory=list)
 
     # All numeric weights default to neutral 0.5 so the LLM may omit them.
     # Engine code reads these via .get-style helpers, so 0.5 is a safe baseline.
@@ -71,17 +71,17 @@ class PopulationArchetype(BaseModel):
     behavior_axes: dict[str, float] = Field(default_factory=dict)
 
     baseline_media_diet: dict[str, float] = Field(default_factory=dict)
-    preferred_channels: list[str] = Field(default_factory=list)
+    preferred_channels: list[NonEmptyStr] = Field(default_factory=list)
     platform_access: dict[str, float] = Field(default_factory=dict)
     attention_capacity: float = Field(0.6, ge=0.0, le=1.0)
     attention_decay_rate: float = Field(0.18, ge=0.0, le=1.0)
 
     baseline_trust_priors: dict[str, float] = Field(default_factory=dict)
-    identity_tags: list[str] = Field(default_factory=list)
+    identity_tags: list[NonEmptyStr] = Field(default_factory=list)
     ingroup_affinities: dict[str, float] = Field(default_factory=dict)
     outgroup_distances: dict[str, float] = Field(default_factory=dict)
 
-    allowed_action_classes: list[str] = Field(default_factory=list)
+    allowed_action_classes: list[NonEmptyStr] = Field(default_factory=list)
     coordination_capacity: float = Field(0.4, ge=0.0, le=1.0)
     mobilization_capacity: float = Field(0.4, ge=0.0, le=1.0)
     legal_or_status_risk_sensitivity: float = Field(0.4, ge=0.0, le=1.0)
@@ -248,7 +248,7 @@ class HeroArchetype(BaseModel):
     label: NonEmptyStr
     description: NonEmptyStr
     role: NonEmptyStr
-    institution: str | None = None
+    institution: NonEmptyStr | None = None
     location_scope: str = "city"
 
     # All hero numeric weights default to 0.5 so the LLM may omit them.
