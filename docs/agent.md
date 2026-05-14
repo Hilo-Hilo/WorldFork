@@ -90,7 +90,7 @@ If a command enqueues long work, capture the job ID and use a bounded wait. Do n
 ```bash
 worldfork runs list
 worldfork runs workspace <big-bang-id>
-worldfork universes trace <multiverse-id>
+worldfork multiverses trace <multiverse-id>
 worldfork cohorts transcript <cohort-id> --multiverse-id <multiverse-id>
 worldfork ticks timing <tick-snapshot-id>
 worldfork ticks cost <tick-snapshot-id> --include-calls
