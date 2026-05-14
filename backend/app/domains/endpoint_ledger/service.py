@@ -1353,7 +1353,7 @@ def _truncate(value: str, limit: int) -> str:
 def _is_compact_raw_text_key(key: str) -> bool:
     normalized = key.lower()
     compact = normalized.replace("_", "").replace("-", "")
-    return normalized in {"plain_text_corpus", "raw_text", "scenario_text"} or compact in {
+    return normalized in {"plain_text_corpus", "raw_text", "scenario_text"} or compact.endswith("corpus") or compact in {
         "scenariotext",
         "rawtext",
         "sourcetext",
