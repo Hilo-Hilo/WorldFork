@@ -529,7 +529,14 @@ def _is_absolute_path_value(value: str) -> bool:
 
 
 def _is_internal_reference_id_field(key: str) -> bool:
-    return key in {"artifact_id", "llm_call_id"} or key.endswith("_artifact_id") or key.endswith("_llm_call_id")
+    compact = key.replace("_", "").replace("-", "")
+    return (
+        key in {"artifact_id", "llm_call_id"}
+        or key.endswith("_artifact_id")
+        or key.endswith("_llm_call_id")
+        or compact in {"artifactid", "llmcallid"}
+        or compact.endswith(("artifactid", "llmcallid"))
+    )
 
 
 def _is_private_key_field(key: str) -> bool:
