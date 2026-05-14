@@ -24,6 +24,7 @@ from app.api.schemas import (
     SimulateTickRequest,
     TimelineAdjudicationRequest,
     ToolCallRequest,
+    sanitize_public_payload,
 )
 from backend.app.schemas import (
     BigBangRun,
@@ -76,6 +77,32 @@ from backend.app.schemas.branching import (
     HeroDecisionOverrideDelta,
     ParameterShiftDelta,
 )
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "run_folder_path",
+        "source_of_truth_snapshot_path",
+        "prompt_packet_path",
+        "response_path",
+        "parsed_path",
+        "output_path",
+        "report_pdf_path",
+        "workspace_path",
+        "config_path",
+        "database_path",
+    ],
+)
+def test_public_payload_sanitizer_redacts_absolute_path_fields(field_name):
+    value = f"/Users/example/worldfork/{field_name}.json"
+
+    sanitized = sanitize_public_payload({field_name: value})
+
+    assert sanitized == {
+        f"{field_name}_present": True,
+        f"{field_name}_char_count": len(value),
+    }
 
 
 # ---------------------------------------------------------------------------
