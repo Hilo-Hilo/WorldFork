@@ -5,7 +5,11 @@ Import-free of backend.app.models.
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
+
+NonEmptyStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 # ---------------------------------------------------------------------------
 # Nested parameter models (mirrors sociology_parameters.json shape from B1-A)
@@ -152,14 +156,14 @@ class ChildSplitSpec(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    archetype_id: str
+    archetype_id: NonEmptyStr
     represented_population: int = Field(..., ge=0)
     issue_stance: dict[str, float] = Field(default_factory=dict)
     expression_level: float = Field(..., ge=0.0, le=1.0)
-    mobilization_mode: str
-    speech_mode: str
+    mobilization_mode: NonEmptyStr
+    speech_mode: NonEmptyStr
     seed_emotions: dict[str, float] = Field(default_factory=dict)
-    interpretation_note: str = ""
+    interpretation_note: NonEmptyStr | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -181,10 +185,10 @@ class SplitProposal(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    parent_cohort_id: str
+    parent_cohort_id: NonEmptyStr
     children: list[ChildSplitSpec] = Field(..., min_length=2)
     split_distance: float = Field(..., ge=0.0, le=1.0)
-    rationale: str
+    rationale: NonEmptyStr
 
     @model_validator(mode="after")
     def _validate_children(self) -> SplitProposal:
@@ -216,9 +220,9 @@ class MergeProposal(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    cohort_ids: list[str] = Field(..., min_length=2)
-    archetype_id: str
-    rationale: str
+    cohort_ids: list[NonEmptyStr] = Field(..., min_length=2)
+    archetype_id: NonEmptyStr
+    rationale: NonEmptyStr
 
     @model_validator(mode="after")
     def _validate_min_cohorts(self) -> MergeProposal:

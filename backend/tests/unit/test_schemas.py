@@ -37,6 +37,8 @@ from backend.app.schemas import (
     ModelRoutingEntry,
     PopulationArchetype,
     ProviderHealth,
+    ChildSplitSpec,
+    MergeProposal,
     SplitProposal,
     Universe,
 )
@@ -818,6 +820,27 @@ def _make_child_spec(pop: int = 100) -> dict:
     )
 
 
+def _make_split_proposal(**overrides) -> dict:
+    base = dict(
+        parent_cohort_id="c_001",
+        children=[_make_child_spec(300), _make_child_spec(200)],
+        split_distance=0.4,
+        rationale="opinion split",
+    )
+    base.update(overrides)
+    return base
+
+
+def _make_merge_proposal(**overrides) -> dict:
+    base = dict(
+        cohort_ids=["c_001", "c_002"],
+        archetype_id="arch_001",
+        rationale="low divergence",
+    )
+    base.update(overrides)
+    return base
+
+
 class TestSplitProposal:
     def test_valid_two_children(self):
         sp = SplitProposal.model_validate(
@@ -841,6 +864,25 @@ class TestSplitProposal:
                     rationale="invalid",
                 )
             )
+
+    @pytest.mark.parametrize(
+        "model,payload",
+        [
+            (ChildSplitSpec, _make_child_spec() | {"archetype_id": "   "}),
+            (ChildSplitSpec, _make_child_spec() | {"mobilization_mode": "   "}),
+            (ChildSplitSpec, _make_child_spec() | {"speech_mode": "   "}),
+            (ChildSplitSpec, _make_child_spec() | {"interpretation_note": "   "}),
+            (SplitProposal, _make_split_proposal(parent_cohort_id="   ")),
+            (SplitProposal, _make_split_proposal(rationale="   ")),
+            (MergeProposal, _make_merge_proposal(cohort_ids=["   ", "c_002"])),
+            (MergeProposal, _make_merge_proposal(cohort_ids=["c_001", "   "])),
+            (MergeProposal, _make_merge_proposal(archetype_id="   ")),
+            (MergeProposal, _make_merge_proposal(rationale="   ")),
+        ],
+    )
+    def test_rejects_blank_sociology_strings(self, model, payload):
+        with pytest.raises(ValidationError):
+            model.model_validate(payload)
 
     def test_rejects_zero_children(self):
         with pytest.raises(ValidationError):
