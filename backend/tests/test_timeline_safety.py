@@ -938,6 +938,27 @@ def test_god_tools_reject_out_of_scope_mutations(db):
     assert db.scalars(select(models.CohortMerge)).all() == []
 
 
+def test_freeze_timeline_marks_multiverse_terminal_and_reportable(db):
+    big_bang, root = _seed_world(db)
+
+    call = god_tools.execute_tool_call(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse=root,
+        tick_snapshot_id=None,
+        god_review_id=None,
+        tool_name="freeze_timeline",
+        arguments={},
+        idempotency_key="freeze-timeline",
+    )
+
+    assert call.status == "succeeded"
+    assert root.status == "frozen"
+    assert root.report_status == "ready"
+    assert root.ended_at is not None
+    assert root.status in tick_runner.TERMINAL_MULTIVERSE_STATUSES
+
+
 def test_god_tool_split_cohort_conserves_population_and_creates_children(db):
     big_bang, root = _seed_world(db)
     actor = models.Actor(
