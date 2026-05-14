@@ -106,6 +106,6 @@ class Universe(BaseModel):
         if status == "completed" and self.completed_at is None:
             raise ValueError("completed_at must be set when status is 'completed'")
         # 'candidate' — timestamp fields may all be None (branch not yet promoted)
-        # 'merged' — no specific timestamp field in schema; allow None
+        # 'terminated' and 'merged' have no specific timestamp field in schema; allow None
 
         return self
