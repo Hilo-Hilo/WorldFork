@@ -105,6 +105,13 @@ def _fields(value: str | None) -> list[str] | None:
     return keys or None
 
 
+def _clean_query(value: str | None) -> str | None:
+    if value is None:
+        return None
+    cleaned = value.strip()
+    return cleaned or None
+
+
 def _projection_keys(surface: str, verbosity: str, fields: str | None) -> list[str] | None:
     explicit = _fields(fields)
     if explicit is not None:
@@ -137,8 +144,16 @@ def _tick_row(
 
 
 def _require_verbosity(value: str) -> str:
+    value = value.strip()
     if value not in VERBOSITY_TIERS:
         raise HTTPException(status_code=422, detail=f"verbosity must be one of {', '.join(VERBOSITY_TIERS)}")
+    return value
+
+
+def _require_log_source(value: str | None) -> str | None:
+    value = _clean_query(value)
+    if value is not None and value not in {"job", "llm"}:
+        raise HTTPException(status_code=422, detail="source must be one of job, llm")
     return value
 
 
@@ -310,6 +325,8 @@ def runs(
     fields: str | None = None,
 ):
     verbosity = _require_verbosity(verbosity)
+    status = _clean_query(status)
+    q = _clean_query(q)
     stmt = select(models.BigBang)
     if status:
         stmt = stmt.where(models.BigBang.status == status)
@@ -415,6 +432,8 @@ def trace(
     fields: str | None = None,
 ):
     verbosity = _require_verbosity(verbosity)
+    actor_id = _clean_query(actor_id)
+    actor_kind = _clean_query(actor_kind)
     multiverse = db.get(models.Multiverse, multiverse_id)
     if multiverse is None:
         raise HTTPException(status_code=404, detail=f"universe {multiverse_id} not found")
@@ -491,6 +510,7 @@ def jobs(
     fields: str | None = None,
 ):
     verbosity = _require_verbosity(verbosity)
+    status = _clean_query(status)
     stmt = select(models.Job)
     if run_id is not None:
         stmt = stmt.where(models.Job.big_bang_id == run_id)
@@ -530,6 +550,8 @@ def logs(
     fields: str | None = None,
 ):
     verbosity = _require_verbosity(verbosity)
+    status = _clean_query(status)
+    source = _require_log_source(source)
     rows: list[dict[str, Any]] = []
     per_source_limit = offset + limit
     if source in (None, "job"):
