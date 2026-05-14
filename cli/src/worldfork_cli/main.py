@@ -1096,6 +1096,7 @@ def watch_big_bang(
     stop: bool,
 ) -> None:
     """Stream/poll activity for a Big Bang."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     _watch_big_bang(ctx, big_bang_id, poll_interval, timeout_seconds, limit, once, json_lines, stop)
 
 
@@ -1119,6 +1120,7 @@ def watch_multiverse(
     stop: bool,
 ) -> None:
     """Stream/poll activity for one multiverse."""
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id")
     _watch_multiverse(ctx, multiverse_id, poll_interval, timeout_seconds, limit, once, json_lines, stop)
 
 
@@ -1338,6 +1340,7 @@ def reports() -> None:
 @click.pass_obj
 def reports_list(ctx: Context, big_bang_id: str) -> None:
     """List report records for a Big Bang."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(ctx.client.request("GET", f"/big-bangs/{big_bang_id}/reports"), as_json=ctx.as_json)
 
 
@@ -1346,6 +1349,7 @@ def reports_list(ctx: Context, big_bang_id: str) -> None:
 @click.pass_obj
 def reports_versions(ctx: Context, report_id: str) -> None:
     """List versions for one report record."""
+    report_id = _clean_identifier(report_id, "report_id")
     emit(ctx.client.request("GET", f"/reports/{report_id}/versions"), as_json=ctx.as_json)
 
 
@@ -1361,6 +1365,7 @@ def reports_generate() -> None:
 @click.pass_obj
 def reports_generate_multiverse(ctx: Context, multiverse_id: str, title: str | None, summary: str | None) -> None:
     """Generate a report version for one multiverse."""
+    multiverse_id = _clean_identifier(multiverse_id, "multiverse_id")
     emit(
         ctx.client.request(
             "POST",
@@ -1378,6 +1383,7 @@ def reports_generate_multiverse(ctx: Context, multiverse_id: str, title: str | N
 @click.pass_obj
 def reports_generate_final(ctx: Context, big_bang_id: str, title: str | None, summary: str | None) -> None:
     """Generate the final Big Bang report version."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(
         ctx.client.request(
             "POST",
@@ -1394,6 +1400,7 @@ def reports_generate_final(ctx: Context, big_bang_id: str, title: str | None, su
 @click.pass_obj
 def reports_pack(ctx: Context, big_bang_id: str, mode: str) -> None:
     """Emit a compact canonical evidence pack for reporting."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(
         ctx.client.request("GET", f"/big-bangs/{big_bang_id}/report-evidence-pack", params={"mode": mode}),
         as_json=ctx.as_json,
@@ -1407,6 +1414,7 @@ def reports_pack(ctx: Context, big_bang_id: str, mode: str) -> None:
 @click.pass_obj
 def reports_adjudicate(ctx: Context, big_bang_id: str, summary: str | None, source_type: str) -> None:
     """Evaluate timeline pruning/effective path probabilities for final reports."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(
         ctx.client.request(
             "POST",
@@ -1422,6 +1430,7 @@ def reports_adjudicate(ctx: Context, big_bang_id: str, summary: str | None, sour
 @click.pass_obj
 def reports_adjudication(ctx: Context, big_bang_id: str) -> None:
     """View the latest timeline adjudication ledger for a Big Bang."""
+    big_bang_id = _clean_identifier(big_bang_id, "big_bang_id")
     emit(
         ctx.client.request("GET", f"/big-bangs/{big_bang_id}/timeline-adjudications/latest"),
         as_json=ctx.as_json,
@@ -1434,6 +1443,7 @@ def reports_adjudication(ctx: Context, big_bang_id: str) -> None:
 @click.pass_obj
 def reports_view(ctx: Context, report_version_id: str, output_format: str) -> None:
     """View a report version as Markdown or structured JSON."""
+    report_version_id = _clean_identifier(report_version_id, "report_version_id")
     if output_format == "json":
         emit(ctx.client.request("GET", f"/report-versions/{report_version_id}"), as_json=ctx.as_json)
         return
@@ -1455,6 +1465,7 @@ def reports_view(ctx: Context, report_version_id: str, output_format: str) -> No
 @click.pass_obj
 def reports_render(ctx: Context, report_version_id: str, output_format: str, output: Path | None) -> None:
     """Render a report version on demand without backend artifact caching."""
+    report_version_id = _clean_identifier(report_version_id, "report_version_id")
     response = ctx.client.response(
         "POST",
         f"/report-versions/{report_version_id}/render",
