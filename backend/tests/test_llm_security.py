@@ -1888,6 +1888,27 @@ def test_public_job_payload_sanitizer_redacts_windows_absolute_path_fields(field
     assert sanitized[f"{field_name}_char_count"] == len(raw_path)
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "clientSecret",
+        "accessToken",
+        "refreshToken",
+        "idToken",
+        "authToken",
+        "bearerToken",
+        "secretKey",
+        "privateKey",
+        "openrouterApiKey",
+        "api-key",
+    ],
+)
+def test_public_job_payload_sanitizer_redacts_mixed_style_secret_fields(field_name):
+    sanitized = sanitize_public_job_payload({field_name: "super-secret-value"})
+
+    assert sanitized == {field_name: "[REDACTED]"}
+
+
 def test_sociology_prompt_influences_drop_emotion_and_steering_content():
     influences = [
         {
