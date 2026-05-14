@@ -259,6 +259,70 @@ def test_cli_path_ids_trim_surrounding_whitespace(
         assert params == expected_params
 
 
+@pytest.mark.parametrize(
+    ("args", "expected_method", "expected_path", "expected_params"),
+    [
+        (["reports", "list", " bb-123 "], "GET", "/big-bangs/bb-123/reports", None),
+        (["reports", "versions", " report-123 "], "GET", "/reports/report-123/versions", None),
+        (["reports", "generate", "multiverse", " mv-123 "], "POST", "/multiverses/mv-123/report", None),
+        (["reports", "generate", "final", " bb-123 "], "POST", "/big-bangs/bb-123/reports/final", None),
+        (["reports", "pack", " bb-123 "], "GET", "/big-bangs/bb-123/report-evidence-pack", {"mode": "standard"}),
+        (
+            ["reports", "adjudicate", " bb-123 "],
+            "POST",
+            "/big-bangs/bb-123/timeline-adjudications/evaluate",
+            None,
+        ),
+        (
+            ["reports", "adjudication", " bb-123 "],
+            "GET",
+            "/big-bangs/bb-123/timeline-adjudications/latest",
+            None,
+        ),
+        (["reports", "view", " rv-123 ", "--format", "json"], "GET", "/report-versions/rv-123", None),
+        (["watch", "big-bang", " bb-123 ", "--once"], "GET", "/workspace/bb-123/state", None),
+        (["watch", "multiverse", " m-1 ", "--once"], "GET", "/multiverses/m-1", None),
+    ],
+)
+def test_cli_report_and_watch_ids_trim_surrounding_whitespace(
+    monkeypatch,
+    args,
+    expected_method,
+    expected_path,
+    expected_params,
+) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            if path == "/workspace/bb-123/state":
+                return {"big_bang": {"id": "bb-123", "status": "archived"}, "multiverses": [], "latest_ticks": []}
+            if path == "/workspace/bb-123/activity":
+                return {"ticks": [], "tool_calls": []}
+            if path == "/multiverses/m-1":
+                return {"id": "m-1", "big_bang_id": "bb-123", "status": "merged"}
+            if path == "/multiverses/m-1/ticks":
+                return []
+            if path == "/agent/logs":
+                return {"ok": True, "data": [], "meta": {}}
+            return {"ok": True, "data": {}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, args)
+
+    assert result.exit_code == 0
+    assert (expected_method, expected_path) in [(method, path) for method, path, _params, _body in calls]
+    if expected_params is not None:
+        matching_params = [params for method, path, params, _body in calls if (method, path) == (expected_method, expected_path)]
+        assert matching_params == [expected_params]
+    assert all(" " not in path for _method, path, _params, _body in calls)
+
+
 def test_cli_rejects_invalid_timeouts_before_requests() -> None:
     cases = [
         ["--timeout", "0", "status"],
