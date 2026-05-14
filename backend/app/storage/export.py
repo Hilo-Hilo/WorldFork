@@ -101,6 +101,21 @@ def _safe_zip_member_path(extract_dir: Path, member_name: str) -> Path:
     return target
 
 
+def _reject_duplicate_zip_members(zf: zipfile.ZipFile) -> None:
+    seen: set[str] = set()
+    for member in zf.infolist():
+        if member.filename in seen:
+            raise ExportError(f"Duplicate zip member: {member.filename}")
+        seen.add(member.filename)
+
+
+def _safe_manifest_relative_path(root: Path, value: str, label: str) -> Path:
+    try:
+        return _safe_zip_member_path(root, value)
+    except ExportError as exc:
+        raise ExportError(f"Unsafe {label}: {value}") from exc
+
+
 def _safe_run_folder_name(run_folder_name: str, *, dest_runs: Path) -> str:
     """Validate a run folder name before using it under dest_root/runs."""
     if not isinstance(run_folder_name, str):
@@ -341,6 +356,7 @@ def import_run_from_zip(
 
     # Peek inside to determine the run folder name from manifest.json
     with zipfile.ZipFile(zip_path, "r") as zf:
+        _reject_duplicate_zip_members(zf)
         names = zf.namelist()
 
         # Validate EXPORT_MANIFEST.json is present
@@ -441,7 +457,11 @@ def _verify_imported_run(run_folder: Path) -> None:
         expected_sot_sha = source_of_truth.get("snapshot_sha256")
         snapshot_path = source_of_truth.get("snapshot_path", "source_of_truth_snapshot")
         if isinstance(expected_sot_sha, str):
-            sot_snapshot = run_folder / str(snapshot_path)
+            sot_snapshot = _safe_manifest_relative_path(
+                run_folder,
+                str(snapshot_path),
+                "source-of-truth snapshot path",
+            )
             if not sot_snapshot.exists():
                 errors.append(f"Missing source-of-truth snapshot: {snapshot_path}")
             elif not sot_snapshot.is_dir():
