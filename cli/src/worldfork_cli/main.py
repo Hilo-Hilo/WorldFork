@@ -664,7 +664,7 @@ def init_command(
 @runs.command("list")
 @click.option("--status")
 @click.option("--q")
-@click.option("--limit", type=click.IntRange(min=1), default=50, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1, max=200), default=50, show_default=True)
 @click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def runs_list(ctx: Context, status: str | None, q: str | None, limit: int, offset: int) -> None:
@@ -929,7 +929,7 @@ def jobs() -> None:
 @jobs.command("list")
 @click.option("--run-id")
 @click.option("--status")
-@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1, max=500), default=100, show_default=True)
 @click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def jobs_list(ctx: Context, run_id: str | None, status: str | None, limit: int, offset: int) -> None:
@@ -1029,7 +1029,7 @@ def logs() -> None:
 @click.option("--run-id")
 @click.option("--status")
 @click.option("--source", type=click.Choice(["job", "llm"]))
-@click.option("--limit", type=click.IntRange(min=1), default=100, show_default=True)
+@click.option("--limit", type=click.IntRange(min=1, max=500), default=100, show_default=True)
 @click.option("--offset", type=click.IntRange(min=0), default=0, show_default=True)
 @click.pass_obj
 def logs_list(
