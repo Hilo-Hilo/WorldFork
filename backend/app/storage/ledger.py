@@ -409,7 +409,8 @@ class Ledger:
             for rel_path, record in files.items():
                 if not isinstance(rel_path, str) or not isinstance(record, dict):
                     continue
-                self._file_cache[rel_path] = {
+                safe_rel_path = _safe_cached_rel_path(self.run_folder, rel_path)
+                self._file_cache[safe_rel_path] = {
                     "size": record.get("size"),
                     "sha256": record.get("sha256"),
                     "sealed_at": sealed_at,
@@ -461,3 +462,17 @@ def _tick_files_for_merkle(tick_dir: Path) -> list[Path]:
         if path.is_file():
             files_found.append(path)
     return files_found
+
+
+def _safe_cached_rel_path(run_folder: Path, rel_path: str) -> str:
+    if rel_path == "" or "\\" in rel_path:
+        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+    path = Path(rel_path)
+    raw_parts = rel_path.split("/")
+    if path.is_absolute() or any(part in {"", ".", ".."} for part in raw_parts):
+        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+    resolved_root = run_folder.resolve()
+    resolved_path = (run_folder / path).resolve()
+    if resolved_path == resolved_root or resolved_root not in resolved_path.parents:
+        raise LedgerError(f"Unsafe tick manifest file path: {rel_path!r}")
+    return path.as_posix()
