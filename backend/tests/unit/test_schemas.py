@@ -26,6 +26,7 @@ from backend.app.schemas import (
 from backend.app.schemas.jobs import AuditedLLMRouteType, JobStatus
 from backend.app.schemas.api import (
     PatchBranchPolicyRequest,
+    PatchProvidersRequest,
     PatchRateLimitsRequest,
     PatchRoutingRequest,
     PatchSettingsRequest,
@@ -218,6 +219,34 @@ def test_patch_settings_rejects_invalid_runtime_defaults(payload):
         PatchSettingsRequest.model_validate(payload)
 
 
+def test_patch_settings_rejects_invalid_theme():
+    with pytest.raises(ValidationError):
+        PatchSettingsRequest.model_validate({"theme": "neon"})
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("provider", ""),
+        ("base_url", ""),
+        ("api_key_env", ""),
+        ("default_model", ""),
+        ("extra_headers", {"X-Test": 123}),
+    ],
+)
+def test_patch_providers_rejects_invalid_provider_fields(field, value):
+    row = {
+        "provider": "openrouter",
+        "base_url": "https://openrouter.ai/api/v1",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "default_model": "deepseek/deepseek-v4-flash",
+    }
+    row[field] = value
+
+    with pytest.raises(ValidationError):
+        PatchProvidersRequest.model_validate({"providers": [row]})
+
+
 @pytest.mark.parametrize(
     "payload",
     [
@@ -254,6 +283,26 @@ def test_patch_routing_rejects_invalid_entry_bounds():
 @pytest.mark.parametrize(
     "field,value",
     [
+        ("preferred_provider", ""),
+        ("preferred_model", ""),
+        ("retry_policy", "quadratic"),
+    ],
+)
+def test_patch_routing_rejects_invalid_entry_fields(field, value):
+    row = {
+        "job_type": "initializer_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": "model",
+    }
+    row[field] = value
+
+    with pytest.raises(ValidationError):
+        PatchRoutingRequest.model_validate({"entries": [row]})
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
         ("rpm_limit", 0),
         ("tpm_limit", 0),
         ("max_concurrency", 0),
@@ -274,6 +323,23 @@ def test_patch_rate_limits_rejects_invalid_bounds(field, value):
 
     with pytest.raises(ValidationError):
         PatchRateLimitsRequest.model_validate({"rate_limits": [row]})
+
+
+def test_patch_rate_limits_rejects_invalid_retry_policy():
+    with pytest.raises(ValidationError):
+        PatchRateLimitsRequest.model_validate(
+            {
+                "rate_limits": [
+                    {
+                        "provider": "openrouter",
+                        "rpm_limit": 60,
+                        "tpm_limit": 100000,
+                        "max_concurrency": 4,
+                        "retry_policy": "quadratic",
+                    }
+                ]
+            }
+        )
 
 
 # ---------------------------------------------------------------------------
