@@ -120,6 +120,27 @@ class TestWriteArtifact:
         data = json.loads(target.read_bytes())
         assert data["v"] == 2
 
+    @pytest.mark.parametrize(
+        "rel_path",
+        [
+            "../outside.json",
+            "../../outside.json",
+            "universes/U000/../outside.json",
+            "universes/U000/ticks/tick_000/../../outside.json",
+            "/absolute/outside.json",
+            "\\windows\\outside.json",
+            "",
+            ".",
+            "..",
+            "universes/U000/ticks/tick_000/./state.json",
+        ],
+    )
+    def test_write_artifact_rejects_unsafe_paths(self, ledger: Ledger, rel_path: str, tmp_path: Path) -> None:
+        unsafe_path = (tmp_path / "outside.json").as_posix() if rel_path.startswith("/absolute/") else rel_path
+
+        with pytest.raises(LedgerError, match="Unsafe ledger artifact path"):
+            ledger.write_artifact(unsafe_path, {"blocked": True}, immutable=False)
+
 
 # ---------------------------------------------------------------------------
 # seal_tick / Merkle root tests
