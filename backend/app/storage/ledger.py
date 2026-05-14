@@ -373,6 +373,9 @@ class Ledger:
         mismatches: list[str] = []
         for rel_path, record in self._file_cache.items():
             abs_path = self.run_folder / rel_path
+            if abs_path.is_symlink():
+                mismatches.append(f"Recorded file is a symlink: {rel_path}")
+                continue
             if not abs_path.exists():
                 mismatches.append(f"Missing: {rel_path}")
                 continue
