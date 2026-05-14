@@ -99,6 +99,27 @@ def test_report_evidence_pack_compact_value_gates_mixed_style_raw_text_fields(fi
     assert raw_text not in str(compacted)
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "artifactId",
+        "llmCallId",
+        "markdownArtifactId",
+        "pdfArtifactId",
+        "reportVersionId",
+        "promptPacketArtifactId",
+        "responseArtifactId",
+        "parsedArtifactId",
+        "sourceSnapshotArtifactId",
+        "endpointLedgerId",
+    ],
+)
+def test_report_evidence_pack_compact_value_drops_mixed_style_reference_ids(field_name):
+    compacted = _compact_value({field_name: "4f0774fe-b2de-45dc-9918-1b837089a777"}, max_items=10)
+
+    assert compacted == {}
+
+
 def test_prediction_extractor_prompt_includes_resolution_context():
     text = report_engine._prediction_question_text(
         {
