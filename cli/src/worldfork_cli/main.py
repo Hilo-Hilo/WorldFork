@@ -936,7 +936,7 @@ def jobs_list(ctx: Context, run_id: str | None, status: str | None, limit: int, 
 @jobs.command()
 @click.argument("job_id")
 @click.option("--timeout", "timeout_seconds", type=float, default=30, show_default=True)
-@click.option("--poll-interval", type=float, default=1, show_default=True)
+@click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.pass_obj
 def wait(ctx: Context, job_id: str, timeout_seconds: float, poll_interval: float) -> None:
     payload = ctx.client.request(
@@ -1047,7 +1047,7 @@ def watch() -> None:
 
 @watch.command("big-bang")
 @click.argument("big_bang_id")
-@click.option("--poll-interval", type=float, default=1, show_default=True)
+@click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.option("--timeout", "timeout_seconds", type=float, default=0, show_default=True, help="0 means no timeout.")
 @click.option("--limit", type=int, default=100, show_default=True, help="Recent log/activity rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
@@ -1070,7 +1070,7 @@ def watch_big_bang(
 
 @watch.command("multiverse")
 @click.argument("multiverse_id")
-@click.option("--poll-interval", type=float, default=1, show_default=True)
+@click.option("--poll-interval", type=click.FloatRange(min=0, min_open=True), default=1, show_default=True)
 @click.option("--timeout", "timeout_seconds", type=float, default=0, show_default=True, help="0 means no timeout.")
 @click.option("--limit", type=int, default=100, show_default=True, help="Recent log/tick rows to poll.")
 @click.option("--once", is_flag=True, help="Print one snapshot and exit.")
