@@ -218,6 +218,25 @@ def test_cli_rejects_invalid_timeouts_before_requests() -> None:
         assert "Invalid value for" in result.output
 
 
+def test_cli_rejects_invalid_pagination_before_requests() -> None:
+    cases = [
+        ["runs", "list", "--limit", "0"],
+        ["runs", "list", "--offset", "-1"],
+        ["jobs", "list", "--limit", "0"],
+        ["jobs", "list", "--offset", "-1"],
+        ["logs", "list", "--limit", "0"],
+        ["logs", "list", "--offset", "-1"],
+        ["watch", "big-bang", "bb-123", "--limit", "0"],
+        ["watch", "multiverse", "m-1", "--limit", "0"],
+    ]
+
+    for args in cases:
+        result = CliRunner().invoke(main, args)
+
+        assert result.exit_code == 2, args
+        assert "Invalid value for" in result.output
+
+
 def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     calls = []
 
