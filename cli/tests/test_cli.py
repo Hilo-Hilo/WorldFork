@@ -264,13 +264,25 @@ def test_cli_rejects_negative_tick_selectors_before_requests(monkeypatch) -> Non
         assert "Invalid value for" in result.output
 
 
-def test_cli_rejects_invalid_pagination_before_requests() -> None:
+def test_cli_rejects_invalid_pagination_before_requests(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, *_args, **_kwargs):
+            raise AssertionError("backend request should not run")
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
     cases = [
         ["runs", "list", "--limit", "0"],
+        ["runs", "list", "--limit", "201"],
         ["runs", "list", "--offset", "-1"],
         ["jobs", "list", "--limit", "0"],
+        ["jobs", "list", "--limit", "501"],
         ["jobs", "list", "--offset", "-1"],
         ["logs", "list", "--limit", "0"],
+        ["logs", "list", "--limit", "501"],
         ["logs", "list", "--offset", "-1"],
         ["watch", "big-bang", "bb-123", "--limit", "0"],
         ["watch", "multiverse", "m-1", "--limit", "0"],
