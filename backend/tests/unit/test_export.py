@@ -450,6 +450,41 @@ class TestTamperDetection:
 
 class TestZipSafety:
     @pytest.mark.parametrize(
+        "nested_manifest",
+        [
+            "universes/U000/manifest.json",
+            "universes/U001/manifest.json",
+            "universes/U000/ticks/tick_000/manifest.json",
+            "universes/U000/ticks/tick_001/manifest.json",
+            "universes/U001/ticks/tick_000/manifest.json",
+            "reports/manifest.json",
+            "metadata/manifest.json",
+            "config/manifest.json",
+            "source_of_truth_snapshot/manifest.json",
+            "debug/import/manifest.json",
+        ],
+    )
+    def test_import_uses_top_level_manifest_for_run_folder_name(
+        self,
+        tmp_path: Path,
+        nested_manifest: str,
+    ) -> None:
+        zip_path = tmp_path / "nested_manifest_first.zip"
+        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr(nested_manifest, json.dumps({"big_bang_id": "BB_nested_wrong"}))
+            zf.writestr("EXPORT_MANIFEST.json", "{}")
+            zf.writestr("manifest.json", json.dumps({"big_bang_id": BIG_BANG_ID}))
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+
+        extracted = import_run_from_zip(zip_path=zip_path, dest_root=dst_root, verify=False)
+
+        assert extracted == dst_root / "runs" / BIG_BANG_ID
+        assert (dst_root / "runs" / BIG_BANG_ID / "manifest.json").exists()
+        assert not (dst_root / "runs" / "BB_nested_wrong").exists()
+
+    @pytest.mark.parametrize(
         "directory_member",
         [
             "../evil/",
