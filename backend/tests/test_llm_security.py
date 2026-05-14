@@ -1863,6 +1863,31 @@ def test_public_job_payload_sanitizer_redacts_absolute_path_fields(field_name):
     assert sanitized[f"{field_name}_char_count"] == len(raw_path)
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "path",
+        "run_folder_path",
+        "source_of_truth_snapshot_path",
+        "prompt_packet_path",
+        "response_path",
+        "parsed_path",
+        "output_path",
+        "report_pdf_path",
+        "workspace_path",
+        "database_path",
+    ],
+)
+def test_public_job_payload_sanitizer_redacts_windows_absolute_path_fields(field_name):
+    raw_path = "C:\\Users\\hansonwen\\WorldFork\\runs\\private\\" + field_name + ".json"
+
+    sanitized = sanitize_public_job_payload({field_name: raw_path})
+
+    assert field_name not in sanitized
+    assert sanitized[f"{field_name}_present"] is True
+    assert sanitized[f"{field_name}_char_count"] == len(raw_path)
+
+
 def test_sociology_prompt_influences_drop_emotion_and_steering_content():
     influences = [
         {
