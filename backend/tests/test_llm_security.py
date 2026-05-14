@@ -1912,6 +1912,31 @@ def test_public_job_payload_sanitizer_redacts_windows_absolute_path_fields(field
 @pytest.mark.parametrize(
     "field_name",
     [
+        "runFolderPath",
+        "sourceOfTruthSnapshotPath",
+        "promptPacketPath",
+        "responsePath",
+        "parsedPath",
+        "outputPath",
+        "reportPdfPath",
+        "workspacePath",
+        "configPath",
+        "databasePath",
+    ],
+)
+def test_public_job_payload_sanitizer_redacts_mixed_style_absolute_path_fields(field_name):
+    raw_path = f"/Users/hansonwen/WorldFork/runs/private/{field_name}.json"
+
+    sanitized = sanitize_public_job_payload({field_name: raw_path})
+
+    assert field_name not in sanitized
+    assert sanitized[f"{field_name}_present"] is True
+    assert sanitized[f"{field_name}_char_count"] == len(raw_path)
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
         "clientSecret",
         "accessToken",
         "refreshToken",
