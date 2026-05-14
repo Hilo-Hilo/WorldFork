@@ -123,6 +123,30 @@ def test_compact_value_gates_mixed_style_raw_text_fields(field_name):
     assert raw_text not in str(compacted)
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "plainTextCorpus",
+        "rawTextCorpus",
+        "sourceTextCorpus",
+        "scenarioCorpus",
+        "initializerCorpus",
+        "promptCorpus",
+        "textCorpus",
+        "documentCorpus",
+        "inputCorpus",
+        "llmCorpus",
+    ],
+)
+def test_compact_value_gates_mixed_style_corpus_fields(field_name):
+    corpus = {"rawText": "raw endpoint ledger corpus text"}
+
+    compacted = _compact_value({field_name: corpus})
+
+    assert compacted == {field_name: {"present": True}}
+    assert "raw endpoint ledger corpus text" not in str(compacted)
+
+
 def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     big_bang, multiverse, _actor = _world(db)
 
