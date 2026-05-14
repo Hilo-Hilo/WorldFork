@@ -7,7 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
-from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 
 ACTIVE_JOB_STATUSES = {"queued", "running", "interrupt_requested", "paused"}
 

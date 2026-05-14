@@ -333,6 +333,34 @@ def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
     assert by_key["organizing_continues"]["status"] == "insufficient_ticks"
 
 
+def test_endpoint_finalization_marks_frozen_final_horizon_as_insufficient_ticks():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 3}},
+        "multiverse": {"status": "frozen"},
+        "ticks": [{"tick_index": 3}],
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "law_changed",
+                "label": "Law changed",
+                "status": "active",
+            }
+        ],
+        evidence=evidence,
+    )
+
+    assert entries[0]["status"] == "insufficient_ticks"
+    assert entries[0]["meta"]["previous_status"] == "process_only"
+
+
+def test_frozen_multiverse_unresolved_endpoint_weights_as_insufficient_ticks():
+    assert (
+        endpoint_ledger._representative_status_for_weighting("active", "frozen")
+        == "insufficient_ticks"
+    )
+
+
 def test_endpoint_final_horizon_overlay_reverts_after_resume():
     entries = endpoint_ledger._finalize_entries(
         [

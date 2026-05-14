@@ -24,10 +24,10 @@ from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.domains.big_bang.initializer import create_big_bang
 from app.domains.jobs.routes import JobResponse, create_job_record
+from app.domains.multiverse.statuses import TERMINAL_MULTIVERSE_STATUSES
 from app.domains.report.engine import generate_final_big_bang_report
 from app.domains.report.status import build_report_status
 from app.domains.big_bang.run_orchestrator import run_big_bang_until_complete
-from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
 
 router = APIRouter(prefix="/big-bangs", tags=["big-bangs"])
 
