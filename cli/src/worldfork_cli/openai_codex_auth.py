@@ -54,7 +54,7 @@ def login_openai_codex_device_code(
         prompt = OpenAICodexDevicePrompt(
             verification_url=device["verification_url"],
             user_code=device["user_code"],
-            expires_in_seconds=timeout_seconds,
+            expires_in_seconds=int(device["expires_in_seconds"]),
         )
         if on_verification:
             on_verification(prompt)
@@ -91,11 +91,18 @@ def _request_device_code(client: Any) -> dict[str, Any]:
     if not device_auth_id or not user_code:
         raise RuntimeError("OpenAI device code response was missing the device code or user code.")
     interval_seconds = _positive_number(body.get("interval")) or DEFAULT_POLL_INTERVAL_SECONDS
+    expires_in_seconds = _positive_number(body.get("expires_in")) or DEFAULT_TIMEOUT_SECONDS
+    verification_url = (
+        _trimmed_string(body.get("verification_uri"))
+        or _trimmed_string(body.get("verification_url"))
+        or f"{OPENAI_AUTH_BASE_URL}/codex/device"
+    )
     return {
         "device_auth_id": device_auth_id,
         "user_code": user_code,
-        "verification_url": f"{OPENAI_AUTH_BASE_URL}/codex/device",
+        "verification_url": verification_url,
         "interval_seconds": interval_seconds,
+        "expires_in_seconds": expires_in_seconds,
     }
 
 
@@ -109,6 +116,7 @@ def _poll_device_code(
     sleep: Callable[[float], None],
 ) -> dict[str, str]:
     deadline = time.monotonic() + timeout_seconds
+    current_interval = max(interval_seconds, 1.0)
     while time.monotonic() < deadline:
         response = client.post(
             f"{OPENAI_AUTH_BASE_URL}/api/accounts/deviceauth/token",
@@ -121,9 +129,12 @@ def _poll_device_code(
             if not authorization_code or not code_verifier:
                 raise RuntimeError("OpenAI device authorization response was missing the exchange code.")
             return {"authorization_code": authorization_code, "code_verifier": code_verifier}
-        if response.status_code in (403, 404):
+        retry_error = _device_auth_retry_error(response)
+        if response.status_code in (403, 404) or retry_error:
+            if retry_error == "slow_down":
+                current_interval += 5.0
             remaining = max(0.0, deadline - time.monotonic())
-            sleep(min(max(interval_seconds, 1.0), remaining))
+            sleep(min(current_interval, remaining))
             continue
         _raise_response_error(response, "OpenAI device authorization failed")
     raise RuntimeError(f"OpenAI device authorization timed out after {timeout_seconds} seconds.")
@@ -221,6 +232,22 @@ def _raise_response_error(response: Any, prefix: str) -> None:
     raise RuntimeError(f"{prefix}: HTTP {status_code} {message}".strip())
 
 
+def _device_auth_retry_error(response: Any) -> str | None:
+    try:
+        data = response.json()
+    except Exception:
+        return None
+    if not isinstance(data, dict):
+        return None
+    error = _trimmed_string(data.get("error"))
+    if error is None:
+        return None
+    normalized = error.casefold()
+    if normalized in {"authorization_pending", "slow_down"}:
+        return normalized
+    return None
+
+
 def _is_success(response: Any) -> bool:
     status_code = getattr(response, "status_code", 0)
     return 200 <= int(status_code) < 300
@@ -236,7 +263,10 @@ def _trimmed_string(value: Any) -> str | None:
 def _positive_number(value: Any) -> float | None:
     if isinstance(value, (int, float)) and value > 0:
         return float(value)
-    if isinstance(value, str) and value.strip().isdigit():
-        parsed = float(value.strip())
+    if isinstance(value, str):
+        try:
+            parsed = float(value.strip())
+        except ValueError:
+            return None
         return parsed if parsed > 0 else None
     return None
