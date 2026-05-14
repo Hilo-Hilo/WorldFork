@@ -173,6 +173,27 @@ def test_public_payload_sanitizer_redacts_secret_like_fields(field_name):
     assert sanitized == {field_name: "[REDACTED]"}
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "clientSecret",
+        "accessToken",
+        "refreshToken",
+        "idToken",
+        "authToken",
+        "bearerToken",
+        "secretKey",
+        "privateKey",
+        "openrouterApiKey",
+        "api-key",
+    ],
+)
+def test_public_payload_sanitizer_redacts_mixed_style_secret_fields(field_name):
+    sanitized = sanitize_public_payload({field_name: "super-secret-value"})
+
+    assert sanitized == {field_name: "[REDACTED]"}
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
