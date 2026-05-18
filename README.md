@@ -19,6 +19,38 @@ WorldFork turns one scenario into many inspectable timelines.
 Each run keeps the ticks, branches, agent reviews, manual interventions, logs, and final reports tied back to durable state.
 
 </div>
+
+---
+
+## Choose Your Interface
+
+The dashboard is the primary way most people will use WorldFork. It is designed
+to make branching simulations feel legible: submit a scenario, watch the live
+multiverse tree, inspect branch decisions and logs, and follow report progress
+from the same browser surface.
+
+The CLI and dashboard wrap the same backend APIs, so you can move between them
+without changing the underlying run state.
+
+| Interface | Best for |
+| --- | --- |
+| Dashboard UI | First-time exploration, visual inspection, live run monitoring, report reading |
+| `worldfork` CLI | Setup, repeatable operator workflows, automation, and agent control |
+| Backend API | Integrations, custom tools, and advanced runtime inspection |
+
+After the backend stack is running, start the dashboard with:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The dashboard expects the backend at `http://127.0.0.1:8003` by default and
+proxies browser requests through `/backend/*`. Everything it shows remains
+available through `worldfork`, so visual workflows and scripted workflows stay
+on the same runtime.
+
 ---
 
 ## Install And Setup
@@ -46,7 +78,7 @@ Use this path when you want to run each command yourself.
 - Docker Desktop or another Docker Compose runtime
 - Python 3.11+
 - `uv`
-- Node.js 20+ if you want to install agent skills with `npx skills`
+- Node.js 20+ for the dashboard and for installing agent skills with `npx skills`
 - An OpenRouter API key
 - OpenAI Codex authentication for the default strong-model routes. The example environment uses OpenAI Codex `gpt-5.4` for governance-style work and final multiverse report synthesis.
 
@@ -157,7 +189,7 @@ The updater preserves `.env`, local Docker overrides, Docker volumes, run histor
   <img src="docs/images/worldfork-at-a-glance.png" alt="WorldFork at a glance diagram" width="100%" />
 </p>
 
-WorldFork is a **backend-first** and **CLI-first** system for exploring branching futures.
+WorldFork is a visual workspace for exploring branching futures.
 At the product level, it is a Monte Carlo tree search of the real world: start from a scenario, run simulated rollouts, branch when decisions matter, score terminal outcomes, and report the resulting distribution.
 Start with a **Big Bang** scenario, execute a checkpointed tick runtime, allow both autonomous and human-created forks, then compare the resulting multiverses through structured reports.
 
@@ -257,8 +289,10 @@ All of this is kept auditable through persisted prompt packets, raw and validate
   <img src="docs/images/control-plane-and-storage-boundaries.png" alt="Control plane and storage boundaries diagram" width="100%" />
 </p>
 
-WorldFork is intentionally backend-first.
-The **`worldfork` CLI** is the stable control surface for operators and agents, while the backend owns execution, persistence, and reporting.
+WorldFork keeps the dashboard, CLI, and API on one runtime.
+The dashboard is the main user-facing workspace, `worldfork` is the stable
+operator and agent control surface, and the backend owns execution,
+persistence, and reporting.
 
 #### Runtime stack
 
@@ -271,6 +305,7 @@ The **`worldfork` CLI** is the stable control surface for operators and agents, 
 | LangGraph | Checkpointed tick graph execution |
 | OpenRouter | LLM provider surface for the default low-cost cohort/hero/action routes |
 | Artifact store | Durable JSON and audit payload files for non-regenerable evidence |
+| Dashboard UI | Visual workspace for scenarios, multiverse trees, logs, and reports |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
 Storage boundaries:
@@ -291,7 +326,7 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | --- | --- | --- |
 | Backend service | `backend/app` | FastAPI API, simulation runtime, jobs, storage, reports |
 | CLI package | `cli/` | `worldfork` command for operators and agents |
-| Frontend (optional) | `frontend/` | Next.js 15 dashboard for inspecting runs, multiverse trees, and reports — wraps the backend API, not required for headless use |
+| Frontend | `frontend/` | Next.js 15 dashboard for creating scenarios, inspecting multiverse trees, monitoring logs, and reading reports |
 | Agent skill | `skills/worldfork/` | Single public WorldFork skill with setup, report, debug, CLI, and documentation modules |
 | Docs | `docs/` | Setup, architecture, demos, reporting, testing, and agent-facing guides |
 | Examples | `examples/` | Runnable scenario dossiers and demos |
@@ -299,7 +334,8 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | Scripts | `scripts/` | Local validation and demo harnesses |
 | Infra | `infra/` | Docker and migration infrastructure |
 
-The frontend is a thin client over the same API the CLI uses — every action it surfaces is also accessible via `worldfork`. WorldFork still runs headless without it.
+The frontend uses the same API as the CLI, so visual actions and scripted
+operator workflows operate on the same state.
 
 ---
 
@@ -353,7 +389,7 @@ worldfork --json status
 backend/app/          FastAPI app, runtime, jobs, storage, reports
 backend/tests/        root regressions, unit, integration, and e2e tests
 cli/                  standalone Python CLI package
-frontend/             optional Next.js 15 dashboard (browser-side wrapper over the API)
+frontend/             Next.js 15 dashboard for the primary browser experience
 skills/               installable operator and agent skills
 examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
@@ -366,7 +402,7 @@ docs/                 operator, developer, and agent documentation
 
 ## Status
 
-WorldFork is **backend-first** and **CLI-first**.
+WorldFork is a UI-led product with a scriptable CLI and API behind it.
 The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against configured effective LLM routes. A common route policy is:
 
 ```text
@@ -374,7 +410,7 @@ openrouter/deepseek/deepseek-v4-flash
 openai-codex/gpt-5.4
 ```
 
-If you want to understand the project quickly, start with the diagrams above, then run:
+If you want to understand the project quickly, start with the dashboard and the diagrams above. For CLI/API inspection, run:
 
 ```bash
 worldfork agent discover
